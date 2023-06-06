@@ -2,7 +2,6 @@ import React from 'react'
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Subscribe } from '../components/Subscribe';
 import { Contact } from '../components/Contact';
-import { CustomerReviews } from '../components/CustomerReviews';
 
 const LandingPage = () => {
   return (
@@ -11,8 +10,6 @@ const LandingPage = () => {
     <CustomerReviews/>
     <Subscribe/>
     <Contact/>
-    </div>
-    <CustomerReviews/>
     </div>
   )
 }
