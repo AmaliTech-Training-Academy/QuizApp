@@ -1,6 +1,7 @@
 
 import Hero from '../components/Hero';
 import Insight from '../components/Insight';
+import InsightTwo from '../components/InsightTwo';
 import Navbar from '../components/Navbar'
 import Services from '../components/Services';
 
@@ -11,6 +12,7 @@ const LandingPage = () => {
       <Hero />
       <Services />
       <Insight />
+      <InsightTwo />
     </div>
   )
 }
