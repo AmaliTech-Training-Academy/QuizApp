@@ -14,6 +14,8 @@ const Services = () => {
             <h2 className='text-5xl font-semibold text-center text-[#1d2939]'>Explore Our Services</h2>
             <p className='text-xl text-center md:w-[970px] text-[#808080] font'>Explore our services and take your knowledge to the next level with our diverse selection of quizzes on various topics. Whether you&#39;re looking to challenge yourself or simply have fun, our quiz webapp has something for everyone. Try it out today and discover a world of learning and entertainment!</p>
             </div>
+
+            {/* List of Services */}
             <div className='grid sm:grid-cols-1 lg:grid-cols-3 gap-5 pt-10'>
                 <div className='justify-center content-center w-[311px] h-[279px]'>
 

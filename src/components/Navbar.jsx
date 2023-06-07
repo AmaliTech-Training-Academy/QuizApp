@@ -3,15 +3,16 @@ import navLogo from '../assets/Desktop View/Icons/Navbar logo.png'
 
 const Navbar = () => {
   return (
-    <div className='h-[76px] z-10 drop-show-lg mb-5'>
-      <div className='px-5 flex justify-between items-center w-full h-full'>
+    <div className='z-10 drop-show-lg border px-4 md:px-16 py-4'>
+      {/* Navbar items */}
+      <div className='flex justify-between items-center w-full h-full'>
 
-        <div className='flex items-center pl-11'> 
+        <div className='flex items-center'> 
         <img className='h-[35px]' src={navLogo}/>
         </div>
 
         <div>
-        <ul className='hidden md:flex pl-9 text-blue-700 justify-between'>
+        <ul className='hidden md:flex text-blue-700 justify-between'>
           <li>Home</li>
           <li>About Us</li>
           <li>Services</li>
@@ -19,9 +20,9 @@ const Navbar = () => {
         </ul>
         </div>
 
-        <div className='pr-4'>
-          <button className='border-none bg-transparent text-blue-700 mr-4'>Log In</button>
-          <button className='px-5 py-3'>Register</button>
+        <div className='justify-between gap-5 flex'>
+          <button className='md:border-none px-2 py-2 bg-transparent text-blue-700'>Login</button>
+          <button className='px-1 py-2'>Register</button>
         </div>
       </div>
     </div>
