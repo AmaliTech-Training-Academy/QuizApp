@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.footer-link{
+    @apply text-[#808080] mb-4 pb-2
+};
+
+.design-spot-mobile{
+    @apply w-8 h-8 bg-[#D1BEF2] rounded-full opacity-50 absolute
+};
+

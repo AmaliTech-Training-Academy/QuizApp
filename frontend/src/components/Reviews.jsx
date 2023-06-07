@@ -3,7 +3,7 @@ import star from "../assets/Desktop View/Icons/star.png";
 
 export const Reviews = () => {
   return (
-    <div className='border-4 border-[#1275D0] rounded-lg px-2 py-4'>
+    <div className='border-4 lg:border-[1px] border-[#1275D0] lg:border-black rounded-lg px-2 py-4'>
         <div className='flex items-center'>
             <img className='w-20 h-20 border rounded-full mr-2' src="" alt="" />
             <div className=''>
