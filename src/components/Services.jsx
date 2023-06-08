@@ -16,12 +16,11 @@ const Services = () => {
             </div>
 
             {/* List of Services */}
-            <div className='grid sm:grid-cols-1 lg:grid-cols-3 gap-5 pt-10'>
+            <div className='flex flex-col items-center lg:grid lg:grid-cols-3 gap-5 pt-10'>
 
-                <div className='text-center flex flex-col gap-8 w-[311px] h-[279px]'>
-
-                    <div className='relative rounded-full w-20 h-20 bg-[#9F81D7] left-28'>
-                        <img className='w-8 h-8 absolute top-6 left-6' src={keyIcon} alt="" />
+                <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
+                    <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#9F81D7] left-28'>
+                        <img className='w-8 h-8 top-6 left-6' src={keyIcon} alt="" />
                     </div>
 
                     <div  className='text-center flex flex-col gap-8'>
@@ -30,9 +29,9 @@ const Services = () => {
                     </div>
                 </div>
 
-                <div className='text-center flex flex-col gap-8 w-[311px] h-[279px]'>
-                    <div className='relative rounded-full w-20 h-20 bg-[#CCFFCC] left-28'>
-                        <img className='w-8 h-8 absolute top-6 left-6' src={apiIcon} alt="" />
+                <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
+                    <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#CCFFCC] left-28'>
+                        <img className='w-8 h-8 top-6 left-6' src={apiIcon} alt="" />
                     </div>
                     <div className='text-center flex flex-col gap-8'>
                         <h3 className='font-bold text-[#1D2939]'>API Service</h3>
@@ -40,9 +39,9 @@ const Services = () => {
                     </div>
                 </div>
 
-                <div className='text-center flex flex-col gap-8 w-[311px] h-[279px]'>
-                    <div className='relative rounded-full w-20 h-20 bg-[#FFFF99] left-28'>
-                        <img className='w-8 h-8 absolute top-6 left-6' src={dbIcon} alt="" />
+                <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
+                    <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#FFFF99] left-28'>
+                        <img className='w-8 h-8 top-6 left-6' src={dbIcon} alt="" />
                     </div>
                     <div className='text-center flex flex-col gap-8'>
                         <h3 className='font-bold text-[#1D2939]'>Database Service</h3>
@@ -50,9 +49,9 @@ const Services = () => {
                     </div>
                 </div>
 
-                <div className='text-center flex flex-col gap-8 w-[311px] h-[279px]'>
-                    <div className='relative rounded-full w-20 h-20 bg-[#FA7A7A] left-28'>
-                        <img className='w-8 h-8 absolute top-6 left-6' src={cdIcon} alt="" />
+                <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
+                    <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#FA7A7A] left-28'>
+                        <img className='w-8 h-8 top-6 left-6' src={cdIcon} alt="" />
                     </div>
                     <div className='text-center flex flex-col gap-8'>
                         <h3 className='font-bold text-[#1D2939]'>Payment Gateway Service</h3>
@@ -60,9 +59,9 @@ const Services = () => {
                     </div>
                 </div>
 
-                <div className='text-center flex flex-col gap-8 w-[311px] h-[279px]'>
-                    <div className='relative rounded-full w-20 h-20 bg-[#FFC299] left-28'>
-                        <img className='w-8 h-8 absolute top-6 left-6' src={wiFi} alt="" />
+                <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
+                    <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#FFC299] left-28'>
+                        <img className='w-8 h-8 top-6 left-6' src={wiFi} alt="" />
                     </div>
                     <div className='text-center flex flex-col gap-8'>
                         <h3 className='font-bold text-[#1D2939]'>CDN (Content Delivery Network)</h3>
@@ -70,9 +69,9 @@ const Services = () => {
                     </div>
                 </div>
 
-                <div className='text-center flex flex-col gap-8 w-[311px] h-[279px]'>
-                    <div className='relative rounded-full w-20 h-20 bg-[#8080FF] left-28'>
-                        <img className='w-8 h-8 absolute top-6 left-6' src={clipBoard} alt="" />
+                <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
+                    <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#8080FF] left-28'>
+                        <img className='w-8 h-8 top-6 left-6' src={clipBoard} alt="" />
                     </div>
                     <div className='text-center flex flex-col gap-8'>
                         <h3 className='font-bold text-[#1D2939]'>Backend Framework</h3>
