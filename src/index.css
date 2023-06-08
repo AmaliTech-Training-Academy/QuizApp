@@ -14,6 +14,18 @@
     @apply w-8 h-8 bg-[#D1BEF2] rounded-full opacity-50 absolute
 };
 
+.footer-links-container{
+    @apply text-left mr-14 text-[#808080] hidden lg:block
+};
+
+.header{
+    @apply text-sm mb-2 h-7
+};
+
+.footer-links{
+    @apply text-base mb-2 h-7
+};
+
 
 @layer base {
     li {

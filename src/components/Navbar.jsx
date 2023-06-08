@@ -3,7 +3,7 @@ import navLogo from '../assets/Desktop View/Icons/Navbar logo.png'
 
 const Navbar = () => {
   return (
-    <div className='sticky top-0 bg-white z-20 drop-show-lg border px-4 md:px-16 py-4'>
+    <div className='sticky top-0 bg-white z-30 drop-show-lg border px-4 md:px-16 py-4'>
       {/* Navbar items */}
       <div className='flex justify-between items-center w-full h-full'>
 

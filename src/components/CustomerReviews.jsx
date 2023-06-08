@@ -12,19 +12,17 @@ export const CustomerReviews = () => {
   const backArrowBorder = {
     background: 'linear-gradient(118.19deg, #0267FF 21.37%, #62AEF3 69.77%)',
   };
-
-
   return (
-    <div className='border border-black mx-4 lg:mx-16'>
-    <div className='text-2xl font-semibold text-center mb-9 mx-2 border lg:w-5/12 lg:mx-auto xl:w-3/12'>Trusted By Thousands of Happy Customers</div>
+    <div className='mx-4 lg:mx-16'>
+    <div className='text-2xl font-semibold text-center mb-9 mx-2 lg:w-5/12 lg:mx-auto xl:w-3/12'>Trusted By Thousands of Happy Customers</div>
     {/* Reviews */}
-    <div className='lg:grid lg:grid-cols-3 lg:gap-4 lg:mt-16'>
+    <div className='flex overflow-scroll lg:grid lg:grid-cols-3 lg:gap-4 lg:mt-16'>
     <Reviews/>
     <Reviews/>
     <Reviews/>
     </div>
     {/* Buttons */}
-    <div className='border flex justify-between mt-5'>
+    <div className='hidden lg:flex lg:justify-between mt-5'>
     <div></div>
     <div className='flex'>
       <div className='border rounded-full w-12 h-12 mr-2.5 flex items-center justify-center' style={backArrowBorder}>

@@ -14,11 +14,12 @@ export const Contact = () => {
   };
 
   return (
-    <div className='mt-36 lg:mt-20 px-4 border'>
+    <div className='mt-36 lg:mt-20 px-4'>
       
-      <div className='lg:px-[76px] border'>
-        <div className='font-bold text-lg text-center'>Contact Us</div>
-          <div className='border lg:mt-20 flex lg:flex-row lg:justify-between'>
+      <div className='lg:px-[76px]'>
+        <div className='font-bold text-[27px] text-center'>Contact Us</div>
+        {/* Contact Items */}
+          <div className=' lg:mt-20 flex lg:flex-row lg:justify-between'>
              {/* Contact methods */}
           <div className='hidden lg:block w-2/5'>
             {/* Phone */}
@@ -63,35 +64,36 @@ export const Contact = () => {
               </div>
             </div>
             </div>
+
             {/* Inputs */}
             <div className='w-full lg:w-6/12'>
-              <div className='flex gap-6'>
+              <div className='flex flex-col lg:flex-row gap-6'>
                 {/* Name */}
-              <label className='mt-6 flex flex-col w-1/2'>
+              <label className='mt-6 flex flex-col lg:w-1/2'>
                 <span className='mb-2 text-xl font-semibold'>Name</span>
-                <input type="text" className="h-10 lg:h-16 border border-gray-400 rounded" />
+                <input type="text" className="h-10 lg:h-16 border border-gray-400 rounded focus:outline-none" />
               </label>
               {/* Email */}
-              <label className='mt-6 flex flex-col w-1/2'>
+              <label className='mt-6 flex flex-col lg:w-1/2'>
                 <span className='mb-2 text-xl font-semibold'>Email</span>
-                <input type="email" className="h-10 lg:h-16 border border-gray-400 rounded" />
+                <input type="email" className="h-10 lg:h-16 border border-gray-400 rounded focus:outline-none" />
               </label>
               </div>
               <div className='flex gap-6'>
-                {/* Name */}
-              <label className='mt-6 flex flex-col w-1/2'>
+                {/* Phone */}
+              <label className='mt-6 flex flex-col w-1/2 hidden lg:flex'>
                 <span className='mb-2 text-xl font-semibold'>Phone Number</span>
-                <input type="text" className="h-10 lg:h-16 border border-gray-400 rounded" />
+                <input type="text" className="h-10 lg:h-16 border border-gray-400 rounded focus:outline-none" />
               </label>
-              {/* Email */}
-              <label className='mt-6 flex flex-col w-1/2'>
+              {/* Subject */}
+              <label className='mt-6 flex flex-col w-1/2 hidden lg:flex'>
                 <span className='mb-2 text-xl font-semibold'>Subject</span>
-                <input type="email" className="h-10 lg:h-16 border border-gray-400 rounded" />
+                <input type="email" className="h-10 lg:h-16 border border-gray-400 rounded focus:outline-none" />
               </label>
               </div>
               <label className='mt-6 flex flex-col'>
                 <span className='mb-2 text-xl font-semibold'>Message</span>
-                <input type="textarea" className="h-44 border border-gray-400 rounded" />
+                <input type="textarea" className="h-44 border border-gray-400 rounded focus:outline-none" />
               </label>
               <button className='w-full lg:w-5/12 mt-6 py-2.5 rounded text-white' style={bGround}>Submit</button>
             </div>
