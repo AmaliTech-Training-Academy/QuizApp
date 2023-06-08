@@ -8,15 +8,15 @@ import clipBoard from '../assets/Desktop View/Icons/pending_actions.png'
 
 const Services = () => {
   return (
-    <div className='w-full my-32'>
+    <div className='w-full my-28 font-Roboto'>
         <div className='max-w-[1086px] mx-auto px-2 content-center'>
             <div className='flex flex-col gap-10'>
-                <h2 className='text-5xl font-semibold text-center text-[#1d2939]'>Explore Our Services</h2>
-                <p className='text-xl text-center md:w-[970px] text-[#808080] font'>Explore our services and take your knowledge to the next level with our diverse selection of quizzes on various topics. Whether you&#39;re looking to challenge yourself or simply have fun, our quiz webapp has something for everyone. Try it out today and discover a world of learning and entertainment!</p>
+                <h2 className='text-[27.65px] md:text-5xl font-semibold text-center text-[#1d2939]'>Explore Our Services</h2>
+                <p className='text-center md:w-[970px] md:text-[19.2px] text-[16px] w-[358px] md:text-[#808080] text-[#1D2939]'>Explore our services and take your knowledge to the next level with our diverse selection of quizzes on various topics. Whether you&#39;re looking to challenge yourself or simply have fun, our quiz webapp has something for everyone. Try it out today and discover a world of learning and entertainment!</p>
             </div>
 
             {/* List of Services */}
-            <div className='flex flex-col items-center lg:grid lg:grid-cols-3 gap-5 pt-10'>
+            <div className='flex flex-col items-center lg:grid lg:grid-cols-3 gap-5 mt-20'>
 
                 <div className='text-center flex flex-col items-center gap-8 w-[311px] h-[279px]'>
                     <div className='rounded-full flex justify-center items-center w-20 h-20 bg-[#9F81D7] left-28'>
