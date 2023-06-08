@@ -21,7 +21,7 @@ const Navbar = () => {
         </div>
 
         <div className='justify-between gap-5 flex h-10'>
-          <button className='md:border-none px-2 py-2 bg-transparent text-blue-700'>Login</button>
+          <button className='md:border-none px-2 py-2 bg-transparent text-blue-700'>Log in</button>
           <button className='px-1 py-2'>Register</button>
         </div>
       </div>
