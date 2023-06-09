@@ -26,6 +26,35 @@
     @apply text-base mb-2 h-7
 };
 
+.contact-input{
+    @apply h-10 lg:h-16 border border-gray-400 rounded focus:outline-none;
+};
+
+.contact-label{
+    @apply mt-6 flex flex-col lg:w-1/2;
+};
+
+.input-name{
+    @apply mb-2 text-xl font-semibold;
+};
+
+.contact-card{
+    @apply px-6 py-4 flex items-center rounded-lg mb-6;
+};
+
+.contact-card-image{
+    @apply w-[90px] h-[90px] flex justify-center items-center rounded-full bg-[#CCE1FF] mr-6
+};
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;  
+}
+
 
 @layer base {
     li {

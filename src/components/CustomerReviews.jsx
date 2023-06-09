@@ -1,7 +1,7 @@
 import React from 'react'
-import { Reviews } from './Reviews';
 import fowardArrow from "../assets/Desktop View/Icons/arrow_forward.png"
 import backArrow from "../assets/Desktop View/Icons/arrow_forward-1.png"
+import { ReviewCarousel } from './ReviewCarousel';
 
 export const CustomerReviews = () => {
 
@@ -15,11 +15,10 @@ export const CustomerReviews = () => {
   return (
     <div className='mx-4 lg:mx-16'>
     <div className='text-2xl font-semibold text-center mb-9 mx-2 lg:w-5/12 lg:mx-auto xl:w-3/12'>Trusted By Thousands of Happy Customers</div>
+    
     {/* Reviews */}
-    <div className='flex overflow-scroll lg:grid lg:grid-cols-3 lg:gap-4 lg:mt-16'>
-    <Reviews/>
-    <Reviews/>
-    <Reviews/>
+    <div >
+      <ReviewCarousel/>
     </div>
     {/* Buttons */}
     <div className='hidden lg:flex lg:justify-between mt-5'>
@@ -31,7 +30,7 @@ export const CustomerReviews = () => {
         </div>
         <div/>
       </div>
-      <div className='w-12 h-12 flex items-center justify-center rounded-full' style={arrowBg}>
+      <div className='w-12 h-12 flex items-center justify-center rounded-full slick-arrow' style={arrowBg}>
       <img src={fowardArrow} alt="" className='rounded-full w-8 h-8'/>
       </div>
     </div>
