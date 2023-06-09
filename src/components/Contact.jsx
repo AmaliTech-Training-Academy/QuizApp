@@ -81,12 +81,12 @@ export const Contact = () => {
               </div>
               <div className='flex gap-6'>
                 {/* Phone */}
-              <label className='mt-6 flex flex-col w-1/2 hidden lg:flex'>
+              <label className='mt-6 w-1/2 hidden lg:flex lg:flex-col'>
                 <span className='mb-2 text-xl font-semibold'>Phone Number</span>
                 <input type="text" className="h-10 lg:h-16 border border-gray-400 rounded focus:outline-none" />
               </label>
               {/* Subject */}
-              <label className='mt-6 flex flex-col w-1/2 hidden lg:flex'>
+              <label className='mt-6 w-1/2 hidden lg:flex lg:flex-col'>
                 <span className='mb-2 text-xl font-semibold'>Subject</span>
                 <input type="email" className="h-10 lg:h-16 border border-gray-400 rounded focus:outline-none" />
               </label>
