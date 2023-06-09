@@ -4,17 +4,17 @@ import vectImg from '../assets/Desktop View/Images/Vector.png'
 
 const Insight = () => {
   return (
-    <div className='md:flex bg-gray-200 md:h-[610px] h-[843px] border-4 border-green-900'>
-      <div className='relative flex flex-col gap-8 md:w-3/4 h-28 text-left md:left-40 md:top-32 border-4 border-green-900'>
-        <h2 className='text-[#1D2939] md:text-4xl font-semibold font-Roboto'>Knowledge at Your Fingertips, Quiz with Confidence!</h2>
-        <p className='text-[#808080] md:w-[571px] md:text-xl'>Join our quiz app to expand your knowledge and challenge your skills with engaging quizzes anytime, anywhere.&#34;Experience fun, excitement, and learning in one place with our user-friendly quiz app that guarantees a confident quiz-taking experience.&#34;</p>
-        <button className='px-3 py-5 h-20 w-52'>Start your quiz now</button>
+    <div className='md:flex justify-between px-[67px] bg-[#F2F2F2] font-Roboto'>
+      <div className='flex flex-col  gap-8 md:py-[166px] py-[48px] md:text-left md:left-40 md:top-32'>
+        <h4 className='text-[#1D2939] md:text-[33.18px] text-[27.65px] text-center font-semibold'>Knowledge at Your Fingertips, Quiz with Confidence!</h4>
+        <p className='text-[#808080] md:w-[571px] md:text-xl text-[12.5px] md:text-left text-center'>Join our quiz app to expand your knowledge and challenge your skills with engaging quizzes anytime, anywhere.&#34;Experience fun, excitement, and learning in one place with our user-friendly quiz app that guarantees a confident quiz-taking experience.&#34;</p>
+        <button className='py-3 px-2 md:h-20 md:w-52'>Start your quiz now</button>
       </div>
-      <div className='relative'>
-        <img className='absolute md:w-[378px] h-[398px] md:h-[566px] top-11 z-10' src={insImg} alt="" />
-        <img className=' w-[445px] h-[446px] relative top-[63px]' src={vectImg} alt="" />
+      <div className='pt-20 relative'>
+        <img className='md:w-[378px] h-[398px] md:h-[566px] relative z-20' src={insImg} alt="" />
+        <img className=' md:w-[445px] md:h-[446px] h-[313px] w-[313px] absolute md:top-32 top-28 z-10' src={vectImg} alt="" />
       </div>
-      </div>
+    </div>
   )
 }
 
