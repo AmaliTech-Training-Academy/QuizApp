@@ -14,7 +14,7 @@ export const Contact = () => {
   };
 
   return (
-    <div className='mt-36 lg:mt-20 px-4'>
+    <div name="contact" className='mt-36 lg:mt-20 px-4'>
       
       <div className='lg:px-[76px]'>
         <div className='font-bold text-[27px] text-center'>Contact Us</div>

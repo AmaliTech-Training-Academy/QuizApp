@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Reviews } from './Reviews';
 import fowardArrow from "../assets/Desktop View/Icons/arrow_forward.png"
 import backArrow from "../assets/Desktop View/Icons/arrow_forward-1.png"

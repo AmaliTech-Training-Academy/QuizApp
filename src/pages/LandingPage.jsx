@@ -1,13 +1,12 @@
-import React from 'react'
+
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Subscribe } from '../components/Subscribe';
 import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
 import Hero from '../components/Hero';
-import Insight from '../components/Insight';
-import InsightTwo from '../components/InsightTwo';
 import Navbar from '../components/Navbar'
 import Services from '../components/Services';
+import Insights from '../components/Insights';
 
 const LandingPage = () => {
   return (
@@ -15,8 +14,7 @@ const LandingPage = () => {
       <Navbar />
       <Hero />
       <Services />
-      <Insight />
-      <InsightTwo />
+      <Insights />
       <CustomerReviews/>
       <Subscribe/>
       <Contact/>

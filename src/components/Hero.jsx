@@ -4,7 +4,7 @@ import {IoIosArrowForward} from 'react-icons/io'
 
 const Hero = () => {
   return (
-    <div className=' mt-18'>
+    <div name="home" className=' mt-18'>
         <div className='relative'>
             <div className='bg-gray-800/70'>
                 <img className='w-full h-screen object-cover mix-blend-overlay' src={bgImg} alt="" />

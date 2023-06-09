@@ -8,7 +8,7 @@ import clipBoard from '../assets/Desktop View/Icons/pending_actions.png'
 
 const Services = () => {
   return (
-    <div className='w-full my-28 font-Roboto'>
+    <div name="services" className='w-full my-28 font-Roboto'>
         <div className='max-w-[1086px] mx-auto px-2 content-center'>
             <div className='flex flex-col gap-10'>
                 <h2 className='text-[27.65px] md:text-5xl font-semibold text-center text-[#1d2939]'>Explore Our Services</h2>
