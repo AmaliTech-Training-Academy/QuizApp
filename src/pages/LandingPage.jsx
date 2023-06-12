@@ -7,11 +7,13 @@ import Hero from '../components/Hero';
 import Navbar from '../components/Navbar'
 import Services from '../components/Services';
 import Insights from '../components/Insights';
+// import UserNavbar from '../components/UserNavbar';
 
 const LandingPage = () => {
   return (
     <div>
       <Navbar />
+      {/* <UserNavbar /> */}
       <Hero />
       <Services />
       <Insights />
