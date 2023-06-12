@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bGround } from './bGround';
 
 
 export const Subscribe = () => {
+
+  const [userMail, setUserMail] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    // await 
+    setUserMail("");
+  };
+
   return (
     <div className='mt-32 px-4 py-7 lg:px-14 lg:py-16 relative z-20' style={bGround}>
         <div className=' text-white lg:flex lg:justify-between'>
@@ -12,8 +21,15 @@ export const Subscribe = () => {
           </div>
         <div>
         <div className='p-1 bg-white rounded-md flex justify-between mb-2 lg:w-[358px] relative z-20'>
-            <input  className="w-9/12 pl-4 focus:outline-none" type="text" placeholder='Your e-mail address' />
-            <button className="px-2.5 py-2 rounded-md cursor-pointer" style={bGround}> Submit</button>
+            <input className="w-9/12 pl-4 focus:outline-none text-black" 
+            type="email" 
+            name="email"  
+            placeholder='Your e-mail address'
+            value={userMail}
+            onChange={(e) =>setUserMail(e.target.value)}
+            />
+
+            <button className="px-2.5 py-2 rounded-md cursor-pointer" style={bGround} onClick={onSubmit}> Submit</button>
         </div>
         <p className='text-sm lg:text-base'>We care about your data in our privacy policy.</p>
         </div>
