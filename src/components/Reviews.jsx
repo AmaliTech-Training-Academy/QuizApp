@@ -6,7 +6,7 @@ export const Reviews = (props) => {
 
   
   return (
-    <div className='border-4 lg:border-[1px] border-[#1275D0] lg:border-black rounded-lg px-2 py-4 w-[420px]' id={id}>
+    <div className='border-4 lg:border-[1px] border-[#1275D0] lg:border-black rounded-lg px-2 py-4 lg:w-[420px]' id={id}>
         <div className='flex items-center'>
             <img className='w-20 h-20 border rounded-full mr-2' src="" alt="" />
             <div className=''>
