@@ -1,5 +1,4 @@
-import vectImg from '../assets/Desktop View/Images/Vector.png'
-import insImg from '../assets/Desktop View/Images/Rectangle 48.png'
+import insImg from '../assets/Desktop View/Images/Group 118.png'
 
 const InsightTwo = () => {
   return (
@@ -10,12 +9,11 @@ const InsightTwo = () => {
         <button className='py-3 px-2 md:h-20 md:w-52'>Sign up for Expert Advice</button>
       </div>
       <div className='pt-20 relative'>
-        <img className='absolute md:w-[572px] h-[409.09px] w-[325px] md:h-[566px] top-0 z-10' src={insImg} alt="" />
-        <img className=' md:w-[445px] md:h-[446px] h-[302.18px] w-[301.64px] relative top-28' src={vectImg} alt="" />
+        <img className='' src={insImg} alt="" />
       </div>
-      <span className='design-spot-mobile lg:w-[91px] lg:h-[89px] lg:top-0 lg:left-20 lg:bg-[#DF9BE0] '></span>
+      <span className='design-spot-mobile lg:w-[91px] lg:h-[89px] lg:top-24 lg:left-24 lg:bg-[#DF9BE0] '></span>
         <span className='design-spot-mobile lg:right-[392px] lg:top-96 lg:w-[91px] lg:h-[89px] lg:bg-[#88BAE7]'></span>
-        <span className='design-spot-mobile right-4 lg:left-[47%] lg:top-[15%] lg:w-[91px] lg:h-[89px]'></span>
+        <span className='design-spot-mobile right-4 lg:left-[45%] lg:top-[12%] lg:w-[91px] lg:h-[89px]'></span>
         <span className='design-spot-mobile lg:w-[135px] lg:h-[135px] lg:right-[50rem] lg:bottom-[0%]  lg:bg-[#88BAE7]'></span>
     </div>
   )
