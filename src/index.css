@@ -27,7 +27,7 @@
 };
 
 .contact-input{
-    @apply h-10 lg:h-16 border border-gray-400 rounded focus:outline-none;
+    @apply h-10 lg:h-16 px-4 border border-gray-400 rounded focus:outline-none;
 };
 
 .contact-label{

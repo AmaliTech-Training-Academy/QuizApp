@@ -1,28 +1,38 @@
 import React, { useState } from 'react'
 import { bGround } from './bGround';
-// import axios from 'axios';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export const ContactInput = () => {
-    const [user, setUser] = useState({name: "", email: "", phone: "", subject: ""});
-    const [userMsg, setUserMsg] = useState({message: ""});
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [subject, setSubject] = useState('')
+    const [message, setMessage] = useState('')
 
-    const onChangeUser = (e) => {
-        setUser({...user, [e.target.name]: e.target.value })
-    };
+    const notify = () => toast("Your message has been sent!", {theme:"light",})
+    const URL = "https://quiz-master.onrender.com/api/message";
 
-    const onChangeMsg = (e) => {
-        setUserMsg({...userMsg, [e.target.name]: e.target.value})
-    };
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        // await axios.post('apiendpoint')
-        setUser({
-            name: "",
-            email: "",
-            phone: "",
-            subject: ""
-        })
+        const data = {name, email, phoneNumber, subject, message}
+        const response = await axios.post(URL, data)
+        if(response.status === 201){
+            console.log('success')
+            notify();
+            setName('');
+            setEmail(''); 
+            setPhoneNumber(''); 
+            setSubject('');
+            setMessage('')
+        }else{
+            console.log('error');
+        }
+        
     };
 
   return (
@@ -39,8 +49,8 @@ export const ContactInput = () => {
                     type="text" 
                     id='name' 
                     name='name' 
-                    value={user.name} 
-                    onChange={onChangeUser} 
+                    value={name} 
+                    onChange={e=>setName(e.target.value)} 
                     className="contact-input" />
                 </label>
 
@@ -51,8 +61,8 @@ export const ContactInput = () => {
                     type="email"
                     id='email' 
                     name='email' 
-                    value={user.email} 
-                    onChange={onChangeUser} 
+                    value={email} 
+                    onChange={e=>setEmail(e.target.value)} 
                     className="contact-input" />
                 </label>
             </div>
@@ -68,8 +78,9 @@ export const ContactInput = () => {
                     type="phone"
                     id='phone' 
                     name='phone' 
-                    value={user.phone} 
-                    onChange={onChangeUser} 
+                    value={phoneNumber}
+                    // onChange={onChangeUser} 
+                    onChange={(e) =>{setPhoneNumber(e.target.value)}}
                     className="contact-input" />
                 </label>
 
@@ -80,8 +91,9 @@ export const ContactInput = () => {
                     type="text" 
                     id='subject'
                     name='subject' 
-                    value={user.subject} 
-                    onChange={onChangeUser} 
+                    value={subject} 
+                    // onChange={onChangeUser} 
+                    onChange={e=>setSubject(e.target.value)}
                     className="contact-input" />
                 </label>
             </div>
@@ -93,11 +105,11 @@ export const ContactInput = () => {
                     type="textara" 
                     id='message' 
                     name='message' 
-                    value={userMsg.message} 
-                    onChange={onChangeMsg} 
-                    className="h-44 border border-gray-400 rounded focus:outline-none" />
+                    value={message} 
+                    onChange={e=>{setMessage(e.target.value)}} 
+                    className="h-44 border text-left px-4 border-gray-400 rounded focus:outline-none" />
                 </label>
-            <button className='w-full lg:w-5/12 mt-6 py-2.5 rounded text-white' style={bGround}>Submit</button>
+            <button className='w-full lg:w-5/12 mt-6 py-2.5 rounded text-white' onClick={onSubmit} style={bGround}>Submit</button>
         </form>
     </div>
   )
