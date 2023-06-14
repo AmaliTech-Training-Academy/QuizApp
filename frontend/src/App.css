@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body{
     font-family: 'Roboto', sans-serif;
-}
+};
+
+.slick-slider button{
+    background: #1275D0;
+    border-radius: 50%;
+    };
+    
+li.slick-active button{
+        background-color: red;
+        border: 1px solid black;
+        color: #1275D0;
+    }
