@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { bGround } from './bGround';
+import axios from 'axios';
 
 
 export const Subscribe = () => {
 
   const [userMail, setUserMail] = useState("");
+  const notify = () => toast("You have subscribed successfully!", {theme:"light",})
 
-  const onSubmit = (e) => {
+  const URL = "https://nss-quizapp.up.railway.app/api/subscribe";
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // await 
-    setUserMail("");
+    const data = {userMail}
+    const response = await axios.post(URL, data);
+    if(response.status === 201){
+        console.log('success')
+        notify();
+        setUserMail("");
+    }else{
+        console.log('error');
+    }
   };
 
   return (
