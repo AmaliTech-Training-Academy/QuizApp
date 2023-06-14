@@ -4,13 +4,17 @@
   align-items: center;
   justify-content: center;
 }
-.registerHeading {
+.registerHeading  {
   font-size: 2.063rem;
   font-weight: 700;
   line-height: 39px;
   letter-spacing: 0.005em;
   text-align: left;
   margin-right: 4.7rem;
+}
+.title{
+  margin-right: 8rem;
+  margin-bottom: 40px;
 }
 .pageDescription {
   display: none;
@@ -69,15 +73,12 @@
   display: flex;
 }
 .authenticationAlt a {
-  font-weight: 600;
-  background: linear-gradient(0deg, #0267ff, #0267ff),
-    linear-gradient(100.97deg, #6425d3 21.56%, #a259ff 84.43%),
-    linear-gradient(0deg, #0267ff, #0267ff),
-    linear-gradient(118.19deg, #1275d0 21.37%, #62aef3 69.77%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
+  font-weight: 400;
+  color: #0267FF;
+  background: linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(100.97deg, #6425D3 21.56%, #A259FF 84.43%), linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(118.19deg, #1275D0 21.37%, #62AEF3 69.77%);
+background-clip: text;
+text-fill-color: transparent;
+
 }
 .authenticationAlt p {
   color: #a6a6a6;
@@ -92,6 +93,11 @@
   letter-spacing: 0.005em;
   color: #ff4d4d;
 }
+.checkbox{
+  display: flex;
+}
+
+
 @media (max-width: 500px) {
   .formsStep1 {
     margin-top: 115px;
