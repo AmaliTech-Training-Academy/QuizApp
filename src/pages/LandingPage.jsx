@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import  Navbar  from "../components/Navbar.jsx"
 
 const LandingPage = () => {
   return (
-    <div>LandingPage</div>
+    <div>
+      <Navbar/>
+    </div>
   )
 }
 
