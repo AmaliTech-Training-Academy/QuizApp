@@ -95,6 +95,55 @@
 .exit:hover{
   font-weight: 600;
 }
+.rememberPassword{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.13rem;
+  margin-top: 11px;
+  margin-bottom: 17px;
+  width: max-content;
+}
+.checkboxWrapper{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2rem;
+}
+.checkbox{
+  width: 18px;
+  height: 18px;
+  border: 1px solid #999999;
+  
+}
+.checkboxWrapper p {
+  color: #a6a6a6;
+  margin-left: 5px;
+}
+
+.rememberPassword a{
+  font-weight: 400;
+  width: fit-content;
+  color: #0267FF;
+
+letter-spacing: 0.005em;
+
+background: linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(100.97deg, #6425D3 21.56%, #A259FF 84.43%), linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(118.19deg, #1275D0 21.37%, #62AEF3 69.77%);
+background-clip: text;
+text-fill-color: transparent;
+
+}
+.errMsg{
+  width: 285px;
+height: 48px;
+  margin-top: 21px;
+  margin-bottom: 24px;
+  font-weight: 400;
+font-size: 13.33px;
+line-height: 16px;
+letter-spacing: 0.005em;
+color: #FF4D4D;
+
+}
+
 
 @media (max-width: 500px) {
   .forms {
