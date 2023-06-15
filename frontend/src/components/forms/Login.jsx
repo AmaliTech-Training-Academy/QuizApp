@@ -2,11 +2,16 @@ import React, {useState} from 'react'
 import styles from '../forms/registerForm/register.module.css'
 import { NavLink } from 'react-router-dom'
 import formStyles from '../forms/forms.module.css'
+import Api from './services/api'
+import { toast } from 'react-toastify'
+import { RotatingLines } from 'react-loader-spinner'
+import Cookies from 'js-cookie'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState ('')
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(true)
 
     const validateForm = () =>{
         const newErrors = {}
@@ -22,13 +27,29 @@ const Login = () => {
           }
           setErrors(newErrors)
           return Object.keys(newErrors).length === 0
-    }
+    };
 
 
     const handleClick = async e =>{
         e.preventDefault();
         if(validateForm()){
-            console.log('success')
+            try {
+                const data = {email, password }
+                setLoading(!loading)
+                const response = await Api.post('login', data)
+                console.log(response.data)
+                toast.success(response.data.message)
+                setTimeout(() => {
+                    setLoading(true)
+                  }, 5000);
+            } catch (error) {
+                const err = error.response.data.message
+                console.log(err)
+                toast.warn(err)
+                setTimeout(() => {
+                    setLoading(true)
+                  }, 5000);
+            }
         }
         else{
             console.log('hello')
@@ -92,7 +113,12 @@ const Login = () => {
         <NavLink>Forgot password?</NavLink>
     </div>
     {/* <div className={formStyles.errMsg}>Oops! Your email or password appears to be incorrect. Please double-check your login details and try again.</div> */}
-    <button className={styles.createBtn} style={{marginTop:'32px', marginBottom:'5px'}} onClick={handleClick}>Login</button>
+    {!loading ? (
+        <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
+        ): (
+            <button className={styles.createBtn} style={{marginTop:'32px', marginBottom:'5px'}} onClick={handleClick}>Login</button>
+        )}
+    
     <p className={styles.pageDescription}>By continuing you accept our standard terms and conditions and our privacy policy.</p>
     </form>
   )

@@ -48,7 +48,6 @@ const Register = () => {
         const data = { name: username, email, password }
       setLoading(!loading)
       const response = await Api.post('registerUser', data)
-      console.log(response);
       if(response.data.success === true){
         Cookies.set('userId', response.data.user._id)
         toast.success('account created successfully')
@@ -58,11 +57,10 @@ const Register = () => {
       }
       setTimeout(() => {
         setLoading(true)
-      }, 5000);
+      }, 4000);
         
       } catch (error) {
         const err = error.response.data.message
-        console.log(err)
         toast.warn(err)
         setTimeout(() => {
           setLoading(true)

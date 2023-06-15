@@ -23,10 +23,10 @@ const Navbar = () => {
         </div>
 
         <div className='justify-between gap-5 flex'>
-          <NavLink to={"/src/pages/LandingPage.jsx"}>
+          <NavLink to={"/login"}>
           <button className='md:border-none px-2 py-2 bg-transparent text-blue-700'>Login</button>
           </NavLink>
-         <NavLink to={"about"}>
+         <NavLink to={"/signup"}>
           <button className='px-1 md:px-3 py-2'>Register</button>
           </NavLink> 
           
