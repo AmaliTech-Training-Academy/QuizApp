@@ -5,6 +5,7 @@ const ForgetPassword = () => {
   return (
     <div>
       <ForgotHero/>
+      
     </div>
   )
 }
