@@ -1,11 +1,12 @@
 import React from 'react'
-import ForgotHero from '../components/Forgot-hero'
 import ForgotPass from '../components/ForgotPass'
+import Gallery from '../components/gallery/Gallery'
+import ResetPass from '../components/ResetPass'
 
 const ForgetPassword = () => {
   return (
-    <div>
-      <ForgotHero/>
+    <div className='grid grid-cols-2 w-[100vw] h-[100vh]'>
+      <Gallery page="forgetpassword"/>
       <ForgotPass/>
     </div>
   )
