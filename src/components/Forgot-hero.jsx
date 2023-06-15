@@ -4,9 +4,11 @@ import vectImg from '../assets/Desktop View/Images/Group 427318875.png'
 
 const ForgotHero = () => {
   return (
-    <div>
-        <img src={sideHero} alt="" />
-        <img src={vectImg} alt="" />
+    <div className='relative bg-[#0267ff]'>
+      <div>
+        <img className='relative w-[710px] z-10' src={sideHero} alt="" />
+      </div>
+        <img className='absolute w-[769px] top-0' src={vectImg} alt="" />
     </div>
   )
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Subscribe } from '../components/Subscribe';
@@ -28,14 +27,4 @@ const LandingPage = () => {
 
 
 
-=======
-import React from 'react'
-
-const LandingPage = () => {
-  return (
-    <div>LandingPage</div>
-  )
-}
-
->>>>>>> c09cae44de01ca5d508e95d2fdc0c18075584356
 export default LandingPage;

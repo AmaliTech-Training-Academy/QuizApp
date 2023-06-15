@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
@@ -24,23 +23,16 @@ const Navbar = () => {
         </div>
 
         <div className='justify-between gap-5 flex'>
-          <NavLink to={"/src/pages/LandingPage.jsx"}>
+          <NavLink to={"/forgetpassword"}>
           <button className='md:border-none px-2 py-2 bg-transparent text-blue-700'>Login</button>
           </NavLink>
-         <NavLink to={"about"}>
-          <button className='px-1 md:px-3 py-2'>Register</button>
+         <NavLink to={"/signup"}>
+          <button className='px-1 md:px-3 py-2 bg-[#0267ff]'>Register</button>
           </NavLink> 
           
         </div>
       </div>
     </div>
-=======
-import React from 'react'
-
-const Navbar = () => {
-  return (
-    <div>Navbar</div>
->>>>>>> c09cae44de01ca5d508e95d2fdc0c18075584356
   )
 }
 
