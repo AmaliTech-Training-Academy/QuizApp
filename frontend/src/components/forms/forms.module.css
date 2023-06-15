@@ -145,6 +145,7 @@ color: #FF4D4D;
 }
 
 
+
 @media (max-width: 500px) {
   .forms {
     width: 100vw;
@@ -171,5 +172,12 @@ color: #FF4D4D;
   }
   .exit {
     margin-right: 10%;
+  }
+  
+  .newMember{
+    position: absolute;
+    bottom: -27px;
+    left: 7rem;
+
   }
 }

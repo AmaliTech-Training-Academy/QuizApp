@@ -35,8 +35,8 @@ const Register = () => {
     // Validate password
     if (password.trim() === '') {
       newErrors.password = 'Password is required'
-    } else if (password.length < 8) {
-      newErrors.password = 'Password should contain atleast 8 characters'
+    } else if (password.length < 9) {
+      newErrors.password = 'Password should contain atleast 10 characters'
     }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
