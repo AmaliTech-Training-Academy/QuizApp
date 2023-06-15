@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage'
 
 function App() {
+
   return (
     <>
       <BrowserRouter>
@@ -15,10 +16,9 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route path='login' element={<LoginPage/>}/>
         </Routes>
-        <ToastContainer position='top-right'/>
       </BrowserRouter>
     </>
   )
 }
 
-export default App
+export default App;
