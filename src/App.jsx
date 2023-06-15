@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LandingPage from './pages/LandingPage'
+// import LandingPage from './pages/LandingPage'
+import ForgetPassword from './pages/ForgetPassword'
 import './App.css'
 import SignupPage from "./pages/signuppage/SignupPage";
 
@@ -9,8 +10,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+<<<<<<< HEAD
           <Route path="/" element={<LandingPage />} />
           <Route path="signup" element={<SignupPage/>}/>
+=======
+          <Route path="/" element={<ForgetPassword />} />
+>>>>>>> c09cae44de01ca5d508e95d2fdc0c18075584356
         </Routes>
       </BrowserRouter>
     </>

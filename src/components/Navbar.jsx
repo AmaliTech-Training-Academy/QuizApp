@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
@@ -33,6 +34,13 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+=======
+import React from 'react'
+
+const Navbar = () => {
+  return (
+    <div>Navbar</div>
+>>>>>>> c09cae44de01ca5d508e95d2fdc0c18075584356
   )
 }
 
