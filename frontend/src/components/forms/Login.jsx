@@ -1,20 +1,56 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from '../forms/registerForm/register.module.css'
 import { NavLink } from 'react-router-dom'
 import formStyles from '../forms/forms.module.css'
 
 const Login = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState ('')
+    const [errors, setErrors] = useState({})
+
+    const validateForm = () =>{
+        const newErrors = {}
+        if (email.trim() === '') {
+            newErrors.email = 'Email is required'
+          } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Email is invalid'
+          }
+          if (password.trim() === '') {
+            newErrors.password = 'Password is required'
+          } else if (password.length < 10) {
+            newErrors.password = 'Password should contain atleast 10 characters'
+          }
+          setErrors(newErrors)
+          return Object.keys(newErrors).length === 0
+    }
+
+
+    const handleClick = async e =>{
+        e.preventDefault();
+        if(validateForm()){
+            console.log('success')
+        }
+        else{
+            console.log('hello')
+        }
+
+    }
+
   return (
     <form className={formStyles.forms}>
         <div className={styles.title}>
         <h2 className={styles.registerHeading}>Log in</h2>
-        <div className={styles.authenticationAlt}>
+        <div className={`${styles.authenticationAlt} ${formStyles.newMember}`}>
             <p>New member?</p>
-            <NavLink className={styles.AltNavigate} to="/login">
-          Sign Up
-        </NavLink>
+            <NavLink className={styles.AltNavigate} to="/signup">
+                Sign Up
+            </NavLink>
         </div>
         </div>
+        <p className={styles.pageDescription}>"Sign up effortlessly and get started!"</p>
+        <button className={`${styles.googleBtn} ${styles.googleMobile}`}>Log in with Google</button>
+
+        <div className={`${styles.loginwithMail}`}><span>Log in with Email</span></div>
 
         <div className={styles.inputContainer}>
             <label className={styles.label}>E-mail</label>
@@ -23,13 +59,13 @@ const Login = () => {
                 placeholder='johndoe@gmail.com'
                 type='email'
                 name='email'
-                value=''
-                // onChange={}
+                value={email}
+                onChange={e=>setEmail(e.target.value)}
                 onBlur={e => e.target.placeholder = 'johndoe@gmail.com'}
                 onFocus={e => e.target.placeholder = `Enter a valid email`}
-                className={styles.input}
-            />
-        </div>
+                className={styles.input}/>
+            </div>
+            {errors.email && <div className={styles.alert}>{errors.email}</div>}
     </div>
 
     <div className={styles.inputContainer}>
@@ -39,14 +75,13 @@ const Login = () => {
                 placeholder='**************'
                 type='password'
                 name='password'
-                value=''
-                // onChange={}
+                value={password}
+                onChange={e=>setPassword(e.target.value)}
                 onBlur={e => e.target.placeholder = '**************'}
                 onFocus={e => e.target.placeholder = `Enter a valid password`}
-                className={styles.input}
-                required
-            />
+                className={styles.input}/>
         </div>
+        {errors.password && <div className={styles.alert}>{errors.password}</div>}
     </div>
 
     <div className={formStyles.rememberPassword}>
@@ -56,8 +91,9 @@ const Login = () => {
         </div>
         <NavLink>Forgot password?</NavLink>
     </div>
-    <div className={formStyles.errMsg}>Oops! Your email or password appears to be incorrect. Please double-check your login details and try again.</div>
-    <button className={styles.createBtn}>Login</button>
+    {/* <div className={formStyles.errMsg}>Oops! Your email or password appears to be incorrect. Please double-check your login details and try again.</div> */}
+    <button className={styles.createBtn} style={{marginTop:'32px', marginBottom:'5px'}} onClick={handleClick}>Login</button>
+    <p className={styles.pageDescription}>By continuing you accept our standard terms and conditions and our privacy policy.</p>
     </form>
   )
 }

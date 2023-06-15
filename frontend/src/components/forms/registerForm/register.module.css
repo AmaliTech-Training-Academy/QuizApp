@@ -96,12 +96,44 @@ text-fill-color: transparent;
 .checkbox{
   display: flex;
 }
+.googleMobile{
+  display: none;
+}
+.loginwithMail{
+  position: relative;
+  display: none;
+  margin-top: 20px;
+  margin-bottom: 64px;
+}
+.loginwithMail::before,
+  .loginwithMail::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 137%;
+    background-color:#B3B3B3;
+    top: 50%;
+    z-index: -1;
+  }
 
+  .loginwithMail::before {
+    left: 0;
+  }
+  .loginwithMail::after {
+    right: 0;
+  }
+
+  .loginwithMail span {
+    background-color: white;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+  }
 
 @media (max-width: 500px) {
   .formsStep1 {
     margin-top: 115px;
-    position: static;
+    position: relative;
   }
   .registerHeading {
     text-align: left;
@@ -114,5 +146,15 @@ text-fill-color: transparent;
   }
   .googleLogo {
     display: none;
+  }
+  .title{
+    margin: 51.5px 0px 8px 0;
+  }
+  .googleMobile{
+    display: block;
+    margin-bottom: 32px;
+  }
+  .loginwithMail{
+    display: inline-block;
   }
 }

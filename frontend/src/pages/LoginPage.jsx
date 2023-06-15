@@ -6,7 +6,7 @@ import styles from './signuppage/signupPage.module.css'
 const LoginPage = () => {
   return (
     <div className={styles.signupPage}>
-    <Gallery/>
+    <Gallery page='login'/>
     <Login/>
     </div>
   )
