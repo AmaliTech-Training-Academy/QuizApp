@@ -10,8 +10,10 @@ import Cookies from 'js-cookie'
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState ('')
+    const [checkbox, setCheckbox] = useState(false)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(true)
+    
 
     const validateForm = () =>{
         const newErrors = {}
@@ -34,14 +36,19 @@ const Login = () => {
         e.preventDefault();
         if(validateForm()){
             try {
-                const data = {email, password }
+                const data = {email, password , checkbox}
                 setLoading(!loading)
                 const response = await Api.post('login', data)
-                console.log(response.data)
                 toast.success(response.data.message)
                 setTimeout(() => {
                     setLoading(true)
                   }, 5000);
+                  Cookies.set('rememberMe', response.data.accessToken)
+                  if(response){
+                    Cookies.set('rememberMe', response.data.token)
+                    const rememberMe = Cookies.get('rememberMe')
+                  }
+                
             } catch (error) {
                 const err = error.response.data.message
                 console.log(err)
@@ -51,11 +58,7 @@ const Login = () => {
                   }, 5000);
             }
         }
-        else{
-            console.log('hello')
-        }
-
-    }
+    };
 
   return (
     <form className={formStyles.forms}>
@@ -107,7 +110,8 @@ const Login = () => {
 
     <div className={formStyles.rememberPassword}>
         <div className={formStyles.checkboxWrapper}>
-            <input type='checkbox' className={formStyles.checkbox}/>
+            <input type='checkbox' className={formStyles.checkbox} onChange={e=>setCheckbox(e.target.checked)} checked={checkbox}/>
+            {checkbox && console.log('checked')}
             <p>Remember me</p>
         </div>
         <NavLink>Forgot password?</NavLink>
