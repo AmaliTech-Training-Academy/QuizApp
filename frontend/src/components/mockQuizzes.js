@@ -1,0 +1,77 @@
+import photo from "../assets/Desktop View/Images/Pexels Photo by Ketut Subiyanto.png" 
+
+export const mockQuizzes = [
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 1,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 2,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 3,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 4,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 5,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 6,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 7,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 8,
+    },
+    {
+        name: "Master Html",
+        creator: "Sarah Dawson",
+        rating: "4.2K",
+        duration: "1 hour/60mins",
+        image: photo,
+        id: 9,
+    },
+
+]
