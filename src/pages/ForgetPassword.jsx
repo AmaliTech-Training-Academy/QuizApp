@@ -1,7 +1,7 @@
-import React from 'react'
+// import React from 'react'
 import ForgotPass from '../components/ForgotPass'
 import Gallery from '../components/gallery/Gallery'
-import ResetPass from '../components/ResetPass'
+// import ResetPass from '../components/ResetPass'
 
 const ForgetPassword = () => {
   return (
