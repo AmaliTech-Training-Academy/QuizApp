@@ -1,4 +1,9 @@
-import photo from "../assets/Desktop View/Images/Pexels Photo by Ketut Subiyanto.png" 
+import photo1 from "../assets/Desktop View/Images/Pexels Photo by Ketut Subiyanto.png"
+import photo2 from "../assets/Desktop View/Images/Pexels Photo by Katerina Holmes.png"
+import photo3 from "../assets/Desktop View/Images/Pexels Photo by Ketut Subiyanto-1.png"
+import photo4 from "../assets/Desktop View/Images/Pexels Photo by Liza Summer.png"
+import photo5 from "../assets/Desktop View/Images/Pexels Photo by Marta Wave.png"
+import photo6 from "../assets/Desktop View/Images/Pexels Photo by Tima Miroshnichenko.png"
 
 export const mockQuizzes = [
     {
@@ -6,7 +11,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo1,
         id: 1,
     },
     {
@@ -14,7 +19,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo2,
         id: 2,
     },
     {
@@ -22,7 +27,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo3,
         id: 3,
     },
     {
@@ -30,7 +35,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo4,
         id: 4,
     },
     {
@@ -38,7 +43,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo5,
         id: 5,
     },
     {
@@ -46,7 +51,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo6,
         id: 6,
     },
     {
@@ -54,7 +59,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo6,
         id: 7,
     },
     {
@@ -62,7 +67,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo6,
         id: 8,
     },
     {
@@ -70,7 +75,7 @@ export const mockQuizzes = [
         creator: "Sarah Dawson",
         rating: "4.2K",
         duration: "1 hour/60mins",
-        image: photo,
+        image: photo6,
         id: 9,
     },
 

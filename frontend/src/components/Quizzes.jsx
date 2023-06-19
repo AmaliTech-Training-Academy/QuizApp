@@ -4,7 +4,7 @@ import { Quiz } from './Quiz';
 
 export const Quizzes = () => {
   return (
-    <div className='grid grid-cols-3 gap-x-[108px] gap-y-[87px] ml-[47px] w-full mb-36'>
+    <div className='grid lg:grid-cols-3 grid-cols-2 gap-4 lg:gap-x-[108px] lg:gap-y-[87px] gap-y-10 lg:ml-[47px] w-full lg:mb-36 mb-4'>
       {
       mockQuizzes.map( quiz => 
       <Quiz

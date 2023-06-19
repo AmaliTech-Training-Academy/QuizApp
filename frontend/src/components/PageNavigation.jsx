@@ -5,7 +5,7 @@ import { QuizSearch } from './QuizSearch';
 
 export const PageNavigation = () => {
   return (
-    <div className='flex justify-between'>
+    <div className='hidden lg:flex justify-between'>
       {/* Links */}
       <div className='flex'>
         <div className='flex items-center text-[#B3B3B3]'>
