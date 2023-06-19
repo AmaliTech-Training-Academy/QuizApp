@@ -1,14 +1,27 @@
 import React, {useState} from 'react'
-import ResetPass from './ResetPass'
+import ResetPassword from '../pages/ResetPassword'
+import axios from 'axios';
 
 const ForgotPass = () => {
-  const [confirmMail, setConfirmMail] = useState(false)
+  const [userMail, setUserMail] = useState("");
+  const notify = () => toast("You have subscribed successfully!", {theme:"light",})
+
   const [btnClicked, setBtnClicked] = useState(true)
+
+  const URL = "https://nss-quizapp.up.railway.app/api/forgetPassword";
+
   const handleClick = async(e) =>{
-   e.preventDefault()
-   setBtnClicked(false)
-   setConfirmMail(true)
-  }
+   e.preventDefault();
+   const data = {userMail}
+   const response = await axios.post(URL, data);
+   if(response.status === 201){
+    console.log('success')
+    notify();
+    setUserMail("");
+   }else{
+    console.log('error');
+   }
+  };
 
   return (
     <form className='items-center font-Roboto m-auto'>
@@ -21,13 +34,18 @@ const ForgotPass = () => {
       <div className='flex flex-col mt-8'>
         <label htmlFor="E-mail" className='text-gray-400'>E-mail</label>
         <div className='mt-2 mb-8'>
-        <input className='w-[300px] h-10 border rounded-md bg-white placeholder:text-slate-400 focus:outline-none focus:border-[#1E1E1E] pl-5' placeholder="Johndoe@gmail.com" type="email" id="E-mail"/>
+        <input className='w-[300px] h-10 border rounded-md bg-white placeholder:text-slate-400 focus:outline-none focus:border-[#1E1E1E] pl-5' 
+        placeholder="Johndoe@gmail.com" 
+        type="email" 
+        name="email"
+        value={userMail}
+        onChange={(event)=>setUserMail(event.target.value)} />
         </div>
         <button className='h-10 w-[300px] bg-[#0267ff]'  onClick={handleClick}>Next</button>
       </div>
         </>
       }
-      {confirmMail && <ResetPass/>}
+      {confirmMail && <ResetPassword/>}
       
     </form>
   )
