@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styles from '../forms/registerForm/register.module.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import formStyles from '../forms/forms.module.css'
 import Api from './services/api'
 import { toast } from 'react-toastify'
@@ -14,6 +14,7 @@ const Login = () => {
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(true)
     
+    const navigate = useNavigate()
 
     const validateForm = () =>{
         const newErrors = {}
@@ -40,14 +41,11 @@ const Login = () => {
                 setLoading(!loading)
                 const response = await Api.post('login', data)
                 toast.success(response.data.message)
+                Cookies.set('rememberMe', response.data.accessToken)
                 setTimeout(() => {
                     setLoading(true)
                   }, 5000);
-                  Cookies.set('rememberMe', response.data.accessToken)
-                  if(response){
-                    Cookies.set('rememberMe', response.data.token)
-                    const rememberMe = Cookies.get('rememberMe')
-                  }
+                  navigate('profile')
                 
             } catch (error) {
                 const err = error.response.data.message

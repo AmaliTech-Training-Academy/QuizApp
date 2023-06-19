@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './register.module.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import google from '../../../assets/Desktop View/Icons/Google logo.png'
 import { useDispatch} from 'react-redux'
 import { increaseCount } from '../../../features/stepperSlice'
@@ -17,6 +17,7 @@ const Register = () => {
   const [loading, setLoading] = useState(true)
 
   const dispatch = useDispatch()
+  
 
   const validateForm = () => {
     const newErrors = {}
