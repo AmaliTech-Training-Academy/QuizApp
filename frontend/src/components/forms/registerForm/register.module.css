@@ -1,0 +1,160 @@
+.formsStep1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.registerHeading  {
+  font-size: 2.063rem;
+  font-weight: 700;
+  line-height: 39px;
+  letter-spacing: 0.005em;
+  text-align: left;
+  margin-right: 4.7rem;
+}
+.title{
+  margin-right: 8rem;
+  margin-bottom: 40px;
+}
+.pageDescription {
+  display: none;
+}
+.googleLogo {
+  width: 24px;
+  height: 23.93px;
+  display: inline;
+}
+.inputContainer {
+  margin-top: 23px;
+  text-align: left;
+}
+
+.input {
+  margin-top: 7px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  width: 18.75rem;
+  height: 40px;
+  padding-left: 0.5rem;
+}
+.createAccountBtn {
+  margin: 33px 24px;
+}
+.createBtn {
+  background: linear-gradient(0deg, #0267ff, #0267ff),
+    linear-gradient(118.19deg, #1275d0 21.37%, #62aef3 69.77%);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.25rem;
+  height: 40px;
+  border: none;
+  width: 18.75rem;
+  height: 40px;
+}
+.googleBtn {
+  border: 1px solid #999999;
+  color: #1d2939;
+  width: 18.75rem;
+  height: 40px;
+  border-radius: 0.25rem;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 19px;
+  letter-spacing: 0.005em;
+}
+.signup {
+  margin-left: 1.1rem;
+}
+
+.authenticationAlt {
+  margin-top: 22px;
+  display: flex;
+}
+.authenticationAlt a {
+  font-weight: 400;
+  color: #0267FF;
+  background: linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(100.97deg, #6425D3 21.56%, #A259FF 84.43%), linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(118.19deg, #1275D0 21.37%, #62AEF3 69.77%);
+background-clip: text;
+text-fill-color: transparent;
+
+}
+.authenticationAlt p {
+  color: #a6a6a6;
+  margin-right: 0.8rem;
+}
+
+.alert {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.833rem;
+  line-height: 16px;
+  letter-spacing: 0.005em;
+  color: #ff4d4d;
+}
+.checkbox{
+  display: flex;
+}
+.googleMobile{
+  display: none;
+}
+.loginwithMail{
+  position: relative;
+  display: none;
+  margin-top: 20px;
+  margin-bottom: 64px;
+}
+.loginwithMail::before,
+  .loginwithMail::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 137%;
+    background-color:#B3B3B3;
+    top: 50%;
+    z-index: -1;
+  }
+
+  .loginwithMail::before {
+    left: 0;
+  }
+  .loginwithMail::after {
+    right: 0;
+  }
+
+  .loginwithMail span {
+    background-color: white;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+@media (max-width: 500px) {
+  .formsStep1 {
+    margin-top: 115px;
+    position: relative;
+  }
+  .registerHeading {
+    text-align: left;
+    margin-right: 0;
+  }
+  .pageDescription {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 56px;
+  }
+  .googleLogo {
+    display: none;
+  }
+  .title{
+    margin: 51.5px 0px 8px 0;
+  }
+  .googleMobile{
+    display: block;
+    margin-bottom: 32px;
+  }
+  .loginwithMail{
+    display: inline-block;
+  }
+}

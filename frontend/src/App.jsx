@@ -1,7 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import './App.css'
-import SignupPage from "./pages/signuppage/SignupPage";
+import SignupPage from './pages/signuppage/SignupPage'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import LoginPage from './pages/LoginPage'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
 
@@ -10,8 +14,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="signup" element={<SignupPage/>}/>
+          <Route path="signup" element={<SignupPage />} />
+          <Route path='login' element={<LoginPage/>}/>
+          <Route path='profile' element={<ProfilePage/>}/>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </>
   )
