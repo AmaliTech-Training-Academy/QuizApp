@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './register.module.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import google from '../../../assets/Desktop View/Icons/Google logo.png'
 import { useDispatch} from 'react-redux'
 import { increaseCount } from '../../../features/stepperSlice'
@@ -17,6 +17,7 @@ const Register = () => {
   const [loading, setLoading] = useState(true)
 
   const dispatch = useDispatch()
+  
 
   const validateForm = () => {
     const newErrors = {}
@@ -35,8 +36,8 @@ const Register = () => {
     // Validate password
     if (password.trim() === '') {
       newErrors.password = 'Password is required'
-    } else if (password.length < 8) {
-      newErrors.password = 'Password should contain atleast 8 characters'
+    } else if (password.length < 9) {
+      newErrors.password = 'Password should contain atleast 10 characters'
     }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -48,7 +49,6 @@ const Register = () => {
         const data = { name: username, email, password }
       setLoading(!loading)
       const response = await Api.post('registerUser', data)
-      console.log(response);
       if(response.data.success === true){
         Cookies.set('userId', response.data.user._id)
         toast.success('account created successfully')
@@ -58,11 +58,10 @@ const Register = () => {
       }
       setTimeout(() => {
         setLoading(true)
-      }, 5000);
+      }, 4000);
         
       } catch (error) {
         const err = error.response.data.message
-        console.log(err)
         toast.warn(err)
         setTimeout(() => {
           setLoading(true)

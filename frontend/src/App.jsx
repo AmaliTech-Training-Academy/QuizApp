@@ -4,19 +4,24 @@ import './App.css'
 import SignupPage from './pages/signuppage/SignupPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import LoginPage from './pages/LoginPage'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="signup" element={<SignupPage />} />
+          <Route path='login' element={<LoginPage/>}/>
+          <Route path='profile' element={<ProfilePage/>}/>
         </Routes>
-        <ToastContainer position='top-right'/>
+        <ToastContainer />
       </BrowserRouter>
     </>
   )
 }
 
-export default App
+export default App;
