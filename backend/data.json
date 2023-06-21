@@ -1,0 +1,575 @@
+{
+  "topics": [
+    {
+      "topic": "History",
+      "questions": [
+        {
+          "question": "In what year did World War I begin?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "1914",
+              "is_correct": true
+            },
+            {
+              "text": "1918",
+              "is_correct": false
+            },
+            {
+              "text": "1920",
+              "is_correct": false
+            },
+            {
+              "text": "1939",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What was the first permanent English settlement in North America?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Jamestown",
+              "is_correct": true
+            },
+            {
+              "text": "Plymouth",
+              "is_correct": false
+            },
+            {
+              "text": "Roanoke",
+              "is_correct": false
+            },
+            {
+              "text": "Boston",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "Who was the first U.S. president to be impeached?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Andrew Johnson",
+              "is_correct": true
+            },
+            {
+              "text": "Richard Nixon",
+              "is_correct": false
+            },
+            {
+              "text": "Bill Clinton",
+              "is_correct": false
+            },
+            {
+              "text": "Donald Trump",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "Who assassinated Archduke Franz Ferdinand of Austria?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Gavrilo Princip",
+              "is_correct": true
+            },
+            {
+              "text": "Lee Harvey Oswald",
+              "is_correct": false
+            },
+            {
+              "text": "Thomas Hayford",
+              "is_correct": false
+            },
+            {
+              "text": "Mary Eddision",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "In what year did the American Civil War end?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "1861",
+              "is_correct": false
+            },
+            {
+              "text": "1863",
+              "is_correct": false
+            },
+            {
+              "text": "1865",
+              "is_correct": true
+            },
+            {
+              "text": "1867",
+              "is_correct": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Geography",
+      "questions": [
+        {
+          "question": "What is the capital of Australia?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Sydney",
+              "is_correct": false
+            },
+            {
+              "text": "Albany",
+              "is_correct": false
+            },
+            {
+              "text": "Melbourne",
+              "is_correct": false
+            },
+            {
+              "text": "Canberra",
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "question": "What is the largest country by land area?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Russia",
+              "is_correct": true
+            },
+            {
+              "text": "China",
+              "is_correct": false
+            },
+            {
+              "text": "India",
+              "is_correct": false
+            },
+            {
+              "text": "France",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What river flows through the city of Paris?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Nile",
+              "is_correct": false
+            },
+            {
+              "text": "Amazon",
+              "is_correct": false
+            },
+            {
+              "text": "Ganges",
+              "is_correct": false
+            },
+            {
+              "text": "Seine",
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "question": "What is the highest mountain in Africa?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Atlas Mountains",
+              "is_correct": false
+            },
+            {
+              "text": "Mount Kilimanjaro",
+              "is_correct": true
+            },
+            {
+              "text": "Mount Kenya",
+              "is_correct": false
+            },
+            {
+              "text": "Simien Mountains",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the largest island in the world?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Greenland Island",
+              "is_correct": true
+            },
+            {
+              "text": "Santorini",
+              "is_correct": false
+            },
+            {
+              "text": "Bali",
+              "is_correct": false
+            },
+            {
+              "text": "Majorca",
+              "is_correct": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Science",
+      "questions": [
+        {
+          "question": "What is the process by which plants make their own food?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Photosynthesis",
+              "is_correct": true
+            },
+            {
+              "text": "Respiration",
+              "is_correct": false
+            },
+            {
+              "text": "Digestion",
+              "is_correct": false
+            },
+            {
+              "text": "Transpiration",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the smallest unit of matter?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Molecule",
+              "is_correct": false
+            },
+            {
+              "text": "Cell",
+              "is_correct": false
+            },
+            {
+              "text": "Atom",
+              "is_correct": true
+            },
+            {
+              "text": "Element",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the force that keeps objects in orbit around the Earth?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Acceleration",
+              "is_correct": false
+            },
+            {
+              "text": "Gravity",
+              "is_correct": true
+            },
+            {
+              "text": "Momentum",
+              "is_correct": false
+            },
+            {
+              "text": "Friction",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "Which of these is not one of the three primary colors of light?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Yellow",
+              "is_correct": true
+            },
+            {
+              "text": "Green",
+              "is_correct": false
+            },
+            {
+              "text": "Red",
+              "is_correct": false
+            },
+            {
+              "text": "Blue",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the name of the process by which a solid changes directly into a gas?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Melting",
+              "is_correct": false
+            },
+            {
+              "text": "Evaporation",
+              "is_correct": false
+            },
+            {
+              "text": "Condensation",
+              "is_correct": false
+            },
+            {
+              "text": "Sublimation",
+              "is_correct": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Music",
+      "questions": [
+        {
+          "question": "Who wrote the song 'Bohemian Rhapsody'?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "John Deacon",
+              "is_correct": false
+            },
+            {
+              "text": "Roger Taylor",
+              "is_correct": false
+            },
+            {
+              "text": "Brian May",
+              "is_correct": false
+            },
+            {
+              "text": "Freddie Mercury",
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "question": "What is the name of Taylor Swift's debut album?",
+          "answers": [
+            {
+              "text": "Taylor Swift",
+              "is_correct": true
+            },
+            {
+              "text": "Fearless",
+              "is_correct": false
+            },
+            {
+              "text": "Red",
+              "is_correct": false
+            },
+            {
+              "text": "1989",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "Which famous singer is known as the 'Queen of Pop'?",
+          "answers": [
+            {
+              "text": "Lady Gaga",
+              "is_correct": false
+            },
+            {
+              "text": "Madonna",
+              "is_correct": true
+            },
+            {
+              "text": "Britney Spears",
+              "is_correct": false
+            },
+            {
+              "text": "Beyoncé",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the name of the lead singer of the band Coldplay?",
+          "answers": [
+            {
+              "text": "Jonny Buckland",
+              "is_correct": false
+            },
+            {
+              "text": "Guy Berryman",
+              "is_correct": false
+            },
+            {
+              "text": "Chris Martin",
+              "is_correct": true
+            },
+            {
+              "text": "Will Champion",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "Which of these instruments is not typically found in a rock band?",
+          "answers": [
+            {
+              "text": "Violin",
+              "is_correct": true
+            },
+            {
+              "text": "Guitar",
+              "is_correct": false
+            },
+            {
+              "text": "Bass",
+              "is_correct": false
+            },
+            {
+              "text": "Drums",
+              "is_correct": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Movies and TV Shows",
+      "questions": [
+        {
+          "question": "Who played the character of Tony Stark/Iron Man in the Marvel Cinematic Universe?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Robert Downey Jr",
+              "is_correct": true
+            },
+            {
+              "text": "Chris Evans",
+              "is_correct": false
+            },
+            {
+              "text": "Chris Hemsworth",
+              "is_correct": false
+            },
+            {
+              "text": "Mark Ruffalo",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the name of the protagonist in the TV series Breaking Bad?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Jesse Pinkman",
+              "is_correct": false
+            },
+            {
+              "text": "Skyler White",
+              "is_correct": false
+            },
+            {
+              "text": "Walter White",
+              "is_correct": true
+            },
+            {
+              "text": "Hank Schrader",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "What is the name of the fictional continent in the TV series Game of Thrones?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Westeros",
+              "is_correct": true
+            },
+            {
+              "text": "Essos",
+              "is_correct": false
+            },
+            {
+              "text": "Sothoryos",
+              "is_correct": false
+            },
+            {
+              "text": "Ulthos",
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "question": "Who directed the Movie 'Jaws'?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "Martin Scorsese",
+              "is_correct": false
+            },
+            {
+              "text": "Quentin Tarantino",
+              "is_correct": false
+            },
+            {
+              "text": "Christopher Nolan",
+              "is_correct": false
+            },
+            {
+              "text": "Steven Spielberg",
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "question": "Which movie won the Best Picture award at the 93rd Academy Awards in 2021?",
+          "points": 10,
+          "answers": [
+            {
+              "text": "The Trial of the Chicago 7",
+              "is_correct": true
+            },
+            {
+              "text": "Mank",
+              "is_correct": false
+            },
+            {
+              "text": "Nomadland",
+              "is_correct": true
+            },
+            {
+              "text": "Promising Young Woman",
+              "is_correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
