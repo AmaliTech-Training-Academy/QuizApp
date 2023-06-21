@@ -3,7 +3,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import { QuizSearch } from './QuizSearch';
 
 
-export const PageNavigation = () => {
+export const PageNavigation = ({setQuizData}) => {
+
+  
+
   return (
     <div className='hidden lg:flex justify-between'>
       {/* Links */}
@@ -23,7 +26,7 @@ export const PageNavigation = () => {
         </div>
       </div>
       {/* Search */}
-      <QuizSearch/>
+      <QuizSearch setQuizData={setQuizData}/>
     </div>
   )
 }

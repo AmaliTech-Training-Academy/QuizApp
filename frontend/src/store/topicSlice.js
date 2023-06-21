@@ -21,7 +21,8 @@ export const getTopics = createAsyncThunk('topics/get', async ()=> {
 const topicSlice = createSlice({
 name: 'topics',
 initialState,
-reducers: {},
+reducers: {
+},
 
 extraReducers: (builder) => {
     builder
