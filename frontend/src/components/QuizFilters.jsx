@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { SubjectFilters } from './SubjectFilters';
-
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getTopics } from '../store/topicSlice.js';
 
 export const QuizFilters = ({setQuizData}) => {
+  // const {data:topics, status} = useSelector((state) => state.topics);
+
+  // const dispatch = useDispatch();
+  // useEffect(()=> {
+  //   dispatch(getTopics())
+    
+  //   setQuizData(topics)
+  // },[topics]);
+
 
   return (
     <div className='lg:border lg:border-l-0 lg:border-t-0 lg:border-b-0 lg:border-r-[#808080] mx-4 lg:w-48 pr-7'>

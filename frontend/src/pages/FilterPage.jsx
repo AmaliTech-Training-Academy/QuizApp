@@ -4,6 +4,7 @@ import { RiFilter2Line } from 'react-icons/ri';
 import { IoIosArrowBack } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 import { QuizFilters } from '../components/QuizFilters';
+import { QuizSearch } from '../components/QuizSearch';
 
 
 
@@ -19,6 +20,7 @@ return (
             </NavLink>
             <div className='flex items-center border border-[#808080] rounded bg-white pl-4'>
                 <AiOutlineSearch className='text-black opacity-50' size={17}/>
+
                 <input type='text' className='w-56'/>
             </div>
             <NavLink to="/filter">

@@ -9,7 +9,7 @@ export const Header = (props) => {
     <div className='lg:py-11 pt-[10px] bg-[#F2F2F2] lg:bg-[#0267FF] lg:text-white lg:text-5xl font-semibold flex justify-center' id='quiz-header'>
       <NavLink to="/quizlog" className='md:hidden mr-4 h-full py-2'>{quizLog}</NavLink>
       <NavLink to="/quizzes" className='py-2'>{quizzes}</NavLink>
-      
+
     </div>
   )
 }
