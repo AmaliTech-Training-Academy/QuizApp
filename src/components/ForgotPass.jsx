@@ -1,32 +1,34 @@
-import React, {useState} from 'react'
-import ResetPassword from '../pages/ResetPassword'
+import React, { useState } from 'react'
+// import ResetPassword from '../pages/ResetPassword'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { RotatingLines } from 'react-loader-spinner'
 
 const ForgotPass = () => {
-  const [userMail, setUserMail] = useState("");
-  const notify = () => toast("You have subscribed successfully!", {theme:"light",})
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(true)
+  const notify = () => toast("Please check your email to reset password", {theme:"light",})
 
-  const [btnClicked, setBtnClicked] = useState(true)
+  // const [btnClicked, setBtnClicked] = useState(true)
 
   const URL = "https://nss-quizapp.up.railway.app/api/forgetPassword";
 
   const handleClick = async(e) =>{
    e.preventDefault();
-   const data = {userMail}
-   const response = await axios.post(URL, data);
-   if(response.status === 201){
-    console.log('success')
-    notify();
-    setUserMail("");
-   }else{
-    console.log('error');
-   }
+   try{
+     const response = await axios.post(URL, {email});
+     setLoading(!loading)
+     console.log(response)
+     if(response.status === 200){
+       notify();
+      }
+    }catch(error) {
+      toast.warn('user does not exist')
+    }
   };
 
   return (
     <form className='items-center font-Roboto m-auto'>
-      {btnClicked && 
-        <>
         <div className='flex flex-col '>
       <h2 className='text-[39.81px] font-extrabold text-[#1D2939]'>Forgot Password?</h2>
       <p className='text-base text-[#A6A6A6] mt-8 w-80'>&#34;Oops, I totally forgot my password - time for a quick reset!&#34;</p>
@@ -38,15 +40,18 @@ const ForgotPass = () => {
         placeholder="Johndoe@gmail.com" 
         type="email" 
         name="email"
-        value={userMail}
-        onChange={(event)=>setUserMail(event.target.value)} />
+        value={email}
+        onChange={(event)=>setEmail(event.target.value)} />
         </div>
-        <button className='h-10 w-[300px] bg-[#0267ff]'  onClick={handleClick}>Next</button>
+        <div className='items-center'>
+        {!loading ? (
+        <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
+        ): (
+          <button className='h-10 w-[300px] bg-[#0267ff]'  onClick={handleClick}>Next</button>
+        )}
+        
       </div>
-        </>
-      }
-      {confirmMail && <ResetPassword/>}
-      
+      </div>
     </form>
   )
 }
