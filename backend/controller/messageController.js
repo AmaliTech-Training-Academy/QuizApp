@@ -1,6 +1,9 @@
 const validateMessage = require("../middleware/validateMessage");
 const messageModel = require("../models/messageModel");
 
+// @desc Register new user
+// @route POST /api/message
+// @access Public
 const sendMessage = async (req, res) => {
   try {
     const { name, email, phoneNumber, subject, message } = req.body;
