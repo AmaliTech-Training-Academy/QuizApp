@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 
+//verify Token will be used in the protected routes
 
 function protectedRoute(req, res, next) {
     const token = req.header('x-auth-token')

@@ -12,4 +12,4 @@ const SignupPage = () => {
   )
 }
 
-export default SignupPage
+export default SignupPage;

@@ -16,5 +16,6 @@ const stepperSlice = createSlice({
     }
   },
 })
+
 export const { increaseCount, decreaseCount } = stepperSlice.actions
 export default stepperSlice.reducer
