@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import stepperReducer from '../features/stepperSlice';
 import authReducer from '../features/authSlice';
 import topicSlice from '../features/topicSlice';
-import { persistReducer, persistStore } from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import storage  from "redux-persist/lib/storage";
 
 
