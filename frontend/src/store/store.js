@@ -1,26 +1,24 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import topicSlice from "./topicSlice";
-import { persistReducer, persistStore } from 'redux-persist';
-import storage  from "redux-persist/lib/storage";
+// import { configureStore, combineReducers } from "@reduxjs/toolkit";
+// import topicSlice from "../features/topicSlice";
+// import { persistReducer, persistStore } from 'redux-persist';
+// import storage  from "redux-persist/lib/storage";
 
 
-const persistConfig = {
-    key: 'root',
-    storage,
-  }
+// const persistConfig = {
+//     key: 'root',
+//     storage,
+//   }
 
-    const reducer = combineReducers({
-        topics: topicSlice,
-    })
+//     const reducer = combineReducers({
+//         topics: topicSlice,
+//     })
 
-  const persistedReducer = persistReducer(persistConfig, reducer)
+//   const persistedReducer = persistReducer(persistConfig, reducer)
 
-
-
-const store = configureStore({
-    reducer: persistedReducer
-});
+// const store = configureStore({
+//     reducer: persistedReducer
+// });
 
 
 
-export default store;
+// export default store;

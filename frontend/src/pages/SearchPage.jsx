@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Quizzes } from '../components/Quizzes';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTopics } from '../store/topicSlice';
+import { getTopics } from '../features/topicSlice';
 
 
 export const SearchPage = () => {

@@ -5,7 +5,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 import { QuizFilters } from '../components/QuizFilters';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTopics } from '../store/topicSlice.js';
+import { getTopics } from '../features/topicSlice.js';
 import { Quizzes } from '../components/Quizzes';
 import { MobileNavbar } from '../components/MobileNavbar';
 import { Header } from '../components/Header';
@@ -141,7 +141,7 @@ return (
                 </NavLink>
             </div> : <div></div>}
             { !searched ? 
-            <QuizFilters setQuizData={setQuizData} setFilterOpt={handleFilterOpt} filterOptions={filterOpt}/> 
+            <QuizFilters setQuizData={setQuizData} setFilterOpt={handleFilterOpt}/> 
             :
             <div></div>}
         {/* See results */}

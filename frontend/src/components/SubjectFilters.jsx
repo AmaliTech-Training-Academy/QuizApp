@@ -40,8 +40,8 @@ export const SubjectFilters = ({setQuizData, setFilterOpt}) => {
         const matchedTopics = subjects.filter(subject => {
         return filterOpt.includes(subject.topic)
             })
-            setFilterOpt(filterOpt);
             setQuizData(matchedTopics)
+            setFilterOpt(filterOpt);
         }
     }
 

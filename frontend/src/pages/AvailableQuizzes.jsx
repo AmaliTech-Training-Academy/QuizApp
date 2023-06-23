@@ -5,13 +5,14 @@ import { QuizFilters } from "../components/QuizFilters.jsx";
 import { Quizzes } from '../components/Quizzes.jsx';
 import { MobileNavbar } from '../components/MobileNavbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTopics } from '../store/topicSlice.js';
+import { getTopics } from '../features/topicSlice.js';
 
 
 export const AvailableQuizzes = () => {
-  const {data:topics, status} = useSelector((state) => state.topics);
+  const {data:topics} = useSelector((state) => state.topics);
 
 const [quizData, setQuizData] = useState(null);
+const [filterOpt, setFilterOpt] = useState(null)
   const dispatch = useDispatch();
   useEffect(()=> {
     if(!quizData){
@@ -30,7 +31,7 @@ const [quizData, setQuizData] = useState(null);
             <hr className='border border-[#CCCCCC] mt-11 w-11/12 mx-auto hidden lg:block' />
             <div className='lg:mt-16 mx-4 flex'>
               <div className="hidden lg:block">
-              <QuizFilters setQuizData={setQuizData}/>
+              <QuizFilters setQuizData={setQuizData} setFilterOpt={setFilterOpt}/>
               </div>
                 <Quizzes data={quizData}/>
             </div>

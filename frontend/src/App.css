@@ -1,16 +1,32 @@
-@media screen and (min-width: 1240px) {
-    #quiz-header .active{
-        border-bottom: 2px solid #0267FF;
-        color: #FFFFFF;
-        font-weight: bold;
-    }
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+    font-family: 'Roboto', sans-serif;
+};
 
-
-@media screen and (max-width: 440px) {
-    #quiz-header .active{
-        border-bottom: 2px solid #0267FF;
-        color: #0267FF;
-        font-weight: bold;
+.slick-slider button{
+    background: #1275D0;
+    border-radius: 50%;
+    };
+    
+li.slick-active button{
+        background-color: red;
+        border: 1px solid black;
+        color: #1275D0;
     }
-}
+
+    @media screen and (min-width: 1240px) {
+        #quiz-header .active{
+            border-bottom: 2px solid #0267FF;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+    }
+    
+    
+    @media screen and (max-width: 440px) {
+        #quiz-header .active{
+            border-bottom: 2px solid #0267FF;
+            color: #0267FF;
+            font-weight: bold;
+        }
+    }

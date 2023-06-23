@@ -10,7 +10,7 @@ export const QuizSearch = ({setQuizData}) => {
   const onChange = (e) => {
     const matchedTopics = topics.filter(topic => topic.topic.includes(e.target.value));
     setQuizData(matchedTopics);
-    setQuery("")
+    setQuery()
   };
 
     const searchBtnBackground = {
