@@ -12,8 +12,12 @@ dist
 dist-ssr
 *.local
 
+**/.vite/
+
+**/.eslintrc.cjs
+
 # Editor directories and files
-.vscode/*
+**/.vscode/
 !.vscode/extensions.json
 .idea
 .DS_Store
