@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 
-export const SubjectFilters = ({setQuizData}) => {
+export const SubjectFilters = ({setQuizData, setFilterOpt}) => {
     const [filterOptions, setFilterOptions] = useState({
         ["History"]:false,
         ["Geography"]:false,
@@ -40,6 +40,7 @@ export const SubjectFilters = ({setQuizData}) => {
         const matchedTopics = subjects.filter(subject => {
         return filterOpt.includes(subject.topic)
             })
+            setFilterOpt(filterOpt);
             setQuizData(matchedTopics)
         }
     }
@@ -54,9 +55,10 @@ export const SubjectFilters = ({setQuizData}) => {
                 <input 
                 type="checkbox" 
                 className='mr-3 w-[18px] h-[18px] border border-black' 
-                checked = {filterOptions[subject.topic.toString()]}
+                checked= {filterOptions[subject.topic.toString()]}
                 name={subject.topic.toString()}
-                onChange={handleChange}/>
+                onChange={handleChange}
+                />
                 <div>{subject.topic}</div>
             </div>
             ))

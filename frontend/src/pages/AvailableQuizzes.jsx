@@ -20,8 +20,6 @@ const [quizData, setQuizData] = useState(null);
     setQuizData(topics)
   },[topics]);
 
-  
-
   return (
     <div>
         <MobileNavbar/>
