@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { CustomerReviews } from '../components/CustomerReviews';
 import { Subscribe } from '../components/Subscribe';
 import { Contact } from '../components/Contact';
@@ -12,7 +12,7 @@ import Insights from '../components/Insights';
 const LandingPage = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       {/* <UserNavbar /> */}
       <Hero />
       <Services />

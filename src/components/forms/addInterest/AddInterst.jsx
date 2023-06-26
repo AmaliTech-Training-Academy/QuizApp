@@ -7,7 +7,6 @@ import Api from '../services/api'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
-
 const AddInterst = ({ setCompleted }) => {
 
   const [click, setClick] = useState(false)
