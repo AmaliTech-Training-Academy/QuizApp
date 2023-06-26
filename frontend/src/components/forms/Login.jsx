@@ -45,9 +45,10 @@ const Login = () => {
                 setTimeout(() => {
                     setLoading(true)
                   }, 5000);
-                  navigate('profile')
+                  navigate('/profile')
                 
             } catch (error) {
+                console.log(error)
                 const err = error.response.data.message
                 console.log(err)
                 toast.warn(err)
