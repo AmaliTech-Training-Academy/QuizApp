@@ -1,0 +1,20 @@
+.personImg {
+    position: absolute;
+    bottom: 0;
+    height: 95%;
+}
+.person{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.gallery{
+    position: relative;
+    background: linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(100.97deg, #6425D3 21.56%, #A259FF 84.43%), linear-gradient(103.38deg, #1275D0 26.38%, rgba(185, 38, 188, 0.46) 78.13%);
+
+}
+@media (max-width: 500px) {
+    .gallery {
+        display: none;
+    }
+}
