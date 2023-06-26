@@ -22,4 +22,5 @@ const Input = ({label,name,type, placeholder, inputValue, setInputValue, setVali
   )
 }
 
+
 export default Input

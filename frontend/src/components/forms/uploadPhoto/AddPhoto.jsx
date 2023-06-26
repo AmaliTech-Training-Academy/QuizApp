@@ -24,6 +24,7 @@ const AddPhoto = () => {
     }
   };
 
+  
   const handleImageUrl = async (file) => {
     try {
       const formData = new FormData();
