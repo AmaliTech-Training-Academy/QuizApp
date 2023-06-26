@@ -38,6 +38,7 @@ const ResetPass = () => {
         navigate('/login')
         
   }catch (error){
+    console.log(response)
     toast.warn('response error')
   }
 }else{

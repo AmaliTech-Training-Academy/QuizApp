@@ -51,7 +51,7 @@ const ForgotPass = () => {
         
         
         {!loading ? (
-        <div className='lg:ml-[120px]'><RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/></div>
+        <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
         ): (
           <button className='h-10 w-full bg-[#0267ff]'  onClick={handleClick}>Next</button>
         )}
