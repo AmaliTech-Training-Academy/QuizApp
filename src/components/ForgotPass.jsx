@@ -28,16 +28,26 @@ const ForgotPass = () => {
 
   const handleClick = async(e) =>{
    e.preventDefault();
-   try{
-     const response = await axios.post(URL, {email});
-     setLoading(!loading)
-     console.log(response)
-     if(response.status === 200){
-       notify();
+   if(validateEmail()){
+     try{
+       const response = await axios.post(URL, {email});
+       setLoading(!loading)
+       console.log(response)
+       if(response.status === 200){
+         notify();
+        }
+
+        setTimeout(() => {
+          setLoading(true)
+        }, 5000);
+
+      }catch(error) {
+        toast.warn('user does not exist')
+        setTimeout(() => {
+          setLoading(true)
+        }, 5000);
       }
-    }catch(error) {
-      toast.warn('user does not exist')
-    }
+   }
   };
 
   return (
@@ -55,6 +65,8 @@ const ForgotPass = () => {
         name="email"
         value={email}
         onChange={(event)=>setEmail(event.target.value)} />
+        {/* onFocus={(e) => validateEmail(e)} */}
+        <span style={{ fontWeight: 'bold', color: 'red' }}>{emailError}</span>
         </div>
         <div className='items-center'>
         {!loading ? (
