@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="signup" element={<SignupPage/>}/>
           <Route path="forgetpassword" element={<ForgetPassword/>}/>
-          <Route path="resetPassword/:id/:token" element={<ResetPassword/>}/>
+          <Route path='resetPassword/:id/' element={<ResetPassword/>}/>
         </Routes>
         <ToastContainer/>
       </BrowserRouter>

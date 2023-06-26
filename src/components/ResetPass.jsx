@@ -1,38 +1,44 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 
 const ResetPass = () => {
-  const{id, token} = useParams()
-  const getToken = token.replaceAll('-', '.')
+  const{ id } = useParams()
+  // const getToken = token.replaceAll('-', '.')
+  console.log(id)
   const navigate = useNavigate();
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [alert, setAlert] = useState('')
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [alert, setAlert] = useState("");
+
+  //Get the current URL
+  const currentUrl = window.location.href;
+  console.log(currentUrl)
+
+  //Create a URLSearchParams object
+  const searchParams = new URLSearchParams(new URL(currentUrl).search);
+
+  const token = searchParams.get('token');
+  console.log(token);
   
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const url = 'https://nss-quizapp.up.railway.app/api/resetPassword/:id/:token'
+    const url = 'https://nss-quizapp.up.railway.app/api/resetPassword/:id/:token';
     
     if(password === confirmPassword){
       try{
-        console.log(getToken);
-        const response = await axios.post(url,{password},{
-          headers:{
-            'Authorization': `Bearer ${getToken}`
-      }
-    }
-        );
-        console.log(response)
+        const response = await axios.post(url,{id, token, password});
+         console.log(response);
   }catch (error){
     toast.warn(error.response.data.message)
-    console.log(error.response.data.message)
+    console.log(error);
   }
 }else{
   setAlert('Password mismatch')
   }
-}
+};
+
   return (
     <form className='items-center font-Roboto m-auto'onSubmit={handleSubmit}>
         <div>
@@ -59,12 +65,12 @@ const ResetPass = () => {
         type="password"
         value={confirmPassword}
           onChange={e=>setConfirmPassword(e.target.value)} 
-        id="confirmPassword"
+        id="confirm-Password"
         />
         </div>
         <button className='h-10 w-[300px] bg-[#0267ff]' type="submit">Reset</button>
       </div>
     </form>
-  )
-}
+  );
+};
 export default ResetPass

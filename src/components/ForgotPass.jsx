@@ -3,13 +3,26 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { RotatingLines } from 'react-loader-spinner'
+import validator from 'validator';
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('')
   const [loading, setLoading] = useState(true)
   const notify = () => toast("Please check your email to reset password", {theme:"light",})
 
   // const [btnClicked, setBtnClicked] = useState(true)
+
+  //Email Validation
+  const validateEmail = (e) => {
+    var email = e.target.value
+
+    if (validator.isEmail(email)) {
+      setEmailError('Valid Email :)')
+    } else {
+      setEmailError('Enter valid Email!')
+    }
+  }
 
   const URL = "https://nss-quizapp.up.railway.app/api/forgetPassword";
 
