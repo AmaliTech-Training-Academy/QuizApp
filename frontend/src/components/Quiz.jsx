@@ -9,7 +9,7 @@ export const Quiz = (props) => {
     const border = {border: "1px solid rgba(255, 255, 255, 0.4)"};
     const infoBackground = {background: "rgba(153, 153, 153, 0.4)"};
   return (
-    <div key={id}>
+    <div key={id} className='cursor-pointer'>
         <div className='relative h-80 rounded-lg overflow-hidden'>
         {/* background */}
         <div className='absolute z-20 h-full'>
