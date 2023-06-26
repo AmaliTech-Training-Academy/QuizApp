@@ -35,7 +35,7 @@ const ResetPass = () => {
         setTimeout(() => {
           setLoading(true)
         }, 2000)
-        navigate('login')
+        navigate('/login')
         
   }catch (error){
     toast.warn('response error')
