@@ -5,11 +5,11 @@ import { AiOutlineEye } from "react-icons/ai";
 // import { quizPhotos } from './QuizPhotos';
 
 export const Quiz = (props) => {
-    const {name, creator, rating, duration, image, id} = props;
+    const {name, creator, rating, duration, image, id, handleClick} = props;
     const border = {border: "1px solid rgba(255, 255, 255, 0.4)"};
     const infoBackground = {background: "rgba(153, 153, 153, 0.4)"};
   return (
-    <div key={id} className='cursor-pointer'>
+    <div key={id} className='cursor-pointer' onClick={() => handleClick(id)}>
         <div className='relative h-80 rounded-lg overflow-hidden'>
         {/* background */}
         <div className='absolute z-20 h-full'>

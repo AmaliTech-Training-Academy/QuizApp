@@ -6,14 +6,15 @@ const initialState = {
     status: 'idle',
 };
 
-const baseURL = "https://nss-quizapp.up.railway.app/api/topic";
+const baseURL = "https://nss-quizapp.up.railway.app/api/users/topic";
+
 
 export const getTopics = createAsyncThunk('topics/get', async ()=> {
     try {
         const response = await axios.get(baseURL);
         return response.data;
     } catch (error) {
-        throw new Error('Failed to fetch topics')
+        throw new Error('Failed to fetch topics');
     }
 });
 

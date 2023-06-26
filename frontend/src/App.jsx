@@ -10,6 +10,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
+import { QuizIntro } from './pages/QuizIntro';
+import { Questions } from './pages/Questions';
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route path='login' element={<LoginPage/>}/>
           <Route path='profile' element={<ProfilePage/>}/>
+          <Route path='/quiz/:id' element={<QuizIntro/>}/>
+          <Route path='/quiz/:id/questions' element={<Questions/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
