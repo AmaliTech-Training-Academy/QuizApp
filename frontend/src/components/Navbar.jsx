@@ -1,6 +1,6 @@
-import React from 'react';
-import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
-import {Link, animationScroll as scroll} from 'react-scroll';
+import React from 'react'
+import navLogo from '../assets/Desktop-View/Icons/Navbar-logo.png'
+import {Link, animationScroll as scroll} from 'react-scroll'
 import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {

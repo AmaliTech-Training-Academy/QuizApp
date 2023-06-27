@@ -1,6 +1,6 @@
-import React from 'react';
-import { ContactInput } from './ContactInput';
-import { ContactMethods } from './ContactMethods';
+import React from 'react'
+import { ContactInput } from './ContactInput'
+import { ContactMethods } from './ContactMethods'
 
 
 

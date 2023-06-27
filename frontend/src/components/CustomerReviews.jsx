@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ReviewCarousel } from './ReviewCarousel';
+import { ReviewCarousel } from './ReviewCarousel'
 
 export const CustomerReviews = () => {
   return (

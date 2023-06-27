@@ -1,10 +1,10 @@
-import React from 'react';
-import {NavLink } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import React from 'react'
+import {NavLink } from 'react-router-dom'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { GiHamburgerMenu } from 'react-icons/gi'
 import { BsBell } from "react-icons/bs"
-import { useState } from 'react';
-import profileImg from "../assets/Mobile View/Images/Indoor horizontal image of delighted good looking young man looking directly  smiling sincerely, wearing spectacles.png"
+import { useState } from 'react'
+import profileImg from "../assets/Mobile-View/Images/Indoor-horizontal-image-of-delighted-good-looking-youngman-looking-directly-smiling-sincerely-wearing-spectacles.png"
 
 export const MobileNavbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);

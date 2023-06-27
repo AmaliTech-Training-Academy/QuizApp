@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import { Header } from '../components/Header.jsx';
-import { PageNavigation } from '../components/PageNavigation.jsx';
-import { QuizFilters } from "../components/QuizFilters.jsx";
-import { Quizzes } from '../components/Quizzes.jsx';
-import { MobileNavbar } from '../components/MobileNavbar.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTopics } from '../features/topicSlice.js';
+import { Header } from '../components/Header.jsx'
+import { PageNavigation } from '../components/PageNavigation.jsx'
+import { QuizFilters } from "../components/QuizFilters.jsx"
+import { Quizzes } from '../components/Quizzes.jsx'
+import { MobileNavbar } from '../components/MobileNavbar.jsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTopics } from '../features/topicSlice.js'
 
 
 export const AvailableQuizzes = () => {

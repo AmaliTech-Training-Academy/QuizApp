@@ -1,6 +1,6 @@
 import React from 'react';
-import star from "../assets/Desktop View/Icons/star.png";
-import profileImg from "../assets/Ellipse 18.png"
+import star from "../assets/Desktop-View/Icons/star.png";
+import profileImg from "../assets/Ellipse-18.png"
 
 export const Reviews = (props) => {
   const {name, location, rating, content, id} = props;

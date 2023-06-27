@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { RiFilter2Line } from 'react-icons/ri';
-import { IoIosArrowBack } from 'react-icons/io';
-import { NavLink } from 'react-router-dom';
-import { Header } from '../components/Header';
-import { Quizzes } from '../components/Quizzes';
-import { useSelector, useDispatch } from 'react-redux';
-import { getTopics } from '../features/topicSlice';
+import React, { useState, useEffect } from 'react'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { RiFilter2Line } from 'react-icons/ri'
+import { IoIosArrowBack } from 'react-icons/io'
+import { NavLink } from 'react-router-dom'
+import { Header } from '../components/Header'
+import { Quizzes } from '../components/Quizzes'
+import { useSelector, useDispatch } from 'react-redux'
+import { getTopics } from '../features/topicSlice'
 
 
 export const SearchPage = () => {

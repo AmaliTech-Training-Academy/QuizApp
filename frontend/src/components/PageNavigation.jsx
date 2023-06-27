@@ -1,6 +1,6 @@
-import React from 'react';
-import { IoIosArrowForward } from "react-icons/io";
-import { QuizSearch } from './QuizSearch';
+import React from 'react'
+import { IoIosArrowForward } from "react-icons/io"
+import { QuizSearch } from './QuizSearch'
 
 
 export const PageNavigation = ({setQuizData}) => {

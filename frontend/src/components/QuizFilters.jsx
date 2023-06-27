@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { SubjectFilters } from './SubjectFilters';
+import React, {useEffect} from 'react'
+import { SubjectFilters } from './SubjectFilters'
 
 export const QuizFilters = ({setQuizData, setFilterOpt }) => {
 

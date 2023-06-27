@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { bGround } from './bGround';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { bGround } from './bGround'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 

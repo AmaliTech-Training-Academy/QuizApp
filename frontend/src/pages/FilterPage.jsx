@@ -1,14 +1,14 @@
 import React, { useState, useEffect} from 'react'
-import { AiOutlineSearch } from 'react-icons/ai';
-import { RiFilter2Line } from 'react-icons/ri';
-import { IoIosArrowBack } from 'react-icons/io';
-import { NavLink } from 'react-router-dom';
-import { QuizFilters } from '../components/QuizFilters';
-import { useSelector, useDispatch } from 'react-redux';
-import { getTopics } from '../features/topicSlice.js';
-import { Quizzes } from '../components/Quizzes';
-import { MobileNavbar } from '../components/MobileNavbar';
-import { Header } from '../components/Header';
+import { AiOutlineSearch } from 'react-icons/ai'
+import { RiFilter2Line } from 'react-icons/ri'
+import { IoIosArrowBack } from 'react-icons/io'
+import { NavLink } from 'react-router-dom'
+import { QuizFilters } from '../components/QuizFilters'
+import { useSelector, useDispatch } from 'react-redux'
+import { getTopics } from '../features/topicSlice.js'
+import { Quizzes } from '../components/Quizzes'
+import { MobileNavbar } from '../components/MobileNavbar'
+import { Header } from '../components/Header'
 
 
 export const FilterPage = () => {

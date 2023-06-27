@@ -1,6 +1,5 @@
-
-import bgImg from '../assets/Desktop View/Images/Pexels Photo by Liza Summer.png'
-import bgImgMob from '../assets/Mobile View/Images/Pexels photo by Liza Summer.png'
+import bgImg from '../assets/Desktop-View/Images/Pexels-Photo-by-Liza-Summer.png'
+import bgImgMob from '../assets/Mobile-View/Images/Pexels-photo-by-Liza-Summer.png'
 import {IoIosArrowForward} from 'react-icons/io'
 import { NavLink } from 'react-router-dom'
 

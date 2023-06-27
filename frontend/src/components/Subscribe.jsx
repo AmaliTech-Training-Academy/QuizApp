@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { bGround } from './bGround';
-import axios from 'axios';
+import React, { useState } from 'react'
+import { bGround } from './bGround'
+import axios from 'axios'
 
 
 export const Subscribe = () => {
 
   const [userMail, setUserMail] = useState("");
-  const notify = () => toast("You have subscribed successfully!", {theme:"light",})
+  const notify = () => toast("You have subscribed successfully!", {theme:"light"})
 
   const URL = "https://nss-quizapp.up.railway.app/api/subscribe";
 

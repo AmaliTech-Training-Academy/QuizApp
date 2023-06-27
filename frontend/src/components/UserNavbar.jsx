@@ -1,6 +1,6 @@
 import React from 'react';
-import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
-import userImg from '../assets/Desktop View/Images/Indoor horizontal image of delighted good looking young man looking directly  smiling sincerely, wearing spectacles.png'
+import navLogo from '../assets/Desktop-View/Icons/Navbar-logo.png';
+import userImg from '../assets/Desktop-View/Images/Indoor-horizontal-image-of-delighted-good-looking-young-man-looking-directly- smiling-sincerely-wearing-spectacles.png'
 import {Link, animationScroll as scroll} from 'react-scroll';
 
 const UserNavbar = () => {

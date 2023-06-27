@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {mockQuizzes} from "../components/mockQuizzes"
-import { Quiz } from './Quiz';
+import { Quiz } from './Quiz'
 // import { getTopics } from '../store/topicSlice';
 
 export const Quizzes = ({data}) => {
