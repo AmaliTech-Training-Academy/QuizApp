@@ -15,7 +15,7 @@ export const QuizIntro = () => {
     const [quizData, setQuizData] = useState(null);
     const {data:topics} = useSelector((state) => state.topics);
 
-    console.log(id, quizData);
+    // console.log(id, quizData);
 
     useEffect(()=> {
         if(!quizData){
@@ -32,11 +32,13 @@ export const QuizIntro = () => {
 
 return (
     <div>
+        <div className='hidden lg:block'>
         <Navbar/>
+        </div>
         {/* Header */}
-        <div className='py-10 px-16 bg-[#0267FF] lg:text-white font-semibold flex' id='quiz-header'>
+        <div className='hidden lg:flex py-10 px-16 bg-[#0267FF] lg:text-white font-semibold' id='quiz-header'>
             <NavLink to='/quizzes'>
-            <button className='px-14 py-5 border-2 border-white '>Back</button>
+            <button className='px-14 py-5 border-2 border-white'>Back</button>
             </NavLink>
             <div className='text-white lg:ml-36 xl:ml-96'>
                 <h2 className='font-semibold text-4xl'>Test your knowledge on {quiz[0].topic}</h2>
@@ -47,12 +49,12 @@ return (
         <div>
         </div>
         {/* Instructions */}
-        <div className='flex flex-col items-center mt-16'>
-            <div className='text-center flex flex-col items-center'>
+        <div className='flex flex-col items-center lg:mt-16 px-4 lg:px-0'>
+            <div className='flex flex-col lg:items-center'>
                 <h3 className='text-3xl font-semibold mb-4'>Quiz Instructions</h3>
-                <h4 className='text-2xl opacity-70 w-3/4'>To pass the quiz, you must achieve a score of at least 80% on the questions.</h4>
+                <h4 className='text-lg lg:text-2xl opacity-70 lg:w-3/4'>To pass the quiz, you must achieve a score of at least 80% on the questions.</h4>
             </div>
-            <div className='mt-36 grid grid-cols-2 gap-y-11'>
+            <div className='mt-9 lg:mt-36 grid lg:grid-cols-2 gap-y-11'>
                 {/* Duration */}
                 <div className='flex items-center'>
                     {/* Image */}
@@ -105,8 +107,8 @@ return (
                     </div>
                 </div>
             </div>
-            <NavLink to={`/quiz/${id}/questions`}>
-                <button className='py-[10px] px-[73px] text-white mt-24'>Start</button>
+            <NavLink to={`/quiz/${id}/questions`} className="w-full lg:w-auto">
+                <button className='py-[10px] lg:px-[73px] w-full lg:w-auto text-white mt-24'>Start</button>
             </NavLink>
         </div>
     </div>

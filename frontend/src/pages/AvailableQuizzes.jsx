@@ -6,6 +6,7 @@ import { Quizzes } from '../components/Quizzes.jsx';
 import { MobileNavbar } from '../components/MobileNavbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTopics } from '../features/topicSlice.js';
+import Navbar from '../components/Navbar.jsx';
 
 
 export const AvailableQuizzes = () => {
@@ -23,7 +24,8 @@ const [filterOpt, setFilterOpt] = useState(null)
 
   return (
     <div>
-        <MobileNavbar/>
+        {/* <MobileNavbar/> */}
+        <Navbar/>
         <Header quizzes={"Quizzes"} quizLog={"Quiz Log"}/>
         {/* Quizzes */}
         <div className='lg:mt-10 mt-7 lg:px-[70px]'>
