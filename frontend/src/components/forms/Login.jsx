@@ -45,7 +45,7 @@ const Login = () => {
                 setTimeout(() => {
                     setLoading(true)
                   }, 5000);
-                  navigate('profile')
+                  navigate('/profile')
                 
             } catch (error) {
                 const err = error.response.data.message
@@ -114,7 +114,6 @@ const Login = () => {
         </div>
         <NavLink>Forgot password?</NavLink>
     </div>
-    {/* <div className={formStyles.errMsg}>Oops! Your email or password appears to be incorrect. Please double-check your login details and try again.</div> */}
     {!loading ? (
         <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
         ): (

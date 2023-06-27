@@ -7,7 +7,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { persistStore }from 'redux-persist';
 import { Provider } from 'react-redux';
 import { store } from './app/store.js'
-// import store from './store/store.js';
 
 const persistor = persistStore(store);
 
