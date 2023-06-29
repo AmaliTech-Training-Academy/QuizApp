@@ -120,3 +120,9 @@
   background: #4339f2;
   border-radius: 50%;
 }
+@media (max-width:780px) {
+  .react-calendar {
+    /* padding: 0; */
+  }
+  
+}

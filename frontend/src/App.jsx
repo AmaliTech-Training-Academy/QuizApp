@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import Cookies from 'js-cookie'
+import AccountSettings from './pages/AccountSettings'
 
 function App() {
   const verifyCookie = Cookies.get('rememberMe')
@@ -26,12 +27,13 @@ function App() {
           <Route path="/filter" element={<FilterPage />} />
           <Route path="signup" element={<SignupPage />} />
           {verifyCookie ? (
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           ) : (
             <Route path="login" element={<LoginPage />} />
           )}
 
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path='accountSettings' element={<AccountSettings/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>

@@ -7,7 +7,7 @@ import styles from '../components/forms/addInterest/addCard/addCard.module.css'
 const QuizCards = ({ description, topic, iconType, color }) => {
   return (
     <div className={`${styles[color]} ${styles.quizcards}`}>
-      <div className="bg-[#FFFFFF] rounded-full w-[90px] h-[90px] flex justify-center item-center">
+      <div className="bg-[#FFFFFF] rounded-[50%] w-[90px] h-[90px] flex justify-center item-center">
         {iconType === 'quizLog' ? (
           <img src={quizz} className="w-[46px] h-[46px] self-center" />
         ) : iconType === 'subject' ? (

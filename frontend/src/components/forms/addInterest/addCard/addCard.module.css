@@ -63,3 +63,10 @@
 .deepBlue {
   background-color: #0000cc;
 }
+@media (max-width: 9900px) {
+  .quizcards{
+    margin: 45px 0;
+    width: 100%;
+  }
+  
+}

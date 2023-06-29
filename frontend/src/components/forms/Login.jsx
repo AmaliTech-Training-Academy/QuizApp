@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styles from '../forms/registerForm/register.module.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import formStyles from '../forms/forms.module.css'
@@ -13,8 +13,12 @@ const Login = () => {
     const [checkbox, setCheckbox] = useState(false)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(true)
+    const verifyCookie = Cookies.get('rememberMe')
     
     const navigate = useNavigate()
+    useEffect(()=>{
+        verifyCookie && navigate('/profile')
+    },[])
 
     const validateForm = () =>{
         const newErrors = {}
@@ -25,8 +29,8 @@ const Login = () => {
           }
           if (password.trim() === '') {
             newErrors.password = 'Password is required'
-          } else if (password.length < 10) {
-            newErrors.password = 'Password should contain atleast 10 characters'
+          } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/.test(password)) {
+            newErrors.password = 'Password must contain at least one uppercase,at least one digit and at least one special character from the set @$!%*#?& and min(10)'
           }
           setErrors(newErrors)
           return Object.keys(newErrors).length === 0
@@ -39,7 +43,7 @@ const Login = () => {
             try {
                 const data = {email, password , checkbox}
                 setLoading(!loading)
-                const response = await Api.post('login', data)
+                const response = await Api.post('users/login', data)
                 toast.success(response.data.message)
                 Cookies.set('rememberMe', response.data.accessToken)
                 setTimeout(() => {
@@ -74,6 +78,8 @@ const Login = () => {
         <button className={`${styles.googleBtn} ${styles.googleMobile}`}>Log in with Google</button>
 
         <div className={`${styles.loginwithMail}`}><span>Log in with Email</span></div>
+        
+        {errors.password && <div className={styles.alert}>{errors.password}</div>}
 
         <div className={styles.inputContainer}>
             <label className={styles.label}>E-mail</label>
@@ -104,7 +110,6 @@ const Login = () => {
                 onFocus={e => e.target.placeholder = `Enter a valid password`}
                 className={styles.input}/>
         </div>
-        {errors.password && <div className={styles.alert}>{errors.password}</div>}
     </div>
 
     <div className={formStyles.rememberPassword}>
