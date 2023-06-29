@@ -19,12 +19,10 @@ const sendMessage = async (req, res) => {
     await newMessage.save();
     res.status(201).json({ message: "Message sent successfully" });
   } catch (error) {
-    console.log("Failed to send message:", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Failed to send message" });
   }
 };
 
-// module.exports = { sendMessage };
 module.exports = {
   sendMessage: [validateMessage, sendMessage], // Apply validateMessage middleware before calling sendMessage
 };

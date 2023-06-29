@@ -1,16 +1,13 @@
 // const validateRegisterUser = require("../middleware/validateUser");
-const {userModel} = require("../models/userModels");
+const { userModel } = require("../models/userModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // @desc Register new user
-// @route POST /api/registerUser
+// @route POST /api/user (update and delete user avatar)
 // @access Public
-const registerUser = async (req, res, next) => {
+const registerUser = async (req, res) => {
   try {
-    // Delete all documents in the registerModel collection
-    // await registerModel.deleteMany({})
-    
     let user = await userModel.findOne({ email: req.body.email });
     if (user) {
       return res
