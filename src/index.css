@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.footer-link{
+    @apply text-[#808080] mb-4 pb-2
+};
+
+.design-spot-mobile{
+    @apply w-8 h-8 bg-[#6425D3] rounded-full opacity-50 absolute
+};
+
+.footer-links-container{
+    @apply text-left mr-14 text-[#808080] hidden lg:block
+};
+
+.header{
+    @apply text-sm mb-2 h-7
+};
+
+.footer-links{
+    @apply text-base mb-2 h-7
+};
+
+.contact-input{
+    @apply h-10 lg:h-16 px-4 border border-gray-400 rounded focus:outline-none;
+};
+
+.contact-label{
+    @apply mt-6 flex flex-col lg:w-1/2;
+};
+
+.input-name{
+    @apply mb-2 text-xl font-semibold;
+};
+
+.contact-card{
+    @apply px-6 py-4 flex items-center rounded-lg mb-6;
+};
+
+.contact-card-image{
+    @apply w-[90px] h-[90px] flex justify-center items-center rounded-full bg-[#CCE1FF] mr-6
+};
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;  
+}
+
+
+@layer base {
+    li {
+        @apply p-4
+    }
+
+    button {
+        @apply text-white border border-[#0267ff] rounded-md
+    }
+
+}
