@@ -2,13 +2,14 @@ import React from 'react';
 import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
 import person from '../assets/Desktop View/Icons/person.png'
-import { NavLink } from 'react-router-dom';
+import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+
 
 const UserNavbar = ({setShowSettings, showSettings}) => {
+  
   return (
-    <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 2xl:px-[230px]'>
+    <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px]'>
       {/* Navbar items */}
       <div className='flex justify-between items-center w-full h-full'>
 
@@ -40,7 +41,8 @@ export default UserNavbar;
 
 export const DropdownList = () =>{
   const navigate = useNavigate()
-
+  const location = useLocation()
+  
   const handleLogout = ()=>{
     Cookies.remove('rememberMe')
     Cookies.remove('userId')
@@ -58,9 +60,11 @@ export const DropdownList = () =>{
       </div>
 
       <ul className='list mt-[16px] font-semibold'>
-        <li className='hover:text-blue-700 text-blue-700 cursor-pointer'><NavLink>Profile</NavLink></li>
+        <li className='hover:text-blue-700 cursor-pointer'>
+          <NavLink to='/profile' style={{color: location.pathname === '/profile' ? 'blue' : 'black'}}>Profile</NavLink></li>
         <hr className='h-[1px]'/>
-        <li className='cursor-pointer hover:text-blue-700'><NavLink to='/accountSettings'>Account Settings</NavLink> </li>
+        <li className='cursor-pointer hover:text-blue-700'>
+          <NavLink to='/account-settings' style={{ color: location.pathname === '/account-settings' ? 'blue' : 'black' }}>Account Settings</NavLink> </li>
         <hr className='h-[1px]'/>
         <li className='cursor-pointer hover:text-blue-700' onClick={handleLogout}>Logout</li>
       </ul>

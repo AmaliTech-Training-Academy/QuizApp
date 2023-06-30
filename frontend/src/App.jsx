@@ -26,14 +26,9 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/filter" element={<FilterPage />} />
           <Route path="signup" element={<SignupPage />} />
-          {verifyCookie ? (
-            <Route path="/profile" element={<ProfilePage />} />
-          ) : (
-            <Route path="login" element={<LoginPage />} />
-          )}
-
+          <Route path="login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path='accountSettings' element={<AccountSettings/>}/>
+          <Route path='account-settings' element={<AccountSettings/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
