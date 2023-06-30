@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
+import ForgetPassword from './pages/ForgetPassword'
+import ResetPassword from './pages/ResetPassword'
 import './App.css'
 import { AvailableQuizzes } from './pages/AvailableQuizzes';
 import { QuizLog } from "./pages/QuizLog";
@@ -25,6 +27,8 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route path='login' element={<LoginPage/>}/>
           <Route path='profile' element={<ProfilePage/>}/>
+          <Route path="forgetpassword" element={<ForgetPassword/>}/>
+          <Route path='resetPassword/:id' element={<ResetPassword/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>

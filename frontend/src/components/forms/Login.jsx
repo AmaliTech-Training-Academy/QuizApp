@@ -112,7 +112,7 @@ const Login = () => {
             {checkbox && console.log('checked')}
             <p>Remember me</p>
         </div>
-        <NavLink>Forgot password?</NavLink>
+        <NavLink to={"/forgetpassword"}>Forgot password?</NavLink>
     </div>
     {/* <div className={formStyles.errMsg}>Oops! Your email or password appears to be incorrect. Please double-check your login details and try again.</div> */}
     {!loading ? (
