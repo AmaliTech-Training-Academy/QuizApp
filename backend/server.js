@@ -44,7 +44,7 @@ app.use("/api/users/account", passwordUpdate);
 app.use("/api/users/delete", deleteRoutes);
 app.use("/api/users/topics", Topic);
 app.use("/api/users/questions", questionRoutes);
-app.use("/api/users/submit-answer", submitAnswer);
+app.use("/api/users/questions", submitAnswer);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

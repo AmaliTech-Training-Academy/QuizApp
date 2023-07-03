@@ -2,7 +2,7 @@ const { userModel } = require("../models/userModels");
 const bcrypt = require("bcrypt");
 
 // @desc Update user details
-// @route PATCH /api/users/account/:id/details
+// @route PATCH /api/users/account/id/details
 // @access Private
 const updateDetails = async (req, res) => {
   try {

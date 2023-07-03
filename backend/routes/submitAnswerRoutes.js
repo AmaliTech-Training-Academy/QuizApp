@@ -3,6 +3,6 @@ const router = express.Router()
 const submitAnswer = require('../controller/submitAnswerController')
 
 
-router.post('/', submitAnswer)
+router.post('/answers', submitAnswer)
 
 module.exports = router

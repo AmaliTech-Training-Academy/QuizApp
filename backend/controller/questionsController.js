@@ -32,6 +32,7 @@ const questions = async (req, res) => {
       limit,
       totalQuestions,
       question: currentQuestion.question,
+      answers: currentQuestion.answers,
     };
     res.status(200).json(response);
     console.log(response);
