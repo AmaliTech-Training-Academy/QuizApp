@@ -25,6 +25,7 @@ const updatePassword = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Current password is required" });
 
+        //comparing the current password to the stored password
     const isPasswordMatch = await bcrypt.compare(
       currentPassword,
       user.password
@@ -47,10 +48,14 @@ const updatePassword = async (req, res) => {
     user.password = hashedPassword;
 
     await user.save();
-
-    res
-      .status(200)
-      .json({ success: true, message: "Password updated successfully" });
+    const response = {
+      success: true,
+      message: "Password updated successfully",
+      name: user.name,
+      email: user.email,
+      profileImage: user.profileImage,
+    }
+    res.status(200).json(response);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Failed to update password" });
