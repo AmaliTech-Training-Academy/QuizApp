@@ -46,6 +46,10 @@ const Login = () => {
                 const response = await Api.post('users/login', data)
                 toast.success(response.data.message)
                 Cookies.set('rememberMe', response.data.accessToken)
+                
+                Cookies.set('email',response.data.email);
+                Cookies.set('id',response.data.id);
+                Cookies.set('name', response.data.name);
                 setTimeout(() => {
                     setLoading(true)
                   }, 5000);
@@ -54,7 +58,6 @@ const Login = () => {
             } catch (error) {
                 console.log(error)
                 const err = error.response.data.message
-                console.log(err)
                 toast.warn(err)
                 setTimeout(() => {
                     setLoading(true)

@@ -12,6 +12,7 @@ import {
   MdOutlineQuiz,
   MdDeleteOutline,
 } from 'react-icons/md'
+import { UpdatePassword, UpdateProfile } from '../components/UpdateAccount'
 
 const AccountSettings = () => {
   const navigate = useNavigate()
@@ -19,33 +20,54 @@ const AccountSettings = () => {
   const [showModal, setShowModal] = useState(false)
   const [changePassword, setChangePassword] = useState(false)
   const [checkQuizzes, setCheckQuizzes] = useState(false)
-  const [general, setGeneral] = useState(false)
+  const [general, setGeneral] = useState(true)
+  const [recentState, setRecentState] = useState({ general: true })
 
   const verifyCookie = Cookies.get('rememberMe') || Cookies.get('userId')
+    const  stateArray = Object.entries(recentState)
+    stateArray.map(element=>{element[0]})
+
+  useEffect(() => {
+    window.localStorage.setItem('recentState', JSON.stringify(recentState));
+  }, [recentState]);
+ 
+
+  useEffect(()=>{
+    const data = JSON.parse(window.localStorage.getItem('recentState'));
+    
+      setRecentState(data)
+  },[])
+
   useEffect(() => {
     {
       !verifyCookie && navigate('/login')
-      setGeneral(true)
-    }
+    };
   }, [])
+
+ 
 
   const handleGeneral = () => {
     setGeneral(true)
     setCheckQuizzes(false)
     setChangePassword(false)
+    const newdata = {general : true}
+    setRecentState(newdata)
   }
 
   const handlePassword = () => {
     setGeneral(false)
     setCheckQuizzes(false)
     setChangePassword(true)
+    const newdata = {changePassword : true}
+    setRecentState(newdata)
   }
 
   const handleQuizzes = () => {
     setGeneral(false)
     setCheckQuizzes(true)
     setChangePassword(false)
-    Cookies.set('myQuizzes', checkQuizzes)
+    const newdata = {checkQuizzes : true}
+    setRecentState(newdata)
   }
 
   return (
@@ -69,7 +91,7 @@ const AccountSettings = () => {
               Home
             </p>
             <AiOutlineRight className="self-center text-gray-400 hover:text-blue-700 active:text-blue-700  lg:block" />
-            <p>Name</p>
+            <p>{Cookies.get('name')}</p>
             <AiOutlineRight className="self-center text-gray-400 hover:text-blue-700 active:text-blue-700  lg:block" />
             <p className="text-[#1D2939]  lg:text-blue-700">Account</p>
           </div>
@@ -85,12 +107,12 @@ const AccountSettings = () => {
                 />
               </div>
               <div className="self-center">
-                <p>Name of wjkw;ldld</p>
-                <p>Email</p>
+                <p>{Cookies.get('name')}</p>
+                <p>{Cookies.get('email')}</p>
               </div>
             </div>
 
-            <div className="flex  justify-around xl:justify-between">
+            <div className="flex  justify-around">
               {/* selections */}
               <div className="flex mt-[100px] justify-between lg:gap-[2.563rem]">
                 <div className="font-semibold text-base tracking-wid w-max">
@@ -130,6 +152,7 @@ const AccountSettings = () => {
                 <div className="h-[600px] w-[1px] bg-[#CCCCCC]"></div>
               </div>
               {general && <UpdateProfile />}
+              
               {changePassword && <UpdatePassword />}
 
               {checkQuizzes && <UsersQuizzes />}
@@ -144,95 +167,7 @@ const AccountSettings = () => {
 
 export default AccountSettings
 
-export const UpdateProfile = () => {
-  return (
-    <div className="lg:ml-[5rem]">
-      <div className="flex  w-fit">
-        <div className="rounded-[50%] w-40 h-40 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)] mr-[2rem] ">
-          <img
-            className="border-2 rounded-[50%] h-36 w-36 bg-[#b3b3b3] self-center"
-            src={person}
-            alt="person image"
-          />
-        </div>
-        <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem]">
-          Upload New
-        </button>
-        <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none">
-          Delete Avatar
-        </button>
-      </div>
 
-      <div className="mt-[41px] grid grid-cols-2 gap-[1.5rem] w-fit">
-        <div>
-          <label>Full Name* </label>
-          <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" />
-          </div>
-        </div>
-        <div>
-          <label>Email*</label>
-          <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" />
-          </div>
-        </div>
-        <div>
-          <label>Contact</label>
-          <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" />
-          </div>
-        </div>
-        <div>
-          <label>Location</label>
-          <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" />
-          </div>
-        </div>
-        <div className="flex gap-[3rem]">
-          <div>
-            <input className="border" type="radio" /> <label>Male</label>
-          </div>
-          <div>
-            <input className="border" type="radio" /> <label>Female</label>
-          </div>
-        </div>
-      </div>
-      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
-        Save changes
-      </button>
-    </div>
-  )
-}
-
-export const UpdatePassword = () => {
-  return (
-    <div className="mt-[100px] mr-[5rem]">
-      <div className="mb-[48px]">
-        <label>Current password*</label>
-        <div className="mt-[8px] w-fit">
-          <input className="border py-[0.5rem] px-[1rem]" />
-        </div>
-      </div>
-
-      <div className="mb-[48px]">
-        <label>New Password*</label>
-        <div className="mt-[8px] w-fit">
-          <input className="border py-[0.5rem] px-[1rem]" />
-        </div>
-      </div>
-
-      <div className="mb-[18px]">
-        <label>Confirm New password*</label>
-        <div className="mt-[8px] w-fit">
-          <input className="border py-[0.5rem] px-[1rem]" />
-        </div>
-      </div>
-      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
-        Save changes
-      </button>
-    </div>
-  )
-}
 
 export const UsersQuizzes = () => {
   return <div className="self-center">Hello</div>

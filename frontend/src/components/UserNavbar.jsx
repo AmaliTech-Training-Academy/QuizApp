@@ -28,7 +28,7 @@ const UserNavbar = ({setShowSettings, showSettings}) => {
         </div>
 
         <div className='items-center justify-between gap-5 flex'>
-          <p className='px-2 py-2 bg-transparent text-blue-700'>Hello <span>Name</span></p>
+          <p className='px-2 py-2 bg-transparent text-blue-700'>Hello <span>{Cookies.get('name')}</span></p>
           <img className='border-2 rounded-full h-14 w-14 bg-[#b3b3b3] cursor-pointer' src={person} alt="person image" onClick={()=>setShowSettings(!showSettings)}/>
           <span className='relative top-5 right-10 border-8 border-green-400 rounded-full'></span>
         </div>
@@ -55,7 +55,7 @@ export const DropdownList = () =>{
         <div className='items-center gap-[16px] flex'>
           <img className='border-2 rounded-[50%] h-14 w-14 bg-[#b3b3b3]' src={person} alt="person image"/>
           <span className='relative top-6 right-8 border-8 border-green-400 rounded-full'></span>
-          <p className='font-semibold'>Name</p>
+          <p className='font-semibold'>{Cookies.get('name')}</p>
         </div>
       </div>
 

@@ -41,7 +41,7 @@ const ProfilePage = () => {
           <QuizSearch />
         </div>
         <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mb-[44px]">
-          Hello <span>Name</span>
+          Hello <span>{Cookies.get('name')}</span>
         </div>
 
         <div className="flex justify-between  flex-col gap-4 lg:flex-row mb-[46px]">
