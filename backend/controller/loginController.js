@@ -52,6 +52,10 @@ const loginUser = async (req, res) => {
           success: true,
           accessToken,
           message: "You have successfully logged in.",
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          profileImage: user.profileImage,
         });
    
   } catch (error) {
