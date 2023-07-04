@@ -1,4 +1,4 @@
-const data = require("../models/dataModel");
+const dataModel = require("../models/dataModel");
 
 // @desc Fetching Question from database
 // @route GET /api/users/questions?topicId=topicId&page=1&limit=5
@@ -10,7 +10,7 @@ const questions = async (req, res) => {
   const limit = 5; // Number of items per page
 
   try {
-    const fetchedData = await data.findOne({ _id: topicId });
+    const fetchedData = await dataModel.findOne({ _id: topicId });
     if (!fetchedData) throw new Error("Topic not found");
 
     const questionsArray = fetchedData.questions || []; // Added null check for questionsArray

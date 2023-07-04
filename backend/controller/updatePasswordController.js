@@ -36,24 +36,15 @@ const updatePassword = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Wrong Password" });
 
-    //if new password is provided, ensure that both of it and confirm password match
-    if (newPassword !== confirmPassword)
-      return res.status(400).json({
-        success: false,
-        message: "Password do not match, please try again",
-      });
-
     // Updating the password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
 
     await user.save();
+
     const response = {
       success: true,
       message: "Password updated successfully",
-      name: user.name,
-      email: user.email,
-      profileImage: user.profileImage,
     }
     res.status(200).json(response);
   } catch (error) {
