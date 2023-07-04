@@ -1,4 +1,4 @@
-const { userModel } = require("../models/userModels");
+const userModel = require("../models/userModels");
 const bcrypt = require("bcrypt");
 
 // @desc Update user details
@@ -6,11 +6,11 @@ const bcrypt = require("bcrypt");
 // @access Private
 const updateDetails = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { _id } = req.params;
     const { name, email, contact, location, gender } = req.body;
 
     //Finding user by ID
-    const user = await userModel.findById(id);
+    const user = await userModel.findById(_id);
 
     // if user does not exist, return error
     if (!user)
@@ -40,7 +40,7 @@ const updateDetails = async (req, res) => {
     res.status(200).json(response);
     console.log(response);
   } catch (error) {
-    console.log(error.message);
+    console.error(error);
     res.status(500).json({ message: "Failed to update user details" });
   }
 };

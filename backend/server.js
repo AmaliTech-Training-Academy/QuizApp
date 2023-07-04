@@ -11,15 +11,14 @@ const resetPassword = require("./routes/resetPasswordRoutes");
 const detailRoutes = require("./routes/detailRoutes");
 const passwordUpdate = require("./routes/passwordUpdateRoutes");
 const deleteRoutes = require("./routes/deleteRoutes");
-const deleteProfile = require("./routes/deleteProfileImage");
+const deleteProfile = require("./routes/deleteProfileRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const submitAnswer = require("./routes/submitAnswerRoutes");
 const Topic = require("./routes/topicRoutes");
-const { connectDB, populateDatabase } = require("./config/db");
+const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
 
 connectDB(); //connection to mongodb database
-// populateDatabase();
 
 dotenv.config();
 const port = process.env.PORT || 5000;

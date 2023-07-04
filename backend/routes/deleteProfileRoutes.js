@@ -1,5 +1,5 @@
 const express = require('express')
-const deleteProfile = require('../controller/deleteProfileImage')
+const deleteProfile = require('../controller/deleteProfileController')
 const router = express.Router()
 
 
