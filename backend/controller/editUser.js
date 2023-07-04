@@ -24,9 +24,8 @@ async function editUser(req, res) {
         profileImage: updatedUser.profileImage,
         message: "User updated successfully",
       });
-      console.log(updatedUser.profileImage)
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
