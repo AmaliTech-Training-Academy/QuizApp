@@ -1,59 +1,87 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import person from '../assets/Desktop View/Icons/person.png'
-import Api from './forms/services/api';
-import Cookies from 'js-cookie';
+import Api from './forms/services/api'
+import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
 
 export const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handlePassword = async e =>{
+  const handlePassword = async e => {
+    const id = Cookies.get('id')
     e.preventDefault()
-    if (newPassword === confirmPassword){
-      try {
-        const response = await Api.patch('users/account/649adc4e8d341643ecb22e3e/password', {currentPassword, newPassword})
-      } catch (error) {
-        
+    if (
+      currentPassword !== '' &&
+      newPassword !== '' &&
+      confirmPassword !== ''
+    ) {
+      if (newPassword === confirmPassword) {
+        try {
+          const response = await Api.patch(`users/account/${id}/password`, {
+            currentPassword,
+            newPassword,
+          })
+          console.log(response.response.data.message)
+        } catch (error) {
+          toast.warn(error.response.data.message)
+        }
       }
     }
   }
 
   return (
-    <form className="mt-[100px] mr-[5rem]">
+    <form className="mt-[100px] mr-[5rem]" onSubmit={handlePassword}>
       <div className="mb-[48px]">
         <label>Current password*</label>
         <div className="mt-[8px] w-fit">
-          <input className="border py-[0.5rem] px-[1rem]" type='password'
-                name='password'
-                value={currentPassword} required/>
+          <input
+            className="border py-[0.5rem] px-[1rem]"
+            type="password"
+            name="password"
+            value={currentPassword}
+            onChange={e => setCurrentPassword(e.target.value)}
+            required
+          />
         </div>
       </div>
 
       <div className="mb-[48px]">
         <label>New Password*</label>
         <div className="mt-[8px] w-fit">
-          <input className="border py-[0.5rem] px-[1rem]" type='password'
-                name='password'
-                value={newPassword} required/>
+          <input
+            className="border py-[0.5rem] px-[1rem]"
+            type="password"
+            name="password"
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            required
+          />
         </div>
       </div>
 
       <div className="mb-[18px]">
         <label>Confirm New password*</label>
         <div className="mt-[8px] w-fit">
-          <input className="border py-[0.5rem] px-[1rem]" type='password'
-                name='password'
-                value={confirmPassword} required/>
+          <input
+            className="border py-[0.5rem] px-[1rem]"
+            type="password"
+            name="password"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+            required
+          />
         </div>
       </div>
-      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
+      <button
+        className="p-[0.5rem] w-max h-fit self-center mt-[34px]"
+        type="submit">
         Save changes
       </button>
     </form>
   )
-};
-
+}
 
 export const UpdateProfile = () => {
   const [email, setEmail] = useState('')
@@ -82,24 +110,33 @@ export const UpdateProfile = () => {
         <div>
           <label>Full Name* </label>
           <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" placeholder={Cookies.get('name')}
-            type="text"/>
+            <input
+              className="border py-[0.5rem] px-[1rem] rounded"
+              placeholder={Cookies.get('name')}
+              type="text"
+            />
           </div>
         </div>
         <div>
           <label>Email*</label>
           <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" placeholder={Cookies.get('email')}
-                onChange={e=>setEmail(e.target.value)}
-                type='email'
-                name='email'
-                value={email} />
+            <input
+              className="border py-[0.5rem] px-[1rem] rounded"
+              placeholder={Cookies.get('email')}
+              onChange={e => setEmail(e.target.value)}
+              type="email"
+              name="email"
+              value={email}
+            />
           </div>
         </div>
         <div>
           <label>Contact</label>
           <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" type='tel'/>
+            <input
+              className="border py-[0.5rem] px-[1rem] rounded"
+              type="tel"
+            />
           </div>
         </div>
         <div>
@@ -122,4 +159,4 @@ export const UpdateProfile = () => {
       </button>
     </div>
   )
-};
+}
