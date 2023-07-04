@@ -8,7 +8,7 @@ async function editUser(req, res) {
     const { id } = req.params;
     const data = req.body;
     console.log(data);
-    const updatedUser = await userModel.findByIdAndUpdate({ _id: id }, data, {
+    const updatedUser = await userModel.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,
     });
