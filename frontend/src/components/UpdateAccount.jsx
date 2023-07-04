@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import person from '../assets/Desktop View/Icons/person.png'
 import Api from './forms/services/api'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
+import AddPhoto from './forms/uploadPhoto/AddPhoto'
 
 export const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('')
@@ -22,8 +22,9 @@ export const UpdatePassword = () => {
           const response = await Api.patch(`users/account/${id}/password`, {
             currentPassword,
             newPassword,
+            confirmPassword
           })
-          console.log(response.response.data.message)
+          toast.success(response.data.message)
         } catch (error) {
           toast.warn(error.response.data.message)
         }
@@ -75,37 +76,39 @@ export const UpdatePassword = () => {
         </div>
       </div>
       <button
-        className="p-[0.5rem] w-max h-fit self-center mt-[34px]"
-        type="submit">
+        className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
         Save changes
       </button>
     </form>
   )
-}
+};
+
+// Update Profile name, email, location and contact
 
 export const UpdateProfile = () => {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
+  const [email, setEmail] = useState(Cookies.get('email'))
+  const [name, setName] = useState(Cookies.get('name'))
+  const [contact, SetContact] = useState('')
   const [location, setLocation] = useState('')
-  const [gender, setGender] = useState('')
-  return (
-    <div className="lg:ml-[5rem]">
-      <div className="flex  w-fit">
-        <div className="rounded-[50%] w-40 h-40 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)] mr-[2rem] ">
-          <img
-            className="border-2 rounded-[50%] h-36 w-36 bg-[#b3b3b3] self-center"
-            src={person}
-            alt="person image"
-          />
-        </div>
-        <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem]">
-          Upload New
-        </button>
-        <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none">
-          Delete Avatar
-        </button>
-      </div>
+  const [gender, setGender] = useState();
 
+  const handleProfileUpdate = async e =>{
+    const id = Cookies.get('id')
+    e.preventDefault()
+    const data = {name, email, contact, location, gender}
+    try {
+      const response = await Api.patch(`users/account/_${id}/details`, data)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
+  return (
+    <div className="lg:ml-[5rem]" >
+      <AddPhoto component='updateProfile'/>
+      <form onSubmit={handleProfileUpdate}>
       <div className="mt-[41px] grid grid-cols-2 gap-[1.5rem] w-fit">
         <div>
           <label>Full Name* </label>
@@ -114,11 +117,13 @@ export const UpdateProfile = () => {
               className="border py-[0.5rem] px-[1rem] rounded"
               placeholder={Cookies.get('name')}
               type="text"
+              value={name}
+              onChange = {e=>setName(e.target.value)}
             />
           </div>
         </div>
         <div>
-          <label>Email*</label>
+          <label htmlFor='email'>Email*</label>
           <div className="mt-[8px] w-fit">
             <input
               className="border py-[0.5rem] px-[1rem] rounded"
@@ -131,32 +136,39 @@ export const UpdateProfile = () => {
           </div>
         </div>
         <div>
-          <label>Contact</label>
+          <label htmlFor='contact'>Contact</label>
           <div className="mt-[8px] w-fit">
             <input
               className="border py-[0.5rem] px-[1rem] rounded"
               type="tel"
+              name='contact'
+              value={contact}
+              onChange={e=>SetContact(e.target.value)}
             />
           </div>
         </div>
         <div>
-          <label>Location</label>
+          <label htmlFor='location'>Location</label>
           <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded" />
+            <input className="border py-[0.5rem] px-[1rem] rounded"
+            name='location' 
+            value={location}
+            onChange={e=>setLocation(e.target.value)}/>
           </div>
         </div>
         <div className="flex gap-[3rem]">
           <div>
-            <input className="border" type="radio" /> <label>Male</label>
+            <input className="border" type="radio" value='Male' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Male</label>
           </div>
           <div>
-            <input className="border" type="radio" /> <label>Female</label>
+            <input className="border" type="radio" value='Female' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Female</label>
           </div>
         </div>
       </div>
       <button className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
         Save changes
       </button>
+      </form>
     </div>
   )
 }

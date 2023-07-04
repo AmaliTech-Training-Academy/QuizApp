@@ -13,7 +13,7 @@ import MobileProfileNavbar from '../components/MobileProfileNavbar'
 
 const ProfilePage = () => {
   const navigate = useNavigate()
-  const verifyCookie = Cookies.get('rememberMe') || Cookies.get('userId')
+  const verifyCookie = Cookies.get('rememberMe')
   const [date, setDate] = useState(new Date())
   const [showSettings, setShowSettings] = useState(false)
 
@@ -29,7 +29,7 @@ const ProfilePage = () => {
       {showSettings ? <DropdownList/> : null}
       <div className='hidden lg:block'><Header quizzes="Profile" /></div>
       
-      <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px]">
+      <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
         <div className="flex justify-between mb-[46px]">
           <div className="navigations w-[131px] flex justify-between text-gray-400 text-sm/[16px] font-normal">
             <p className="self-center hover:text-blue-700 active:text-blue-700 hidden lg:block">

@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
 import person from '../assets/Desktop View/Icons/person.png'
 import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-
 const UserNavbar = ({setShowSettings, showSettings}) => {
   
   return (
-    <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px]'>
+    <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
       {/* Navbar items */}
       <div className='flex justify-between items-center w-full h-full'>
 
-        <div className='flex items-center'> 
-        <img className='h-[35px]' src={navLogo}/>
-        <img src="" alt="" />
+        <div className='flex items-center'>
+           <img className='h-[35px]' src={navLogo}/> 
         </div>
 
         <div>
@@ -29,15 +27,52 @@ const UserNavbar = ({setShowSettings, showSettings}) => {
 
         <div className='items-center justify-between gap-5 flex'>
           <p className='px-2 py-2 bg-transparent text-blue-700'>Hello <span>{Cookies.get('name')}</span></p>
-          <img className='border-2 rounded-full h-14 w-14 bg-[#b3b3b3] cursor-pointer' src={person} alt="person image" onClick={()=>setShowSettings(!showSettings)}/>
+          <ProfileImage setShowSettings={setShowSettings} showSettings={showSettings} component='navbar'/>
+          
           <span className='relative top-5 right-10 border-8 border-green-400 rounded-full'></span>
         </div>
       </div>
     </div>
   )
 }
-
 export default UserNavbar;
+
+//profileImage
+
+export const  ProfileImage = ({setShowSettings, showSettings, component, getImage})=>{
+  const [image, setImage] = useState()
+  const [imagePresent, setImagePresent] = useState(false)
+  
+  useEffect(()=>{
+    const Cookies = document.cookie
+    const cookieObject = Cookies
+      .split(';')
+      .reduce((acc, cookie) => {
+        const [name, value] = cookie.split('=');
+        acc[name.trim()] = value.trim();
+        return acc;
+      }, {});
+      const image = cookieObject?.profileImage
+      setImage(image)
+
+      if(image !== ''){
+        setImagePresent(true)
+      }
+    
+  },[]);
+
+  return(
+    <>
+    {!imagePresent ?<img className='border rounded-full bg-[#b3b3b3] cursor-pointer'
+    style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '160px', width:'160px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}
+    src={getImage || person } alt="person image" onClick={()=>setShowSettings(!showSettings)}/>:  
+    <img className='self-center border rounded-full cursor-pointer' src={getImage || image} alt="" onClick={()=>setShowSettings(!showSettings)} style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '170px', width:'170px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}/> }
+    </>
+  )
+}
+
+
+// dropdown
 
 export const DropdownList = () =>{
   const navigate = useNavigate()
@@ -53,8 +88,7 @@ export const DropdownList = () =>{
     <div className='absolute  top-[112px] lg:right-[75px] px-6 pd-6 pt-2 bg-[#FFFFFF] z-10 rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
       <div>
         <div className='items-center gap-[16px] flex'>
-          <img className='border-2 rounded-[50%] h-14 w-14 bg-[#b3b3b3]' src={person} alt="person image"/>
-          <span className='relative top-6 right-8 border-8 border-green-400 rounded-full'></span>
+          <ProfileImage/>
           <p className='font-semibold'>{Cookies.get('name')}</p>
         </div>
       </div>

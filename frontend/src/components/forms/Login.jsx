@@ -52,16 +52,15 @@ const Login = () => {
                 Cookies.set('name', response.data.name);
                 setTimeout(() => {
                     setLoading(true)
-                  }, 5000);
+                  }, 3000);
                   navigate('/profile')
                 
             } catch (error) {
-                console.log(error)
                 const err = error.response.data.message
                 toast.warn(err)
                 setTimeout(() => {
                     setLoading(true)
-                  }, 5000);
+                  }, 3000);
             }
         }
     };
