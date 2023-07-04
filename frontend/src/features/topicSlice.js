@@ -6,7 +6,7 @@ const initialState = {
     status: 'idle',
 };
 
-const baseURL = "https://nss-quizapp.up.railway.app/api/users/topic";
+const baseURL = "https://nss-quizapp.up.railway.app/api/users/topics";
 
 
 export const getTopics = createAsyncThunk('topics/get', async ()=> {
@@ -31,7 +31,7 @@ extraReducers: (builder) => {
         state.status = 'Loading...';
     })
     .addCase(getTopics.fulfilled, (state, action) => {
-        state.data = action.payload.topics;
+        state.data = action.payload.message;
         state.status = 'Success!';
     })
     .addCase(getTopics.rejected, (state, action) => {

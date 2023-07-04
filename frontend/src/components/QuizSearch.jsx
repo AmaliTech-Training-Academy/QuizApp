@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 
 export const QuizSearch = ({setQuizData}) => {
 
-  const {data: topics} = useSelector(state => state.topics)
+  const {data: topics} = useSelector(state => state.topics);
   const [query, setQuery] = useState("")
 
   const onChange = (e) => {
-    const matchedTopics = topics.filter(topic => topic.topic.includes(e.target.value));
+    const matchedTopics = topics.filter(topic => topic.topic.toLowerCase().includes(e.target.value));
     setQuizData(matchedTopics);
     setQuery()
   };

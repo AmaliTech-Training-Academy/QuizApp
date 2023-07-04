@@ -7,6 +7,7 @@ import { Question } from '../components/Question';
 import { MdOutlineTimer } from "react-icons/md";;
 import { IoIosArrowBack } from 'react-icons/io';
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
+import { getQuestions } from '../features/quizSlice';
 
 
 
@@ -15,42 +16,63 @@ export const Questions = () => {
     
     const dispatch = useDispatch();
 
-    const [quizData, setQuizData] = useState(null);
-
     const {data:topics} = useSelector((state) => state.topics);
 
-    // console.log(id, quizData);
+    const [quizData, setQuizData] = useState(null);
+//  //   const [questionData, setQuestionData] = useState(null);
+//     const questionss = useSelector((state) => state.questions.data);
+    console.log(quizData);
 
     useEffect(()=> {
-        if(!quizData){
         dispatch(getTopics())
-        }
-
-    setQuizData(topics)
+        // dispatch(getQuestions(id))
+        // setQuestionData(questionss)
+        setQuizData(topics)
     },[topics]);
 
     const quiz = topics.filter(topic => topic._id === id);
     const questions = quiz[0].questions;
     const [question, setQuestion] = useState(
         {number: 1,
-        data: questions[0]});
+        data: questions[0]}
+    );
+    const [answers, setAnswers] = useState([]);
+    const [selectedAnswer, setSelectedAnswer] = useState({
+        questionNumber: '',
+        answer: '',
+    });
+
+    const handleChoice = (e) => {
+        const chosenAnswer = {
+            questionNumber: question.number,
+            answer: e.target.value,
+        }
+        setSelectedAnswer(chosenAnswer);
+        if(answers.some(answer => answer.questionNumber === chosenAnswer.questionNumber)){
+            console.log('Choose only one answer');
+        }else{
+            setAnswers(prev=> [...prev, chosenAnswer])
+        }
+    };
 
     const activeQuestions = {
         background: "#0267FF",
         color: "#FFFFFF",
     };
 
-    const changeQuestion = (e) => {
-        const qNumber = e.target.innerText;
-        setQuestion({number: qNumber ,
-        data: questions[qNumber - 1 ]})
-    };
+    // const changeQuestion = (e) => {
+    //     const qNumber = e.target.innerText;
+    //     setQuestion({number: qNumber ,
+    //     data: questions[qNumber - 1 ]})
+    //     setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '',}))
+    // };
 
     const backArrowNav = () => {
         if(question.number > 1){
             setQuestion({number: question.number - 1 ,
             data: questions[question.number - 1 ]})
         }
+        setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '',}))
     };
 
     const forwardArrowNav = () => {
@@ -58,16 +80,19 @@ export const Questions = () => {
             setQuestion({number: question.number + 1 ,
             data: questions[question.number]})
         }
+        setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '',}))
     };
 
     const boxShadow = {
         boxShadow: "4px 4px 17px -3px rgba(0, 0, 0, 0.25)"
+    };
 
-    }
+    console.log(selectedAnswer);
+    console.log(answers);
 
     return (
     <div className='bg-[#0267FF] lg:bg-transparent'>
-        <div className='hidden lg:block'>
+        {/* <div className='hidden lg:block'>
         <Navbar/>
         </div>
         <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col lg:justify-between mb-8' id='quiz-header' >
@@ -77,7 +102,7 @@ export const Questions = () => {
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {quiz[0].topic}</div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {question.number} of {questions.length}</div>
             <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> 00:59:00</div>
-        </div>
+        </div> */}
 
         {/* Questions */}
         <div className='bg-white rounded-t-[2rem] relative pt-24 lg:pt-0 px-4 lg:px-0 '>
@@ -125,7 +150,7 @@ export const Questions = () => {
         </div>
         {/* Question */}
         <div className='lg:mt-28 h-80'>
-            <Question data={question}/>
+            <Question data={question} selectedAnswer={selectedAnswer} handleChoice={handleChoice}/>
         </div>
         <div className='lg:hidden flex justify-between mt-14'>
             <button 

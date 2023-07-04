@@ -1,24 +1,32 @@
-import React from 'react'
+import React, { useState} from 'react'
 import { Answer } from './Answer';
 
 export const Question = (props) => {
-    const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
+    const {selectedAnswer, handleChoice } = props;
+    const {data, answers} = props.data;
+    const page  = props.questionNumber;
+    
 
-    const { number, data} = props.data;
-    // console.log(number, data);
-  return (
+    const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
+    // console.log(answers);
+
+return (
     <div className='lg:w-8/12 mx-auto text-left text-[#737373] lg:text-black'>
-    <div className='lg:text-2xl'>{number}. {data.question}</div>
+    <div className='lg:text-2xl'>{page}. {data}</div>
 
     <div className='lg:grid lg:grid-cols-2 justify-center lg:gap-x-28 lg:gap-y-9 gap-y-4 lg:mt-16 mt-4'>
     { 
-        data.answers.map((answer, index) => { 
+        answers?.map((answer, index) => { 
         const letter = answerDesignations[index % answerDesignations.length];
         return(
             <Answer 
             letter={letter}
             text={answer.text}
             key={answer._id}
+            value={index + 1}
+            handleChoice={handleChoice}
+            selectedAnswer={selectedAnswer}
+            handle
             />
         )})
     }
