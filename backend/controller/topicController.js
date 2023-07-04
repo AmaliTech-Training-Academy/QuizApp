@@ -1,4 +1,4 @@
-const dataModel = require("../models/dataModel");
+const dataModel = require("../models/quizModel");
 
 // @desc Fetching topics without questions, points, and answers
 // @route POST /api/users/topic
@@ -13,11 +13,13 @@ const Topic = async (req, res) => {
         topic: data.topic,
         desktopImage: data.desktopImage,
       }));
-      
+
       console.log({ success: true, message: topics });
       return res.status(200).json({ success: true, message: topics });
     } else {
-      return res.status(404).json({ success: false, message: "Topic Not Found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Topic Not Found" });
     }
   } catch (error) {
     console.log(error.message);

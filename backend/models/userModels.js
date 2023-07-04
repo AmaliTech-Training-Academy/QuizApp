@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { Schema } = require("mongoose");
+const Quiz = require("./quizModel");
 
 const userSchema = new mongoose.Schema(
   {
@@ -44,16 +45,11 @@ const userSchema = new mongoose.Schema(
     addInterest: {
       type: [String],
     },
-    user: {
+    quiz: [{
       type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    userAnswers: [
-      {
-        questions: String,
-        answer: String,
-      },
-    ],
+      ref: "Quiz",
+      score: Schema.Types.Decimal128
+    }],
   },
   {
     timestamps: true,
