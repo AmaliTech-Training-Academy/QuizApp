@@ -13,6 +13,7 @@ const passwordUpdate = require("./routes/passwordUpdateRoutes");
 const deleteRoutes = require("./routes/deleteRoutes");
 const deleteProfile = require("./routes/deleteProfileRoutes");
 const questionRoutes = require("./routes/questionRoutes");
+const myQuizzes = require("./routes/myQuizzesRoutes");
 const submitAnswer = require("./routes/submitAnswerRoutes");
 const Topic = require("./routes/topicRoutes");
 const { connectDB } = require("./config/db");
@@ -46,6 +47,7 @@ app.use("/api/users/delete-profile", deleteProfile);
 app.use("/api/users/topics", Topic);
 app.use("/api/users/questions", questionRoutes);
 app.use("/api/users/questions", submitAnswer);
+app.use("/api/users/:userId", myQuizzes);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

@@ -45,10 +45,15 @@ const userSchema = new mongoose.Schema(
     addInterest: {
       type: [String],
     },
-    quiz: [{
-      type: Schema.Types.ObjectId,
-      ref: "Quiz",
-      score: Schema.Types.Decimal128
+    quizzes: [{
+      quizId: {
+        type: Schema.Types.ObjectId,
+        ref: "Quiz",
+      },
+      score: {
+        type: mongoose.Schema.Types.Decimal128,
+        default: 0
+      }
     }],
   },
   {

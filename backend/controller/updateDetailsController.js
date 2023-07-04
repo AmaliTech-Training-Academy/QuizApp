@@ -6,11 +6,11 @@ const bcrypt = require("bcrypt");
 // @access Private
 const updateDetails = async (req, res) => {
   try {
-    const { _id } = req.params;
+    const { id } = req.params;
     const { name, email, contact, location, gender } = req.body;
 
     //Finding user by ID
-    const user = await userModel.findById(_id);
+    const user = await userModel.findById(id);
 
     // if user does not exist, return error
     if (!user)
