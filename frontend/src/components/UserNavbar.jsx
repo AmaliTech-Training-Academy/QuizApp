@@ -85,7 +85,8 @@ export const DropdownList = () =>{
   }
 
   return(
-    <div className='absolute  top-[112px] lg:right-[75px] px-6 pd-6 pt-2 bg-[#FFFFFF] z-10 rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
+    <div className=' fixed  inset-x-0 inset-y-0 bg-[#CCCCCC] opacity-80 flex content-center justify-center '>
+      <div className='absolute top-[100px] lg:top-[112px] lg:right-[75px]   left-[0] px-6 pd-6 pt-2 bg-[#FFFFFF] z-100 rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
       <div>
         <div className='items-center gap-[16px] flex'>
           <ProfileImage/>
@@ -102,6 +103,7 @@ export const DropdownList = () =>{
         <hr className='h-[1px]'/>
         <li className='cursor-pointer hover:text-blue-700' onClick={handleLogout}>Logout</li>
       </ul>
+      </div>
     </div>
   );
 }

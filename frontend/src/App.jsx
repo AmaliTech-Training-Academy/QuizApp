@@ -12,6 +12,9 @@ import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import Cookies from 'js-cookie'
 import AccountSettings from './pages/AccountSettings'
+import GeneralSettings from './pages/GeneralSettings'
+import PasswordSettings from './pages/PasswordSettings'
+import MyQuizzes from './pages/MyQuizzes'
 
 function App() {
   const verifyCookie = Cookies.get('rememberMe')
@@ -29,6 +32,9 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path='/account-settings' element={<AccountSettings/>}/>
+          <Route path='/general-settings' element={<GeneralSettings/>}/>
+          <Route path='/password-settings' element={<PasswordSettings/>}/>
+          <Route path='/my-quizzes' element={<MyQuizzes/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>

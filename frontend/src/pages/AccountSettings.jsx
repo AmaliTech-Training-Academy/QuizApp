@@ -5,21 +5,32 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import Cookies from 'js-cookie'
 import { AiOutlineRight } from 'react-icons/ai'
-import { MdOutlinePeople, MdLockOutline, MdOutlineQuiz, MdDeleteOutline} from 'react-icons/md'
+import { MdOutlinePeople, MdLockOutline, MdOutlineQuiz, MdDeleteOutline,MdChevronRight} from 'react-icons/md'
 import { UpdatePassword, UpdateProfile } from '../components/UpdateAccount'
 import Api from '../components/forms/services/api'
 import { toast } from 'react-toastify'
+import MobileProfileNavbar from '../components/MobileProfileNavbar'
+import { changeSection } from '../features/sectionSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const AccountSettings = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const currentSection = useSelector(state=> state.section);
+  console.log(currentSection);
+
   const [showSettings, setShowSettings] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [changePassword, setChangePassword] = useState(false)
-  const [checkQuizzes, setCheckQuizzes] = useState(false)
-  const [general, setGeneral] = useState(true)
+  const [changePassword, setChangePassword] = useState(currentSection.password)
+  const [checkQuizzes, setCheckQuizzes] = useState(currentSection.myQuizzes)
+  const [general, setGeneral] = useState(currentSection.general)
   const [recentState, setRecentState] = useState({ general: true })
 
-  const verifyCookie = Cookies.get('rememberMe') || Cookies.get('userId')
+  console.log(general, checkQuizzes, changePassword);
+
+  const verifyCookie = Cookies.get('rememberMe')
     const  stateArray = Object.entries(recentState)
     stateArray.map(element=>{element[0]})
 
@@ -41,29 +52,40 @@ const AccountSettings = () => {
   }, [])
 
  
-
   const handleGeneral = () => {
+    dispatch(changeSection({ general: true, password: false, myQuizzes: false }));
     setGeneral(true)
     setCheckQuizzes(false)
     setChangePassword(false)
     const newdata = {general : true}
     setRecentState(newdata)
+    if(window.innerWidth <=700){
+      navigate('/general-settings')
+    }
   }
 
   const handlePassword = () => {
+    dispatch(changeSection({ general: false, password: true, myQuizzes: false }));
     setGeneral(false)
     setCheckQuizzes(false)
     setChangePassword(true)
     const newdata = {changePassword : true}
     setRecentState(newdata)
+    if(window.innerWidth <=700){
+      navigate('/password-settings')
+    }
   }
 
   const handleQuizzes = () => {
+    dispatch(changeSection({ general: false, password: false, myQuizzes: true }));
     setGeneral(false)
     setCheckQuizzes(true)
     setChangePassword(false)
     const newdata = {checkQuizzes : true}
     setRecentState(newdata)
+    if(window.innerWidth <=700){
+      navigate('/my-quizzes')
+    }
   }
 
   return (
@@ -76,13 +98,14 @@ const AccountSettings = () => {
           setShowSettings={setShowSettings}
           showSettings={showSettings}
         />
+        <MobileProfileNavbar setShowSettings={setShowSettings} showSettings={showSettings}/>
         {showSettings && <DropdownList />}
-        <div className='hidden lg:block'>
+        <div className='hidden md:block'>
           <Header quizzes="Account Settings" />
         </div>
 
         <section className="m-[auto] lg:mt-[38px] px-4  py-4  3xl:px-[230px] md:px-16">
-          <div className="navigations w-[241px] flex justify-between text-gray-400 text-sm/[16px] font-normal mt-[46px]">
+          <div className="navigations w-[241px] justify-between text-gray-400 text-sm/[16px] font-normal mt-[46px] hidden md:flex">
             <p className="self-center hover:text-blue-700 active:text-blue-700 lg:block">
               Home
             </p>
@@ -92,49 +115,42 @@ const AccountSettings = () => {
             <p className="text-[#1D2939]  lg:text-blue-700">Account</p>
           </div>
 
-          <div className=" mt-[127px] mb-[316px] lg:justify-center xl:w-[70%]  m-auto">
+          <div className=" md:mt-[127px] mb-[316px] lg:justify-center xl:w-[70%]  m-auto">
             {/* profile name and mail */}
-            <div className="flex gap-[1.5rem] mb-[104px]">
-              <div className="rounded-[50%] w-16 h-16 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)]">
-                 <ProfileImage component='settings'/>
-              </div>
-              <div className="self-center">
-                <p>{Cookies.get('name')}</p>
-                <p>{Cookies.get('email')}</p>
-              </div>
-            </div>
+            <UserDetails/>
 
-            <div className="flex  justify-around">
+            <div className="md:flex  justify-around">
               {/* selections */}
-              <div className="flex mt-[100px] justify-between lg:gap-[2.563rem]">
-                <div className="font-semibold text-base tracking-wid w-max">
-                  <div
-                    className="flex gap-[0.5rem] p-[0.5rem] content-center  hover:text-[#0267FF] cursor-pointer"
-                    onClick={handleGeneral}
-                    style={general ? { color: '#0267FF' } : { color: 'black' }}>
+              <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
+                <div className="font-semibold text-base tracking-wid md:w-max">
+                  <div className='flex content-center justify-between'style={general ? { color: '#0267FF' } : { color: 'black' }}
+                    onClick={handleGeneral}>
+                  <div className="flex gap-[0.5rem] p-[0.5rem]  hover:text-[#0267FF] cursor-pointer">
                     <MdOutlinePeople className=" self-center w-[1.5rem] h-[1.5rem]" />
                     <p>General</p>
                   </div>
-                  <div
-                    className="flex gap-[0.5rem] p-[0.5rem] content-center mt-[50px] cursor-pointer"
-                    onClick={handlePassword}
-                    style={
-                      changePassword ? { color: '#0267FF' } : { color: 'black' }
-                    }>
-                    <MdLockOutline className="w-[1.5rem] h-[1.5rem]" />
-                    <p>Password</p>
+                  <MdChevronRight className='md:hidden  self-center'/>
                   </div>
-                  <div
-                    className="flex gap-[0.5rem] p-[0.5rem] content-center mt-[50px] cursor-pointer"
-                    onClick={handleQuizzes}
-                    style={
-                      checkQuizzes ? { color: '#0267FF' } : { color: 'black' }
-                    }>
-                    <MdOutlineQuiz className="w-[1.5rem] h-[1.5rem]" />
-                    <p>My Quizzes</p>
+
+                  <div className='flex content-center mt-[50px] justify-between'style={changePassword ? { color: '#0267FF' } : { color: 'black' } }
+                    onClick={handlePassword}>
+                    <div className="flex gap-[0.5rem] p-[0.5rem] cursor-pointer">
+                      <MdLockOutline className="w-[1.5rem] h-[1.5rem]" />
+                      <p>Password</p>
+                    </div>
+                    <MdChevronRight className='md:hidden  self-center'/>
                   </div>
-                  <div
-                    className="flex gap-[0.5rem] p-[0.5rem] content-center text-[#FF0000] mt-[50px] cursor-pointer"
+
+                  <div className='flex content-center mt-[50px] justify-between'style={checkQuizzes ? { color: '#0267FF' } : { color: 'black' }}
+                      onClick={handleQuizzes}>
+                    <div className="flex gap-[0.5rem] p-[0.5rem]  cursor-pointer">
+                      <MdOutlineQuiz className="w-[1.5rem] h-[1.5rem]" />
+                      <p>My Quizzes</p>
+                    </div>
+                    <MdChevronRight className='md:hidden  self-center'/>
+                  </div>
+
+                  <div className="flex gap-[0.5rem] p-[0.5rem] content-center text-[#FF0000] mt-[50px] cursor-pointer"
                     onClick={() => setShowModal(!showModal)}>
                     <MdDeleteOutline className="w-[1.5rem] h-[1.5rem] " />
                     <p>Delete Account</p>
@@ -143,15 +159,14 @@ const AccountSettings = () => {
 
                 <div className="h-[600px] w-[1px] bg-[#CCCCCC] hidden md:block"></div>
               </div>
-              {general && <UpdateProfile />}
+              <div className='hidden md:block'>{general && <UpdateProfile />}</div>
               
-              {changePassword && <UpdatePassword />}
-
-              {checkQuizzes && <UsersQuizzes />}
+              <div className='hidden md:block'> {changePassword && <UpdatePassword />}</div>
+              <div className='hidden md:block'> {checkQuizzes && '<UsersQuizzes />'}</div>
             </div>
           </div>
         </section>
-        {!showModal && <Footer />}
+        <div className='hidden md:block'>{!showModal && <Footer />}</div>
       </section>
     </>
   )
@@ -159,11 +174,20 @@ const AccountSettings = () => {
 
 export default AccountSettings
 
-
-
-export const UsersQuizzes = () => {
-  return <div className="self-center">Hello</div>
+export const UserDetails = ()=>{
+  return(
+    <div className="flex gap-[1.5rem] mb-[104px]  ">
+              <div className="rounded-[50%] w-16 h-16 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)]">
+                 <ProfileImage component='settings'/>
+              </div>
+              <div className="self-center">
+                <p>{Cookies.get('name')}</p>
+                <p>{Cookies.get('email')}</p>
+              </div>
+            </div>
+  )
 }
+
 
 export const DeleteModale = ({ showModal, setShowModal }) => {
   const id = Cookies.get('id')
@@ -214,3 +238,5 @@ export const DeleteModale = ({ showModal, setShowModal }) => {
     </div>
   )
 }
+
+ 

@@ -42,12 +42,12 @@ export const UpdatePassword = () => {
   }
 
   return (
-    <form className="mt-[100px] mr-[5rem]" onSubmit={handlePassword}>
+    <form className="md:mt-[100px] md:mr-[5rem] px-8 md:px-0" onSubmit={handlePassword}>
       <div className="mb-[48px]">
         <label>Current password*</label>
-        <div className="mt-[8px] w-fit">
+        <div className="mt-[8px] md:w-fit">
           <input
-            className="border py-[0.5rem] px-[1rem]"
+            className="border py-[0.5rem] px-[1rem] w-full"
             type="password"
             name="password"
             value={currentPassword}
@@ -59,9 +59,9 @@ export const UpdatePassword = () => {
 
       <div className="mb-[48px]">
         <label>New Password*</label>
-        <div className="mt-[8px] w-fit">
+        <div className="mt-[8px] md:w-fit">
           <input
-            className="border py-[0.5rem] px-[1rem]"
+            className="border py-[0.5rem] px-[1rem] w-full"
             type="password"
             name="password"
             value={newPassword}
@@ -73,9 +73,9 @@ export const UpdatePassword = () => {
 
       <div className="mb-[18px]">
         <label>Confirm New password*</label>
-        <div className="mt-[8px] w-fit">
+        <div className="mt-[8px] md:w-fit">
           <input
-            className="border py-[0.5rem] px-[1rem]"
+            className="border py-[0.5rem] px-[1rem] w-full"
             type="password"
             name="password"
             value={confirmPassword}
@@ -121,14 +121,14 @@ export const UpdateProfile = () => {
 
   return (
     <div className="lg:ml-[5rem]" >
-      <AddPhoto component='updateProfile'/>
-      <form onSubmit={handleProfileUpdate}>
-      <div className="mt-[41px] grid grid-cols-2 gap-[1.5rem] w-fit">
-        <div>
+      <div className='hidden md:block'><AddPhoto component='updateProfile'/></div>
+      <form onSubmit={handleProfileUpdate} className='px-8 md:px-0'>
+      <div className="md:mt-[41px] md:grid md:grid-cols-2 md:gap-[1.5rem] md:w-fit">
+        <div className=''>
           <label>Full Name* </label>
-          <div className="mt-[8px] w-fit">
+          <div className="mt-[8px] md:w-fit ">
             <input
-              className="border py-[0.5rem] px-[1rem] rounded"
+              className="border py-[0.5rem] px-[1rem] rounded w-full"
               placeholder={Cookies.get('name')}
               type="text"
               value={name}
@@ -136,11 +136,11 @@ export const UpdateProfile = () => {
             />
           </div>
         </div>
-        <div>
+        <div className=' md:mt-[0px] mt-[24px]'>
           <label htmlFor='email'>Email*</label>
-          <div className="mt-[8px] w-fit">
+          <div className="mt-[8px] md:w-fit">
             <input
-              className="border py-[0.5rem] px-[1rem] rounded"
+              className="border py-[0.5rem] px-[1rem] rounded w-full"
               placeholder={Cookies.get('email')}
               onChange={e => setEmail(e.target.value)}
               type="email"
@@ -149,11 +149,11 @@ export const UpdateProfile = () => {
             />
           </div>
         </div>
-        <div>
+        <div className=' md:mt-[0px] mt-[24px]'>
           <label htmlFor='contact'>Contact</label>
-          <div className="mt-[8px] w-fit">
+          <div className="mt-[8px] md:w-fit">
             <input
-              className="border py-[0.5rem] px-[1rem] rounded"
+              className="border py-[0.5rem] px-[1rem] rounded w-full"
               type="tel"
               name='contact'
               value={contact}
@@ -161,16 +161,16 @@ export const UpdateProfile = () => {
             />
           </div>
         </div>
-        <div>
+        <div className=' md:mt-[0px] mt-[24px]'>
           <label htmlFor='location'>Location</label>
-          <div className="mt-[8px] w-fit">
-            <input className="border py-[0.5rem] px-[1rem] rounded"
+          <div className="mt-[8px] md:w-fit">
+            <input className="border py-[0.5rem] px-[1rem] rounded w-full"
             name='location' 
             value={location}
             onChange={e=>setLocation(e.target.value)}/>
           </div>
         </div>
-        <div className="flex gap-[3rem]">
+        <div className="flex gap-[3rem]  md:mt-[0px] mt-[24px]" >
           <div>
             <input className="border" type="radio" value='Male' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Male</label>
           </div>

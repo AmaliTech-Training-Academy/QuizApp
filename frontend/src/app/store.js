@@ -4,6 +4,7 @@ import authReducer from '../features/authSlice';
 import topicSlice from '../features/topicSlice';
 import { persistReducer } from 'redux-persist';
 import storage  from "redux-persist/lib/storage";
+import sectionSlice from '../features/sectionSlice'
 
 
 const persistConfig = {
@@ -15,6 +16,7 @@ const persistConfig = {
       topics: topicSlice,
       counter: stepperReducer,
       authenticator : authReducer,
+      section: sectionSlice,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
