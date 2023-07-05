@@ -28,12 +28,15 @@ const submitAnswer = async (req, res) => {
         (answer) => answer.text === submittedAnswer
       );
 
+      const questionNumber = i + 1;
+
       const correctAnswer = question.answers.find((answer) => answer.is_correct)
 
       // checking if the submitted answer matches the correct answer
       if (chosenAnswer && chosenAnswer.is_correct) {
         score += question?.points;
         results.push({
+          questionNumber,
           question: question.question,
           answer: correctAnswer.text,
           chosenAnswer: chosenAnswer.text,
@@ -41,6 +44,7 @@ const submitAnswer = async (req, res) => {
         });
       } else {
         results.push({
+          questionNumber,
           question: question.question,
           correctAnswer: correctAnswer.text,
           chosenAnswer: chosenAnswer ? chosenAnswer.text : null,
