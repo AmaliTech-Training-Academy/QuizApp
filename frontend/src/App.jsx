@@ -28,7 +28,7 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path='account-settings' element={<AccountSettings/>}/>
+          <Route path='/account-settings' element={<AccountSettings/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>

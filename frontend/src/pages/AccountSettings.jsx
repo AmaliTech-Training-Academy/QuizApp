@@ -5,13 +5,10 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import Cookies from 'js-cookie'
 import { AiOutlineRight } from 'react-icons/ai'
-import {
-  MdOutlinePeople,
-  MdLockOutline,
-  MdOutlineQuiz,
-  MdDeleteOutline,
-} from 'react-icons/md'
+import { MdOutlinePeople, MdLockOutline, MdOutlineQuiz, MdDeleteOutline} from 'react-icons/md'
 import { UpdatePassword, UpdateProfile } from '../components/UpdateAccount'
+import Api from '../components/forms/services/api'
+import { toast } from 'react-toastify'
 
 const AccountSettings = () => {
   const navigate = useNavigate()
@@ -80,7 +77,7 @@ const AccountSettings = () => {
           showSettings={showSettings}
         />
         {showSettings && <DropdownList />}
-        <div>
+        <div className='hidden lg:block'>
           <Header quizzes="Account Settings" />
         </div>
 
@@ -99,12 +96,7 @@ const AccountSettings = () => {
             {/* profile name and mail */}
             <div className="flex gap-[1.5rem] mb-[104px]">
               <div className="rounded-[50%] w-16 h-16 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)]">
-                {/* <img
-                  className="border-2 rounded-[50%] h-14 w-14 bg-[#b3b3b3] self-center"
-                  src={person}
-                  alt="person image"
-                /> */}
-                <ProfileImage component='settings'/>
+                 <ProfileImage component='settings'/>
               </div>
               <div className="self-center">
                 <p>{Cookies.get('name')}</p>
@@ -174,15 +166,40 @@ export const UsersQuizzes = () => {
 }
 
 export const DeleteModale = ({ showModal, setShowModal }) => {
-  const handleDelete = () =>{}
+  const id = Cookies.get('id')
+  const navigate = useNavigate()
+  const[isChecked, setIsChecked] = useState(false)
+  
+  const handleDelete = async e =>{
+    e.preventDefault()
+    if(isChecked){
+      try {
+        const response =  await Api.delete(`users/delete/${id}`)
+        toast.success(response.data.message)
+        navigate('/signup')
+        Cookies.remove('id')
+        Cookies.remove('rememberMe')
+      } catch (error) {
+        toast.warn(error.response.data.message)
+      }
+    }else{
+      toast.error('check box to confirm deletion')
+    }
+    
+  };
+
   return (
-    <div className="fixed  inset-x-0 inset-y-0 bg-[#CCCCCC] opacity-80 flex content-center justify-center">
-      <div className="p-[1.5rem] w-[22.75rem] bg-[#FFFFFF] border-black rounded-lg m-auto opacity-100">
+    <div className="fixed  inset-x-0 inset-y-0 bg-[#CCCCCC] opacity-80 flex content-center justify-center ">
+      <form className="absolute p-[1.5rem] w-[22.75rem] bg-[#FFFFFF] border-black rounded-lg m-auto top-[50%]">
         <p className="mb-[8px] text-[#1D2939] font-semibold">Delete Account</p>
         <p className="mb-[16px]">
           Hey, if you're absolutely sure you want to delete your account, we got
           you covered. This Process cannot be undone
         </p>
+        <div className='mb-[16px] flex self-between'>
+          <input type='checkbox' checked={isChecked} onChange={e=>setIsChecked(e.target.checked)} className='w-[20px] h-[20px] self-center '/>
+          <p className='ml-[3px]'>Confirm you want to delete account</p>
+        </div>
         <div className="flex justify-between">
           <button
             className="border-[#B3B3B3] px-5 py-2 bg-[white] text-black"
@@ -193,7 +210,7 @@ export const DeleteModale = ({ showModal, setShowModal }) => {
             Yes, Delete Account
           </button>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

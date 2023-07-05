@@ -3,11 +3,13 @@ import Api from './forms/services/api'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import AddPhoto from './forms/uploadPhoto/AddPhoto'
+import { RotatingLines } from 'react-loader-spinner'
 
 export const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(true)
 
   const handlePassword = async e => {
     const id = Cookies.get('id')
@@ -19,14 +21,21 @@ export const UpdatePassword = () => {
     ) {
       if (newPassword === confirmPassword) {
         try {
+          setLoading(!loading)
           const response = await Api.patch(`users/account/${id}/password`, {
             currentPassword,
             newPassword,
             confirmPassword
           })
           toast.success(response.data.message)
+          setTimeout(() => {
+            setLoading(true)
+          }, 3000);
         } catch (error) {
           toast.warn(error.response.data.message)
+          setTimeout(() => {
+            setLoading(true)
+          }, 3000);
         }
       }
     }
@@ -75,10 +84,13 @@ export const UpdatePassword = () => {
           />
         </div>
       </div>
+      {!loading ? ( <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
+      ):(
       <button
         className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
         Save changes
-      </button>
+      </button>)}
+      
     </form>
   )
 };
@@ -97,10 +109,12 @@ export const UpdateProfile = () => {
     e.preventDefault()
     const data = {name, email, contact, location, gender}
     try {
-      const response = await Api.patch(`users/account/_${id}/details`, data)
+      const response = await Api.patch(`users/account/${id}/details`, data)
+      toast.success(response.data.message)
       console.log(response)
     } catch (error) {
-      console.log(error)
+      const err = error.response.data.message
+      toast.warn(err)
     }
     
   }

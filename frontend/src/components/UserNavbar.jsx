@@ -63,7 +63,7 @@ export const  ProfileImage = ({setShowSettings, showSettings, component, getImag
 
   return(
     <>
-    {!imagePresent ?<img className='border rounded-full bg-[#b3b3b3] cursor-pointer'
+    {!imagePresent ?<img className='border rounded-full bg-[#b3b3b3] cursor-pointer self-center'
     style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '160px', width:'160px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}
     src={getImage || person } alt="person image" onClick={()=>setShowSettings(!showSettings)}/>:  
     <img className='self-center border rounded-full cursor-pointer' src={getImage || image} alt="" onClick={()=>setShowSettings(!showSettings)} style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '170px', width:'170px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}/> }
