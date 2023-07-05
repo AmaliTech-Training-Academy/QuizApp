@@ -5,11 +5,11 @@ const quizModel = require("../models/quizModel");
 // @route POST /api/users/questions/answers
 // @access Private
 const submitAnswer = async (req, res) => {
-  const { userId, quizId, answers } = req.body;
+  const { userId, quizId: _id, answers } = req.body;
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
-    const quiz = await quizModel.findById(quizId);
+    const quiz = await quizModel.findById(_id);
 
     if (!user)
       return res
@@ -18,32 +18,39 @@ const submitAnswer = async (req, res) => {
 
     let score = 0;
     let results = [];
+
     for (let i = 0; i < answers.length; i++) {
       const submittedAnswer = answers[i];
       const question = quiz.questions[i];
-      const correctAnswer = question.answers.find(
-        (answer) => answer.is_correct
+
+      // Finding the chosen answer based on the submitted answer
+      const chosenAnswer = question.answers.find(
+        (answer) => answer.text === submittedAnswer
       );
 
+      const correctAnswer = question.answers.find((answer) => answer.is_correct)
+
       // checking if the submitted answer matches the correct answer
-      if (submittedAnswer === correctAnswer.text) {
-        score += question.points;
+      if (chosenAnswer && chosenAnswer.is_correct) {
+        score += question?.points;
         results.push({
           question: question.question,
-          answer: submittedAnswer,
+          answer: correctAnswer.text,
+          chosenAnswer: chosenAnswer.text,
           isCorrect: true,
         });
       } else {
         results.push({
           question: question.question,
           correctAnswer: correctAnswer.text,
+          chosenAnswer: chosenAnswer ? chosenAnswer.text : null,
           isCorrect: false,
         });
       }
     }
 
     const existingQuiz = user.quizzes.find(
-      (item) => item.quizId.toString() === quizId
+      (item) => item.quizId.toString() === _id
     );
 
     if (existingQuiz) {
@@ -51,14 +58,12 @@ const submitAnswer = async (req, res) => {
       existingQuiz.score = score;
     } else {
       // user is taking this quiz for the first time, adding it to the quizzes array
-      user.quizzes.push({ quizId, score });
+      user.quizzes.push({ quizId: _id, score });
     }
 
     await user.save();
 
-    // Accessing the quizzes associated with the user
-    const quizzes = user.quizzes;
-    res.status(200).json({ success: true, quizzes, score, results });
+    res.status(200).json({ success: true, score, results });
   } catch (error) {
     console.error(error);
     res
