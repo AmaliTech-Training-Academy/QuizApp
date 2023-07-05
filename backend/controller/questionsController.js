@@ -31,8 +31,8 @@ const questions = async (req, res) => {
     // Fetching the current question
     const currentQuestion = questionsArray[page - 1];
 
-    // Extracting only the answer texts from answers
-    const extractedAnswers = currentQuestion.answers.map(({ text }) => text);
+    // Extracting the answer texts and ids from answers
+    const extractedAnswers = currentQuestion.answers.map(({ text, _id }) => ({ text, _id }));
     
     const response = {
       success: true,
