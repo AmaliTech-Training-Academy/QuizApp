@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const quizModel = require("../models/quizModel");
 
 // @desc Fetching Question from database
@@ -10,8 +11,12 @@ const questions = async (req, res) => {
   const limit = 5; // Number of items per page
 
   try {
-    const fetchedData = await quizModel.findOne({ _id: topicId });
-    if (!fetchedData) return res.status(404).json({ message: "Quiz Not found"})
+    if (!mongoose.Types.ObjectId.isValid(topicId))
+      throw new Error("Invalid topicId");
+
+    const fetchedData = await quizModel.findById({ _id: topicId });
+    if (!fetchedData)
+      return res.status(404).json({ message: "Quiz Not found" });
 
     const questionsArray = fetchedData.questions || []; // Added null check for questionsArray
     const totalQuestions = questionsArray.length;
@@ -25,6 +30,10 @@ const questions = async (req, res) => {
 
     // Fetching the current question
     const currentQuestion = questionsArray[page - 1];
+
+    // Extracting only the answer texts from answers
+    const extractedAnswers = currentQuestion.answers.map(({ text }) => text);
+    
     const response = {
       success: true,
       topicId,
@@ -32,7 +41,7 @@ const questions = async (req, res) => {
       limit,
       totalQuestions,
       question: currentQuestion.question,
-      answers: currentQuestion.answers,
+      answers: extractedAnswers,
     };
     res.status(200).json(response);
     console.log(response);
