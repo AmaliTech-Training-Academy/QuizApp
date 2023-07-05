@@ -11,14 +11,15 @@ const resetPassword = require("./routes/resetPasswordRoutes");
 const detailRoutes = require("./routes/detailRoutes");
 const passwordUpdate = require("./routes/passwordUpdateRoutes");
 const deleteRoutes = require("./routes/deleteRoutes");
+const deleteProfile = require("./routes/deleteProfileRoutes");
 const questionRoutes = require("./routes/questionRoutes");
+const myQuizzes = require("./routes/myQuizzesRoutes");
 const submitAnswer = require("./routes/submitAnswerRoutes");
 const Topic = require("./routes/topicRoutes");
-const { connectDB, populateDatabase } = require("./config/db");
+const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
 
 connectDB(); //connection to mongodb database
-// populateDatabase();
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -42,9 +43,11 @@ app.use("/api/users/resetPassword", resetPassword);
 app.use("/api/users/account", detailRoutes);
 app.use("/api/users/account", passwordUpdate);
 app.use("/api/users/delete", deleteRoutes);
+app.use("/api/users/delete-profile", deleteProfile);
 app.use("/api/users/topics", Topic);
 app.use("/api/users/questions", questionRoutes);
 app.use("/api/users/questions", submitAnswer);
+app.use("/api/users/:userId", myQuizzes);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);

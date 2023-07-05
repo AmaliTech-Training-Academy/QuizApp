@@ -12,11 +12,11 @@ const questionSchema = new Schema({
   ],
 });
 
-const topicSchema = new Schema({
+const quizSchema = new Schema({
   topic: String,
   desktopImage: String,
   questions: [questionSchema],
 });
 
-const Topic = mongoose.model("Topic", topicSchema);
-module.exports = Topic;
+const Quiz = mongoose.model("Quiz", quizSchema);
+module.exports = Quiz;

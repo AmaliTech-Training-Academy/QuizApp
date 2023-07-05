@@ -1,4 +1,4 @@
-const data = require("../models/dataModel");
+const quizModel = require("../models/quizModel");
 
 // @desc Fetching Question from database
 // @route GET /api/users/questions?topicId=topicId&page=1&limit=5
@@ -6,11 +6,11 @@ const data = require("../models/dataModel");
 const questions = async (req, res) => {
   const topicId = req.query.topicId;
   const page = parseInt(req.query.page) || 1; // current page number
-  console.log(page)
+  console.log(page);
   const limit = 5; // Number of items per page
 
   try {
-    const fetchedData = await data.findOne({ _id: topicId });
+    const fetchedData = await quizModel.findOne({ _id: topicId });
     if (!fetchedData) throw new Error("Topic not found");
 
     const questionsArray = fetchedData.questions || []; // Added null check for questionsArray
@@ -37,7 +37,7 @@ const questions = async (req, res) => {
     res.status(200).json(response);
     console.log(response);
   } catch (error) {
-    console.log(error.message);
+    console.error(error);
     res
       .status(500)
       .json({ success: false, message: "Error fetching question" });

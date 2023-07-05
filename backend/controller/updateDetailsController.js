@@ -1,4 +1,4 @@
-const { userModel } = require("../models/userModels");
+const userModel = require("../models/userModels");
 const bcrypt = require("bcrypt");
 
 // @desc Update user details
@@ -40,7 +40,7 @@ const updateDetails = async (req, res) => {
     res.status(200).json(response);
     console.log(response);
   } catch (error) {
-    console.log(error.message);
+    console.error(error);
     res.status(500).json({ message: "Failed to update user details" });
   }
 };
