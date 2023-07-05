@@ -3,7 +3,6 @@ import axios from "axios";
 
 const initialState = {
     data: [],
-    status: "idle",
 };
 
 export const getQuestions = createAsyncThunk('questions/get', async ({topicId, page})=> {
@@ -16,10 +15,11 @@ export const getQuestions = createAsyncThunk('questions/get', async ({topicId, p
     }
 });
 
-const questionsSlice = createSlice({
-    name: 'questions',
+const quizSlice = createSlice({
+    name: 'quiz',
     initialState,
-    reducers: {},
+    reducers: {
+    },
     extraReducers: (builder) => {
     builder
         .addCase(getQuestions.pending, (state) => {
@@ -37,5 +37,4 @@ const questionsSlice = createSlice({
     },
 });
 
-
-export default questionsSlice.reducer;
+export default quizSlice.reducer;

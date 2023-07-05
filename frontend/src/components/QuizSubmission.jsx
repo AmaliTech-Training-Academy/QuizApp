@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const QuizSubmission = () => {
+export const QuizSubmission = ({handleSubmit}) => {
   return (
     <div className='flex flex-col lg:w-8/12 mx-auto my-20 bg-white'>
         <div className='font-semibold'>QuizMaster honor code <span className='text-[#0267FF]'>Learn more</span> </div>
@@ -13,7 +13,10 @@ export const QuizSubmission = () => {
                 I John Doe, understand that submitting work that isn't my own may result in permanent failure of this quiz or deactivativation of my quiz master account                                      
             </div>
         </div>
-        <button className='self-center px-32 py-4 mt-16 w-full'>Submit</button>
+        <button 
+        className='self-center px-32 py-4 mt-16 w-full'
+        onClick={handleSubmit}
+        >Submit</button>
     </div>
   )
 }

@@ -6,7 +6,7 @@ const initialState = {
     status: 'idle',
 };
 
-const baseURL = "https://nss-quizapp.up.railway.app/api/users/topics";
+const baseURL = "https://quiz-master.onrender.com/api/users/topics";
 
 
 export const getTopics = createAsyncThunk('topics/get', async ()=> {

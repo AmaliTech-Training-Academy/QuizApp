@@ -2,9 +2,11 @@ import React, { useState} from 'react'
 import { Answer } from './Answer';
 
 export const Question = (props) => {
-    const {selectedAnswer, handleChoice } = props;
+    const {selectedAnswer, handleChoice, chosenAnswers } = props;
     const {data, answers} = props.data;
     const page  = props.questionNumber;
+
+    // console.log(chosenAnswers);
     
 
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
@@ -23,9 +25,9 @@ return (
             letter={letter}
             text={answer.text}
             key={answer._id}
-            value={index + 1}
             handleChoice={handleChoice}
             selectedAnswer={selectedAnswer}
+            chosenAnswers={chosenAnswers}
             handle
             />
         )})

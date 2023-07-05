@@ -2,9 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import stepperReducer from '../features/stepperSlice';
 import authReducer from '../features/authSlice';
 import topicSlice from '../features/topicSlice';
-import questionsSlice from "../features/quizSlice";
+import quizSlice from "../features/quizSlice";
 import { persistReducer } from 'redux-persist';
 import storage  from "redux-persist/lib/storage";
+import answersSlice from '../features/answersSlice'
+import questionSlice from '../features/questionSlice';
+
 
 
 const persistConfig = {
@@ -14,9 +17,11 @@ const persistConfig = {
 
   const reducer = combineReducers({
       topics: topicSlice,
-      questions: questionsSlice,
+      quiz: quizSlice,
       counter: stepperReducer,
       authenticator : authReducer,
+      question: questionSlice,
+      answers: answersSlice,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

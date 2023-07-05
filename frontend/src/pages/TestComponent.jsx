@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getQuestions } from '../features/quizSlice';
+import { getQuestions} from '../features/quizSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getTopics } from '../features/topicSlice';
@@ -9,28 +9,26 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import Navbar from '../components/Navbar';
 import { Question } from '../components/Question';
 import { QuizSubmission } from '../components/QuizSubmission';
-
+import { submit, submitAnswers } from '../features/answersSlice';
+import { setQuestion } from '../features/questionSlice';
 
 export const TestComponent = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-
-    // const [questionData, setQuestionData] = useState(null);
-    // const [quizData, setQuizData] = useState(null);
-    const [page, setPage] = useState(1);
-    const {data:questions} = useSelector((state) => state.questions);
+    
+    const {data:question} = useSelector((state) => state.quiz);
     const {data:topics} = useSelector((state) => state.topics);
+    const currentQuestion = useSelector((state) => state.question);
+    const currentPage = useSelector((state)=> state.question.questionNumber);
+    const [page, setPage] = useState(currentPage);
+    console.log(currentPage);
 
 
     const currentQuiz = topics.filter(topic => topic._id === id);
 
     const currentQuizName = currentQuiz[0].topic;
 
-    const [question, setQuestion] = useState({
-        data: null,
-        answers: null,
-    });
-    const [answers, setAnswers] = useState([]);
+    // const [answers, setAnswers] = useState([]);
     const [selectedAnswer, setSelectedAnswer] = useState({
         questionNumber: '',
         answer: '',
@@ -41,11 +39,13 @@ export const TestComponent = () => {
     },[id, page]);
 
     useEffect(()=>{
-        setQuestion({
-            data: questions.question,
-            answers: questions.answers,
-        })
-    }, [questions])
+        dispatch(setQuestion({
+            data: question.question,
+            answers: question.answers,
+            questionNumber: question.page,
+        }))
+
+    }, [question, page, dispatch])
 
     const boxShadow = {
         boxShadow: "4px 4px 17px -3px rgba(0, 0, 0, 0.25)"
@@ -60,14 +60,14 @@ export const TestComponent = () => {
         const questionNumber = e.target.innerText;
         setPage(questionNumber);
         setQuestion({
-            data: questions.question,
-            answers: questions.answers,
+            data: question.question,
+            answers: question.answers,
             })
         setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '',}))
     };
 
     const questionNav = [];
-    for( let i = 0; i < questions.totalQuestions; i++){
+    for( let i = 0; i < question.totalQuestions; i++){
         const questionNumber = i + 1;
         questionNav.push(
             <div 
@@ -85,71 +85,61 @@ export const TestComponent = () => {
         if(page > 1){
             setPage(page - 1);
             setQuestion({
-                data: questions.question,
-                answers: questions.answers,
+                data: question.question,
+                answers: question.answers,
             })
         }
-        // setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '',}))
+        setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '', quiz_id: '',}))
     };
 
     const forwardArrowNav = () => {
-        if(page < questions.totalQuestions){
+        if(page < question.totalQuestions){
             setPage(page + 1);
             setQuestion({
-                data: questions.question,
-                answers: questions.answers,
+                data: question.question,
+                answers: question.answers,
             })
-        // setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '',}))
+        setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '', quiz_id: '',}))
     }}
+
+    const answers = useSelector((state)=>state.answers);
+
 
     const handleChoice = (e) => {
         const chosenAnswer = e.target.value;
         const result = {
             questionNumber: page,
-            answer: null,
-            is_correct: null,
-            rightAnswer: null,
+            answer: chosenAnswer,
+            quiz_id: id,
         };
-        const correctAns = questions.answers.filter(answer => answer.is_correct);
-        if(chosenAnswer === correctAns[0].text){
-            const correct = correctAns[0].text;
-            result.answer = chosenAnswer;
-            result.is_correct = true;
-            result.rightAnswer = correct;
-            setSelectedAnswer(result);
-        }else{
-            const correct = correctAns[0].text;
-            result.answer = chosenAnswer;
-            result.is_correct = false;
-            result.rightAnswer = correct;
-            setSelectedAnswer(result);
-            } 
+        setSelectedAnswer(result);
         if (answers.some((answer) => answer.questionNumber === result.questionNumber)) {
             // Update the existing answer in the `answers` array
-            setAnswers((prev) =>
-            prev.map((answer) =>
-                answer.questionNumber === result.questionNumber ? { ...answer, answer: chosenAnswer, is_correct: chosenAnswer === correctAns[0].text } : answer
-            )
-            );
+            dispatch(submitAnswers(result))
         } else {
-            setAnswers((prev) => [...prev, result]);
+            dispatch(submitAnswers(result))
         }     
     }
-
+    
     const handleAnswerChange = () => {
         const answerChange = answers.find(answer => answer.questionNumber === result.questionNumber);
         if (answerChange) {
             const updatedAnswer = { ...answerChange, rightAnswer: result.rightAnswer };
-            setAnswers(prev => prev.map(answer => answer.questionNumber === result.questionNumber ? updatedAnswer : answer));
         } else {
         setAnswers(prev => [...prev, result]);
             }
     }
 
-    console.log(answers);
-
+    const handleQuizSubmit = () => {
+        dispatch(submit())
+        console.log(answers);
+    }
+    
+    console.log(question.limit);
+    
+    
     return (
-    <div className='bg-[#0267FF] lg:bg-transparent'>
+        <div className='bg-[#0267FF] lg:bg-transparent'>
         <div className='hidden lg:block'>
         <Navbar/>
         </div>
@@ -158,7 +148,7 @@ export const TestComponent = () => {
             <Link to={`/quiz/${id}`}>Back</Link>
             </div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
-            <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {questions.totalQuestions} </div>
+            <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
             <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> 00:59:00</div>
         </div>
 
@@ -169,7 +159,7 @@ export const TestComponent = () => {
         
              {/* Mobile Question Nav */}
             <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
-                Question <span className='font-semibold'>{page}/{questions.totalQuestions}</span>
+                Question <span className='font-semibold'>{page}/{question.totalQuestions}</span>
             </div>
             <div className='hidden lg:flex justify-center w-3/12 mx-auto mt-7'>
 
@@ -185,7 +175,7 @@ export const TestComponent = () => {
             {/* Question Navbar */}
             {/* Mobile Question Nav */}
             <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
-                Question <span className='font-semibold'>{page}/{questions.totalQuestions}</span>
+                Question <span className='font-semibold'>{page}/{question.totalQuestions}</span>
             </div>
 
             {
@@ -196,7 +186,7 @@ export const TestComponent = () => {
             <div 
                 className='w-14 flex items-center justify-center border border-gray-900 rounded-e-lg cursor-pointer'
                 onClick={forwardArrowNav}
-                style={parseInt(page) === questions.totalQuestions ? {opacity:0} : {opacity: 10} }
+                style={parseInt(page) === question.totalQuestions ? {opacity:0} : {opacity: 10} }
                 >
                 <BsArrowRight/>
             </div>
@@ -204,11 +194,11 @@ export const TestComponent = () => {
         {/* Question */}
         <div className='lg:mt-28 h-80'>
             <Question 
-            data={question} 
-            questionNumber={page} 
+            data={currentQuestion} 
+            questionNumber={currentPage} 
             selectedAnswer={selectedAnswer} 
             handleChoice={handleChoice}
-            handleAnswerChange={handleAnswerChange}
+            chosenAnswers={answers}
             />
         </div>
         <div className='lg:hidden flex justify-between mt-14'>
@@ -220,11 +210,11 @@ export const TestComponent = () => {
             <button 
             className='w-[48%] rounded py-[10px] px-16' 
             onClick={forwardArrowNav}
-            style={parseInt(page) === questions.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+            style={parseInt(page) === question.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
             >Next</button>
         </div> 
         {
-            answers.length === questions.totalQuestions ?  <QuizSubmission/> : ''
+            answers.length === question.totalQuestions ?  <QuizSubmission handleSubmit={handleQuizSubmit}/> : ''
         }
         </div>
     </div>
@@ -232,3 +222,18 @@ export const TestComponent = () => {
 }
 
 
+
+// const correctAns = questions.answers.filter(answer => answer.is_correct);
+// if(chosenAnswer === correctAns[0]){
+//     const correct = correctAns[0];
+//     result.answer = chosenAnswer;
+//     // result.is_correct = true;
+//     // result.rightAnswer = correct;
+//     setSelectedAnswer(result);
+// }else{
+//     const correct = correctAns[0].text;
+//     result.answer = chosenAnswer;
+//     // result.is_correct = false;
+//     // result.rightAnswer = correct;
+//     setSelectedAnswer(result);
+//     } 
