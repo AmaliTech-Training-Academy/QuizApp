@@ -120,7 +120,7 @@ const Login = () => {
             {checkbox && console.log('checked')}
             <p>Remember me</p>
         </div>
-        <NavLink>Forgot password?</NavLink>
+        <NavLink to={"/forgetpassword"}>Forgot password?</NavLink>
     </div>
     {!loading ? (
         <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>

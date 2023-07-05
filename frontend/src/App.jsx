@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
+import ForgetPassword from './pages/ForgetPassword'
+import ResetPassword from './pages/ResetPassword'
 import './App.css'
 import { AvailableQuizzes } from './pages/AvailableQuizzes'
 import { QuizLog } from './pages/QuizLog'
@@ -35,6 +37,8 @@ function App() {
           <Route path='/general-settings' element={<GeneralSettings/>}/>
           <Route path='/password-settings' element={<PasswordSettings/>}/>
           <Route path='/my-quizzes' element={<MyQuizzes/>}/>
+          <Route path="forgetpassword" element={<ForgetPassword/>}/>
+          <Route path='resetPassword/:id' element={<ResetPassword/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
