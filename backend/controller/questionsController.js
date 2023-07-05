@@ -11,7 +11,7 @@ const questions = async (req, res) => {
 
   try {
     const fetchedData = await quizModel.findOne({ _id: topicId });
-    if (!fetchedData) throw new Error("Topic not found");
+    if (!fetchedData) return res.status(404).json({ message: "Quiz Not found"})
 
     const questionsArray = fetchedData.questions || []; // Added null check for questionsArray
     const totalQuestions = questionsArray.length;
