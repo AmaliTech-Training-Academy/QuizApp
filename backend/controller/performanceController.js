@@ -1,4 +1,4 @@
-const userModel = require("../models/userModels");
+const { userModel } = require("../models/userModels");
 
 // @desc Get Performance Records and Statistics
 // @route GET /api/users/performance

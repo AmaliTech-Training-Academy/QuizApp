@@ -1,5 +1,5 @@
 // const validateRegisterUser = require("../middleware/validateUser");
-const userModel = require("../models/userModels");
+const { userModel } = require("../models/userModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 

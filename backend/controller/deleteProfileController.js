@@ -1,4 +1,4 @@
-const userModel = require("../models/userModels");
+const { userModel } = require("../models/userModels");
 const fs = require("fs");
 
 // @desc Delete profile image
