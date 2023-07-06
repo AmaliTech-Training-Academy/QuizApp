@@ -25,40 +25,40 @@ const loginUser = async (req, res) => {
       });
     }
 
-      // Compare the password provided by the user with the hashed password in the database, if not true, the user has no access
-      const validPassword = await bcrypt.compare(password, user.password);
-      if (!validPassword)
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid credentials provided" });
-
-      // Generate access token
-      const accessToken = generateAccessToken(user._id);
-      // Generate refresh token
-      const refreshToken = generateRefreshToken(user._id, rememberMe);
-
-      // Store refresh token in user document in the database
-      user.refreshToken = refreshToken;
-      await user.save();
-
-      // Send both tokens in the response
+    // Compare the password provided by the user with the hashed password in the database, if not true, the user has no access
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword)
       return res
-        .status(200)
-        .cookie("refreshToken", refreshToken, {
-          maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days expiration in milliseconds
-          httpOnly: true, // Ensuring the cookie is only accessed via HTTP(S)
-        })
-        .json({
-          success: true,
-          accessToken,
-          message: "You have successfully logged in.",
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          profileImage: user.profileImage,
-        });
-   
+        .status(400)
+        .json({ success: false, message: "Invalid credentials provided" });
+
+    // Generate access token
+    const accessToken = generateAccessToken(user._id);
+    // Generate refresh token
+    const refreshToken = generateRefreshToken(user._id, rememberMe);
+
+    // Store refresh token in user document in the database
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    // Send both tokens in the response
+    return res
+      .status(200)
+      .cookie("refreshToken", refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days expiration in milliseconds
+        httpOnly: true, // Ensuring the cookie is only accessed via HTTP(S)
+      })
+      .json({
+        success: true,
+        accessToken,
+        message: "You have successfully logged in.",
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        profileImage: user.profileImage,
+      });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Oops! Something went wrong. Please try again later.",
