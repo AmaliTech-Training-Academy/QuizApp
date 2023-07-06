@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from 'axios'
 const Api = axios.create({
-    baseURL: 'https://nss-quizapp.up.railway.app/api/'
-});
-export default Api;
+  baseURL: 'https://quiz-master.onrender.com/api/',
+})
+export default Api

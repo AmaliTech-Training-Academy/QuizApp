@@ -16,8 +16,7 @@ const Register = () => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(true)
 
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch()  
 
   const validateForm = () => {
     const newErrors = {}
@@ -36,8 +35,8 @@ const Register = () => {
     // Validate password
     if (password.trim() === '') {
       newErrors.password = 'Password is required'
-    } else if (password.length < 9) {
-      newErrors.password = 'Password should contain atleast 10 characters'
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/.test(password)) {
+      newErrors.password = 'Must contain atleast one uppercase, one digit and one special character from the set @$!%*#?& and min(10)'
     }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -48,7 +47,7 @@ const Register = () => {
       try {
         const data = { name: username, email, password }
       setLoading(!loading)
-      const response = await Api.post('registerUser', data)
+      const response = await Api.post('users', data)
       if(response.data.success === true){
         Cookies.set('userId', response.data.user._id)
         toast.success('account created successfully')
@@ -73,6 +72,9 @@ const Register = () => {
 
   return (
     <div className={styles.formsStep1}>
+      {errors.password && (
+          <div className={styles.alert}>{errors.password}</div>
+        )}
       <h2 className={styles.registerHeading}>Create Account</h2>
       <p className={styles.pageDescription}>
         "Sign up effortlessly and get started!"
@@ -127,9 +129,7 @@ const Register = () => {
             minLength={10}
           />
         </div>
-        {errors.password && (
-          <div className={styles.alert}>{errors.password}</div>
-        )}
+        
       </div>
 
       <div className={styles.createAccountBtn}>
