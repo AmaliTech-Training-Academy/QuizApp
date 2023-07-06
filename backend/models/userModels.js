@@ -45,16 +45,18 @@ const userSchema = new mongoose.Schema(
     addInterest: {
       type: [String],
     },
-    quizzes: [{
-      quizId: {
-        type: Schema.Types.ObjectId,
-        ref: "Quiz",
+    quizzes: [
+      {
+        quizId: {
+          type: Schema.Types.ObjectId,
+          ref: "Quiz",
+        },
+        score: {
+          type: mongoose.Schema.Types.Decimal128,
+          default: 0,
+        },
       },
-      score: {
-        type: mongoose.Schema.Types.Decimal128,
-        default: 0
-      }
-    }],
+    ],
   },
   {
     timestamps: true,
@@ -86,4 +88,8 @@ userSchema.methods.generateRefreshToken = function (rememberMe) {
 
 const userModel = mongoose.model("User", userSchema);
 
-module.exports = userModel;
+module.exports = {
+  userModel: userModel,
+  generateAccessToken: userModel.prototype.generateAccessToken,
+  generateRefreshToken: userModel.prototype.generateRefreshToken,
+};
