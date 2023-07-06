@@ -20,23 +20,20 @@ const submitAnswer = async (req, res) => {
     let results = [];
 
     for (let i = 0; i < answers.length; i++) {
-      const submittedAnswer = answers[i];
+      const { selectedAnswer, questionNumber } = answers[i];
       const question = quiz.questions[i];
 
-      // Finding the chosen answer based on the submitted answer
       const chosenAnswer = question.answers.find(
-        (answer) => answer.text === submittedAnswer
+        (answer) => answer.text === selectedAnswer
       );
-
-      const questionNumber = i + 1;
 
       const correctAnswer = question.answers.find(
         (answer) => answer.is_correct
       );
 
-      // checking if the submitted answer matches the correct answer
+      // Checking if the submitted answer matches the correct answer
       if (chosenAnswer && chosenAnswer.is_correct) {
-        score += question?.points;
+        score += question.points;
         results.push({
           questionNumber,
           question: question.question,
@@ -49,7 +46,7 @@ const submitAnswer = async (req, res) => {
           questionNumber,
           question: question.question,
           correctAnswer: correctAnswer.text,
-          chosenAnswer: chosenAnswer ? chosenAnswer.text : null,
+          chosenAnswer: chosenAnswer && chosenAnswer.is_correct ? chosenAnswer.text : null,
           isCorrect: false,
         });
       }
@@ -60,10 +57,10 @@ const submitAnswer = async (req, res) => {
     );
 
     if (existingQuiz) {
-      // user has already taken this quiz, update the score
+      // User has already taken this quiz, update the score
       existingQuiz.score = score;
     } else {
-      // user is taking this quiz for the first time, adding it to the quizzes array
+      // User is taking this quiz for the first time, adding it to the quizzes array
       user.quizzes.push({ quizId: _id, score });
     }
 

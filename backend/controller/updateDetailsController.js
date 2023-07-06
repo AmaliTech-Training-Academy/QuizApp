@@ -36,7 +36,6 @@ const updateDetails = async (req, res) => {
     };
 
     res.status(200).json(response);
-    console.log(response);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to update user details" });
