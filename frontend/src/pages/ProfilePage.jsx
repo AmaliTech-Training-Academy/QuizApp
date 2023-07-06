@@ -10,6 +10,8 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
+import BarGraph from '../components/Charts'
+
 
 const ProfilePage = () => {
   const navigate = useNavigate()
@@ -72,13 +74,8 @@ const ProfilePage = () => {
           
         </div>
 
-        <div className="charts flex justify-between flex-col lg:flex-row mb-[43px]">
-          <div className="doughnutChart py-[3rem] px-[3.5rem] shadow-lg shadow-[#00000040]  rounded-lg">
-            <p className='mb-[72px] font-semibold text-[1.441rem]'>Performance Records</p>
-          </div>
-          <div className="barChart py-[3rem] px-[3.5rem] shadow-lg shadow-[#00000040]  rounded-lg mt-[45px] lg:mt-[0]">
-          <p className='mb-[48px] font-semibold text-[1.441rem]'>Performance Statistics</p>
-          </div>
+        <div className="charts flex justify-between flex-col lg:flex-row mb-[43px] bg-[red]">
+          <BarGraph/>
         </div>
         <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col xl:flex-row">
           <Calendar onChange={setDate} value={date} />

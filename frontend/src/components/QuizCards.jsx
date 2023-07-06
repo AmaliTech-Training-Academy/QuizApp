@@ -17,7 +17,7 @@ const QuizCards = ({ description, topic, iconType, color }) => {
         ) : null}
       </div>
       <div className="ml-[1rem] flex justify-around flex-col text-white">
-        <p className="text-[2.074] font-semibold leading-[38.88px] tracking-wider">
+        <p className="text-[2.074] font-semibold  text-4xl leading-[38.88px] tracking-wider">
           {topic}
         </p>
         <p>{description}</p>
