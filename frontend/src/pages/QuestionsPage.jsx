@@ -11,28 +11,33 @@ import { Question } from '../components/Question';
 import { QuizSubmission } from '../components/QuizSubmission';
 import { submit, submitAnswers } from '../features/answersSlice';
 import { setQuestion } from '../features/questionSlice';
+import { SubmitModal } from '../components/SubmitModal';
+import { sureSubmit } from '../features/sureSlice';
+import Countdown from 'react-countdown';
 
-export const TestComponent = () => {
+
+export const Questions = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     
     const {data:question} = useSelector((state) => state.quiz);
     const {data:topics} = useSelector((state) => state.topics);
     const currentQuestion = useSelector((state) => state.question);
-    const currentPage = useSelector((state)=> state.question.questionNumber);
-    const [page, setPage] = useState(currentPage);
-    console.log(currentPage);
-
-
     const currentQuiz = topics.filter(topic => topic._id === id);
+    const currentPage = useSelector((state)=> state.question.questionNumber);
+    const sure = useSelector(state => state.sure);
+    console.log(sure);
+    
+    const [page, setPage] = useState(currentPage);
 
     const currentQuizName = currentQuiz[0].topic;
 
-    // const [answers, setAnswers] = useState([]);
     const [selectedAnswer, setSelectedAnswer] = useState({
         questionNumber: '',
         answer: '',
     });
+
+    // const [submit, setSubmit] = useState(false);
 
     useEffect(()=>{
         dispatch(getQuestions({topicId:id, page:page}));
@@ -120,26 +125,38 @@ export const TestComponent = () => {
             dispatch(submitAnswers(result))
         }     
     }
-    
-    const handleAnswerChange = () => {
-        const answerChange = answers.find(answer => answer.questionNumber === result.questionNumber);
-        if (answerChange) {
-            const updatedAnswer = { ...answerChange, rightAnswer: result.rightAnswer };
-        } else {
-        setAnswers(prev => [...prev, result]);
-            }
-    }
 
-    const handleQuizSubmit = () => {
+    const handleSure = () => {
+        dispatch(sureSubmit(true))
+    };
+
+    const handleUnsure = () => {
+        dispatch(sureSubmit(false))
+    };
+
+    const handleSureSubmit = () => {
         dispatch(submit())
-        console.log(answers);
-    }
-    
-    console.log(question.limit);
-    
+    };
+
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+          // Render a complete state
+        return (<div>Time's Up!</div>);
+        } else {
+          // Render a countdown
+        return (
+            <span>
+            {hours}:{minutes}:{seconds}
+            </span>
+            );
+        }
+    };
     
     return (
         <div className='bg-[#0267FF] lg:bg-transparent'>
+            {
+                sure[0] ? <SubmitModal handleUnsure={handleUnsure} handleSureSubmit={handleSureSubmit}/> : ''
+            }
         <div className='hidden lg:block'>
         <Navbar/>
         </div>
@@ -149,7 +166,7 @@ export const TestComponent = () => {
             </div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
-            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> 00:59:00</div>
+            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> <Countdown date={Date.now() + 600000} renderer={renderer}/> </div>
         </div>
 
         {/* Questions */}
@@ -178,9 +195,7 @@ export const TestComponent = () => {
                 Question <span className='font-semibold'>{page}/{question.totalQuestions}</span>
             </div>
 
-            {
-                questionNav
-            }
+            { questionNav }
             
             {/* Forward */}
             <div 
@@ -191,7 +206,7 @@ export const TestComponent = () => {
                 <BsArrowRight/>
             </div>
         </div>
-        {/* Question */}
+        {/* Current Question */}
         <div className='lg:mt-28 h-80'>
             <Question 
             data={currentQuestion} 
@@ -201,6 +216,7 @@ export const TestComponent = () => {
             chosenAnswers={answers}
             />
         </div>
+        {/* Mobile Buttons */}
         <div className='lg:hidden flex justify-between mt-14'>
             <button 
             className='w-[48%] rounded py-[10px] px-16'
@@ -214,26 +230,10 @@ export const TestComponent = () => {
             >Next</button>
         </div> 
         {
-            answers.length === question.totalQuestions ?  <QuizSubmission handleSubmit={handleQuizSubmit}/> : ''
+            answers.length === question.totalQuestions ?  <QuizSubmission handleSure={handleSure}/> : ''
         }
         </div>
     </div>
     )
-}
+};
 
-
-
-// const correctAns = questions.answers.filter(answer => answer.is_correct);
-// if(chosenAnswer === correctAns[0]){
-//     const correct = correctAns[0];
-//     result.answer = chosenAnswer;
-//     // result.is_correct = true;
-//     // result.rightAnswer = correct;
-//     setSelectedAnswer(result);
-// }else{
-//     const correct = correctAns[0].text;
-//     result.answer = chosenAnswer;
-//     // result.is_correct = false;
-//     // result.rightAnswer = correct;
-//     setSelectedAnswer(result);
-//     } 

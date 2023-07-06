@@ -7,6 +7,7 @@ import { persistReducer } from 'redux-persist';
 import storage  from "redux-persist/lib/storage";
 import answersSlice from '../features/answersSlice'
 import questionSlice from '../features/questionSlice';
+import sureSlice from '../features/sureSlice';
 
 
 
@@ -22,6 +23,7 @@ const persistConfig = {
       authenticator : authReducer,
       question: questionSlice,
       answers: answersSlice,
+      sure: sureSlice,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

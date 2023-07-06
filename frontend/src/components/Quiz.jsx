@@ -16,7 +16,7 @@ export const Quiz = (props) => {
             <img src={image} alt="" className='h-full w-full object-cover' />
         </div>
         {/*Quiz Info */}
-        <div className='hidden lg:block relative z-30 border border-black top-[235px] lg:top-[200px] w-11/12 h-20 lg:h-28 mx-auto rounded-lg backdrop-blur-lg lg:px-2 py-3 px-[14px] text-white' style={{...border, ...infoBackground}}>
+        <div className='hidden lg:block relative z-30 border border-black lg:-bottom-64 w-11/12 h-20 lg:h-auto mx-auto rounded-lg backdrop-blur-lg lg:px-2 py-3 px-[14px] text-white' style={{...border, ...infoBackground}}>
             {/* <div className='flex flex-col absolute top-0 lg:relative'> */}
                 {/* Quiz Name & Creator*/}
                 <div>

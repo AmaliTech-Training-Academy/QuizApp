@@ -11,9 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import { QuizIntro } from './pages/QuizIntro';
-import { TestComponent } from './pages/TestComponent';
-import { Questions } from './pages/Questions';
-// import { Questions } from './pages/Questions';
+import { Questions } from './pages/QuestionsPage';
 
 
 function App() {
@@ -31,7 +29,7 @@ function App() {
           <Route path='login' element={<LoginPage/>}/>
           <Route path='profile' element={<ProfilePage/>}/>
           <Route path='/quiz/:id' element={<QuizIntro/>}/>
-          <Route path='/quiz/:id/questions' element={<TestComponent/>}/>
+          <Route path='/quiz/:id/questions' element={<Questions/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
