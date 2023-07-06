@@ -1,5 +1,4 @@
 const { userModel } = require("../models/userModels");
-const bcrypt = require("bcrypt");
 
 // @desc Update user details
 // @route PATCH /api/users/account/id/details
@@ -34,7 +33,6 @@ const updateDetails = async (req, res) => {
       message: "User details updated successfully",
       name: user.name,
       email: user.email,
-      profileImage: user.profileImage,
     };
 
     res.status(200).json(response);
