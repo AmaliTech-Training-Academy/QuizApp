@@ -1,4 +1,4 @@
-const userModel = require("../models/userModels");
+const { userModel } = require("../models/userModels");
 const quizModel = require("../models/quizModel");
 
 // @desc Submitting Answer for all Questions
@@ -30,7 +30,9 @@ const submitAnswer = async (req, res) => {
 
       const questionNumber = i + 1;
 
-      const correctAnswer = question.answers.find((answer) => answer.is_correct)
+      const correctAnswer = question.answers.find(
+        (answer) => answer.is_correct
+      );
 
       // checking if the submitted answer matches the correct answer
       if (chosenAnswer && chosenAnswer.is_correct) {
