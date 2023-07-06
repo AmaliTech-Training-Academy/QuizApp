@@ -18,7 +18,7 @@ export const QuizSearch = ({setQuizData}) => {
     }
 
   return (
-    <div className=''>
+    <div className='hidden lg:block'>
         <input type="text" 
         placeholder='Search quiz by name'
         value={query}

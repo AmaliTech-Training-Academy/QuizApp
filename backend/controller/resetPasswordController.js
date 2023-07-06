@@ -40,7 +40,7 @@ const resetPassword = async (req, res) => {
     }
   } catch (error) {
     console.log("error", error);
-    return res.status(404).json({ success: false, message: "Not verified" });
+    return res.status(404).json({ success: false, message: "Failed to reset password. User not verified." });
   }
 };
 

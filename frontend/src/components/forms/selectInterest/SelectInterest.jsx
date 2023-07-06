@@ -18,7 +18,7 @@ const SelectInterest = () => {
     setSelectectedInterest(prev => [...prev, value])
   };
   const handleClick = async () => {
-    const response = await Api.patch(`registerUser/${userId}`, {interest: selectedInterest})
+    const response = await Api.patch(`users/${userId}`, {interest: selectedInterest})
     const msg = response.data.message
     if(response.data.success === true){
       toast.success(msg)

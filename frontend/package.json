@@ -13,10 +13,14 @@
     "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
-    "formik": "^2.4.1",
+    "formik": "^2.4.2",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
+<<<<<<< HEAD
     "react-countdown": "^2.3.5",
+=======
+    "react-calendar": "^4.3.0",
+>>>>>>> a616d45a08b1846aa6f683ae4daab8f08171bc93
     "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",
     "react-loader-spinner": "^5.3.4",
@@ -28,7 +32,12 @@
     "react-timer-hook": "^3.0.6",
     "react-toastify": "^9.1.3",
     "redux-persist": "^6.0.0",
+<<<<<<< HEAD
     "slick-carousel": "^1.8.1"
+=======
+    "slick-carousel": "^1.8.1",
+    "yup": "^1.2.0"
+>>>>>>> a616d45a08b1846aa6f683ae4daab8f08171bc93
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

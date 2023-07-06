@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema(
       minlength: 5,
       maxlength: 255,
     },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+    },
     email: {
       type: String,
       maxlength: 50,
@@ -21,8 +25,17 @@ const userSchema = new mongoose.Schema(
       minlength: 10,
       maxlength: 255,
     },
+    contact: {
+      type: String,
+      minlength: 10,
+      maxlength: 20,
+    },
     profileImage: {
       type: String,
+    },
+    location: {
+      type: String,
+      maxlength: 150,
     },
     interests: {
       type: [String],
@@ -30,6 +43,10 @@ const userSchema = new mongoose.Schema(
     addInterest: {
       type: [String],
     },
+    // isActive: {
+    //   type: Boolean,
+    //   default: true,
+    // },
   },
   {
     timestamps: true,
@@ -37,9 +54,9 @@ const userSchema = new mongoose.Schema(
 );
 
 // generating token logic, jwt.sign({takes 3 arguments to generate the token})
-exports.generateAccessToken= function () {
+exports.generateAccessToken = function () {
   const accessToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: "20m",
+    expiresIn: "1hr",
   });
   return accessToken;
 };

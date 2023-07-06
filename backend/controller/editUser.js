@@ -1,10 +1,14 @@
-const User = require("../models/userModels");
+const { userModel } = require("../models/userModels");
 
+// @desc Register new user
+// @route POST /api/editUser/:id
+// @access Public
 async function editUser(req, res) {
   try {
     const { id } = req.params;
     const data = req.body;
-    const updatedUser = await User.findByIdAndUpdate({ _id: id }, data, {
+    console.log(data);
+    const updatedUser = await userModel.findByIdAndUpdate({ _id: id }, data, {
       new: true,
       runValidators: true,
     });
@@ -19,4 +23,6 @@ async function editUser(req, res) {
     res.status(500).json({ success: false, message: "Something went wrong" });
   }
 }
+
+
 module.exports = { editUser };

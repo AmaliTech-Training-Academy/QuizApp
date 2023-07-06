@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
 // @desc Register new user
-// @route POST /api/forgetPassword
+// @route POST /api/users/forgetPassword
 // @access Public
 const forgetPassword = async (req, res) => {
   try {
@@ -28,10 +28,17 @@ const forgetPassword = async (req, res) => {
         expiresIn: "30m",
       }
     );
-    console.log(token)
+    console.log(token);
 
     // Create the password reset link
     const link = `http://localhost:5173/resetPassword/${user._id}/?token=${token}`;
+    /*
+    Instead of hard-coding the base URL for the password reset link, use the req object 
+    to get the current URL and extract the protocol, host, and port. 
+    This ensures that the link will work regardless of where the app is deployed.
+    */
+    // const baseUrl = `${req.protocol}://${req.get("host")}`;
+    // const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`;
 
     // Create a nodemailer transporter for sending the reset password email
     let transporter = nodemailer.createTransport({
@@ -44,17 +51,17 @@ const forgetPassword = async (req, res) => {
 
     // Set up the email options
     let mailOptions = {
-      from: "wisdom.eleeza@amalitech.com", // Replace with your email
+      from: process.env.TRANSPORT_EMAIL, // Replace with your email
       to: user.email, // Recipient's email
       subject: "Reset Your Password", // Email subject
       html: `<p>Click the link below to reset your password:
       <a href="${link}">${link}</a>
-      </p>`
+      </p>`,
       //Email body, containing the reset password link
     };
 
     // Sending the password reset email
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error) => {
       if (error) {
         console.log(error);
         // Failed to send email
@@ -65,7 +72,7 @@ const forgetPassword = async (req, res) => {
         // Email sent successfully
         return res
           .status(200)
-          .json({ success: true, message: "Email sent: " + info.response });
+          .json({ success: true, message: "Email Sent Successfully" });
       }
     });
   } catch (error) {
