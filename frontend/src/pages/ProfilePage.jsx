@@ -19,6 +19,10 @@ const ProfilePage = () => {
   const [date, setDate] = useState(new Date())
   const [showSettings, setShowSettings] = useState(false)
 
+  const onChange = (selectedDate) => {
+    setDate(selectedDate);
+  };
+
 
   useEffect(() => {
     {!verifyCookie && navigate('/login')}
@@ -77,8 +81,9 @@ const ProfilePage = () => {
         <div className="charts flex justify-between flex-col lg:flex-row mb-[43px] bg-[red]">
           <BarGraph/>
         </div>
-        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col xl:flex-row">
-          <Calendar onChange={setDate} value={date} />
+        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col md:flex-row">
+          <Calendar onChange={onChange} value={date} />
+
           <div className="recent-quizzes mt-[40px] py-[3.063rem] px-[1.75rem] lg:shadow-lg lg:shadow-[#00000040] rounded-lg">
             <div className="flex justify-between gap-[28px]  ">
               <p className="font-semibold text-[1.441rem]">Recent quizzes</p>
