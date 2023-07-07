@@ -3,10 +3,10 @@ import { NavLink, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useSelector, useDispatch } from 'react-redux';
 // import { getQuestions } from '../features/quizSlice';
-import timer from "../assets/Desktop View/Icons/timer.png";
-import keyboardreturn from "../assets/Desktop View/Icons/keyboard_return.png";
-import allQuestions from "../assets/Desktop View/Icons/quizz.png";
-import repeat from "../assets/Desktop View/Icons/repeat.png";
+import timer from "../assets/DesktopView/Icons/timer.png";
+import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
+import allQuestions from "../assets/DesktopView/Icons/quizz.png";
+import repeat from "../assets/DesktopView/Icons/repeat.png";
 // import { mockImages } from '../components/mockImages';
 
 export const QuizIntro = () => {
