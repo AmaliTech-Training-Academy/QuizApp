@@ -87,7 +87,7 @@ export const UpdatePassword = () => {
       {!loading ? ( <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
       ):(
       <button
-        className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
+        className="p-[0.5rem] w-max h-fit self-center mt-[34px] bg-[#0267FF]">
         Save changes
       </button>)}
       
@@ -113,6 +113,7 @@ export const UpdateProfile = () => {
       toast.success(response.data.message)
       console.log(response)
     } catch (error) {
+      console.log("error:", error)
       const err = error.response.data.message
       toast.warn(err)
     }
@@ -172,14 +173,14 @@ export const UpdateProfile = () => {
         </div>
         <div className="flex gap-[3rem]  md:mt-[0px] mt-[24px]" >
           <div>
-            <input className="border" type="radio" value='Male' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Male</label>
+            <input className="border" type="radio" value='male' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Male</label>
           </div>
           <div>
-            <input className="border" type="radio" value='Female' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Female</label>
+            <input className="border" type="radio" value='female' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Female</label>
           </div>
         </div>
       </div>
-      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
+      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px] bg-[#0267FF]">
         Save changes
       </button>
       </form>
