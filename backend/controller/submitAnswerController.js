@@ -14,21 +14,23 @@ const submitAnswer = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "User Not Found" });
 
     let score = 0;
     let results = [];
 
     for (let i = 0; i < answers.length; i++) {
-      const { selectedAnswer, questionNumber } = answers[i];
-      const question = quiz.questions[i];
+      const { answer, questionNumber } = answers[i];
+      const questionIndex = questionNumber - 1; // Subtract 1 to get the correct index
+
+      const question = quiz.questions[questionIndex];
 
       const chosenAnswer = question.answers.find(
-        (answer) => answer.text === selectedAnswer
+        (ans) => ans.text === answer
       );
 
       const correctAnswer = question.answers.find(
-        (answer) => answer.is_correct
+        (ans) => ans.is_correct
       );
 
       const isCorrect = chosenAnswer && chosenAnswer.is_correct;
@@ -43,7 +45,7 @@ const submitAnswer = async (req, res) => {
         question: question.question,
         correctAnswer: correctAnswer.text,
         chosenAnswer: chosenAnswer ? chosenAnswer.text : null,
-        isCorrect,
+        isCorrect: isCorrect,
       });
     }
 
@@ -77,7 +79,7 @@ const submitAnswer = async (req, res) => {
     console.error(error);
     res
       .status(500)
-      .json({ success: false, message: "Error submitting answers" });
+      .json({ success: false, message: "Error Submitting Answers" });
   }
 };
 

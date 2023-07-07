@@ -1,7 +1,7 @@
 const { userModel } = require("../models/userModels");
 
 // @desc Get Performance Records and Statistics
-// @route GET /api/users/performance
+// @route GET /api/users/performance/:useId
 // @access Private
 const performance = async (req, res) => {
   const { userId } = req.params;
@@ -12,7 +12,7 @@ const performance = async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "User Not Found" });
     }
 
     // Process user's performance data and calculate performance metrics for each topic
@@ -35,7 +35,7 @@ const performance = async (req, res) => {
     console.error(error);
     res
       .status(500)
-      .json({ success: false, message: "Error retrieving performance data" });
+      .json({ success: false, message: "Error Retrieving Performance Data" });
   }
 };
 
