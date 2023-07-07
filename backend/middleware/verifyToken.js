@@ -28,10 +28,16 @@ const verifyToken = (req, res, next) => {
 
     next();
   } catch (err) {
+    if (err.name === "JsonWebTokenError" && err.message === "jwt expired") {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: Token has expired" });
+    }
+
     console.error(err);
     return res
       .status(500)
-      .json({ success: false, message: "Something Went Wrong" });
+      .json({ success: false, message: "Something went wrong" });
   }
 };
 
