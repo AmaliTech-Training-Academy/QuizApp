@@ -148,7 +148,7 @@
   background-color: #e6e6e6;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 700px) {
   .react-calendar {
     width: 43rem;
     max-width: 100%;

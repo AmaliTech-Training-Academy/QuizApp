@@ -10,7 +10,7 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
-import BarGraph, { DonutChart } from '../components/Charts'
+import { BarGraph, DonutChart } from '../components/Charts'
 
 
 const ProfilePage = () => {
@@ -78,11 +78,19 @@ const ProfilePage = () => {
           
         </div>
 
-        <div className="charts flex justify-between flex-col lg:flex-row mb-[43px] bg-[red]">
-          <DonutChart/>
-          {/* <BarGraph/> */}
+        <div className="charts flex justify-between flex-col lg:flex-row mb-[90px]">
+          <div className='px-1.6  pt-12 pb-20 shadow-lg rounded-lg md:mb-[70px]'>
+            <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Records</p>
+            <DonutChart/>
+          </div>
+          <div className='px-1.6  pt-12 shadow-lg rounded-lg h-fit'>
+            <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Statistics</p>
+            <BarGraph/>
+          </div>
+          
         </div>
-        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col md:flex-row">
+
+        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col lg:flex-row">
           <Calendar onChange={onChange} value={date} />
 
           <div className="recent-quizzes mt-[40px] py-[3.063rem] px-[1.75rem] lg:shadow-lg lg:shadow-[#00000040] rounded-lg">

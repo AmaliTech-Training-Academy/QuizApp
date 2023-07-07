@@ -86,7 +86,7 @@ export const DropdownList = () =>{
 
   return(
     <div className=' fixed  inset-0 flex content-center justify-center bg-black bg-opacity-50'>
-      <div className='relative lg:ml-[62%]  max-[600px]: '>
+      <div className='relative'>
       <div className='py-1 mt-[100px] lg:mt-[112px]  px-6  pt-2 bg-white  rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
         <div>
           <div className='items-center gap-[16px] flex'>
