@@ -1,8 +1,8 @@
 import React from 'react';
-import  phoneIcon  from "../assets/Desktop View/Icons/phone.png";
-import mailIcon from "../assets/Desktop View/Icons/mail.png";
-import faxIcon from "../assets/Desktop View/Icons/fax.png";
-import locationIcon from "../assets/Desktop View/Icons/location_on.png";
+import  phoneIcon  from "../assets/DesktopView/Icons/phone.png";
+import mailIcon from "../assets/DesktopView/Icons/mail.png";
+import faxIcon from "../assets/DesktopView/Icons/fax.png";
+import locationIcon from "../assets/DesktopView/Icons/location_on.png";
 
 export const ContactMethods = () => {
     const cardShadow = {

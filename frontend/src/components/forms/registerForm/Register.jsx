@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './register.module.css'
 import { NavLink} from 'react-router-dom'
-import google from '../../../assets/Desktop View/Icons/Google logo.png'
+import google from '../../../assets/DesktopView/Icons/googleLogo.png'
 import { useDispatch} from 'react-redux'
 import { increaseCount } from '../../../features/stepperSlice'
 import Api from '../services/api'

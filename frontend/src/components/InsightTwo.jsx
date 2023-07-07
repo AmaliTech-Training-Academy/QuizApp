@@ -1,4 +1,4 @@
-import insImg from '../assets/Desktop View/Images/Group 118.png'
+import insImg from '../assets/DesktopView/Images/Group118.png'
 
 const InsightTwo = () => {
   return (

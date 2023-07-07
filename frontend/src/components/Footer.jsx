@@ -1,9 +1,9 @@
 import React from 'react';
-import footerLogoMobile from "../assets/Mobile View/Images/Mobile footer logo.png";
-import footerLogoDesktop from "../assets/Desktop View/Images/Footer LOgo.png";
-import facebook from "../assets/Desktop View/Icons/Facebook.png";
-import github from "../assets/Desktop View/Icons/Group.png"
-import linkedin from "../assets/Desktop View/Icons/Linkedin.png"
+import footerLogoMobile from "../assets/MobileView/Images/Mobile-footer-logo.png";
+import footerLogoDesktop from "../assets/DesktopView/Images/footerLogo.png";
+import facebook from "../assets/DesktopView/Icons/Facebook.png";
+import github from "../assets/DesktopView/Icons/Group.png"
+import linkedin from "../assets/DesktopView/Icons/Linkedin.png"
 
 
 
