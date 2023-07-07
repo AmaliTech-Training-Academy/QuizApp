@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
       decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
       req.user_id = decoded.user_id;
     } else if (refreshToken) {
-      decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+      decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
       req.user_id = decoded.user_id;
     } else {
       return res
@@ -28,10 +28,10 @@ const verifyToken = (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized: Invalid Token" });
+      .status(500)
+      .json({ success: false, message: "Something Went Wrong" });
   }
 };
 
