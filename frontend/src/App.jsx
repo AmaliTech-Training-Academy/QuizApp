@@ -12,6 +12,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
+import { QuizIntro } from './pages/QuizIntro';
+import { Questions } from './pages/QuestionsPage';
+
 import Cookies from 'js-cookie'
 import AccountSettings from './pages/AccountSettings'
 import GeneralSettings from './pages/GeneralSettings'
@@ -31,6 +34,10 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/filter" element={<FilterPage />} />
           <Route path="signup" element={<SignupPage />} />
+          <Route path='login' element={<LoginPage/>}/>
+          <Route path='profile' element={<ProfilePage/>}/>
+          <Route path='/quiz/:id' element={<QuizIntro/>}/>
+          <Route path='/quiz/:id/questions' element={<Questions/>}/>
           <Route path="login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path='/account-settings' element={<AccountSettings/>}/>

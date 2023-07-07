@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-
 export const SubjectFilters = ({setQuizData, setFilterOpt}) => {
     const [filterOptions, setFilterOptions] = useState({
         ["History"]:false,
@@ -12,6 +11,7 @@ export const SubjectFilters = ({setQuizData, setFilterOpt}) => {
     });
 
     const {data: subjects} = useSelector(state => state.topics);
+    // console.log(subjects);
 
     let filterOpt = [];
     

@@ -28,8 +28,9 @@ const ProfilePage = () => {
       <MobileProfileNavbar setShowSettings={setShowSettings} showSettings={showSettings}/>
       {showSettings ? <DropdownList/> : null}
       <div className='hidden lg:block'><Header quizzes="Profile" /></div>
-      
+
       <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
+        {/* Page Navigation */}
         <div className="flex justify-between mb-[46px]">
           <div className="navigations w-[131px] flex justify-between text-gray-400 text-sm/[16px] font-normal">
             <p className="self-center hover:text-blue-700 active:text-blue-700 hidden lg:block">
@@ -40,19 +41,21 @@ const ProfilePage = () => {
           </div>
           <QuizSearch />
         </div>
+        {/* user name */}
         <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mb-[44px]">
           Hello <span>{Cookies.get('name')}</span>
         </div>
 
         <div className="flex justify-between  flex-col gap-4 lg:flex-row mb-[46px]">
-          <NavLink to='/quizlog'>
+          <NavLink to='/quizlog' className='lg:w-4/12 lg:mr-16'>
             <QuizCards
             color="blueSlate"
             topic="Quiz log"
             iconType="quizLog"
             description="Review Your quiz results"
           /></NavLink>
-          <NavLink to='/quizzes'>
+
+          <NavLink to='/quizzes' className='lg:w-4/12 lg:mr-16'>
             <QuizCards
             color="lightBlue"
             topic="Quizzes"
@@ -61,13 +64,13 @@ const ProfilePage = () => {
             />
           </NavLink>
           
-          <NavLink to=''>
+          <NavLink to='' className='lg:w-4/12'>
             <QuizCards
             color="deepBlue"
             topic="100+ subjects"
             description="Challenge Your Knowledge"
             iconType="subject"
-           />
+          />
           </NavLink>
           
         </div>
