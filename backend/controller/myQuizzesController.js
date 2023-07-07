@@ -10,7 +10,7 @@ const myQuizzes = async (req, res) => {
   try {
     // finding the user by their userId and populate the "quizzes.quizId" fields
     const user = await userModel.findById(userId).populate("quizzes.quizId");
-
+    console.log(user)
     if (!user)
       return res
         .status(404)
@@ -18,12 +18,13 @@ const myQuizzes = async (req, res) => {
 
     // mapping through the quizzes array to include the quizId and formatted date
     const quizzes = user.quizzes.map((quiz) => ({
-      quizId: quiz.quizId,
+      quizId: quiz.quizId._id,
       topic: quiz.quizId.topic,
       date: quiz.date.toLocaleDateString(),
     }));
 
     res.status(200).json({ success: true, quizzes });
+    console.log(quizzes)
   } catch (error) {
     console.error(error);
     res.status(500).json({

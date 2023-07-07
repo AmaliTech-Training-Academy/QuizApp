@@ -22,7 +22,7 @@ const Topic = async (req, res) => {
         .json({ success: false, message: "Topic Not Found" });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).json({ success: false, message: "Something went wrong" });
   }
 };
