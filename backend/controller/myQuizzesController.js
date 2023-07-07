@@ -1,4 +1,5 @@
 const { userModel } = require("../models/userModels");
+const quizModel = require('../models/quizModel')
 
 // @desc Get Quizzes Taken by User
 // @route GET /api/users/:userId/quizzes
@@ -15,11 +16,13 @@ const myQuizzes = async (req, res) => {
         .status(404)
         .json({ success: false, message: "User not found" });
 
-    // mapping through the quizzes array to include only the quizId and score
+    // mapping through the quizzes array to include the quizId and formatted date
     const quizzes = user.quizzes.map((quiz) => ({
       quizId: quiz.quizId,
-      score: quiz.score,
+      topic: quiz.topic,
+      date: quiz.date.toLocaleDateString(),
     }));
+
     res.status(200).json({ success: true, quizzes });
   } catch (error) {
     console.error(error);

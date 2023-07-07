@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.Decimal128,
           default: 0,
         },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
   },
