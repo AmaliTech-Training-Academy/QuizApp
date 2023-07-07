@@ -1,60 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import Api from './forms/services/api';
+import Cookies from 'js-cookie';
 
 
-// export const DonutChart = () => {
-//   const [chartData, setChartData] = useState(null);
+export const DonutChart = () => {
+  const [chartData, setChartData] = useState(null);
+  const id = Cookies.get('id')
 
   
-//   useEffect(() => {
-//     // Fetch data from the API
-//     fetchData()
-//       .then(data => {
-//         // Process the data and format it for the donut chart
-//         const chartData = {
-//           labels: data.map(item => item.topic),
-//           datasets: [
-//             {
-//               data: data.map(item => item.accuracy),
-//               backgroundColor: ['#1C1C1C', '#95A4FC', '#BAEDBD'], // Set your desired colors here
-//             },
-//           ],
-//         };
+  useEffect(() => {
+    // Fetch data from the API
+    fetchData()
+      .then(data => {
+        // Process the data and format it for the donut chart
+        const chartData = {
+          labels: data.map(item => item.topic),
+          datasets: [
+            {
+              data: data.map(item => item.accuracy),
+              backgroundColor: ['#1C1C1C', '#95A4FC', '#BAEDBD'], // Set your desired colors here
+            },
+          ],
+        };
 
-//         setChartData(chartData);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching data:', error);
-//       });
-//   }, []);
-
-//   const fetchData = async () => {
-//     const response = await Api.get(`users/performance${Cookies.get('id')}`)
-//     console.log(response)
-//     const data = await response.json()
-//     console.log(data)
-//     return data
-//   };
+        setChartData(chartData);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
 
+  const fetchData = async () => {
+    const response = await Api.get(`users/performance/${id}`)
+    console.log(response)
+    const data = await response.json()
+    console.log(data)
+    return data
+  };
 
-//   return (
-//     <div>
-//       {chartData && (
-//         <div className="barChart py-[3rem] px-[3.5rem] shadow-lg shadow-[#00000040]  rounded-lg mt-[45px] lg:mt-[0]">
-//             <p className='mb-[48px] font-semibold text-[1.441rem]'>Performance Records</p>
-//             <Doughnut
-//                 data={chartData}
-//                 options={{
-//                 // Specify additional options for the chart if needed
-//             }}
-//             />
-//         </div>
-//       ) 
-//       }
-//     </div>
-//   );
-// };
+
+
+  return (
+    <div>
+      {chartData && (
+        <div className="barChart py-[3rem] px-[3.5rem] shadow-lg shadow-[#00000040]  rounded-lg mt-[45px] lg:mt-[0]">
+            <p className='mb-[48px] font-semibold text-[1.441rem]'>Performance Records</p>
+            <Doughnut
+                data={chartData}
+                options={{
+                // Specify additional options for the chart if needed
+            }}
+            />
+        </div>
+      ) 
+      }
+    </div>
+  );
+};
 
 
 

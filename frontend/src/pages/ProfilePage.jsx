@@ -10,7 +10,7 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
-import BarGraph from '../components/Charts'
+import BarGraph, { DonutChart } from '../components/Charts'
 
 
 const ProfilePage = () => {
@@ -79,7 +79,8 @@ const ProfilePage = () => {
         </div>
 
         <div className="charts flex justify-between flex-col lg:flex-row mb-[43px] bg-[red]">
-          <BarGraph/>
+          <DonutChart/>
+          {/* <BarGraph/> */}
         </div>
         <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col md:flex-row">
           <Calendar onChange={onChange} value={date} />
