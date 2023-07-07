@@ -7,29 +7,25 @@ const verifyToken = (req, res, next) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!accessToken && !refreshToken) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized: No token provided" });
+    return res.status(401).json({ success: false, message: "Unauthorized: No token provided" });
   }
 
   try {
     let decoded;
-    // Verifying and decoding the accessToken
-    if (accessToken) {
-      decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-    } else if (refreshToken) {
-      // Verifying and decoding the refresh token
-      decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-    }
 
-    // Token is valid, so you can access the decoded data (e.g. user_id)
-    req.user_id = decoded.user_id;
+    if (accessToken) {
+      // Verifying and decoding the accessToken
+      decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+      req.user_id = decoded.user_id; // Token is valid, access the decoded data (e.g., user_id)
+    } else if (refreshToken) {
+      // Verifying and decoding the refreshToken
+      decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+      req.user_id = decoded.user_id; // Token is valid, access the decoded data (e.g., user_id)
+    }
 
     next();
   } catch (err) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized: Invalid Token" });
+    return res.status(401).json({ success: false, message: "Unauthorized: Invalid Token" });
   }
 };
 

@@ -35,7 +35,7 @@ const performance = async (req, res) => {
     console.error(error);
     res
       .status(500)
-      .json({ success: false, message: "Error retrieving performance data" });
+      .json({ success: false, message: "Error Retrieving Performance Data" });
   }
 };
 
