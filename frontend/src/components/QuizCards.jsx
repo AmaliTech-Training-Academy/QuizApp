@@ -1,7 +1,7 @@
 import React from 'react'
-import book from '../assets/Desktop View/Icons/book.png'
-import quizz from '../assets/Desktop View/Icons/quizz.png'
-import subject from '../assets/Desktop View/Icons/subject.png'
+import book from '../assets/DesktopView/Icons/book.png'
+import quizz from '../assets/DesktopView/Icons/quizz.png'
+import subject from '../assets/DesktopView/Icons/subject.png'
 import styles from '../components/forms/addInterest/addCard/addCard.module.css'
 
 const QuizCards = ({ description, topic, iconType, color }) => {

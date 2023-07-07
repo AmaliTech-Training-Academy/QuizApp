@@ -1,10 +1,10 @@
 
-import keyIcon from '../assets/Desktop View/Icons/key.png'
-import apiIcon from '../assets/Desktop View/Icons/api.png'
-import dbIcon from '../assets/Desktop View/Icons/date_range.png'
-import cdIcon from '../assets/Desktop View/Icons/payment.png'
-import wiFi from '../assets/Desktop View/Icons/network_check.png'
-import clipBoard from '../assets/Desktop View/Icons/pending_actions.png'
+import keyIcon from '../assets/DesktopView/Icons/key.png'
+import apiIcon from '../assets/DesktopView/Icons/api.png'
+import dbIcon from '../assets/DesktopView/Icons/date_range.png'
+import cdIcon from '../assets/DesktopView/Icons/payment.png'
+import wiFi from '../assets/DesktopView/Icons/network_check.png'
+import clipBoard from '../assets/DesktopView/Icons/pending_actions.png'
 
 const Services = () => {
   return (

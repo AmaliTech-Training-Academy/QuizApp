@@ -1,6 +1,6 @@
 import React from 'react'
-import sideHero from '../assets/Desktop View/Images/f3bc8635-2f3d-48e0-a3f7-bf5bff42b766 1.png'
-import vectImg from '../assets/Desktop View/Images/Group 427318875.png'
+import sideHero from '../assets/DesktopView/Images/f3bc8635-2f3d-48e0-a3f7-bf5bff42b7661.png'
+import vectImg from '../assets/DesktopView/Images/Group427318875.png'
 
 const ForgotHero = () => {
   return (

@@ -1,6 +1,6 @@
 
-import insImg from '../assets/Desktop View/Images/Rectangle 28.png'
-import vectImg from '../assets/Desktop View/Images/Vector.png'
+import insImg from '../assets/DesktopView/Images/Rectangle28.png'
+import vectImg from '../assets/DesktopView/Images/Vector.png'
 
 const Insight = () => {
   return (

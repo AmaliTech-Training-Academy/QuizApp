@@ -1,5 +1,5 @@
 import React from 'react'
-import celebrate from '../../assets/Desktop View/Images/Frame.png'
+import celebrate from '../../assets/DesktopView/Images/Frame.png'
 import styles from './forms.module.css'
 import { NavLink } from 'react-router-dom'
 

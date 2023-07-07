@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
+import navLogo from '../assets/DesktopView/Icons/navbarLogo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
-import person from '../assets/Desktop View/Icons/person.png'
+import person from '../assets/DesktopView/Icons/person.png'
 import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
