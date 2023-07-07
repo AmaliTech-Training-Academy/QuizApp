@@ -11,7 +11,6 @@ import repeat from "../assets/Desktop View/Icons/repeat.png";
 
 export const QuizIntro = () => {
     const { id } = useParams();
-    const dispatch = useDispatch();
 
     const [quizData, setQuizData] = useState(null);
     const topics = useSelector((state) => state.topics.data);
@@ -120,7 +119,7 @@ return (
                 </div>
             </div>
             <NavLink to={`/quiz/${id}/questions`} className="w-full lg:w-auto mb-56">
-                <button className='py-[10px] lg:px-[73px] w-full lg:w-auto text-white mt-24'>Start</button>
+                <button className='py-[10px] lg:px-[73px] w-full lg:w-auto text-white mt-24 bg-[#0267FF]'>Start</button>
             </NavLink>
         </div>
     </div>

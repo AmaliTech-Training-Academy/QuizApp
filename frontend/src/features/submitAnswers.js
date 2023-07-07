@@ -1,12 +1,11 @@
-import axios from "axios";
+import Api from "../components/forms/services/api";
 
-const submitURL = "https://quiz-master.onrender.com/api/users/questions/answers";
 
 export const submitAnswersToAPI = (answers) => {
-    
-    return axios.post(submitURL, answers)
+    return Api.post('users/questions/answers', answers)
     .then((response) => {
-        console.log(response.data);
+        const results = response.data
+        return results;
     })
     .catch((error) => {
         console.error('Error', error)

@@ -2,47 +2,63 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { submitAnswersToAPI } from "./submitAnswers";
 
 
+const initialState = {
+    answersData: {
+    userId: "",
+    quizId: "",
+    answers: [],
+  },
+    resultsData: []
+}
+
 const answersSlice = createSlice({
     name: 'answers',
-    initialState: [],
+    initialState,
     reducers: {
         submitAnswers: (state, {payload}) => {
-            const existingAnswer = state.find(answer => answer.questionNumber === payload.questionNumber);
+            const existingAnswer = state.answersData.answers.find(answer => answer.questionNumber === payload.questionNumber);
             if(existingAnswer){
                 existingAnswer.answer = payload.answer;
             }else{
-                state.push(payload)
+                state.answersData.answers.push(payload)
             }
+        },
+        submitUserId: (state, {payload}) => {
+            state.answersData.userId = payload
+        },
+        submitQuizId: (state, {payload}) => {
+            state.answersData.quizId = payload
         },
     }, 
     extraReducers: (builder) => {
         builder
-        .addCase(submit.pending, (state) => {
+        .addCase(submit.pending, (state) => {})
+        .addCase(submit.fulfilled, (state, {payload}) => {
+        state.resultsData.push(payload); 
+        state.answersData.answers = [];
+        state.answersData.userId = '';
+        state.answersData.quizId= '';
         })
-        .addCase(submit.fulfilled, (state) => {
-            state = [];
-        })
-        .addCase(submit.rejected, (state, action) => {
-        });
-      },
+        .addCase(submit.rejected, (state, action) => {})},
 });
 
 export const submit = createAsyncThunk(
     "answers/submitAnswers",
     async (_, thunkAPI) => {
-        const number = thunkAPI.getState().quiz.limit;
-        const state = thunkAPI.getState().answers;
-    if(state.length === number){
-        try {
-            await submitAnswersToAPI(state);
-        } catch (error) {
+        const answers = thunkAPI.getState().answers.answersData;
+        const limit = thunkAPI.getState().quiz.limit;
+        if(limit === answers.length){
+            try {
+            const response= await submitAnswersToAPI(answers);
+            return response;
+            } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
-    }else {
-        return thunkAPI.rejectWithValue("State length is not as expected");
+    }else{
+        console.error('Answer all questions.')
     }
     }
 );
 
-export const { submitAnswers } = answersSlice.actions;
+export const { submitAnswers, submitUserId, submitQuizId } = answersSlice.actions;
 export default answersSlice.reducer;

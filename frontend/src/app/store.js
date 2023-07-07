@@ -9,6 +9,8 @@ import answersSlice from '../features/answersSlice'
 import questionSlice from '../features/questionSlice';
 import sureSlice from '../features/sureSlice';
 import sectionSlice from '../features/sectionSlice'
+import resultsSlice from '../features/resultsSlice';
+
 
 
 const persistConfig = {
@@ -25,6 +27,7 @@ const persistConfig = {
       answers: answersSlice,
       sure: sureSlice,
       section: sectionSlice,
+      results: resultsSlice,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

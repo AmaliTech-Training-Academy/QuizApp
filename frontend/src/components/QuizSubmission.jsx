@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import React, { useState } from 'react'
 
 export const QuizSubmission = ({handleSure}) => {
@@ -11,7 +12,11 @@ export const QuizSubmission = ({handleSure}) => {
         if(check){
         handleSure();
         }
-    }
+    };
+
+    const userName = Cookies.get('name');
+
+    // console.log(userName);
 return (
     <div className='flex flex-col lg:w-8/12 mx-auto my-20 bg-white'>
         <div className='font-semibold'>QuizMaster honor code <span className='text-[#0267FF]'>Learn more</span> </div>
@@ -23,11 +28,11 @@ return (
             onChange={handleChange}
             />
             <div>
-                I John Doe, understand that submitting work that isn't my own may result in permanent failure of this quiz or deactivativation of my quiz master account                                      
+                I {userName}, understand that submitting work that isn't my own may result in permanent failure of this quiz or deactivativation of my quiz master account                                      
             </div>
         </div>
         <button 
-        className='self-center px-32 py-4 mt-16 w-full lg:w-auto'
+        className='self-center px-32 py-4 mt-16 w-full lg:w-auto bg-[#0267FF]'
         onClick={handleSubmit}
         >Submit</button>
     </div>

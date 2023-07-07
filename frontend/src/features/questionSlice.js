@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 
 const questionSlice = createSlice({
@@ -9,9 +8,12 @@ const questionSlice = createSlice({
         setQuestion: (state, action) => {
             return action.payload;
         },
+        resetQuestion: (state, action) => {
+            return action.payload;
+        }
     },
 });
 
 
-export const { setQuestion } = questionSlice.actions;
+export const { setQuestion, resetQuestion } = questionSlice.actions;
 export default questionSlice.reducer;

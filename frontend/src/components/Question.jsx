@@ -26,9 +26,6 @@ return (
             text={answer.text}
             key={answer._id}
             handleChoice={handleChoice}
-            selectedAnswer={selectedAnswer}
-            chosenAnswers={chosenAnswers}
-            handle
             />
         )})
     }

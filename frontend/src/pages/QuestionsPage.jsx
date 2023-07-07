@@ -9,7 +9,7 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import Navbar from '../components/Navbar';
 import { Question } from '../components/Question';
 import { QuizSubmission } from '../components/QuizSubmission';
-import { submit, submitAnswers } from '../features/answersSlice';
+import { submit, submitAnswers, submitUserId, submitQuizId } from '../features/answersSlice';
 import { setQuestion } from '../features/questionSlice';
 import { SubmitModal } from '../components/SubmitModal';
 import { sureSubmit } from '../features/sureSlice';
@@ -26,7 +26,8 @@ export const Questions = () => {
     const currentQuiz = topics.filter(topic => topic._id === id);
     const currentPage = useSelector((state)=> state.question.questionNumber);
     const sure = useSelector(state => state.sure);
-    console.log(sure);
+    const chosenAnswers = useSelector(state=> state.answers.answersData)
+    console.log(chosenAnswers);
     
     const [page, setPage] = useState(currentPage);
 
@@ -36,6 +37,8 @@ export const Questions = () => {
         questionNumber: '',
         answer: '',
     });
+
+    // console.log(question);
 
     // const [submit, setSubmit] = useState(false);
 
@@ -107,18 +110,14 @@ export const Questions = () => {
         setSelectedAnswer(prev => ({...prev, questionNumber: '', answer: '', quiz_id: '',}))
     }}
 
-    const answers = useSelector((state)=>state.answers);
-
-
     const handleChoice = (e) => {
         const chosenAnswer = e.target.value;
         const result = {
             questionNumber: page,
             answer: chosenAnswer,
-            quiz_id: id,
         };
         setSelectedAnswer(result);
-        if (answers.some((answer) => answer.questionNumber === result.questionNumber)) {
+        if (chosenAnswers.answers.some((answer) => answer.questionNumber === result.questionNumber)) {
             // Update the existing answer in the `answers` array
             dispatch(submitAnswers(result))
         } else {
@@ -134,7 +133,9 @@ export const Questions = () => {
         dispatch(sureSubmit(false))
     };
 
-    const handleSureSubmit = () => {
+    const handleSureSubmit = (e) => {
+        dispatch(submitUserId(e));
+        dispatch(submitQuizId(id));
         dispatch(submit())
     };
 
@@ -151,6 +152,8 @@ export const Questions = () => {
             );
         }
     };
+
+    console.log();
     
     return (
         <div className='bg-[#0267FF] lg:bg-transparent'>
@@ -213,7 +216,7 @@ export const Questions = () => {
             questionNumber={currentPage} 
             selectedAnswer={selectedAnswer} 
             handleChoice={handleChoice}
-            chosenAnswers={answers}
+            chosenAnswers={chosenAnswers}
             />
         </div>
         {/* Mobile Buttons */}
@@ -230,7 +233,7 @@ export const Questions = () => {
             >Next</button>
         </div> 
         {
-            answers.length === question.totalQuestions ?  <QuizSubmission handleSure={handleSure}/> : ''
+            chosenAnswers.answers.length === question.limit ?  <QuizSubmission handleSure={handleSure}/> : ''
         }
         </div>
     </div>
