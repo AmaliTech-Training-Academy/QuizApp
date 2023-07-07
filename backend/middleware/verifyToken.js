@@ -1,13 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware function for token verification
 const verifyToken = (req, res, next) => {
-  // Getting the token from the request header or cookie
   const bearerToken = req.headers.authorization || req.cookies.token;
   const refreshToken = req.cookies.refreshToken;
 
-  const accessToken = bearerToken.split(" ")[1];
-  if (!accessToken && !refreshToken) {
+  if (!bearerToken && !refreshToken) {
     return res
       .status(401)
       .json({ success: false, message: "Unauthorized: No token provided" });
@@ -16,14 +13,17 @@ const verifyToken = (req, res, next) => {
   try {
     let decoded;
 
-    if (accessToken) {
-      // Verifying and decoding the accessToken
+    if (bearerToken) {
+      const accessToken = bearerToken.split(" ")[1];
       decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-      req.user_id = decoded.user_id; // Token is valid, access the decoded data (e.g., user_id)
+      req.user_id = decoded.user_id;
     } else if (refreshToken) {
-      // Verifying and decoding the refreshToken
       decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-      req.user_id = decoded.user_id; // Token is valid, access the decoded data (e.g., user_id)
+      req.user_id = decoded.user_id;
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: Invalid Token" });
     }
 
     next();
