@@ -62,7 +62,7 @@
     }
 
     button {
-        @apply text-white border bg-[#0267ff] border-[#0267ff] rounded-md
+        @apply text-white border border-[#0267ff] rounded-md
     }
 
 }
