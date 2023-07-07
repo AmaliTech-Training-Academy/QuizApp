@@ -70,6 +70,48 @@ const Register = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signIn().then(googleUser => {
+      const id_token = googleUser.getAuthResponse().id_token;
+      // Send the id_token to the server for verification
+      // You can make an API request here to send the id_token to your server-side code and verify it.
+
+      // Example of making an API request to your server using Axios
+      // Replace 'your-server-endpoint' with your actual server endpoint
+      Api.post('your-server-endpoint', { id_token })
+        .then(response => {
+          // Handle the response from the server
+          console.log(response.data);
+        })
+        .catch(error => {
+          // Handle any errors that occur during the API request
+          console.error(error);
+        });
+    });
+  };
+
+  useEffect(() => {
+    // Load the Google Sign-In API script
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/platform.js';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      window.gapi.load('auth2', () => {
+        window.gapi.auth2.init({
+          client_id:
+            '387373038848-c507h2u37ddgtugst4le2psbjf8q6l5s.apps.googleusercontent.com',
+        });
+        // setLoading(false);
+      });
+    };
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <div className={styles.formsStep1}>
       {errors.password && (
@@ -144,7 +186,7 @@ const Register = () => {
       </div>
 
       <div className={styles.googleContainer}>
-        <button className={styles.googleBtn} onClick={() => login()}>
+        <button className={styles.googleBtn} onClick={handleGoogleLogin}>
           <img src={google} alt="google logo" className={styles.googleLogo} />
           <span className={styles.signup}>Sign up with Google</span>
         </button>
