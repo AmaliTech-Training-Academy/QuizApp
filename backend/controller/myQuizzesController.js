@@ -1,8 +1,8 @@
 const { userModel } = require("../models/userModels");
-const quizModel = require('../models/quizModel')
+const quizModel = require("../models/quizModel");
 
 // @desc Get Quizzes Taken by User
-// @route GET /api/users/:userId/quizzes
+// @route GET /api/users/quizzes/:userId
 // @access Private
 const myQuizzes = async (req, res) => {
   const { userId } = req.params; // extracting the userId from the request parameters
@@ -19,19 +19,17 @@ const myQuizzes = async (req, res) => {
     // mapping through the quizzes array to include the quizId and formatted date
     const quizzes = user.quizzes.map((quiz) => ({
       quizId: quiz.quizId,
-      topic: quiz.topic,
+      topic: quiz.quizId.topic,
       date: quiz.date.toLocaleDateString(),
     }));
 
     res.status(200).json({ success: true, quizzes });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Error retrieving quizzes taken by user",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving quizzes taken by user",
+    });
   }
 };
 

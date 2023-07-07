@@ -48,7 +48,7 @@ app.use("/api/users/delete-profile", deleteProfile);
 app.use("/api/users/topics", Topic);
 app.use("/api/users/questions", questionRoutes);
 app.use("/api/users/questions", submitAnswer);
-app.use("/api/users/:userId", myQuizzes);
+app.use("/api/users/quizzes", myQuizzes);
 app.use("/api/users/performance", performance);
 
 app.listen(port, () => {
