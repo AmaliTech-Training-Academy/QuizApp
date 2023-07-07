@@ -3,6 +3,6 @@ const performance = require('../controller/performanceController')
 const protected = require('../middleware/verifyToken')
 const router = express.Router()
 
-router.get('/', protected, performance)
+router.get('/:userId', protected, performance)
 
 module.exports = router
