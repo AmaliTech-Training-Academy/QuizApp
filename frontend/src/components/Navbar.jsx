@@ -1,5 +1,5 @@
 import React from 'react';
-import navLogo from '../assets/Desktop View/Icons/Navbar logo.png';
+import navLogo from '../assets/DesktopView/Icons/navbarLogo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
 import { NavLink } from 'react-router-dom'
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import personIcon from '../../../assets/Desktop View/Icons/person.png';
+import personIcon from '../../../assets/DesktopView/Icons/person.png';
 import styles from './addPhoto.module.css';
 import { useDispatch } from 'react-redux';
 import { increaseCount } from '../../../features/stepperSlice';

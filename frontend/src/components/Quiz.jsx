@@ -1,5 +1,5 @@
 import React from 'react';
-import star from "../assets/Desktop View/Icons/star.png";
+import star from "../assets/DesktopView/Icons/star.png";
 import { MdOutlineTimer } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
 // import { quizPhotos } from './QuizPhotos';
