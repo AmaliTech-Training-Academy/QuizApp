@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
     });
 
     const salt = await bcrypt.genSalt(10);
-    user.password = bcrypt.hash(user.password, salt);
+    user.password = await bcrypt.hash(user.password, salt);
     await user.save();
 
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
