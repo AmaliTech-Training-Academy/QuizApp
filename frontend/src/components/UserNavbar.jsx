@@ -44,22 +44,15 @@ export const  ProfileImage = ({setShowSettings, showSettings, component, getImag
   const [imagePresent, setImagePresent] = useState(false)
   
   useEffect(()=>{
-    const Cookies = document.cookie
-    const cookieObject = Cookies
-      .split(';')
-      .reduce((acc, cookie) => {
-        const [name, value] = cookie.split('=');
-        acc[name.trim()] = value.trim();
-        return acc;
-      }, {});
-      const image = cookieObject?.profileImage
-      setImage(image)
-
-      if(image !== ''){
-        setImagePresent(true)
+    const profileImage = Cookies.get('image')
+      if (profileImage) {
+        setImage(profileImage);
+        setImagePresent(true);
       }
     
   },[]);
+
+  
 
   return(
     <>

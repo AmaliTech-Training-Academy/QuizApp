@@ -17,11 +17,11 @@ const AddPhoto = ({component}) => {
 
   const handleClick = async () => {
     const response = await Api.patch(`users/${userId}`, {profileImage: getImage})
-    console.log(response);
     if(response.status === 200){
       toast.success('Profile image updated successfully')
       dispatch(increaseCount())
       const data = JSON.parse(response.config?.data)
+      console.log(data)
       const Image = data?.profileImage
       Cookies.set('profileImage', Image)
     }else{
@@ -60,6 +60,21 @@ const AddPhoto = ({component}) => {
     handleImageUrl(file)
   };
 
+  const deleteAvatar = async e=>{
+    e.preventDefault();
+    try {
+      const response = await Api.delete('users/delete-profile/id')
+      console.log(response);
+      toast.success(response.data.message)
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message)
+    }
+    
+
+  }
+
+
   return (
     <>
       {component === 'updateProfile' ? (
@@ -78,7 +93,7 @@ const AddPhoto = ({component}) => {
           <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]" onClick={handleClick} >
            <label  htmlFor={getImage ? '' : 'photo-upload'}>Upload New</label>
           </button>
-          <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none">
+          <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none" onClick={deleteAvatar}>
            Delete Avatar
           </button>
         </div>
