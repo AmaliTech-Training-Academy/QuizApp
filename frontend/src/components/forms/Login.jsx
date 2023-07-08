@@ -50,6 +50,7 @@ const Login = () => {
                 Cookies.set('email',response.data.email);
                 Cookies.set('id',response.data.id);
                 Cookies.set('name', response.data.name);
+                Cookies.set('image', response.data.profileImage)
                 setTimeout(() => {
                     setLoading(true)
                   }, 3000);
