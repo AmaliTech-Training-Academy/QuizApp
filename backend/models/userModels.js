@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { Schema } = require("mongoose");
-const Quiz = require("./quizModel");
 
 const userSchema = new mongoose.Schema(
   {
@@ -69,7 +68,8 @@ const userSchema = new mongoose.Schema(
 
 // generating token logic, jwt.sign({takes 3 arguments to generate the token})
 userSchema.methods.generateAccessToken = function () {
-  const accessToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+  console.log("User ID in generateAccess::", this._id)
+  const accessToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "1hr",
   });
   return accessToken;
@@ -78,17 +78,19 @@ userSchema.methods.generateAccessToken = function () {
 // refresh Token
 userSchema.methods.generateRefreshToken = function (rememberMe) {
   if (rememberMe) {
-    const refreshToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    const refreshToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
       expiresIn: "30d",
     });
     return refreshToken;
   } else {
-    const refreshToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    const refreshToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
     return refreshToken;
   }
 };
+
+
 
 const userModel = mongoose.model("User", userSchema);
 
