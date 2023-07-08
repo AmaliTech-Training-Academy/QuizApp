@@ -15,6 +15,7 @@ const deleteProfile = require("./routes/deleteProfileRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const myQuizzes = require("./routes/myQuizzesRoutes");
 const performance = require("./routes/performanceRoutes");
+const recentQuiz = require("./routes/recentQuizRoutes");
 const submitAnswer = require("./routes/submitAnswerRoutes");
 const Topic = require("./routes/topicRoutes");
 const { connectDB } = require("./config/db");
@@ -50,6 +51,7 @@ app.use("/api/users/questions", questionRoutes);
 app.use("/api/users/questions", submitAnswer);
 app.use("/api/users/quizzes", myQuizzes);
 app.use("/api/users/performance", performance);
+app.use("/api/users/:userId", recentQuiz);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
