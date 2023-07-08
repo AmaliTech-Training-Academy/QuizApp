@@ -77,6 +77,7 @@ const forgetPassword = async (req, res) => {
     });
   } catch (error) {
     // Something went wrong
+    console.error(error)
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
