@@ -42,7 +42,7 @@ export const UpdatePassword = () => {
   }
 
   return (
-    <form className="md:mt-[100px] md:mr-[5rem] px-8 md:px-0" onSubmit={handlePassword}>
+    <form className="md:mt-[100px] md:mr-[5rem] px-8 md:px-0  2xl:ml-[-25rem]" onSubmit={handlePassword}>
       <div className="mb-[48px]">
         <label>Current password*</label>
         <div className="mt-[8px] md:w-fit">
@@ -121,7 +121,7 @@ export const UpdateProfile = () => {
   }
 
   return (
-    <div className="lg:ml-[5rem]" >
+    <div className="lg:ml-[5rem] 2xl:ml-[-8rem]" >
       <div className='hidden md:block'><AddPhoto component='updateProfile'/></div>
       <form onSubmit={handleProfileUpdate} className='px-8 md:px-0'>
       <div className="md:mt-[41px] md:grid md:grid-cols-2 md:gap-[1.5rem] md:w-fit">

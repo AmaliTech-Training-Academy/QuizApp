@@ -82,13 +82,15 @@ const ProfilePage = () => {
         </div>
 
         <div className="charts flex justify-between flex-col lg:flex-row mb-[90px]">
-          <div className='px-1.6  pt-12 pb-20 shadow-lg rounded-lg md:mb-[70px]'>
+          <div className='px-1.6  pt-12  shadow-lg rounded-lg md:mb-[70px]'>
             <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Records</p>
-            <DonutChart/>
+            <div><DonutChart/></div>
           </div>
           <div className='px-1.6  pt-12 shadow-lg rounded-lg h-fit'>
             <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Statistics</p>
-            <BarGraph/>
+            {/* <div className='lg:w-[20rem]'> */}
+              <BarGraph/>
+              {/* </div> */}
           </div>
           
         </div>

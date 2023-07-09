@@ -119,7 +119,7 @@ const AccountSettings = () => {
             {/* profile name and mail */}
             <UserDetails/>
 
-            <div className="md:flex  justify-around">
+            <div className="md:flex  lg:justify-between justify-around">
               {/* selections */}
               <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
                 <div className="font-semibold text-base tracking-wid md:w-max">
@@ -159,9 +159,9 @@ const AccountSettings = () => {
 
                 <div className="h-[600px] w-[1px] bg-[#CCCCCC] hidden md:block"></div>
               </div>
-              <div className='hidden md:block'>{general && <UpdateProfile />}</div>
+              <div className='hidden md:block 2xl:ml-[-8rem]'>{general && <UpdateProfile />}</div>
               
-              <div className='hidden md:block'> {changePassword && <UpdatePassword />}</div>
+              <div className='hidden md:block  2xl:ml-[-25rem] '> {changePassword && <UpdatePassword />}</div>
               <div className='hidden md:block'> {checkQuizzes && '<UsersQuizzes />'}</div>
             </div>
           </div>

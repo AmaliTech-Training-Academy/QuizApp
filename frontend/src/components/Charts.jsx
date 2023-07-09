@@ -15,7 +15,7 @@ export const DonutChart = () => {
   const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7f50'];
 
   return (
-    <PieChart width={800} height={300}>
+    <PieChart width={600} height={400}>
       <Pie
         data={data}
         cx="50%"
@@ -24,7 +24,7 @@ export const DonutChart = () => {
         outerRadius={150}
         fill="#8884d8"
         dataKey="value"
-        // cornerRadius={30}
+        
       >
         {data.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
