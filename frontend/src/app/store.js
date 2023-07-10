@@ -10,6 +10,7 @@ import questionSlice from '../features/questionSlice';
 import sureSlice from '../features/sureSlice';
 import sectionSlice from '../features/sectionSlice'
 import resultsSlice from '../features/resultsSlice';
+import userSlice from '../features/userSlice';
 
 
 
@@ -28,6 +29,7 @@ const persistConfig = {
       sure: sureSlice,
       section: sectionSlice,
       results: resultsSlice,
+      userData: userSlice,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
