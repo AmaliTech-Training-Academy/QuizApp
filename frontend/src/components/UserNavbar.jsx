@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import navLogo from '../assets/DesktopView/Icons/navbarLogo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
-import person from '../assets/DesktopView/Icons/person.png'
+import personIcon from '../assets/DesktopView/Icons/person.png'
 import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -39,30 +39,67 @@ export default UserNavbar;
 
 //profileImage
 
-export const  ProfileImage = ({setShowSettings, showSettings, component, getImage})=>{
-  const [image, setImage] = useState()
-  const [imagePresent, setImagePresent] = useState(false)
-  
-  useEffect(()=>{
-    const profileImage = Cookies.get('image')
-      if (profileImage) {
-        setImage(profileImage);
-        setImagePresent(true);
-      }
-    
-  },[]);
+export const ProfileImage = ({ setShowSettings, showSettings, component, getImage }) => {
+  const [image, setImage] = useState();
+  const [imagePresent, setImagePresent] = useState(false);
 
-  
+  useEffect(() => {
+    const profileImage = Cookies.get('image');
+    if (profileImage && profileImage !== 'undefined') {
+      setImage(profileImage);
+      setImagePresent(true);
+    }
+  }, []);
 
-  return(
+  const getImageSource = () => {
+    if (getImage) {
+      return getImage;
+    } else if (imagePresent) {
+      return image;
+    } else {
+      return personIcon;
+    }
+  };
+
+  return (
     <>
-    {!imagePresent ?<img className='border rounded-full bg-[#b3b3b3] cursor-pointer self-center'
-    style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '160px', width:'160px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}
-    src={!getImage || person } alt="person image" onClick={()=>setShowSettings(!showSettings)}/>:  
-    <img className='self-center border rounded-full cursor-pointer' src={getImage || image} alt="" onClick={()=>setShowSettings(!showSettings)} style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '170px', width:'170px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}/> }
+      {!imagePresent ? (
+        <img
+          className="border rounded-full bg-[#b3b3b3] cursor-pointer self-center"
+          style={
+            component === 'settings'
+              ? { height: '70px', width: '70px' }
+              : component === 'updateProfile'
+              ? { height: '160px', width: '160px' }
+              : component === 'navbar'
+              ? { height: '56px', width: '56px' }
+              : { height: '56px', width: '56px' }
+          }
+          src={getImageSource()}
+          alt="person image"
+          onClick={() => setShowSettings(!showSettings)}
+        />
+      ) : (
+        <img
+          className="self-center border rounded-full cursor-pointer"
+          src={getImageSource()}
+          alt=""
+          onClick={() => setShowSettings(!showSettings)}
+          style={
+            component === 'settings'
+              ? { height: '70px', width: '70px' }
+              : component === 'updateProfile'
+              ? { height: '170px', width: '170px' }
+              : component === 'navbar'
+              ? { height: '56px', width: '56px' }
+              : { height: '56px', width: '56px' }
+          }
+        />
+      )}
     </>
-  )
-}
+  );
+};
+
 
 
 // dropdown

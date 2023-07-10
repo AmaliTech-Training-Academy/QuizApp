@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import personIcon from '../../../assets/DesktopView/Icons/person.png';
 import styles from './addPhoto.module.css';
 import { useDispatch } from 'react-redux';
@@ -14,9 +14,11 @@ const AddPhoto = ({component}) => {
   const [getImage, setGetImage] = useState(null);
   const dispatch = useDispatch();
   const userId = Cookies.get('userId')
+  console.log(Cookies.get('userId'));
 
   const handleClick = async () => {
-    const response = await Api.patch(`users/${userId}`, {profileImage: getImage})
+    const response = await Api.patch(`users/photo/${userId}`, {profileImage: getImage})
+    console.log(response);
     if(response.status === 200){
       toast.success('Profile image updated successfully')
       dispatch(increaseCount())
@@ -63,15 +65,17 @@ const AddPhoto = ({component}) => {
   const deleteAvatar = async e=>{
     e.preventDefault();
     try {
-      const response = await Api.delete('users/delete-profile/id')
+      const response = await Api.delete(`users/delete-profile/${Cookies.get('id')}`)
       console.log(response);
       toast.success(response.data.message)
+      Cookies.remove('image')
+      getImage(null)
+      // useEffect(()=>{},[])
+      
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message)
     }
-    
-
   }
 
 
@@ -90,9 +94,11 @@ const AddPhoto = ({component}) => {
             onChange={handleImageChange}
             hidden
           />
-          <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]" onClick={handleClick} >
-           <label  htmlFor={getImage ? '' : 'photo-upload'}>Upload New</label>
-          </button>
+          {!getImage ?<button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]">
+            <label  htmlFor={getImage ? '' : 'photo-upload'}>Upload New</label> 
+          </button> :
+          <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]" onClick={handleClick}>Continue</button>}
+          
           <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none" onClick={deleteAvatar}>
            Delete Avatar
           </button>

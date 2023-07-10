@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { changeSection } from '../features/sectionSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import UserQuizzes from '../components/UserQuizzes'
 
 
 const AccountSettings = () => {
@@ -19,7 +20,6 @@ const AccountSettings = () => {
   const dispatch = useDispatch();
 
   const currentSection = useSelector(state=> state.section);
-  console.log(currentSection);
 
   const [showSettings, setShowSettings] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -27,8 +27,6 @@ const AccountSettings = () => {
   const [checkQuizzes, setCheckQuizzes] = useState(currentSection.myQuizzes)
   const [general, setGeneral] = useState(currentSection.general)
   const [recentState, setRecentState] = useState({ general: true })
-
-  console.log(general, checkQuizzes, changePassword);
 
   const verifyCookie = Cookies.get('rememberMe')
     const  stateArray = Object.entries(recentState)
@@ -162,7 +160,7 @@ const AccountSettings = () => {
               <div className='hidden md:block 2xl:ml-[-8rem]'>{general && <UpdateProfile />}</div>
               
               <div className='hidden md:block  2xl:ml-[-25rem] '> {changePassword && <UpdatePassword />}</div>
-              <div className='hidden md:block'> {checkQuizzes && '<UsersQuizzes />'}</div>
+              <div className='hidden md:block'> {checkQuizzes && <UserQuizzes/>}</div>
             </div>
           </div>
         </section>
