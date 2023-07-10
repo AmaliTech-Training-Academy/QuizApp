@@ -16,7 +16,7 @@ export const QuizIntro = () => {
     const topics = useSelector((state) => state.topics.data);
     // 
 
-    console.log(topics);
+    // console.log(topics);
     const quiz = topics.filter(topic => id === topic._id);
     const quizImage = quiz[0].desktopImage;
     // console.log(quizImage);

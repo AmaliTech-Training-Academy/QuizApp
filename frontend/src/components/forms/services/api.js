@@ -1,10 +1,15 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
+import { useSelector } from 'react-redux';
 
-const token = Cookies.get('rememberMe');
+const Api = () => {
+  const token = useSelector(state => state.userData.user_token);
+  console.log(token);
 
-const Api = axios.create({
+const api = axios.create({
   baseURL: 'https://quiz-master.onrender.com/api/',
-  headers: {Authorization: token ? `Bearer ${token}`: null}
+  headers: {Authorization: token ? `Bearer ${token}`: null},
 })
-export default Api
+return api;
+};
+
+export default Api;

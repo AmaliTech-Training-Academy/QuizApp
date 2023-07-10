@@ -1,28 +1,28 @@
 import { createSlice, createAsyncThunk, } from "@reduxjs/toolkit";
-// import axios from "axios";
 import Api from "../components/forms/services/api";
 
 
 const initialState = {
+    page: 1,
     data: [],
 };
 
-export const getQuestions = createAsyncThunk('questions/get', async ({topicId, page})=> {
+export const getQuestions = createAsyncThunk('questions/get', async ({topicId}, { getState, rejectWithValue })=> {
     try {
-        // const baseURL = `https://quiz-master.onrender.com/api/users/questions?topicId=${topicId}&page=${page}&limit=5`
+        const { page } = getState().quiz;
         const response = await Api.get(`users/questions?topicId=${topicId}&page=${page}&limit=5`);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch topics');
     }
 });
 
-// const resetQuestion = createSelector((state) => state.question);
-
 const quizSlice = createSlice({
     name: 'quiz',
     initialState,
     reducers: {
+        
     },
     extraReducers: (builder) => {
     builder
@@ -33,7 +33,6 @@ const quizSlice = createSlice({
         state.status = 'succeeded';
         state.data = action.payload;
         state.error = null;
-        // console.log(resetQuestion(state));
         })
         .addCase(getQuestions.rejected, (state, action) => {
         state.status = 'failed';

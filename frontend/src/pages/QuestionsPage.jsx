@@ -20,16 +20,20 @@ export const Questions = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     
-    const {data:question} = useSelector((state) => state.quiz);
     const {data:topics} = useSelector((state) => state.topics);
-    const currentQuestion = useSelector((state) => state.question);
     const currentQuiz = topics.filter(topic => topic._id === id);
-    const currentPage = useSelector((state)=> state.question.questionNumber);
+    const {data:question} = useSelector((state) => state.quiz);
+    // const currentQuestion = useSelector((state) => state.question);
+    // const currentPage = useSelector((state)=> state.question.questionNumber);
     const sure = useSelector(state => state.sure);
     const chosenAnswers = useSelector(state=> state.answers.answersData)
     console.log(chosenAnswers);
+    console.log(question);
     
-    const [page, setPage] = useState(currentPage);
+    // const [page, setPage] = useState(currentPage);
+
+    const [page, setPage] = useState(1);
+
 
     const currentQuizName = currentQuiz[0].topic;
 
@@ -38,22 +42,20 @@ export const Questions = () => {
         answer: '',
     });
 
-    // console.log(question);
-
-    // const [submit, setSubmit] = useState(false);
+    console.log(question);
 
     useEffect(()=>{
-        dispatch(getQuestions({topicId:id, page:page}));
-    },[id, page]);
+        dispatch(getQuestions({topicId:id}));
+    },[id]);
 
-    useEffect(()=>{
-        dispatch(setQuestion({
-            data: question.question,
-            answers: question.answers,
-            questionNumber: question.page,
-        }))
+    // useEffect(()=>{
+    //     dispatch(setQuestion({
+    //         data: question.question,
+    //         answers: question.answers,
+    //         questionNumber: question.page,
+    //     }))
 
-    }, [question, page, dispatch])
+    // }, [question, page, dispatch])
 
     const boxShadow = {
         boxShadow: "4px 4px 17px -3px rgba(0, 0, 0, 0.25)"
@@ -75,7 +77,7 @@ export const Questions = () => {
     };
 
     const questionNav = [];
-    for( let i = 0; i < question.totalQuestions; i++){
+    for( let i = 0; i < question.limit; i++){
         const questionNumber = i + 1;
         questionNav.push(
             <div 
@@ -101,7 +103,7 @@ export const Questions = () => {
     };
 
     const forwardArrowNav = () => {
-        if(page < question.totalQuestions){
+        if(page < question.limit){
             setPage(page + 1);
             setQuestion({
                 data: question.question,
@@ -233,7 +235,7 @@ export const Questions = () => {
             >Next</button>
         </div> 
         {
-            chosenAnswers.answers.length === question.limit ?  <QuizSubmission handleSure={handleSure}/> : ''
+            chosenAnswers.answers.length === question.limit ?  <QuizSubmission handleSure={handleSure} id={id}/> : ''
         }
         </div>
     </div>
