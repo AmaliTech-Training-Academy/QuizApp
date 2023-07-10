@@ -3,6 +3,6 @@ const recentQuiz = require("../controller/recentQuizController");
 const protected = require('../middleware/verifyToken')
 const router = express.Router();
 
-router.get("/recent-quizzes", protected, recentQuiz);
+router.get("/:userId", protected, recentQuiz);
 
 module.exports = router;
