@@ -15,7 +15,6 @@ import ProfilePage from './pages/ProfilePage'
 import { QuizIntro } from './pages/QuizIntro';
 // import { Questions } from './pages/QuestionsPage';
 
-import Cookies from 'js-cookie'
 import AccountSettings from './pages/AccountSettings'
 import GeneralSettings from './pages/GeneralSettings'
 import PasswordSettings from './pages/PasswordSettings'
@@ -25,7 +24,6 @@ import { QuestionsPage2 } from './pages/QuestionsPage2'
 // import { ReviewResultsPage } from './pages/ReviewResultsPage'
 
 function App() {
-  const verifyCookie = Cookies.get('rememberMe')
 
   return (
     <>

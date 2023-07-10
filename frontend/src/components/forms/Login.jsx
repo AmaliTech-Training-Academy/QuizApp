@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import { RotatingLines } from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
-import { addUser, removeUser } from '../../features/userSlice'
+import { addUser } from '../../features/userSlice'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -40,11 +40,12 @@ const Login = () => {
     };
 
 
-    const handleClick = async e =>{
+    const handleClick = async (e) =>{
         e.preventDefault();
         if(validateForm()){
+            console.log(true);
             try {
-                const data = {email, password , checkbox}
+                const data = {email, password, checkbox}
                 setLoading(!loading)
                 const response = await Api.post('users/login', data)
                 toast.success(response.data.message)
@@ -68,7 +69,8 @@ const Login = () => {
                 navigate('/profile')
                 
             } catch (error) {
-                const err = error.response.data.message
+                const err = error.response
+                console.log(err);
                 toast.warn(err)
                 setTimeout(() => {
                     setLoading(true)
