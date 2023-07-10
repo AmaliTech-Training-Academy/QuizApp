@@ -12,6 +12,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     let decoded;
+    console.log(decoded)
 
     if (bearerToken) {
       const accessToken = bearerToken.split(" ")[1];
@@ -21,7 +22,7 @@ const verifyToken = (req, res, next) => {
       console.log("access::::", decoded.user_id)
     } else if (refreshToken) {
       decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-      console.log("decoded::", decoded);
+      console.log("decoded::", decoded.user_id);
       req.user_id = decoded.user_id; // Accessing the user ID from the decoded token
     } else {
       return res

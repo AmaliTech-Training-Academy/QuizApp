@@ -1,7 +1,8 @@
-const express = require("express").Router;
+const express = require("express");
 const recentQuiz = require("../controller/recentQuizController");
-const router = require("./questionRoutes");
+const protected = require('../middleware/verifyToken')
+const router = express.Router();
 
-router.get("/recent-quizzes", recentQuiz);
+router.get("/recent-quizzes", protected, recentQuiz);
 
 module.exports = router;

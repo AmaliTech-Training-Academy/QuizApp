@@ -1,7 +1,7 @@
 const { userModel } = require("../models/userModels");
 
 // @desc Register new user
-// @route POST /api/editUser/:id
+// @route POST /api/users/photo/:id
 // @access Public
 async function editUser(req, res) {
   try {
