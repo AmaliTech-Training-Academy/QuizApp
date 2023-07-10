@@ -4,6 +4,8 @@ import {Link, animationScroll as scroll} from 'react-scroll';
 import person from '../assets/DesktopView/Icons/person.png'
 import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../features/userSlice';
 
 const UserNavbar = ({setShowSettings, showSettings}) => {
   
@@ -70,10 +72,12 @@ export const  ProfileImage = ({setShowSettings, showSettings, component, getImag
 export const DropdownList = () =>{
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch();
   
   const handleLogout = ()=>{
     Cookies.remove('rememberMe')
     Cookies.remove('userId')
+    dispatch(removeUser())
     navigate('/login')
   }
 
