@@ -6,7 +6,7 @@ const subscribeUser = require("../controller/subscribeController");
 const router = express.Router();
 
 router.post("/", validateRegisterUser, registerUser)
-router.patch('/:id', editUser);
+router.patch('/photo/:id', editUser);
 // router.post('/', subscribeUser)
 
 module.exports = router;
