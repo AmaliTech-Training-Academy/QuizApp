@@ -38,8 +38,9 @@ const forgetPassword = async (req, res) => {
     to get the current URL and extract the protocol, host, and port. 
     This ensures that the link will work regardless of where the app is deployed.
     */
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const baseUrl = process.env.DEPLOYED_LINK;
     const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`;
+    console.log(link);
 
     // Create a nodemailer transporter for sending the reset password email
     let transporter = nodemailer.createTransport({
@@ -63,7 +64,7 @@ const forgetPassword = async (req, res) => {
     // Sending the password reset email
     transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        console.log(error);
+        console.error(error);
         // Failed to send email
         return res
           .status(400)
@@ -77,7 +78,7 @@ const forgetPassword = async (req, res) => {
     });
   } catch (error) {
     // Something went wrong
-    console.error(error)
+    console.error(error);
     return res.status(500).json({ message: "Something went wrong" });
   }
 };

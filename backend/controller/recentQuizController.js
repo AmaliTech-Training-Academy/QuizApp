@@ -39,6 +39,7 @@ const recentQuiz = async (req, res) => {
       username: user.name,
       recentQuizzes: recentQuizData,
     });
+    console.log("recent::: ", { success: true, username: user.name, recentQuiz: recentQuizzes });
   } catch (error) {
     console.error(error);
     res
