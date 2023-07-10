@@ -20,6 +20,7 @@ const submitAnswer = require("./routes/submitAnswerRoutes");
 const Topic = require("./routes/topicRoutes");
 const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
+const errorHandler = require("./middleware/errorMiddleware");
 
 connectDB(); //connection to mongodb database
 
@@ -30,6 +31,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(errorHandler)
 
 app.get("/api/users/status", (req, res) => {
   res.send("API is running  ");

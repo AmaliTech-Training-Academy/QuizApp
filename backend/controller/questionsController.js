@@ -5,16 +5,18 @@ const quizModel = require("../models/quizModel");
 // @route GET /api/users/questions?topicId=topicId&page=1&limit=5
 // @access Private
 const questions = async (req, res) => {
-  const topicId = req.query.topicId;
+  const { topicId } = req.query;
+  console.log("::", topicId);
   const page = parseInt(req.query.page) || 1; // current page number
   console.log(page);
   const limit = 5; // Number of items per page
 
   try {
-    if (!mongoose.Types.ObjectId.isValid(topicId))
-      throw new Error("Invalid topicId");
+    // if (!mongoose.Types.ObjectId.isValid(topicId))
+    //   throw new Error("Invalid topicId");
 
-    const fetchedData = await quizModel.findById({ _id: topicId });
+    // const fetchedData = await quizModel.findById(topicId);
+    const fetchedData = await quizModel.findById(topicId)
     if (!fetchedData)
       return res.status(404).json({ message: "Quiz Not found" });
 
@@ -32,8 +34,11 @@ const questions = async (req, res) => {
     const currentQuestion = questionsArray[page - 1];
 
     // Extracting the answer texts and ids from answers
-    const extractedAnswers = currentQuestion.answers.map(({ text, _id }) => ({ text, _id }));
-    
+    const extractedAnswers = currentQuestion.answers.map(({ text, _id }) => ({
+      text,
+      _id,
+    }));
+
     const response = {
       success: true,
       topicId,
