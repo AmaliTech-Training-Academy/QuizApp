@@ -14,23 +14,45 @@ const AddPhoto = ({component}) => {
   const [getImage, setGetImage] = useState(null);
   const dispatch = useDispatch();
   const userId = Cookies.get('userId')
-  console.log(Cookies.get('userId'));
 
   const handleClick = async () => {
-    const response = await Api.patch(`users/photo/${userId}`, {profileImage: getImage})
-    console.log(response);
-    if(response.status === 200){
-      toast.success('Profile image updated successfully')
-      dispatch(increaseCount())
-      const data = JSON.parse(response.config?.data)
-      console.log(data)
-      const Image = data?.profileImage
-      Cookies.set('profileImage', Image)
-    }else{
-      toast.warn('unable to update profile')
+    if (getImage) {
+      try {
+        const formData = new FormData();
+        formData.append('file', getImage);
+        formData.append('upload_preset', 'obwnqchq'); // Replace with your actual upload preset
+  
+        const response = await axios.post(
+          'https://api.cloudinary.com/v1_1/dleyquc6n/image/upload',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+  
+        const secureUrl = response.data.secure_url;
+  
+        const updateResponse = await Api.patch(`users/photo/${userId}`, {
+          profileImage: secureUrl,
+        });
+  
+        if (updateResponse.status === 200) {
+          toast.success('Profile image updated successfully');
+          dispatch(increaseCount());
+          Cookies.set('image', secureUrl);
+          window.location.reload()
+        } else {
+          toast.warn('Unable to update profile');
+        }
+      } catch (error) {
+        console.error('Error updating profile image:', error);
+        toast.error('Error updating profile image');
+      }
     }
   };
-
+  
   
   const handleImageUrl = async (file) => {
     try {
@@ -62,21 +84,22 @@ const AddPhoto = ({component}) => {
     handleImageUrl(file)
   };
 
-  const deleteAvatar = async e=>{
-    e.preventDefault();
+  const deleteAvatar = async () => {
     try {
-      const response = await Api.delete(`users/delete-profile/${Cookies.get('id')}`)
+      const response = await Api.delete(`users/delete-profile/${Cookies.get('id')}`);
       console.log(response);
-      toast.success(response.data.message)
-      Cookies.remove('image')
-      getImage(null)
-      // useEffect(()=>{},[])
-      
+      if (response.status === 200) {
+        Cookies.set('image', null); // Update the value of 'image' key in the cookie to null
+        setGetImage(null);
+        toast.success('Profile image deleted');
+        window.location.reload(); // Refresh the page
+      }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message)
+      toast.error('Image deletion not successful');
     }
-  }
+  };
+  
 
 
   return (

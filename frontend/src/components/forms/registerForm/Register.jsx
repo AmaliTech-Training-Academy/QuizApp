@@ -15,7 +15,6 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(true)
-  const [userId, setUserId] = useState('');
 
   const dispatch = useDispatch()  
 
@@ -50,9 +49,7 @@ const Register = () => {
       setLoading(!loading)
       const response = await Api.post('users', data)
       if(response.data.success === true){
-        const userId = response.data.user._id;
-        Cookies.set('userId', userId);
-        setUserId(userId);
+        Cookies.set('userId', response.data.user._id)
         toast.success('account created successfully')
         setTimeout(() => {
           dispatch(increaseCount())
@@ -104,13 +101,6 @@ const Register = () => {
       });
     };
     document.body.appendChild(script);
-
-    // Check if userId exists in cookies and set it in the state
-    const userIdFromCookie = Cookies.get('userId');
-    if (userIdFromCookie) {
-      setUserId(userIdFromCookie);
-    }
-
     return () => {
       document.body.removeChild(script);
     };

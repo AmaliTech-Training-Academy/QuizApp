@@ -42,65 +42,47 @@ export default UserNavbar;
 //profileImage
 
 export const ProfileImage = ({ setShowSettings, showSettings, component, getImage }) => {
-  const [image, setImage] = useState();
-  const [imagePresent, setImagePresent] = useState(false);
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     const profileImage = Cookies.get('image');
-    if (profileImage && profileImage !== 'undefined') {
+    if (profileImage && profileImage !== 'undefined' && profileImage !== 'null') {
       setImage(profileImage);
-      setImagePresent(true);
     }
   }, []);
 
   const getImageSource = () => {
     if (getImage) {
-      return getImage;
-    } else if (imagePresent) {
-      return image;
+      return `${getImage}`;
+    } else if (image) {
+      return `${image}`;
     } else {
       return personIcon;
     }
   };
 
   return (
-    <>
-      {!imagePresent ? (
-        <img
-          className="border rounded-full bg-[#b3b3b3] cursor-pointer self-center"
-          style={
-            component === 'settings'
-              ? { height: '70px', width: '70px' }
-              : component === 'updateProfile'
-              ? { height: '160px', width: '160px' }
-              : component === 'navbar'
-              ? { height: '56px', width: '56px' }
-              : { height: '56px', width: '56px' }
-          }
-          src={getImageSource()}
-          alt="person image"
-          onClick={() => setShowSettings(!showSettings)}
-        />
-      ) : (
-        <img
-          className="self-center border rounded-full cursor-pointer"
-          src={getImageSource()}
-          alt=""
-          onClick={() => setShowSettings(!showSettings)}
-          style={
-            component === 'settings'
-              ? { height: '70px', width: '70px' }
-              : component === 'updateProfile'
-              ? { height: '170px', width: '170px' }
-              : component === 'navbar'
-              ? { height: '56px', width: '56px' }
-              : { height: '56px', width: '56px' }
-          }
-        />
-      )}
-    </>
+    <img
+      key={getImageSource()} // Add a key to the image component
+      className="border rounded-full bg-[#b3b3b3] cursor-pointer self-center"
+      style={
+        component === 'settings'
+          ? { height: '70px', width: '70px' }
+          : component === 'updateProfile'
+          ? { height: '160px', width: '160px' }
+          : component === 'navbar'
+          ? { height: '56px', width: '56px' }
+          : { height: '56px', width: '56px' }
+      }
+      src={getImageSource()}
+      alt="person image"
+      onClick={() => setShowSettings(!showSettings)}
+    />
   );
 };
+
+
+
 
 
 
