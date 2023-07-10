@@ -48,7 +48,7 @@ const Login = () => {
                 setLoading(!loading)
                 const response = await Api.post('users/login', data)
                 toast.success(response.data.message)
-                
+
                 Cookies.set('rememberMe', response.data.accessToken)
                 Cookies.set('email',response.data.email);
                 Cookies.set('id',response.data.id);
@@ -61,6 +61,7 @@ const Login = () => {
                     token: response.data.accessToken,
                 }))
 
+                Cookies.set('image', response.data.profileImage)
                 setTimeout(() => {
                     setLoading(true)
                     }, 3000);

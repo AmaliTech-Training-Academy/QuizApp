@@ -10,12 +10,18 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
+import { BarGraph, DonutChart } from '../components/Charts'
+
 
 const ProfilePage = () => {
   const navigate = useNavigate()
   const verifyCookie = Cookies.get('rememberMe')
   const [date, setDate] = useState(new Date())
   const [showSettings, setShowSettings] = useState(false)
+
+  const onChange = (selectedDate) => {
+    setDate(selectedDate);
+  };
 
 
   useEffect(() => {
@@ -75,16 +81,23 @@ const ProfilePage = () => {
           
         </div>
 
-        <div className="charts flex justify-between flex-col lg:flex-row mb-[43px]">
-          <div className="doughnutChart py-[3rem] px-[3.5rem] shadow-lg shadow-[#00000040]  rounded-lg">
-            <p className='mb-[72px] font-semibold text-[1.441rem]'>Performance Records</p>
+        <div className="charts flex justify-between flex-col lg:flex-row mb-[90px]">
+          <div className='px-1.6  pt-12  shadow-lg rounded-lg md:mb-[70px]'>
+            <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Records</p>
+            <div><DonutChart/></div>
           </div>
-          <div className="barChart py-[3rem] px-[3.5rem] shadow-lg shadow-[#00000040]  rounded-lg mt-[45px] lg:mt-[0]">
-          <p className='mb-[48px] font-semibold text-[1.441rem]'>Performance Statistics</p>
+          <div className='px-1.6  pt-12 shadow-lg rounded-lg h-fit'>
+            <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Statistics</p>
+            {/* <div className='lg:w-[20rem]'> */}
+              <BarGraph/>
+              {/* </div> */}
           </div>
+          
         </div>
-        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col xl:flex-row">
-          <Calendar onChange={setDate} value={date} />
+
+        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col lg:flex-row">
+          <Calendar onChange={onChange} value={date} />
+
           <div className="recent-quizzes mt-[40px] py-[3.063rem] px-[1.75rem] lg:shadow-lg lg:shadow-[#00000040] rounded-lg">
             <div className="flex justify-between gap-[28px]  ">
               <p className="font-semibold text-[1.441rem]">Recent quizzes</p>

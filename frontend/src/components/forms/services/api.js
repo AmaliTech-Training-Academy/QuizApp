@@ -12,4 +12,4 @@ const api = axios.create({
 return api;
 };
 
-export default Api;
+

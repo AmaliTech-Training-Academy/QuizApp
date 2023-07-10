@@ -119,7 +119,7 @@ const AccountSettings = () => {
             {/* profile name and mail */}
             <UserDetails/>
 
-            <div className="md:flex  justify-around">
+            <div className="md:flex  lg:justify-between justify-around">
               {/* selections */}
               <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
                 <div className="font-semibold text-base tracking-wid md:w-max">
@@ -159,9 +159,9 @@ const AccountSettings = () => {
 
                 <div className="h-[600px] w-[1px] bg-[#CCCCCC] hidden md:block"></div>
               </div>
-              <div className='hidden md:block'>{general && <UpdateProfile />}</div>
+              <div className='hidden md:block 2xl:ml-[-8rem]'>{general && <UpdateProfile />}</div>
               
-              <div className='hidden md:block'> {changePassword && <UpdatePassword />}</div>
+              <div className='hidden md:block  2xl:ml-[-25rem] '> {changePassword && <UpdatePassword />}</div>
               <div className='hidden md:block'> {checkQuizzes && '<UsersQuizzes />'}</div>
             </div>
           </div>
@@ -190,53 +190,60 @@ export const UserDetails = ()=>{
 
 
 export const DeleteModale = ({ showModal, setShowModal }) => {
-  const id = Cookies.get('id')
-  const navigate = useNavigate()
-  const[isChecked, setIsChecked] = useState(false)
-  
-  const handleDelete = async e =>{
-    e.preventDefault()
-    if(isChecked){
+  const id = Cookies.get('id');
+  const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    if (isChecked) {
       try {
-        const response =  await Api.delete(`users/delete/${id}`)
-        toast.success(response.data.message)
-        navigate('/signup')
-        Cookies.remove('id')
-        Cookies.remove('rememberMe')
+        const response = await Api.delete(`users/delete/${id}`);
+        toast.success(response.data.message);
+        navigate('/signup');
+        Cookies.remove('id');
+        Cookies.remove('rememberMe');
       } catch (error) {
-        toast.warn(error.response.data.message)
+        toast.warn(error.response.data.message);
       }
-    }else{
-      toast.error('check box to confirm deletion')
+    } else {
+      toast.error('Check the box to confirm deletion');
     }
-    
   };
 
   return (
-    <div className="fixed  inset-x-0 inset-y-0 bg-[#CCCCCC] opacity-80 flex content-center justify-center ">
-      <form className="absolute p-[1.5rem] w-[22.75rem] bg-[#FFFFFF] border-black rounded-lg m-auto top-[50%]">
-        <p className="mb-[8px] text-[#1D2939] font-semibold">Delete Account</p>
-        <p className="mb-[16px]">
-          Hey, if you're absolutely sure you want to delete your account, we got
-          you covered. This Process cannot be undone
-        </p>
-        <div className='mb-[16px] flex self-between'>
-          <input type='checkbox' checked={isChecked} onChange={e=>setIsChecked(e.target.checked)} className='w-[20px] h-[20px] self-center '/>
-          <p className='ml-[3px]'>Confirm you want to delete account</p>
+    <>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <form className="relative p-[1.5rem] w-[22.75rem] bg-white border-black rounded-lg " >
+            <p className="mb-[8px] text-[#1D2939] font-semibold">Delete Account</p>
+            <p className="mb-[16px]">
+              Hey, if you're absolutely sure you want to delete your account, we got
+              you covered. This process cannot be undone.
+            </p>
+            <div className="mb-[16px] flex self-between">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+                className="w-[20px] h-[20px] self-center"
+              />
+              <p className="ml-[3px]">Confirm that you want to delete your account</p>
+            </div>
+            <div className="flex justify-between">
+              <button className="border-[#B3B3B3] px-5 py-2 bg-white text-black" onClick={() => setShowModal(false)}>
+                No, keep it
+              </button>
+              <button className="bg-[#FF0000] border-none px-5 py-2" onClick={handleDelete}>
+                Yes, Delete Account
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="flex justify-between">
-          <button
-            className="border-[#B3B3B3] px-5 py-2 bg-[white] text-black"
-            onClick={() => setShowModal(false)}>
-            No keep it
-          </button>
-          <button className="bg-[#FF0000] border-none px-5 py-2" onClick={handleDelete}>
-            Yes, Delete Account
-          </button>
-        </div>
-      </form>
-    </div>
-  )
-}
+      )}
+    </>
+  );
+};
 
  
