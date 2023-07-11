@@ -12,6 +12,7 @@ import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { BarGraph, DonutChart } from '../components/Charts'
 import { PageNavigation } from '../components/PageNavigation'
+import { useSelector } from 'react-redux'
 
 
 const ProfilePage = () => {
@@ -28,6 +29,10 @@ const ProfilePage = () => {
   useEffect(() => {
     {!verifyCookie && navigate('/login')}
   }, [])
+
+  const data = useSelector(state=>state.userData);
+
+  console.log(data);
 
   return (
     <div>
