@@ -11,6 +11,7 @@ import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { BarGraph, DonutChart } from '../components/Charts'
+import { PageNavigation } from '../components/PageNavigation'
 
 
 const ProfilePage = () => {
@@ -37,7 +38,8 @@ const ProfilePage = () => {
 
       <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
         {/* Page Navigation */}
-        <div className="flex justify-between mb-[46px]">
+        <PageNavigation profile="Profile"/>
+        {/* <div className="flex justify-between mb-[46px]">
           <div className="navigations w-[131px] flex justify-between text-gray-400 text-sm/[16px] font-normal">
             <p className="self-center hover:text-blue-700 active:text-blue-700 hidden lg:block">
               Home
@@ -46,9 +48,9 @@ const ProfilePage = () => {
             <p className="text-[#1D2939] font-semibold text-2xl lg:text-base lg:text-blue-700 self-center lg:font-normal">Profile</p>
           </div>
           <QuizSearch />
-        </div>
+        </div> */}
         {/* user name */}
-        <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mb-[44px]">
+        <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mt-10 mb-[44px]">
           Hello <span>{Cookies.get('name')}</span>
         </div>
 

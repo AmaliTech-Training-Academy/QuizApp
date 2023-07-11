@@ -32,13 +32,13 @@ return (
                 I {userName}, understand that submitting work that isn't my own may result in permanent failure of this quiz or deactivativation of my quiz master account                                      
             </div>
         </div>
-        <NavLink to={`${id}/results`}>
+        {/* <NavLink to={`${id}/results`}> */}
         <button 
         className='self-center px-32 py-4 mt-16 w-full lg:w-auto bg-[#0267FF]'
         onClick={handleSubmit}>
         Submit
         </button>
-        </NavLink>
+        {/* </NavLink> */}
     </div>
   )
 }

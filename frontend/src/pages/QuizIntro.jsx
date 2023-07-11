@@ -7,6 +7,7 @@ import timer from "../assets/DesktopView/Icons/timer.png";
 import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
 import allQuestions from "../assets/DesktopView/Icons/quizz.png";
 import repeat from "../assets/DesktopView/Icons/repeat.png";
+import UserNavbar from '../components/UserNavbar';
 // import { mockImages } from '../components/mockImages';
 
 export const QuizIntro = () => {
@@ -37,7 +38,7 @@ export const QuizIntro = () => {
 return (
     <div>
         <div className='hidden lg:block'>
-        <Navbar/>
+        <UserNavbar/>
         </div>
         {/* Header */}
         <div className='hidden lg:flex py-10 px-16 bg-[#0267FF] lg:text-white font-semibold' id='quiz-header'>
