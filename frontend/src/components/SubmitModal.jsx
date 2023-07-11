@@ -1,12 +1,13 @@
 import Cookies from 'js-cookie'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 
 // import { resetQuestion } from '../features/questionSlice';
 
 export const SubmitModal = ({handleSureSubmit, handleUnsure}) => {
+    const { id } = useParams();
     const dispatch = useDispatch();
     const userId = Cookies.get('id');
     console.log(userId);
@@ -14,6 +15,7 @@ export const SubmitModal = ({handleSureSubmit, handleUnsure}) => {
     // const handleReset = () => {
     //     dispatch(resetQuestion(1))
     // };
+    
 
 return (
     <div 
@@ -24,7 +26,9 @@ return (
             <div className='mb-4'>Hey, if you're absolutely sure you want to submit this quiz? we got you covered. This Process cannot be undone</div>
             <div className='flex justify-between'>
                 <button className='bg-white border border-[#B3B3B3] rounded text-black w-36 py-[6px]' onClick={handleUnsure}>No</button>
+                <NavLink to={`/quiz/${id}/results`}>
                 <button className='w-36 px-2 py-[6px] bg-[#0267FF]' onClick={() => { handleSureSubmit(userId); handleUnsure(); }}>Yes, Submit Quiz</button>
+                </NavLink>
             </div>
         </div>
     </div>

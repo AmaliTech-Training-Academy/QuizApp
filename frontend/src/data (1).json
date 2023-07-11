@@ -10,19 +10,23 @@
           "answers": [
             {
               "text": "1914",
-              "is_correct": true
+              "is_correct": true,
+              "is_selected":"false"
             },
             {
               "text": "1918",
-              "is_correct": false
+              "is_correct": false,
+              "is_selected":"true"
             },
             {
               "text": "1920",
-              "is_correct": false
+              "is_correct": false,
+              "is_selected":"false"
             },
             {
               "text": "1939",
-              "is_correct": false
+              "is_correct": false,
+              "is_selected":"false"
             }
           ]
         },
