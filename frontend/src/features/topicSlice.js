@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import Api from '../components/forms/services/api';
+import axios from 'axios';
+
 
 
 const initialState = {
@@ -9,9 +10,14 @@ const initialState = {
 
 
 
-export const getTopics = createAsyncThunk('topics/get', async ()=> {
+export const getTopics = createAsyncThunk('topics/get', async (token)=> {
     try {
-        const response = await Api.get('users/topics');
+        const url = 'https://quiz-master.onrender.com/api/users/topics';
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        const response = await axios.get(url, { headers });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch topics');

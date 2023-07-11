@@ -1,20 +1,25 @@
-import { createSlice, createAsyncThunk, } from "@reduxjs/toolkit";
-import Api from "../components/forms/services/api";
+import { createSlice, createAsyncThunk, } from "@reduxjs/toolkit"
+import axios from "axios"
 
 
 const initialState = {
     page: 1,
     data: [],
+    status: 'idle',
+    error: null,
 };
 
-export const getQuestions = createAsyncThunk('questions/get', async ({topicId}, { getState, rejectWithValue })=> {
+export const getQuestions = createAsyncThunk('questions/get', async ({topicId, page, token})=> {
     try {
-        const { page } = getState().quiz;
-        const response = await Api.get(`users/questions?topicId=${topicId}&page=${page}&limit=5`);
-        console.log(response.data);
+        const url = `https://quiz-master.onrender.com/api/users/questions?topicId=${topicId}&page=${page}&limit=5`;
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        const response = await axios.get(url, { headers });
+        // console.log(response.data);
         return response.data;
     } catch (error) {
-        throw new Error('Failed to fetch topics');
+        throw new Error('Failed to fetch question');
     }
 });
 
@@ -22,7 +27,17 @@ const quizSlice = createSlice({
     name: 'quiz',
     initialState,
     reducers: {
-        
+        nextQuestion: (state, action)=>{
+            state.page++;
+        },
+        previousQuestion: (state, action)=>{
+            if(state.page > 1){
+                state.page--
+            }
+        },
+        selectQuestion: (state, {payload})=>{
+            state.page = payload;
+        }
     },
     extraReducers: (builder) => {
     builder
@@ -41,4 +56,5 @@ const quizSlice = createSlice({
     },
 });
 
+export const {nextQuestion, previousQuestion, selectQuestion} = quizSlice.actions;
 export default quizSlice.reducer;

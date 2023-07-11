@@ -8,6 +8,7 @@ import { RotatingLines } from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../../features/userSlice'
+import axios from 'axios'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -44,10 +45,15 @@ const Login = () => {
         e.preventDefault();
         if(validateForm()){
             console.log(true);
+            // const data = {email, password, checkbox}
+            // await axios.post('https://quiz-master.onrender.com/api/users/login', data)
+            // console.log(response.data);
+            // toast.success(response.data.message)
             try {
                 const data = {email, password, checkbox}
                 setLoading(!loading)
-                const response = await Api.post('users/login', data)
+                const response = await axios.post('https://quiz-master.onrender.com/api/users/login', data)
+                console.log(response);
                 toast.success(response.data.message)
 
                 Cookies.set('rememberMe', response.data.accessToken)

@@ -6,31 +6,32 @@ import { Quizzes } from '../components/Quizzes.jsx';
 import { MobileNavbar } from '../components/MobileNavbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTopics } from '../features/topicSlice.js';
-import Navbar from '../components/Navbar.jsx';
+import UserNavbar from '../components/UserNavbar.jsx';
 
 
 export const AvailableQuizzes = () => {
   const dispatch = useDispatch();
   const topics = useSelector((state) => state.topics.data);
+  const token = useSelector(state=> state.userData.user_token);
 
 const [quizData, setQuizData] = useState(null);
 const [filterOpt, setFilterOpt] = useState(null)
   
   useEffect(()=> {
     if(!quizData){
-      dispatch(getTopics())
+      dispatch(getTopics(token))
     }
     setQuizData(topics)
-  },[]);
+  },[token]);
 
   return (
     <div>
         {/* <MobileNavbar/> */}
-        <Navbar/>
+        <UserNavbar/>
         <Header quizzes={"Quizzes"} quizLog={"Quiz Log"}/>
         {/* Quizzes */}
         <div className='lg:mt-10 mt-7 lg:px-[70px]'>
-            <PageNavigation setQuizData={setQuizData}/>
+          <PageNavigation setQuizData={setQuizData} quizzes="Quizzes" profile="Profile"/>
             <hr className='border border-[#CCCCCC] mt-11 w-11/12 mx-auto hidden lg:block' />
             <div className='lg:mt-16 mx-4 flex'>
               <div className="hidden lg:block">
