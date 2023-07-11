@@ -98,18 +98,18 @@ export const ProfileImage = ({component, getImage }) => {
 
 export const DropdownList = () =>{
   const navigate = useNavigate()
-  const location = useLocation()
   const dispatch = useDispatch();
   
   const handleLogout = ()=>{
     Cookies.remove('rememberMe')
     Cookies.remove('userId')
+    Cookies.remove('id')
     dispatch(removeUser())
     navigate('/login')
   }
 
   return(
-    <div className=' h-full w-full absolute lg:right-0 flex content-center justify-center bg-black bg-opacity-50'>
+    <div className=' h-full w-full absolute lg:right-0 flex content-center justify-center bg-black bg-opacity-50 z-50'>
       <div className='absolute lg:right-0 lg:left-auto left-0'>
       <div className='py-1 px-6  pt-2 bg-white rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
         <div>
