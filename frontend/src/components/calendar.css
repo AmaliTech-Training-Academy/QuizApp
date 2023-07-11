@@ -279,3 +279,9 @@
     padding-left: 1rem;
   }
 }
+
+@media (min-width: 1600px) {
+  .react-calendar {
+    width: 63rem;
+  }
+}

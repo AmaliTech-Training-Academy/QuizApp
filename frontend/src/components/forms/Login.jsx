@@ -19,7 +19,7 @@ const Login = () => {
     const verifyCookie = Cookies.get('rememberMe')
     
     const navigate = useNavigate()
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     useEffect(()=>{
         verifyCookie && navigate('/profile')
     },[])
@@ -28,16 +28,16 @@ const Login = () => {
         const newErrors = {}
         if (email.trim() === '') {
             newErrors.email = 'Email is required'
-            } else if (!/\S+@\S+\.\S+/.test(email)) {
+          } else if (!/\S+@\S+\.\S+/.test(email)) {
             newErrors.email = 'Email is invalid'
-            }
-            if (password.trim() === '') {
+          }
+          if (password.trim() === '') {
             newErrors.password = 'Password is required'
-            } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/.test(password)) {
+          } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/.test(password)) {
             newErrors.password = 'Password must contain at least one uppercase,at least one digit and at least one special character from the set @$!%*#?& and min(10)'
-            }
-        setErrors(newErrors)
-        return Object.keys(newErrors).length === 0
+          }
+          setErrors(newErrors)
+          return Object.keys(newErrors).length === 0
     };
 
 
@@ -45,33 +45,23 @@ const Login = () => {
         e.preventDefault();
         if(validateForm()){
             console.log(true);
-            // const data = {email, password, checkbox}
-            // await axios.post('https://quiz-master.onrender.com/api/users/login', data)
-            // console.log(response.data);
-            // toast.success(response.data.message)
             try {
                 const data = {email, password, checkbox}
                 setLoading(!loading)
                 const response = await axios.post('https://quiz-master.onrender.com/api/users/login', data)
                 console.log(response);
                 toast.success(response.data.message)
-
                 Cookies.set('rememberMe', response.data.accessToken)
+                
+                dispatch(addUser(response.data))
+                
                 Cookies.set('email',response.data.email);
                 Cookies.set('id',response.data.id);
                 Cookies.set('name', response.data.name);
-
-                dispatch(addUser({
-                    name: response.data.name,
-                    id: response.data.id,
-                    email: response.data.email,
-                    token: response.data.accessToken,
-                }))
-
                 Cookies.set('image', response.data.profileImage)
                 setTimeout(() => {
                     setLoading(true)
-                    }, 3000);
+                }, 3000);
                 navigate('/profile')
                 
             } catch (error) {
@@ -80,7 +70,7 @@ const Login = () => {
                 toast.warn(err)
                 setTimeout(() => {
                     setLoading(true)
-                }, 3000);
+                  }, 3000);
             }
         }
     };

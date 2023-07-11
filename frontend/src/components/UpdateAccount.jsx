@@ -111,9 +111,7 @@ export const UpdateProfile = () => {
     try {
       const response = await Api.patch(`users/account/${id}/details`, data)
       toast.success(response.data.message)
-      console.log(response)
     } catch (error) {
-      console.log("error:", error)
       const err = error.response.data.message
       toast.warn(err)
     }
@@ -121,7 +119,7 @@ export const UpdateProfile = () => {
   }
 
   return (
-    <div className="lg:ml-[5rem] 2xl:ml-[-8rem]" >
+    <div className="lg:ml-[5rem] 2xl:ml-[-3rem]" >
       <div className='hidden md:block'><AddPhoto component='updateProfile'/></div>
       <form onSubmit={handleProfileUpdate} className='px-8 md:px-0'>
       <div className="md:mt-[41px] md:grid md:grid-cols-2 md:gap-[1.5rem] md:w-fit">
