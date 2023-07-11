@@ -1,8 +1,8 @@
 const express = require('express')
-const passwordUpdate = require('../controller/updatePasswordController')
+const performance = require('../controller/performanceController')
 const protected = require('../middleware/verifyToken')
 const router = express.Router()
 
-router.patch('/:id/password', protected, passwordUpdate)
+router.get('/:userId', protected, performance)
 
 module.exports = router

@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { RotatingLines } from 'react-loader-spinner'
+// import { useSelector } from "react-redux"
 
 const ResetPass = () => {
   const{id} = useParams()
@@ -14,6 +15,10 @@ const ResetPass = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [alert, setAlert] = useState('')
   const [loading, setLoading] = useState(true);
+
+  // const token = useSelector(state=> state.userData.user_token);
+
+  // console.log(token);
 
   // Get the current URL
   const currentUrl = window.location.href;
@@ -28,7 +33,7 @@ const ResetPass = () => {
     
     if(password !== '' && password === confirmPassword){
       try{
-        const url = `https://nss-quizapp.up.railway.app/api/users/resetPassword/${id}/${token}`;
+        const url = `https://quiz-master.onrender.com/api/users/resetPassword/${id}/${token}`;
         const response = await axios.post(url, {password});
         setLoading(!loading)
         if(response.status === 200){
@@ -40,7 +45,7 @@ const ResetPass = () => {
         navigate('/login')
         
   }catch (error){
-    console.log(response)
+    console.log(error)
     toast.warn('response error')
   }
 }else{

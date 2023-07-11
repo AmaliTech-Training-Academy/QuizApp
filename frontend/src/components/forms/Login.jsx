@@ -65,7 +65,7 @@ const Login = () => {
                 navigate('/profile')
                 
             } catch (error) {
-                const err = error.response
+                const err = error.response.data.message
                 console.log(err);
                 toast.warn(err)
                 setTimeout(() => {

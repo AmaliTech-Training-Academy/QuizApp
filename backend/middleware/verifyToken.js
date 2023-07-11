@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware function for token verification
 const verifyToken = (req, res, next) => {
-  // Getting the token from the request header or cookie
-  const accessToken = req.headers.authorization || req.cookies.token;
+  const bearerToken = req.headers.authorization || req.cookies.token;
   const refreshToken = req.cookies.refreshToken;
 
-  if (!accessToken && !refreshToken) {
+  if (!bearerToken && !refreshToken) {
     return res
       .status(401)
       .json({ success: false, message: "Unauthorized: No token provided" });
@@ -14,22 +12,36 @@ const verifyToken = (req, res, next) => {
 
   try {
     let decoded;
-    // Verifying and decoding the accessToken
-    if (accessToken) {
-      decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-    } else if (refreshToken) {
-      // Verifying and decoding the refresh token
-      decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-    }
+    console.log(decoded)
 
-    // Token is valid, so you can access the decoded data (e.g. user_id)
-    req.user_id = decoded.user_id;
+    if (bearerToken) {
+      const accessToken = bearerToken.split(" ")[1];
+      decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+      console.log("decoded::", decoded);
+      req.user_id = decoded.user_id; // Accessing the user ID from the decoded token
+      console.log("access::::", decoded.user_id)
+    } else if (refreshToken) {
+      decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+      console.log("decoded::", decoded.user_id);
+      req.user_id = decoded.user_id; // Accessing the user ID from the decoded token
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: Invalid Token" });
+    }
 
     next();
   } catch (err) {
+    if (err.name === "JsonWebTokenError" && err.message === "jwt expired") {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: Token has expired" });
+    }
+
+    console.error(err);
     return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized: Invalid Token" });
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
   }
 };
 
