@@ -13,7 +13,6 @@ import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { BarGraph, DonutChart } from '../components/Charts'
 import { useDispatch, useSelector } from 'react-redux'
 import { PageNavigation } from '../components/PageNavigation'
-import { useSelector } from 'react-redux'
 
 
 const ProfilePage = () => {
