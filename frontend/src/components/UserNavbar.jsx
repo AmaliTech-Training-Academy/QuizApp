@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import navLogo from '../assets/DesktopView/Icons/navbarLogo.png';
 import {Link, animationScroll as scroll} from 'react-scroll';
-import person from '../assets/DesktopView/Icons/person.png'
+import personIcon from '../assets/DesktopView/Icons/person.png'
 import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../features/userSlice';
 
 const UserNavbar = ({setShowSettings, showSettings}) => {
   
@@ -39,37 +41,49 @@ export default UserNavbar;
 
 //profileImage
 
-export const  ProfileImage = ({setShowSettings, showSettings, component, getImage})=>{
-  const [image, setImage] = useState()
-  const [imagePresent, setImagePresent] = useState(false)
-  
-  useEffect(()=>{
-    const Cookies = document.cookie
-    const cookieObject = Cookies
-      .split(';')
-      .reduce((acc, cookie) => {
-        const [name, value] = cookie.split('=');
-        acc[name.trim()] = value.trim();
-        return acc;
-      }, {});
-      const image = cookieObject?.profileImage
-      setImage(image)
+export const ProfileImage = ({ setShowSettings, showSettings, component, getImage }) => {
+  const [image, setImage] = useState('');
 
-      if(image !== ''){
-        setImagePresent(true)
+  useEffect(() => {
+    const profileImage = Cookies.get('image');
+    if (profileImage && profileImage !== 'undefined' && profileImage !== 'null') {
+      setImage(profileImage);
+    }
+  }, []);
+
+  const getImageSource = () => {
+    if (getImage) {
+      return `${getImage}`;
+    } else if (image) {
+      return `${image}`;
+    } else {
+      return personIcon;
+    }
+  };
+
+  return (
+    <img
+      key={getImageSource()} // Add a key to the image component
+      className="border rounded-full bg-[#b3b3b3] cursor-pointer self-center"
+      style={
+        component === 'settings'
+          ? { height: '70px', width: '70px' }
+          : component === 'updateProfile'
+          ? { height: '160px', width: '160px' }
+          : component === 'navbar'
+          ? { height: '56px', width: '56px' }
+          : { height: '56px', width: '56px' }
       }
-    
-  },[]);
+      src={getImageSource()}
+      alt="person image"
+      onClick={() => setShowSettings(!showSettings)}
+    />
+  );
+};
 
-  return(
-    <>
-    {!imagePresent ?<img className='border rounded-full bg-[#b3b3b3] cursor-pointer self-center'
-    style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '160px', width:'160px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}
-    src={getImage || person } alt="person image" onClick={()=>setShowSettings(!showSettings)}/>:  
-    <img className='self-center border rounded-full cursor-pointer' src={getImage || image} alt="" onClick={()=>setShowSettings(!showSettings)} style={component === 'settings' ? {height: '70px', width: '70px'} : component === 'updateProfile' ?{height: '170px', width:'170px' }: component === 'navbar'?{height: '56px', width:'56px' }: {height: '56px', width:'56px' }}/> }
-    </>
-  )
-}
+
+
+
 
 
 // dropdown
@@ -77,33 +91,38 @@ export const  ProfileImage = ({setShowSettings, showSettings, component, getImag
 export const DropdownList = () =>{
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch();
   
   const handleLogout = ()=>{
     Cookies.remove('rememberMe')
     Cookies.remove('userId')
+    dispatch(removeUser())
     navigate('/login')
   }
 
   return(
-    <div className=' fixed  inset-x-0 inset-y-0 bg-[#CCCCCC] opacity-80 flex content-center justify-center '>
-      <div className='absolute top-[100px] lg:top-[112px] lg:right-[75px]   left-[0] px-6 pd-6 pt-2 bg-[#FFFFFF] z-100 rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
-      <div>
-        <div className='items-center gap-[16px] flex'>
-          <ProfileImage/>
+    <div className=' h-full w-full absolute lg:right-0 flex content-center justify-center bg-black bg-opacity-50'>
+      <div className='absolute lg:right-0 lg:left-auto left-0'>
+      <div className='py-1 px-6  pt-2 bg-white rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
+        <div>
+          <div className='items-center  gap-[16px] flex'>
+            <ProfileImage/>
           <p className='font-semibold'>{Cookies.get('name')}</p>
         </div>
       </div>
 
-      <ul className='list mt-[16px] font-semibold'>
-        <li className='hover:text-blue-700 cursor-pointer'>
-          <NavLink to='/profile' style={{color: location.pathname === '/profile' ? 'blue' : 'black'}}>Profile</NavLink></li>
-        <hr className='h-[1px]'/>
-        <li className='cursor-pointer hover:text-blue-700'>
+        <ul className='list mt-[16px] font-semibold'>
+          <li className='hover:text-blue-700 cursor-pointer'>
+            <NavLink to='/profile' style={{color: location.pathname === '/profile' ? 'blue' : 'black'}}>Profile</NavLink></li>
+          <hr className='h-[1px]'/>
+          <li className='cursor-pointer hover:text-blue-700'>
           <NavLink to='/account-settings' style={{ color: location.pathname === '/account-settings' ? 'blue' : 'black' }}>Account Settings</NavLink> </li>
-        <hr className='h-[1px]'/>
-        <li className='cursor-pointer hover:text-blue-700' onClick={handleLogout}>Logout</li>
-      </ul>
+          <hr className='h-[1px]'/>
+          <li className='cursor-pointer hover:text-blue-700' onClick={handleLogout}>Logout</li>
+       </ul>
       </div>
+      </div>
+      
     </div>
   );
 }

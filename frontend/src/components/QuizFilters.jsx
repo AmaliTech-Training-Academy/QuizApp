@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { SubjectFilters } from './SubjectFilters';
 
 export const QuizFilters = ({setQuizData, setFilterOpt }) => {
@@ -9,7 +9,7 @@ export const QuizFilters = ({setQuizData, setFilterOpt }) => {
       <hr className='border border-[#999999] mt-7 hidden lg:block'/>
       <SubjectFilters setQuizData={setQuizData} setFilterOpt={setFilterOpt}/>
       <hr className='mt-7 border border-[#999999]'/>
-      <div className='mt-7'>
+      {/* <div className='mt-7'>
         <span className='font-semibold'>Level</span>
         <div className='mt-7 flex items-center pl-12 lg:pl-0'>
           <input type="checkbox" className='mr-3 w-[18px] h-[18px] border border-black' />
@@ -23,7 +23,7 @@ export const QuizFilters = ({setQuizData, setFilterOpt }) => {
           <input type="checkbox" className='mr-3 w-[18px] h-[18px] border border-black' />
           <div>Advance</div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 };

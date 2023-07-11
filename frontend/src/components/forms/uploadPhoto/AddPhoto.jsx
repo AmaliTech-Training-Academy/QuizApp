@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import personIcon from '../../../assets/DesktopView/Icons/person.png';
 import styles from './addPhoto.module.css';
 import { useDispatch } from 'react-redux';
@@ -16,19 +16,43 @@ const AddPhoto = ({component}) => {
   const userId = Cookies.get('userId')
 
   const handleClick = async () => {
-    const response = await Api.patch(`users/${userId}`, {profileImage: getImage})
-    console.log(response);
-    if(response.status === 200){
-      toast.success('Profile image updated successfully')
-      dispatch(increaseCount())
-      const data = JSON.parse(response.config?.data)
-      const Image = data?.profileImage
-      Cookies.set('profileImage', Image)
-    }else{
-      toast.warn('unable to update profile')
+    if (getImage) {
+      try {
+        const formData = new FormData();
+        formData.append('file', getImage);
+        formData.append('upload_preset', 'obwnqchq'); // Replace with your actual upload preset
+  
+        const response = await axios.post(
+          'https://api.cloudinary.com/v1_1/dleyquc6n/image/upload',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+  
+        const secureUrl = response.data.secure_url;
+  
+        const updateResponse = await Api.patch(`users/photo/${userId}`, {
+          profileImage: secureUrl,
+        });
+  
+        if (updateResponse.status === 200) {
+          toast.success('Profile image updated successfully');
+          dispatch(increaseCount());
+          Cookies.set('image', secureUrl);
+          window.location.reload()
+        } else {
+          toast.warn('Unable to update profile');
+        }
+      } catch (error) {
+        console.error('Error updating profile image:', error);
+        toast.error('Error updating profile image');
+      }
     }
   };
-
+  
   
   const handleImageUrl = async (file) => {
     try {
@@ -60,6 +84,24 @@ const AddPhoto = ({component}) => {
     handleImageUrl(file)
   };
 
+  const deleteAvatar = async () => {
+    try {
+      const response = await Api.delete(`users/delete-profile/${Cookies.get('id')}`);
+      console.log(response);
+      if (response.status === 200) {
+        Cookies.set('image', null); // Update the value of 'image' key in the cookie to null
+        setGetImage(null);
+        toast.success('Profile image deleted');
+        window.location.reload(); // Refresh the page
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Image deletion not successful');
+    }
+  };
+  
+
+
   return (
     <>
       {component === 'updateProfile' ? (
@@ -75,10 +117,12 @@ const AddPhoto = ({component}) => {
             onChange={handleImageChange}
             hidden
           />
-          <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]" onClick={handleClick} >
-           <label  htmlFor={getImage ? '' : 'photo-upload'}>Upload New</label>
-          </button>
-          <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none">
+          {!getImage ?<button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]">
+            <label  htmlFor={getImage ? '' : 'photo-upload'}>Upload New</label> 
+          </button> :
+          <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]" onClick={handleClick}>Continue</button>}
+          
+          <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none" onClick={deleteAvatar}>
            Delete Avatar
           </button>
         </div>

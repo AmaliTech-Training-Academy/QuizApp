@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 import { SettingsNavbar } from './GeneralSettings'
 import { UserDetails } from './AccountSettings'
 import Cookies from 'js-cookie'
+import Api from '../components/forms/services/api'
 
 const MyQuizzes = () => {
     const verifyCookie = Cookies.get('rememberMe') 
@@ -19,3 +20,13 @@ const MyQuizzes = () => {
 }
 
 export default MyQuizzes
+
+export const UserQuizzes = () =>{
+  const id = Cookies.get('id')
+  const getQuizzes = async () =>{
+    const response = await Api.get(`users/${id}/quizzes`)
+  }
+  return(
+    <></>
+  )
+}

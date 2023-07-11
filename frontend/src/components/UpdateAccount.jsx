@@ -42,7 +42,7 @@ export const UpdatePassword = () => {
   }
 
   return (
-    <form className="md:mt-[100px] md:mr-[5rem] px-8 md:px-0" onSubmit={handlePassword}>
+    <form className="md:mt-[100px] md:mr-[5rem] px-8 md:px-0  2xl:ml-[-25rem]" onSubmit={handlePassword}>
       <div className="mb-[48px]">
         <label>Current password*</label>
         <div className="mt-[8px] md:w-fit">
@@ -87,7 +87,7 @@ export const UpdatePassword = () => {
       {!loading ? ( <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
       ):(
       <button
-        className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
+        className="p-[0.5rem] w-max h-fit self-center mt-[34px] bg-[#0267FF]">
         Save changes
       </button>)}
       
@@ -111,7 +111,6 @@ export const UpdateProfile = () => {
     try {
       const response = await Api.patch(`users/account/${id}/details`, data)
       toast.success(response.data.message)
-      console.log(response)
     } catch (error) {
       const err = error.response.data.message
       toast.warn(err)
@@ -120,7 +119,7 @@ export const UpdateProfile = () => {
   }
 
   return (
-    <div className="lg:ml-[5rem]" >
+    <div className="lg:ml-[5rem] 2xl:ml-[-3rem]" >
       <div className='hidden md:block'><AddPhoto component='updateProfile'/></div>
       <form onSubmit={handleProfileUpdate} className='px-8 md:px-0'>
       <div className="md:mt-[41px] md:grid md:grid-cols-2 md:gap-[1.5rem] md:w-fit">
@@ -172,14 +171,14 @@ export const UpdateProfile = () => {
         </div>
         <div className="flex gap-[3rem]  md:mt-[0px] mt-[24px]" >
           <div>
-            <input className="border" type="radio" value='Male' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Male</label>
+            <input className="border" type="radio" value='male' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Male</label>
           </div>
           <div>
-            <input className="border" type="radio" value='Female' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Female</label>
+            <input className="border" type="radio" value='female' name='gender' onChange={e=>setGender(e.target.value)}/> <label htmlFor='gender'>Female</label>
           </div>
         </div>
       </div>
-      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px]">
+      <button className="p-[0.5rem] w-max h-fit self-center mt-[34px] bg-[#0267FF]">
         Save changes
       </button>
       </form>
