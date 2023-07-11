@@ -15,7 +15,7 @@ const userSlice = createSlice({
             state.user_name = payload.name;
             state.user_id = payload.id;
             state.user_email = payload.email;
-            state.user_token = payload.token;
+            state.user_token = payload.accessToken;
         },
         removeUser: (state, action) => {
             state.user_name = '';
