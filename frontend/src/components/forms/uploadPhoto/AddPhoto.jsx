@@ -13,7 +13,9 @@ import { ProfileImage } from '../../UserNavbar';
 const AddPhoto = ({component}) => {
   const [getImage, setGetImage] = useState(null);
   const dispatch = useDispatch();
-  const userId = Cookies.get('userId')
+  const userId = Cookies.get('id')
+  console.log(userId);
+  console.log(Cookies.get('id'));
 
   const handleClick = async () => {
     if (getImage) {
@@ -86,7 +88,7 @@ const AddPhoto = ({component}) => {
 
   const deleteAvatar = async () => {
     try {
-      const response = await Api.delete(`users/delete-profile/${Cookies.get('id')}`);
+      const response = await Api.delete(`users/delete-profile/${Cookies.get('user_id')}`);
       console.log(response);
       if (response.status === 200) {
         Cookies.set('image', null); // Update the value of 'image' key in the cookie to null

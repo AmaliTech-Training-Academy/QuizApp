@@ -6,8 +6,9 @@ import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/userSlice';
+import { toggleSettings } from '../features/accountSettingsSlice';
 
-const UserNavbar = ({setShowSettings, showSettings}) => {
+const UserNavbar = () => {
   
   return (
     <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
@@ -29,7 +30,7 @@ const UserNavbar = ({setShowSettings, showSettings}) => {
 
         <div className='items-center justify-between gap-5 flex'>
           <p className='px-2 py-2 bg-transparent text-blue-700'>Hello <span>{Cookies.get('name')}</span></p>
-          <ProfileImage setShowSettings={setShowSettings} showSettings={showSettings} component='navbar'/>
+          <ProfileImage component='navbar'/>
           
           <span className='relative top-5 right-10 border-8 border-green-400 rounded-full'></span>
         </div>
@@ -41,8 +42,14 @@ export default UserNavbar;
 
 //profileImage
 
-export const ProfileImage = ({ setShowSettings, showSettings, component, getImage }) => {
+export const ProfileImage = ({component, getImage }) => {
   const [image, setImage] = useState('');
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(toggleSettings());
+  };
+  
 
   useEffect(() => {
     const profileImage = Cookies.get('image');
@@ -61,6 +68,7 @@ export const ProfileImage = ({ setShowSettings, showSettings, component, getImag
     }
   };
 
+
   return (
     <img
       key={getImageSource()} // Add a key to the image component
@@ -76,7 +84,7 @@ export const ProfileImage = ({ setShowSettings, showSettings, component, getImag
       }
       src={getImageSource()}
       alt="person image"
-      onClick={() => setShowSettings(!showSettings)}
+      onClick={handleClick}
     />
   );
 };
