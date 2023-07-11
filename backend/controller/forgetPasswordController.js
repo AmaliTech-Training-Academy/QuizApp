@@ -32,14 +32,8 @@ const forgetPassword = async (req, res) => {
     console.log(token);
 
     // Create the password reset link
-    // const link = `http://localhost:5173/resetPassword/${user._id}/?token=${token}`;
-    /*
-    Instead of hard-coding the base URL for the password reset link, use the req object 
-    to get the current URL and extract the protocol, host, and port. 
-    This ensures that the link will work regardless of where the app is deployed.
-    */
     const baseUrl = process.env.DEPLOYED_LINK;
-    const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`;
+    const link = `${baseUrl}/${user._id}/?token=${token}`
     console.log(link);
 
     // Create a nodemailer transporter for sending the reset password email
