@@ -28,12 +28,19 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const validPassword = bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
       return res.status(400).json({
         success: false,
         message: "Invalid credentials provided",
+      });
+    }
+
+    if (user.oldPassword && (await bcrypt.compare(password, user.oldPassword))) {
+      return res.status(400).json({
+        success: false,
+        message: "Please use the new password to log in",
       });
     }
 
