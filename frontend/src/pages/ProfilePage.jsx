@@ -11,18 +11,20 @@ import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { BarGraph, DonutChart } from '../components/Charts'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const ProfilePage = () => {
   const navigate = useNavigate()
   const verifyCookie = Cookies.get('rememberMe')
   const [date, setDate] = useState(new Date())
-  const [showSettings, setShowSettings] = useState(false)
 
   const onChange = (selectedDate) => {
     setDate(selectedDate);
   };
 
+  
+  const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
   useEffect(() => {
     {!verifyCookie && navigate('/login')}
@@ -30,8 +32,8 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <UserNavbar setShowSettings={setShowSettings} showSettings={showSettings}/>
-      <MobileProfileNavbar setShowSettings={setShowSettings} showSettings={showSettings}/>
+      <UserNavbar />
+      <MobileProfileNavbar/>
       {showSettings ? <DropdownList/> : null}
       <div className='hidden lg:block'><Header quizzes="Profile" /></div>
 
@@ -82,7 +84,8 @@ const ProfilePage = () => {
         </div>
 
         <div className="charts flex justify-between flex-col lg:flex-row mb-[90px]">
-          <div className='px-1.6  pt-12  shadow-lg rounded-lg md:mb-[70px]'>
+          <div className='px-1.6  pt-12 
+           shadow-lg rounded-lg md:mb-[70px]'>
             <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Records</p>
             <div><DonutChart/></div>
           </div>
