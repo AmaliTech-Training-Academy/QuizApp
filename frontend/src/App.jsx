@@ -15,17 +15,15 @@ import ProfilePage from './pages/ProfilePage'
 import { QuizIntro } from './pages/QuizIntro';
 // import { Questions } from './pages/QuestionsPage';
 
-import Cookies from 'js-cookie'
 import AccountSettings from './pages/AccountSettings'
 import GeneralSettings from './pages/GeneralSettings'
 import PasswordSettings from './pages/PasswordSettings'
 import MyQuizzes from './pages/MyQuizzes'
 import { Test } from './pages/Test'
-import { QuestionsPage2 } from './pages/QuestionsPage2'
+import { QuestionsPage } from './pages/QuestionsPage'
 // import { ReviewResultsPage } from './pages/ReviewResultsPage'
 
 function App() {
-  const verifyCookie = Cookies.get('rememberMe')
 
   return (
     <>
@@ -40,7 +38,7 @@ function App() {
           <Route path='login' element={<LoginPage/>}/>
           <Route path='profile' element={<ProfilePage/>}/>
           <Route path='/quiz/:id' element={<QuizIntro/>}/>
-          <Route path='/quiz/:id/questions' element={<QuestionsPage2/>}/>
+          <Route path='/quiz/:id/questions' element={<QuestionsPage/>}/>
           <Route path="login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path='/account-settings' element={<AccountSettings/>}/>
