@@ -32,11 +32,8 @@ const forgetPassword = async (req, res) => {
     console.log(token);
 
     // Create the password reset link
-    // const link = `http://localhost:5173/resetPassword/${user._id}/?token=${token}`;
-   
     const baseUrl = process.env.DEPLOYED_LINK;
     const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`
-    console.log(link);
 
     // Create a nodemailer transporter for sending the reset password email
     let transporter = nodemailer.createTransport({
