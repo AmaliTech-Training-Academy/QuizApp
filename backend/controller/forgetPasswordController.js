@@ -32,7 +32,7 @@ const forgetPassword = async (req, res) => {
     console.log(token);
 
     // Create the password reset link
-    const baseUrl = process.env.DEPLOYED_LINK;
+    const baseUrl = "https://quiz-app-amalitech.netlify.app";
     const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`
 
     // Create a nodemailer transporter for sending the reset password email
