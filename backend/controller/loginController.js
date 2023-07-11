@@ -6,7 +6,7 @@ const {
 const bcrypt = require("bcrypt");
 
 // @desc Register new user
-// @route POST /api/login
+// @route POST /api/users/login
 // @access Public
 const loginUser = async (req, res) => {
   try {

@@ -14,9 +14,8 @@ const questions = async (req, res) => {
   try {
     // if (!mongoose.Types.ObjectId.isValid(topicId))
     //   throw new Error("Invalid topicId");
-
-    // const fetchedData = await quizModel.findById(topicId);
     const fetchedData = await quizModel.findById(topicId)
+    console.log('fetch::', fetchedData)
     if (!fetchedData)
       return res.status(404).json({ message: "Quiz Not found" });
 
@@ -49,7 +48,7 @@ const questions = async (req, res) => {
       answers: extractedAnswers,
     };
     res.status(200).json(response);
-    console.log(response);
+    console.log("response::", response);
   } catch (error) {
     console.error(error);
     res

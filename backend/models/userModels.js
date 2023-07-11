@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     location: {
-      type: String,
+      type: String, 
       maxlength: 150,
     },
     interests: {
