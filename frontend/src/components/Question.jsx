@@ -2,15 +2,11 @@ import React, { useState} from 'react'
 import { Answer } from './Answer';
 
 export const Question = (props) => {
-    const {selectedAnswer, handleChoice, chosenAnswers } = props;
-    const {question, answers} = props.data;
-    const page  = props.questionNumber;
-
-    // console.log(chosenAnswers);
-    
+    const { handleChoice } = props;
+    const { question, answers } = props.data;
+    const page  = props.questionNumber;    
 
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
-    // console.log(answers);
 
 return (
     <div className='lg:w-8/12 mx-auto text-left text-[#737373] lg:text-black'>
