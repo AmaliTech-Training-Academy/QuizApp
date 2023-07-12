@@ -3,7 +3,7 @@ import axios from "axios"
 
 
 const initialState = {
-    page: 1,
+    page: 0,
     data: [],
     status: 'idle',
     error: null,

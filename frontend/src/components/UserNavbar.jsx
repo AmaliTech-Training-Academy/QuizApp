@@ -6,6 +6,9 @@ import { NavLink,useLocation,useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/userSlice';
+import { selectQuestion } from '../features/quizSlice';
+import { resetQuiz } from '../features/answersSlice';
+
 
 const UserNavbar = ({setShowSettings, showSettings}) => {
   
@@ -97,6 +100,8 @@ export const DropdownList = () =>{
     Cookies.remove('rememberMe')
     Cookies.remove('userId')
     dispatch(removeUser())
+    dispatch(selectQuestion(1))
+    dispatch(resetQuiz())
     navigate('/login')
   }
 
