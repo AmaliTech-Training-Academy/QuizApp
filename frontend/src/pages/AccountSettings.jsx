@@ -13,6 +13,7 @@ import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { changeSection } from '../features/sectionSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import UserQuizzes from '../components/UserQuizzes'
+import { PageNavigation } from '../components/PageNavigation'
 
 const AccountSettings = () => {
   const navigate = useNavigate();
@@ -100,15 +101,7 @@ const AccountSettings = () => {
         </div>
 
         <section className="m-[auto] lg:mt-[38px] px-4  py-4  3xl:px-[230px] md:px-16">
-          <div className="navigations w-[241px] justify-between text-gray-400 text-sm/[16px] font-normal mt-[46px] hidden md:flex">
-            <p className="self-center hover:text-blue-700 active:text-blue-700 lg:block">
-              Home
-            </p>
-            <AiOutlineRight className="self-center text-gray-400 hover:text-blue-700 active:text-blue-700  lg:block" />
-            <p>{Cookies.get('name')}</p>
-            <AiOutlineRight className="self-center text-gray-400 hover:text-blue-700 active:text-blue-700  lg:block" />
-            <p className="text-[#1D2939]  lg:text-blue-700">Account</p>
-          </div>
+          <PageNavigation profile={Cookies.get('name')} settings='Account' />
 
           <div className=" md:mt-[127px] mb-[316px] lg:justify-center xl:w-[70%]  m-auto">
             {/* profile name and mail */}
