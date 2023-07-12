@@ -16,6 +16,8 @@ const Signup = () => {
   const { count } = useSelector(store => store.counter)
   const dispatch = useDispatch()
 
+  
+
   const getNextStep = count => {
     switch (count) {
       case 1:

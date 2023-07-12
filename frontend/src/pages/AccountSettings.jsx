@@ -14,14 +14,13 @@ import { changeSection } from '../features/sectionSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import UserQuizzes from '../components/UserQuizzes'
 
-
 const AccountSettings = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentSection = useSelector(state=> state.section);
+  const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
-  const [showSettings, setShowSettings] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [changePassword, setChangePassword] = useState(currentSection.password)
   const [checkQuizzes, setCheckQuizzes] = useState(currentSection.myQuizzes)
@@ -92,11 +91,9 @@ const AccountSettings = () => {
         <DeleteModale showModal={showModal} setShowModal={setShowModal} />
       )}
       <section>
-        <UserNavbar
-          setShowSettings={setShowSettings}
-          showSettings={showSettings}
+        <UserNavbar/>
+        <MobileProfileNavbar 
         />
-        <MobileProfileNavbar setShowSettings={setShowSettings} showSettings={showSettings}/>
         {showSettings && <DropdownList />}
         <div className='hidden md:block'>
           <Header quizzes="Account Settings" />

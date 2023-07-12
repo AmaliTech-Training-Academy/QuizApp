@@ -1,8 +1,9 @@
 const express = require('express')
-const passwordUpdate = require('../controller/updatePasswordController')
+const topicController = require('../controller/topicController')
 const protected = require('../middleware/verifyToken')
 const router = express.Router()
 
-router.patch('/:id/password', protected, passwordUpdate)
+router.get('/', protected, topicController)
+
 
 module.exports = router

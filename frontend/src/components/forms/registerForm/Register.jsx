@@ -49,7 +49,7 @@ const Register = () => {
       setLoading(!loading)
       const response = await Api.post('users', data)
       if(response.data.success === true){
-        Cookies.set('userId', response.data.user._id)
+        Cookies.set('id', response.data.user._id)
         toast.success('account created successfully')
         setTimeout(() => {
           dispatch(increaseCount())
