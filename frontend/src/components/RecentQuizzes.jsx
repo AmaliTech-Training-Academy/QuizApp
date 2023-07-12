@@ -25,6 +25,7 @@ const RecentQuizzes = () => {
         </div>
         <div className="grid grid-cols-2 gap-[0.5rem]">
             <div>{data.map(element=>element.topic)}</div>
+            <div></div>
         </div>
     </div>
   )
