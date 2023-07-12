@@ -12,7 +12,6 @@ const verifyToken = (req, res, next) => {
 
   try {
     let decoded;
-    console.log(decoded)
 
     if (bearerToken) {
       const accessToken = bearerToken.split(" ")[1];
@@ -20,21 +19,22 @@ const verifyToken = (req, res, next) => {
       req.user_id = decoded.user_id; // Accessing the user ID from the decoded token
     } else if (refreshToken) {
       decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-      req.user_id = decoded.user_id; // Accessing the user ID from the decoded token
+      req.user_id = decoded.user_id;
+    }
+
+    if (decoded) {
+      if (decoded.exp < Date.now() / 1000) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Unauthorized: Token has Expired" });
+      }
+      next();
     } else {
       return res
         .status(401)
         .json({ success: false, message: "Unauthorized: Invalid Token" });
     }
-
-    next();
   } catch (err) {
-    if (err.name === "JsonWebTokenError" && err.message === "jwt expired") {
-      return res
-        .status(401)
-        .json({ success: false, message: "Unauthorized: Token has expired" });
-    }
-
     console.error(err);
     return res
       .status(500)
