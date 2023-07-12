@@ -75,6 +75,7 @@ const submitAnswer = async (req, res) => {
         isCorrect: result.isCorrect,
       })),
     });
+    console.log(results)
   } catch (error) {
     console.error(error);
     res
