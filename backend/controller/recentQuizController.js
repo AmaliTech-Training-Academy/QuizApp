@@ -24,31 +24,33 @@ const recentQuiz = async (req, res) => {
         .json({ success: false, message: "User Not Found" });
     }
 
-    // Retrieving recent quizzes
-    const recentQuizzes = user.quizzes.slice(-5);
-
-    // Extracting necessary data from recent quizzes
-    const recentQuizData = recentQuizzes.map((quiz) => {
-      const { quizId, score, } = quiz;
+    // Retrieve unique recent quizzes
+    const recentQuizzesSet = new Set();
+    const recentQuizzes = [];
+    for (let i = user.quizzes.length - 1; i >= 0; i--) {
+      const quiz = user.quizzes[i];
+      const { quizId, date } = quiz;
       const { topic } = quizId;
-      const time = quiz.date.toDateString(); // Convert the createdAt date to a string format
-      
-      return {
-        topic,
-        score,
-        time,
-      };
-    });
+
+      if (!recentQuizzesSet.has(topic)) {
+        recentQuizzesSet.add(topic);
+        recentQuizzes.unshift({ topic, Date: date.toDateString() });
+      }
+
+      if (recentQuizzes.length >= 5) {
+        break;
+      }
+    }
 
     res.status(200).json({
       success: true,
       username: user.name,
-      recentQuizzes: recentQuizData,
+      recentQuizzes,
     });
     console.log("recent::: ", {
       success: true,
       username: user.name,
-      recentQuiz: recentQuizData,
+      recentQuiz: recentQuizzes,
     });
   } catch (error) {
     console.error(error);
