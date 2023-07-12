@@ -1,8 +1,7 @@
 const { userModel } = require("../models/userModels");
-const bcrypt = require("bcrypt");
 
 // @desc Update user details
-// @route PATCH /api/users/account/:id/details
+// @route PATCH /api/users/account/id/details
 // @access Private
 const updateDetails = async (req, res) => {
   try {
@@ -28,11 +27,17 @@ const updateDetails = async (req, res) => {
     //Saving the updated details
     await user.save();
 
-    res
-      .status(200)
-      .json({ success: true, message: "User details updated successfully" });
+    // sending response object
+    const response = {
+      success: true,
+      message: "User details updated successfully",
+      name: user.name,
+      email: user.email,
+    };
+
+    res.status(200).json(response);
   } catch (error) {
-    console.log(error.message);
+    console.error(error);
     res.status(500).json({ message: "Failed to update user details" });
   }
 };

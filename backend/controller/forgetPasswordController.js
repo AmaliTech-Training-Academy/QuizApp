@@ -1,6 +1,7 @@
 const { userModel } = require("../models/userModels");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 // @desc Register new user
 // @route POST /api/users/forgetPassword
@@ -31,14 +32,8 @@ const forgetPassword = async (req, res) => {
     console.log(token);
 
     // Create the password reset link
-    const link = `http://localhost:5173/resetPassword/${user._id}/?token=${token}`;
-    /*
-    Instead of hard-coding the base URL for the password reset link, use the req object 
-    to get the current URL and extract the protocol, host, and port. 
-    This ensures that the link will work regardless of where the app is deployed.
-    */
-    // const baseUrl = `${req.protocol}://${req.get("host")}`;
-    // const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`;
+    const baseUrl = "https://quiz-app-amalitech.netlify.app";
+    const link = `${baseUrl}/resetPassword/${user._id}/?token=${token}`
 
     // Create a nodemailer transporter for sending the reset password email
     let transporter = nodemailer.createTransport({
@@ -59,11 +54,10 @@ const forgetPassword = async (req, res) => {
       </p>`,
       //Email body, containing the reset password link
     };
-
     // Sending the password reset email
     transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        console.log(error);
+        console.error(error);
         // Failed to send email
         return res
           .status(400)
@@ -77,6 +71,7 @@ const forgetPassword = async (req, res) => {
     });
   } catch (error) {
     // Something went wrong
+    console.error(error);
     return res.status(500).json({ message: "Something went wrong" });
   }
 };

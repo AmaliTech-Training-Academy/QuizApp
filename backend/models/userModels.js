@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const { Schema } = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     location: {
-      type: String,
+      type: String, 
       maxlength: 150,
     },
     interests: {
@@ -43,10 +44,22 @@ const userSchema = new mongoose.Schema(
     addInterest: {
       type: [String],
     },
-    // isActive: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    quizzes: [
+      {
+        quizId: {
+          type: Schema.Types.ObjectId,
+          ref: "Quiz",
+        },
+        score: {
+          type: mongoose.Schema.Types.Decimal128,
+          default: 0,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -54,6 +67,11 @@ const userSchema = new mongoose.Schema(
 );
 
 // generating token logic, jwt.sign({takes 3 arguments to generate the token})
+
+userSchema.methods.generateAccessToken = function () {
+  console.log("User ID in generateAccess::", this._id)
+  const accessToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
+
 exports.generateAccessToken = function () {
   const accessToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "24h",
@@ -62,18 +80,26 @@ exports.generateAccessToken = function () {
 };
 
 // refresh Token
-exports.generateRefreshToken = function (rememberMe) {
+userSchema.methods.generateRefreshToken = function (rememberMe) {
   if (rememberMe) {
-    const refreshToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    const refreshToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
       expiresIn: "30d",
     });
     return refreshToken;
   } else {
-    const refreshToken = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    const refreshToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
     return refreshToken;
   }
 };
 
-exports.userModel = mongoose.model("User", userSchema);
+
+
+const userModel = mongoose.model("User", userSchema);
+
+module.exports = {
+  userModel: userModel,
+  generateAccessToken: userModel.prototype.generateAccessToken,
+  generateRefreshToken: userModel.prototype.generateRefreshToken,
+};

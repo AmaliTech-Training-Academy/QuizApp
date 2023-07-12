@@ -1,8 +1,8 @@
 const express = require('express')
-const passwordUpdate = require('../controller/updatePasswordController')
+const getQuizResults = require('../controller/getResults')
 const protected = require('../middleware/verifyToken')
 const router = express.Router()
 
-router.patch('/:id/password', protected, passwordUpdate)
+router.get('/:userId/quizzes/:quizId/results', protected, getQuizResults)
 
 module.exports = router

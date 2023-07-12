@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware function for token verification
 const verifyToken = (req, res, next) => {
-  // Getting the token from the request header or cookie
-  const accessToken = req.headers.authorization || req.cookies.token;
+  const bearerToken = req.headers.authorization || req.cookies.token;
   const refreshToken = req.cookies.refreshToken;
 
-  if (!accessToken && !refreshToken) {
+  if (!bearerToken && !refreshToken) {
     return res
       .status(401)
       .json({ success: false, message: "Unauthorized: No token provided" });
@@ -14,22 +12,33 @@ const verifyToken = (req, res, next) => {
 
   try {
     let decoded;
-    // Verifying and decoding the accessToken
-    if (accessToken) {
+
+    if (bearerToken) {
+      const accessToken = bearerToken.split(" ")[1];
       decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+      req.user_id = decoded.user_id; // Accessing the user ID from the decoded token
     } else if (refreshToken) {
-      // Verifying and decoding the refresh token
       decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+      req.user_id = decoded.user_id;
     }
 
-    // Token is valid, so you can access the decoded data (e.g. user_id)
-    req.user_id = decoded.user_id;
-
-    next();
+    if (decoded) {
+      if (decoded.exp < Date.now() / 1000) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Unauthorized: Token has Expired" });
+      }
+      next();
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized: Invalid Token" });
+    }
   } catch (err) {
+    console.error(err);
     return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized: Invalid Token" });
+      .status(500)
+      .json({ success: false, message: "Something went wrong" });
   }
 };
 
