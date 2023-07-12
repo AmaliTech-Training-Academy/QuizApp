@@ -2,6 +2,7 @@
   "topics": [
     {
       "topic": "History",
+      "desktopImage": "https://images.pexels.com/photos/1809616/pexels-photo-1809616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "questions": [
         {
           "question": "In what year did World War I begin?",
@@ -117,6 +118,7 @@
     },
     {
       "topic": "Geography",
+      "desktopImage": "https://images.pexels.com/photos/2283496/pexels-photo-2283496.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "questions": [
         {
           "question": "What is the capital of Australia?",
@@ -232,6 +234,7 @@
     },
     {
       "topic": "Science",
+      "desktopImage": "https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "questions": [
         {
           "question": "What is the process by which plants make their own food?",
@@ -347,6 +350,7 @@
     },
     {
       "topic": "Music",
+      "desktopImage": "https://images.pexels.com/photos/894156/pexels-photo-894156.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "questions": [
         {
           "question": "Who wrote the song 'Bohemian Rhapsody'?",
@@ -458,6 +462,7 @@
     },
     {
       "topic": "Movies and TV Shows",
+      "desktopImage": "https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "questions": [
         {
           "question": "Who played the character of Tony Stark/Iron Man in the Marvel Cinematic Universe?",

@@ -42,7 +42,7 @@ export const UpdatePassword = () => {
   }
 
   return (
-    <form className="md:mt-[100px] md:mr-[5rem] px-8 md:px-0  2xl:ml-[-25rem]" onSubmit={handlePassword}>
+    <form className="md:mt-[100px]  px-8 md:px-0" onSubmit={handlePassword}>
       <div className="mb-[48px]">
         <label>Current password*</label>
         <div className="mt-[8px] md:w-fit">
