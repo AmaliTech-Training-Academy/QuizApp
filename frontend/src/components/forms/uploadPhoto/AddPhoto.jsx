@@ -88,7 +88,7 @@ const AddPhoto = ({component}) => {
 
   const deleteAvatar = async () => {
     try {
-      const response = await Api.delete(`users/delete-profile/${Cookies.get('user_id')}`);
+      const response = await Api.delete(`users/delete-profile/${Cookies.get('id')}`);
       console.log(response);
       if (response.status === 200) {
         Cookies.set('image', null); // Update the value of 'image' key in the cookie to null

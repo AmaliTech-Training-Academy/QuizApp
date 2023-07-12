@@ -4,7 +4,7 @@ import { QuizSearch } from './QuizSearch';
 import { NavLink } from 'react-router-dom';
 
 
-export const PageNavigation = ({setQuizData, profile, quizzes}) => {
+export const PageNavigation = ({setQuizData, profile, quizzes, settings}) => {
 
   
 
@@ -43,6 +43,24 @@ export const PageNavigation = ({setQuizData, profile, quizzes}) => {
             color: isActive ? '#0267FF' : '#B3B3B3',
           })}
           >Quizzes</NavLink>
+        </div>
+        : <div></div>
+        }
+        <img src="" alt="" />
+        {settings ?
+        <div className='flex items-center text-[#B3B3B3]'>
+          <span className='mr-4'><IoIosArrowForward/></span>
+          <NavLink 
+            to="/account-settings" 
+            className='mr-4'
+            style={({ isActive }) => ({
+              color: isActive ? '#0267FF' : '#B3B3B3',
+            })}
+          >{settings}
+          </NavLink>
+          {quizzes ?
+            <span className='mr-4'><IoIosArrowForward/></span>
+          : ''}
         </div>
         : <div></div>
         }
