@@ -1,16 +1,11 @@
 const { userModel } = require("../models/userModels");
-const mongoose = require("mongoose");
+const quizModel = require("../models/quizModel");
 
 //@desc Get Recent Quizzes Taken by User
 //@route GET /api/users/:id/recent-quizzes
 //@access Private
 const recentQuiz = async (req, res) => {
   const { id } = req.params;
-
-  console.log("userId::", id);
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ success: false, message: "Invalid userId" });
-  }
 
   try {
     const user = await userModel
@@ -31,11 +26,15 @@ const recentQuiz = async (req, res) => {
       const quiz = user.quizzes[i];
       const { quizId, date } = quiz;
       const { topic } = quizId;
-      const { image } = topic
 
       if (!recentQuizzesSet.has(topic)) {
         recentQuizzesSet.add(topic);
-        recentQuizzes.unshift({ topic: topic.name, image, Date: date.toDateString() });
+
+        // Fetch the image related to the topic from quizModel
+        const quizData = await quizModel.findOne({ topic });
+        const image = quizData ? quizData.desktopImage : "";
+
+        recentQuizzes.unshift({ topic, Date: date.toDateString(), image });
       }
 
       if (recentQuizzes.length >= 5) {
