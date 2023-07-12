@@ -1,8 +1,8 @@
 const express = require("express");
-const resetPassword = require("../controller/resetPasswordController");
+const recentQuiz = require("../controller/recentQuizController");
 const protected = require('../middleware/verifyToken')
 const router = express.Router();
 
-router.post("/:id/:token", protected, resetPassword);
+router.get("/:userId", protected, recentQuiz);
 
 module.exports = router;

@@ -29,6 +29,10 @@ const answersSlice = createSlice({
         submitQuizId: (state, {payload}) => {
             state.answersData.quizId = payload
         },
+        resetQuiz: (state, action) => {
+            state.answersData.answers = [];
+            state.resultsData = [];
+        }
     }, 
     extraReducers: (builder) => {
         builder
@@ -63,5 +67,5 @@ export const submit = createAsyncThunk(
     }
 );
 
-export const { submitAnswers, submitUserId, submitQuizId } = answersSlice.actions;
+export const { submitAnswers, submitUserId, submitQuizId, resetQuiz } = answersSlice.actions;
 export default answersSlice.reducer;

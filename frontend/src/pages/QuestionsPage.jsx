@@ -8,12 +8,13 @@ import { MdOutlineTimer } from "react-icons/md"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Question } from '../components/Question'
 // import Navbar from '../components/Navbar'
-import Countdown from 'react-countdown'
 import { submit, submitAnswers, submitUserId, submitQuizId } from '../features/answersSlice';
 import { QuizSubmission } from '../components/QuizSubmission'
 import { SubmitModal } from '../components/SubmitModal'
 import UserNavbar from '../components/UserNavbar'
-// import { UserNavbar } from "../components/UserNavbar"
+import { RotatingLines } from 'react-loader-spinner'
+import { Timer } from '../components/Timer'
+
 
 
 
@@ -40,11 +41,6 @@ export const QuestionsPage = () => {
     useEffect(()=>{
         dispatch(getQuestions({topicId:id, page:page, token:token}));
     },[id, page, token]);
-
-    const [selectedAnswer, setSelectedAnswer] = useState({
-      questionNumber: '',
-      answer: '',
-  });
 
   const boxShadow = {
     boxShadow: "4px 4px 17px -3px rgba(0, 0, 0, 0.25)"
@@ -89,19 +85,19 @@ const changeQuestion = (e) => {
   }
 }
 
-const renderer = ({ hours, minutes, seconds, completed }) => {
-  if (completed) {
-    // Render a complete state
-  return (<div>Time's Up!</div>);
-  } else {
-    // Render a countdown
-  return (
-      <span>
-      {hours}:{minutes}:{seconds}
-      </span>
-      );
-  }
-};
+// const renderer = ({ hours, minutes, seconds, completed }) => {
+//   if (completed) {
+//     // Render a complete state
+//   return (<div>Time's Up!</div>);
+//   } else {
+//     // Render a countdown
+//   return (
+//       <span>
+//       {hours}:{minutes}:{seconds}
+//       </span>
+//       );
+//   }
+// };
 
 const handleChoice = (e) => {
   const chosenAnswer = e.target.value;
@@ -109,13 +105,14 @@ const handleChoice = (e) => {
       questionNumber: page,
       answer: chosenAnswer,
   };
-  setSelectedAnswer(result);
   if (chosenAnswers.answers.some((answer) => answer.questionNumber === result.questionNumber)) {
-      // Update the existing answer in the `answers` array
       dispatch(submitAnswers(result))
-  } else {
+    } else {
       dispatch(submitAnswers(result))
-  }     
+    }     
+    setTimeout(() => {
+      forwardArrowNav();
+    }, 2000);
 }
 
 const handleSure = () => {
@@ -147,7 +144,7 @@ const handleSureSubmit = (e) => {
             </div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
-            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> <Countdown date={Date.now() + 600000} renderer={renderer}/> </div>
+            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> <Timer/> </div>
         </div>
 
         <div className='bg-white rounded-t-[2rem] relative pt-24 lg:pt-0 px-4 lg:px-0 '>
@@ -188,13 +185,14 @@ const handleSureSubmit = (e) => {
         </div>
         {/* Current Question */}
         <div className='lg:mt-28 h-80'>
-        <Question 
-        data={question} 
-        questionNumber={page} 
-        selectedAnswer={selectedAnswer} 
-        handleChoice={handleChoice}
-        chosenAnswers={chosenAnswers}
-        />
+          {question? 
+            <Question 
+            data={question} 
+            questionNumber={page} 
+            handleChoice={handleChoice}
+            chosenAnswers={chosenAnswers}
+        /> : <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
+          }
         </div>
         {/* Mobile Buttons */}
         <div className='lg:hidden flex justify-between mt-14'>

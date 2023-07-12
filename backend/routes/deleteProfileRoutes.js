@@ -1,8 +1,9 @@
 const express = require('express')
-const passwordUpdate = require('../controller/updatePasswordController')
+const deleteProfile = require('../controller/deleteProfileController')
 const protected = require('../middleware/verifyToken')
 const router = express.Router()
 
-router.patch('/:id/password', protected, passwordUpdate)
+
+router.delete('/:id', protected, deleteProfile)
 
 module.exports = router
