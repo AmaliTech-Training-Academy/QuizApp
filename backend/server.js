@@ -21,7 +21,7 @@ const getResult = require("./routes/getResultsRoutes");
 const Topic = require("./routes/topicRoutes");
 const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
-// const { errorHandler, notFound } = require("./middleware/errorHandler");
+const { errorHandler, notFound } = require("./middleware/errorHandler");
 
 connectDB(); //connection to mongodb database
 
@@ -56,8 +56,8 @@ app.use("/api/users/performance", performance);
 app.use("/api/users/recent-quizzes", recentQuiz);
 app.use("/api/users/", getResult);
 
-// app.use(notFound);
-// app.use(errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
