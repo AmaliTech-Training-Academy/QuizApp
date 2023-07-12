@@ -31,10 +31,11 @@ const recentQuiz = async (req, res) => {
       const quiz = user.quizzes[i];
       const { quizId, date } = quiz;
       const { topic } = quizId;
+      const { image } = topic
 
       if (!recentQuizzesSet.has(topic)) {
         recentQuizzesSet.add(topic);
-        recentQuizzes.unshift({ topic, Date: date.toDateString() });
+        recentQuizzes.unshift({ topic: topic.name, image, Date: date.toDateString() });
       }
 
       if (recentQuizzes.length >= 5) {

@@ -70,7 +70,7 @@ const userSchema = new mongoose.Schema(
 userSchema.methods.generateAccessToken = function () {
   console.log("User ID in generateAccess::", this._id)
   const accessToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: "1hr",
+    expiresIn: "24h",
   });
   return accessToken;
 };
