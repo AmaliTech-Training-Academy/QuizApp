@@ -53,7 +53,7 @@ app.use("/api/users/questions", questionRoutes);
 app.use("/api/users/questions", submitAnswer);
 app.use("/api/users/quizzes", myQuizzes);
 app.use("/api/users/performance", performance);
-app.use("/api/users/recent-quizzes", recentQuiz);
+app.use("/api/users/recent-quizzes",  recentQuiz);
 app.use("/api/users/", getResult);
 
 app.use(notFound);

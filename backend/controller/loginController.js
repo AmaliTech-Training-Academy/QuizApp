@@ -45,9 +45,7 @@ const loginUser = async (req, res) => {
     }
 
     const accessToken = user.generateAccessToken(user._id);
-    console.log("access::", accessToken)
     const refreshToken = generateRefreshToken(user._id, rememberMe);
-    console.log("refresh::", refreshToken)
 
     user.refreshToken = refreshToken;
     await user.save();
