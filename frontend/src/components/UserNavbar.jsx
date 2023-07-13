@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/userSlice';
 import { toggleSettings } from '../features/accountSettingsSlice';
-import { selectQuestion } from '../features/quizSlice';
+import { resetQuestion } from '../features/quizSlice';
 import { resetQuiz } from '../features/answersSlice';
 
 
@@ -108,7 +108,7 @@ export const DropdownList = () =>{
     Cookies.remove('userId')
     Cookies.remove('id')
     dispatch(removeUser())
-    dispatch(selectQuestion(1))
+    dispatch(resetQuestion())
     dispatch(resetQuiz())
     navigate('/login')
   }

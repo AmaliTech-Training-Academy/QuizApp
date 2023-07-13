@@ -8,10 +8,12 @@ import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
 import allQuestions from "../assets/DesktopView/Icons/quizz.png";
 import repeat from "../assets/DesktopView/Icons/repeat.png";
 import UserNavbar from '../components/UserNavbar';
-// import { mockImages } from '../components/mockImages';
+import { selectQuestion } from '../features/quizSlice';
 
 export const QuizIntro = () => {
     const { id } = useParams();
+
+    const dispatch = useDispatch();
 
     const [quizData, setQuizData] = useState(null);
     const topics = useSelector((state) => state.topics.data);
@@ -33,7 +35,12 @@ export const QuizIntro = () => {
 
     const imgBackground = {
         background: "rgba(2, 103, 255, 0.2)"
+    };
+
+    const handleClick = () => {
+        dispatch(selectQuestion(1))
     }
+
 
 return (
     <div>
@@ -120,7 +127,9 @@ return (
                 </div>
             </div>
             <NavLink to={`/quiz/${id}/questions`} className="w-full lg:w-auto mb-56">
-                <button className='py-[10px] lg:px-[73px] w-full lg:w-auto text-white mt-24 bg-[#0267FF]'>Start</button>
+                <button 
+                className='py-[10px] lg:px-[73px] w-full lg:w-auto text-white mt-24 bg-[#0267FF]'
+                onClick={handleClick}>Start</button>
             </NavLink>
         </div>
     </div>

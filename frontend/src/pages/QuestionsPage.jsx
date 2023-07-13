@@ -8,7 +8,7 @@ import { MdOutlineTimer } from "react-icons/md"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Question } from '../components/Question'
 // import Navbar from '../components/Navbar'
-import { submit, submitAnswers, submitUserId, submitQuizId } from '../features/answersSlice';
+import { submit, submitAnswers, submitUserId, submitQuizId, resetQuiz } from '../features/answersSlice';
 import { QuizSubmission } from '../components/QuizSubmission'
 import { SubmitModal } from '../components/SubmitModal'
 import UserNavbar from '../components/UserNavbar'
@@ -85,19 +85,21 @@ const changeQuestion = (e) => {
   }
 }
 
-// const renderer = ({ hours, minutes, seconds, completed }) => {
-//   if (completed) {
-//     // Render a complete state
-//   return (<div>Time's Up!</div>);
-//   } else {
-//     // Render a countdown
-//   return (
-//       <span>
-//       {hours}:{minutes}:{seconds}
-//       </span>
-//       );
-//   }
-// };
+useEffect(() => {
+  const handleUnload = (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+
+    dispatch(resetQuiz())
+    dispatch(selectQuestion(1))
+  };
+
+  window.onbeforeunload = handleUnload;
+  return () => {
+    window.onbeforeunload = null;
+  };
+}, []);
+
 
 const handleChoice = (e) => {
   const chosenAnswer = e.target.value;
@@ -112,7 +114,7 @@ const handleChoice = (e) => {
     }     
     setTimeout(() => {
       forwardArrowNav();
-    }, 2000);
+    }, 700);
 }
 
 const handleSure = () => {
@@ -131,10 +133,11 @@ const handleSureSubmit = (e) => {
 };
 
   return (
-    <div className='bg-[#0267FF] lg:bg-transparent w-full h-screen'>
-      {
+    <>
+    {
         sure[0] ? <SubmitModal handleUnsure={handleUnsure} handleSureSubmit={handleSureSubmit}/> : ''
       }
+      <div className='bg-[#0267FF] lg:bg-transparent w-full h-4/5 lg:h-screen'>
       <div className='hidden lg:block'>
         <UserNavbar/>
         </div>
@@ -144,7 +147,7 @@ const handleSureSubmit = (e) => {
             </div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
-            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> <Timer/> </div>
+            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> <Timer time={10} id={id}/> </div>
         </div>
 
         <div className='bg-white rounded-t-[2rem] relative pt-24 lg:pt-0 px-4 lg:px-0 '>
@@ -212,5 +215,6 @@ const handleSureSubmit = (e) => {
         }
         </div>
     </div>
+    </>
   )
 }
