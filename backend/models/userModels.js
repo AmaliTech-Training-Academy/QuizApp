@@ -48,10 +48,10 @@ const userSchema = new mongoose.Schema(
       {
         quizId: {
           type: Schema.Types.ObjectId,
-          ref: "Quiz",
+          ref: "QuizResults",
         },
         score: {
-          type: mongoose.Schema.Types.Decimal128,
+          type: Schema.Types.Decimal128,
           default: 0,
         },
         date: {

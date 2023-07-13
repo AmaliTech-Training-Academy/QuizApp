@@ -1,5 +1,6 @@
 const { userModel } = require("../models/userModels");
 const quizModel = require("../models/quizModel");
+const quizResultModel = require("../models/quizResultModel");
 
 // @desc Submitting Answer for all Questions
 // @route POST /api/users/questions/answers
@@ -25,13 +26,8 @@ const submitAnswer = async (req, res) => {
 
       const question = quiz.questions[questionIndex];
 
-      const chosenAnswer = question.answers.find(
-        (ans) => ans.text === answer
-      );
-
-      const correctAnswer = question.answers.find(
-        (ans) => ans.is_correct
-      );
+      const chosenAnswer = question.answers.find((ans) => ans.text === answer);
+      const correctAnswer = question.answers.find((ans) => ans.is_correct);
 
       const isCorrect = chosenAnswer && chosenAnswer.is_correct;
 
@@ -49,20 +45,14 @@ const submitAnswer = async (req, res) => {
       });
     }
 
-    const existingQuizIndex = user.quizzes.findIndex(
-      (item) => item.quizId.toString() === _id
-    );
+    const quizResult = new quizResultModel({
+      userId: userId,
+      quizId: quiz._id,
+      score: score,
+      results: results,
+    });
 
-    if (existingQuizIndex !== -1) {
-      // User has already taken this quiz, update the score and answers
-      user.quizzes[existingQuizIndex].score = score;
-      user.quizzes[existingQuizIndex].answers = results;
-    } else {
-      // User is taking this quiz for the first time, adding it to the quizzes array
-      user.quizzes.push({ quizId: _id, score, answers: results });
-    }
-
-    await user.save();
+    await quizResult.save();
 
     res.status(200).json({
       success: true,
@@ -75,7 +65,6 @@ const submitAnswer = async (req, res) => {
         isCorrect: result.isCorrect,
       })),
     });
-    console.log(results)
   } catch (error) {
     console.error(error);
     res
