@@ -1,7 +1,6 @@
 const { userModel } = require("../models/userModels");
-const quizModel = require("../models/quizModel");
+const { quizModel } = require("../models/quizModel");
 const mongoose = require("mongoose");
-
 
 //@desc Get Recent Quizzes Taken by User
 //@route GET /api/users/:id/recent-quizzes
@@ -37,13 +36,6 @@ const recentQuiz = async (req, res) => {
         const image = quizData ? quizData.desktopImage : "";
 
         recentQuizzes.unshift({ topic, Date: date.toDateString(), image });
-
-      const { image } = topic;
-
-      if (!recentQuizzesSet.has(topic)) {
-        recentQuizzesSet.add(topic);
-        recentQuizzes.unshift({ topic: topic.name, image, Date: date.toDateString() });
-
       }
 
       if (recentQuizzes.length >= 5) {
