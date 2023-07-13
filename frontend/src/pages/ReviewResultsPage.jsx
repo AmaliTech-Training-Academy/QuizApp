@@ -49,7 +49,7 @@ const ReviewResultsPage = () => {
             <button className='bg-[#0267FF] px-8 py-3'>Next Item</button>
         </div>
         {/* Results */}
-        <div className='flex justify-center'>
+        <div className='flex flex-col items-center justify-center'>
             <div>
             {answers.results && answers.results.map((result, index) => (
                 <div key={index}>
@@ -58,6 +58,9 @@ const ReviewResultsPage = () => {
                     <p className='my-5 py-5 px-3 border-2 rounded-lg border-[#3f3] bg-[#cfc]'>Answer: {result.chosenAnswer}</p>
                 </div>
                 ))}
+            </div>
+            <div className='my-5'>
+                <button className='bg-[#0267FF] px-10 py-3'>Try again</button>
             </div>
         </div>
     </div>

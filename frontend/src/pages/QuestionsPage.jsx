@@ -71,7 +71,7 @@ const changeQuestion = (e) => {
                 {questionNumber}
             </div>  
         )
-    };
+    }
 
     const backArrowNav = () => {
       if(page > 1){
