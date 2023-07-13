@@ -19,9 +19,9 @@ import AccountSettings from './pages/AccountSettings'
 import GeneralSettings from './pages/GeneralSettings'
 import PasswordSettings from './pages/PasswordSettings'
 import MyQuizzes from './pages/MyQuizzes'
-import { Test } from './pages/Test'
+// import { Test } from './pages/Test'
 import { QuestionsPage } from './pages/QuestionsPage'
-// import { ReviewResultsPage } from './pages/ReviewResultsPage'
+import ReviewResultsPage from './pages/ReviewResultsPage'
 
 function App() {
 
@@ -47,7 +47,7 @@ function App() {
           <Route path='/my-quizzes' element={<MyQuizzes/>}/>
           <Route path="forgetpassword" element={<ForgetPassword/>}/>
           <Route path='resetPassword/:id' element={<ResetPassword/>}/>
-          <Route path='/results' element={<Test/>}/>
+          <Route path='/quiz/:id/results' element={<ReviewResultsPage/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
