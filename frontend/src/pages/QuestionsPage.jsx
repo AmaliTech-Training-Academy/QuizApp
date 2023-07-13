@@ -11,9 +11,10 @@ import { Question } from '../components/Question'
 import { submit, submitAnswers, submitUserId, submitQuizId } from '../features/answersSlice';
 import { QuizSubmission } from '../components/QuizSubmission'
 import { SubmitModal } from '../components/SubmitModal'
-import UserNavbar from '../components/UserNavbar'
+import UserNavbar, { DropdownList } from '../components/UserNavbar'
 import { RotatingLines } from 'react-loader-spinner'
 import { Timer } from '../components/Timer'
+import MobileProfileNavbar from '../components/MobileProfileNavbar'
 
 
 
@@ -35,8 +36,7 @@ export const QuestionsPage = () => {
     const chosenAnswers = answers.answersData;
     console.log(answers);
 
-
-    // console.log(question);
+    const showSettings = useSelector((state) => state.accountSettings.showSettings);
     
     useEffect(()=>{
         dispatch(getQuestions({topicId:id, page:page, token:token}));
@@ -135,8 +135,10 @@ const handleSureSubmit = (e) => {
       {
         sure[0] ? <SubmitModal handleUnsure={handleUnsure} handleSureSubmit={handleSureSubmit}/> : ''
       }
-      <div className='hidden lg:block'>
+      <div>
         <UserNavbar/>
+        <MobileProfileNavbar/>
+        {showSettings && <DropdownList/>}
         </div>
         <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col lg:justify-between mb-8' id='quiz-header' >
             <div className='lg:hidden flex items-center font-normal'><IoIosArrowBack className='mr-2'/>

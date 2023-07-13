@@ -18,8 +18,8 @@ export const AvailableQuizzes = () => {
   const token = useSelector(state=> state.userData.user_token);
   const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
-const [quizData, setQuizData] = useState(null);
-const [filterOpt, setFilterOpt] = useState(null)
+  const [quizData, setQuizData] = useState(null);
+  const [filterOpt, setFilterOpt] = useState(null)
   const navigate = useNavigate()
 
   const verifyCookie = Cookies.get('rememberMe')

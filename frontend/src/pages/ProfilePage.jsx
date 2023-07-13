@@ -90,7 +90,7 @@ const ProfilePage = () => {
           
         </div>
 
-        <div className="reminders mt-[50px] mb-[90px] items-center flex justify-between flex-col lg:flex-row">
+        <div className="reminders mt-[50px] mb-[90px] flex justify-between flex-col lg:flex-row">
           <Calendar onChange={onChange} value={date} />
 
           <RecentQuizzes/>
