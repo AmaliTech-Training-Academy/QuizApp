@@ -24,16 +24,6 @@ const getQuizResults = async (req, res) => {
       const answer = answers[index];
       const correctAnswer = question.answers.find((ans) => ans.is_correct);
 
-
-      const quiz = new QuizResult({
-        userId: userId,
-        quizId: quizId,
-        results,
-
-      })
-
-      quiz.save()
-
       return {
         questionNumber: index + 1,
         question: question.question,
