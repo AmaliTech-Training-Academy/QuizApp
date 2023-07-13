@@ -15,4 +15,3 @@ const accountSettingsSlice = createSlice({
 export const { toggleSettings } = accountSettingsSlice.actions;
 
 export default accountSettingsSlice.reducer;
-5

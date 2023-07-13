@@ -165,7 +165,8 @@
     margin: 0;
     border: 0;
     outline: none;
-    padding: 1.6rem;
+    padding-bottom: 1.6rem;
+    padding-top: 1.6rem;
   }
   
   .react-calendar button:enabled:hover {
