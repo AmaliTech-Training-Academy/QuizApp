@@ -1,6 +1,5 @@
 const { userModel } = require("../models/userModels");
-const { quizModel } = require("../models/quizModel");
-const mongoose = require("mongoose");
+const quizModel = require("../models/quizModel");
 
 //@desc Get Recent Quizzes Taken by User
 //@route GET /api/users/:id/recent-quizzes
