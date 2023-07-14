@@ -27,7 +27,8 @@ const getQuizResults = async (req, res) => {
       const answers = question.answers.map((answer) => ({
         text: answer.text,
         is_correct: answer.text === result.chosenAnswer ? true : answer.is_correct,
-        is_chosen: answer.text === result.chosenAnswer ? true : false
+        is_chosen: answer.text === result.chosenAnswer ? true : false,
+        points: answer.points
       }));
 
       return {
@@ -35,9 +36,7 @@ const getQuizResults = async (req, res) => {
         questionNumber: result.questionNumber,
         question: result.question,
         answers: answers,
-        isCorrect: result.isCorrect,
-        correctAnswer: result.correctAnswer,
-        chosenAnswer: result.chosenAnswer,
+        points: question.points
       };
     });
 
