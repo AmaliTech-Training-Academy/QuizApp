@@ -7,9 +7,9 @@ const initialState = {
 }
 
 // const URL = `https://quiz-master.onrender.com/api/users/${userId}/quizzes/${quizId}/results`
-export const getResults = createAsyncThunk('results/get', async({userId,quizId, token})=> {
+export const getResults = createAsyncThunk('results/get', async({userId,quizResultsId, token})=> {
     try{
-        const URL = `https://quiz-master.onrender.com/api/users/${userId}/quizzes/${quizId}/results`
+        const URL = `https://quiz-master.onrender.com/api/users/${userId}/quizzes/${quizResultsId}/results`
         const headers = {
             'Authorization': `Bearer ${token}`
         };
