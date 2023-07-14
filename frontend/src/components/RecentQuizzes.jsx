@@ -1,34 +1,40 @@
-import React,{useEffect, useState} from 'react'
-import Api from './forms/services/api'
-import Cookies from 'js-cookie'
+import React, { useEffect, useState } from 'react';
+import Api from './forms/services/api';
+import Cookies from 'js-cookie';
 
 const RecentQuizzes = () => {
-    const [data, setData]  = useState([])
-    useEffect(() => {
-        const fetchData = async () =>{
-            try {
-                const response = await Api.get(`users/recent-quizzes/${Cookies.get('id')}`)
-            console.log(response.data.recentQuizzes);
-            setData(response.data.recentQuizzes)
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchData()
-    }, [])
-    console.log(data);
-  return (
-    <div className="recent-quizzes mt-[40px] py-[3.063rem] px-[1.75rem] lg:shadow-lg lg:shadow-[#00000040] rounded-lg">
-        <div className="flex justify-between gap-[28px]  ">
-            <p className="font-semibold text-[1.441rem]">Recent quizzes</p>
-            <p className="text-blue-700">See All</p>
-        </div>
-        <div className="grid grid-cols-2 gap-[0.5rem]">
-            <div>{data.map(element=>element.topic)}</div>
-            <div></div>
-        </div>
-    </div>
-  )
-}
+  const [data, setData] = useState([]);
 
-export default RecentQuizzes
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Api.get(`users/recent-quizzes/${Cookies.get('id')}`);
+        setData(response.data.recentQuizzes);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div className="recent-quizzes  py-8 px-[2.5rem] lg:shadow-lg lg:rounded-lg lg:w-[48%] lg:mt-[0] mt-[50px] ">
+      <div className="flex justify-between items-center mb-4">
+        <p className="font-semibold text-2xl">Recent quizzes</p>
+        <p className="text-blue-700 cursor-pointer">See All</p>
+      </div>
+      <div className="grid grid-cols-2 gap-8">
+        {data.map((element) => (
+          <div key={element.id}>
+            <img src={element.image} alt={element.title} className="w-full h-[250px] rounded-lg" />
+            <p className="mt-2 text-xl font-semibold">{element.topic}</p>
+            <p className="text-gray-500">{element.Date}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default RecentQuizzes;

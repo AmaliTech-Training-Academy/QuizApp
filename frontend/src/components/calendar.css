@@ -9,7 +9,6 @@
 }
 .react-calendar {
   padding: 1rem;
-  width: 350px;
   max-width: 100%;
   border-radius: 10px;
   background:  #FFF;
@@ -166,7 +165,8 @@
     margin: 0;
     border: 0;
     outline: none;
-    padding: 1.6rem;
+    padding-bottom: 1.6rem;
+    padding-top: 1.6rem;
   }
   
   .react-calendar button:enabled:hover {
@@ -280,8 +280,8 @@
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1100px) {
   .react-calendar {
-    width: 63rem;
+    width: 48%;
   }
 }

@@ -7,8 +7,10 @@ import timer from "../assets/DesktopView/Icons/timer.png";
 import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
 import allQuestions from "../assets/DesktopView/Icons/quizz.png";
 import repeat from "../assets/DesktopView/Icons/repeat.png";
-import UserNavbar from '../components/UserNavbar';
 import { selectQuestion } from '../features/quizSlice';
+import UserNavbar, { DropdownList } from '../components/UserNavbar';
+import MobileProfileNavbar from '../components/MobileProfileNavbar';
+// import { mockImages } from '../components/mockImages';
 
 export const QuizIntro = () => {
     const { id } = useParams();
@@ -17,21 +19,17 @@ export const QuizIntro = () => {
 
     const [quizData, setQuizData] = useState(null);
     const topics = useSelector((state) => state.topics.data);
-    // 
 
-    // console.log(topics);
     const quiz = topics.filter(topic => id === topic._id);
     const quizImage = quiz[0].desktopImage;
-    // console.log(quizImage);
 
-    // console.log(quizImage[0].image);
+    const showSettings = useSelector((state) => state.accountSettings.showSettings);
+
     useEffect(()=> {
         if(!quizData){
     setQuizData(topics)
         }
     },[topics]);
-
-    // const quiz = topics.filter(topic => topic._id === id);
 
     const imgBackground = {
         background: "rgba(2, 103, 255, 0.2)"
@@ -44,8 +42,10 @@ export const QuizIntro = () => {
 
 return (
     <div>
-        <div className='hidden lg:block'>
+        <div>
         <UserNavbar/>
+        <MobileProfileNavbar/>
+        {showSettings && <DropdownList/>}
         </div>
         {/* Header */}
         <div className='hidden lg:flex py-10 px-16 bg-[#0267FF] lg:text-white font-semibold' id='quiz-header'>

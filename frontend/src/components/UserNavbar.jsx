@@ -12,6 +12,11 @@ import { resetQuiz } from '../features/answersSlice';
 
 
 const UserNavbar = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(toggleSettings());
+  };
   
   return (
     <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
@@ -102,6 +107,11 @@ export const ProfileImage = ({component, getImage }) => {
 export const DropdownList = () =>{
   const navigate = useNavigate()
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(toggleSettings());
+  };
+  
   
   const handleLogout = ()=>{
     Cookies.remove('rememberMe')
@@ -114,7 +124,7 @@ export const DropdownList = () =>{
   }
 
   return(
-    <div className=' h-full w-full absolute lg:right-0 flex content-center justify-center bg-black bg-opacity-50 z-50'>
+    <div className=' h-full w-full fixed lg:right-0 flex content-center justify-center bg-black bg-opacity-50 z-50' onClick={handleClick}>
       <div className='absolute lg:right-0 lg:left-auto left-0'>
       <div className='py-1 px-6  pt-2 bg-white rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
         <div>

@@ -48,6 +48,7 @@ function App() {
           <Route path="forgetpassword" element={<ForgetPassword/>}/>
           <Route path='resetPassword/:id' element={<ResetPassword/>}/>
           <Route path='/quiz/:id/results' element={<ReviewResultsPage/>}/>
+          <Route path='/quiz/:id/quizintro' element={<QuizIntro/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
