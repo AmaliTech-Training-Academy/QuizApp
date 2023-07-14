@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
 
 export const QuizSubmission = ({handleSure, id}) => {
     const [check, setCheck] = useState(false);
