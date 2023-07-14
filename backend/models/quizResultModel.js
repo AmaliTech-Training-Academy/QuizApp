@@ -29,7 +29,6 @@ const quizResultSchema = new Schema(
         },
         correctAnswer: {
           type: String,
-          required: true,
         },
         chosenAnswer: {
           type: String,
