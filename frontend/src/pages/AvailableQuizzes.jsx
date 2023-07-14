@@ -22,16 +22,16 @@ export const AvailableQuizzes = () => {
   const [filterOpt, setFilterOpt] = useState(null)
   const navigate = useNavigate()
 
-  const verifyCookie = Cookies.get('rememberMe')
+  
   useEffect(()=>{
-    {!verifyCookie && navigate('/login')}
+    {!token && navigate('/login')}
   })
   
   useEffect(()=> {
     if(!quizData){
       dispatch(getTopics(token))
     }
-    setQuizData(topics)
+    // setQuizData(topics)
   },[token]);
 
   return (
@@ -48,7 +48,7 @@ export const AvailableQuizzes = () => {
               <div className="hidden lg:block">
               <QuizFilters setQuizData={setQuizData} setFilterOpt={setFilterOpt}/>
               </div>
-                <Quizzes data={quizData}/>
+                <Quizzes data={topics}/>
             </div>
         </div>
     </div>

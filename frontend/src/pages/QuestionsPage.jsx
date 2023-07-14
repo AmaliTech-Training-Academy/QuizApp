@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getQuestions, nextQuestion, previousQuestion, selectQuestion} from '../features/quizSlice'
+import { getQuestions, nextQuestion, previousQuestion, resetQuestion, selectQuestion} from '../features/quizSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { sureSubmit } from '../features/sureSlice'
@@ -7,7 +7,6 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineTimer } from "react-icons/md"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Question } from '../components/Question'
-// import Navbar from '../components/Navbar'
 import { submit, submitAnswers, submitUserId, submitQuizId, resetQuiz, resetAnswers } from '../features/answersSlice';
 import { QuizSubmission } from '../components/QuizSubmission'
 import { SubmitModal } from '../components/SubmitModal'
@@ -130,7 +129,8 @@ const handleSureSubmit = (e) => {
   dispatch(submitQuizId(id));
   dispatch(submit())
   dispatch(selectQuestion(1))
-  resetAnswers()
+  dispatch(resetQuestion())
+  dispatch(resetAnswers())
 };
 
   return (
