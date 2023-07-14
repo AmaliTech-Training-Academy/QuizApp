@@ -6,6 +6,7 @@ const initialState = {
     status: 'empty',
 }
 
+// const URL = `https://quiz-master.onrender.com/api/users/${userId}/quizzes/${quizId}/results`
 export const getResults = createAsyncThunk('results/get', async({userId,quizId, token})=> {
     try{
         const URL = `https://quiz-master.onrender.com/api/users/${userId}/quizzes/${quizId}/results`
