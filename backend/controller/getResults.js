@@ -24,7 +24,11 @@ const getQuizResults = async (req, res) => {
       const question = quiz.questions.find(
         (question) => question.question === result.question
       );
-      const answers = question.answers.map((answer) => answer.text);
+      const answers = question.answers.map((answer) => ({
+        text: answer.text,
+        is_correct: answer.text === result.chosenAnswer ? true : answer.is_correct,
+        is_chosen: answer.text === result.chosenAnswer ? true : false
+      }));
 
       return {
         resultId: _id,
