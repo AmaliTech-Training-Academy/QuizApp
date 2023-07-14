@@ -3,7 +3,7 @@ import axios from "axios"
 
 
 const initialState = {
-    page: 0,
+    page: 1,
     data: [],
     status: 'idle',
     error: null,
@@ -37,7 +37,12 @@ const quizSlice = createSlice({
         },
         selectQuestion: (state, {payload})=>{
             state.page = payload;
-        }
+        },
+        resetQuestion: (state, action)=> {
+            state.page = 0;
+            state.data = [];
+            state.status = "idle";
+        },
     },
     extraReducers: (builder) => {
     builder
@@ -56,5 +61,5 @@ const quizSlice = createSlice({
     },
 });
 
-export const {nextQuestion, previousQuestion, selectQuestion} = quizSlice.actions;
+export const {nextQuestion, previousQuestion, selectQuestion, resetQuestion} = quizSlice.actions;
 export default quizSlice.reducer;
