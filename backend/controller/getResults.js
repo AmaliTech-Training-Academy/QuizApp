@@ -8,32 +8,36 @@ const getQuizResults = async (req, res) => {
 
   try {
     const quizResult = await QuizResult.findOne({
-      user: userId,
-      quiz: quizId,
-    }).populate("quiz");
+      userId: userId,
+      quizId: quizId,
+    }).populate("quizId");
 
     if (!quizResult)
       return res
         .status(404)
         .json({ success: false, message: "Quiz Result Not Found" });
 
-    const { score, answers } = quizResult;
-    const quiz = quizResult.quiz;
+    const { _id, score, results } = quizResult;
+    const quiz = quizResult.quizId;
 
-    const results = quiz.questions.map((question, index) => {
-      const answer = answers[index];
-      const correctAnswer = question.answers.find((ans) => ans.is_correct);
+    const updatedResults = results.map((result) => {
+      const question = quiz.questions.find(
+        (question) => question.question === result.question
+      );
+      const answers = question.answers.map((answer) => answer.text);
 
       return {
-        questionNumber: index + 1,
-        question: question.question,
-        correctAnswer: correctAnswer.text,
-        chosenAnswer: answer ? answer.text : null,
-        isCorrect: answer ? answer.is_correct : null,
+        resultId: _id,
+        questionNumber: result.questionNumber,
+        question: result.question,
+        answers: answers,
+        isCorrect: result.isCorrect,
+        correctAnswer: result.correctAnswer,
+        chosenAnswer: result.chosenAnswer,
       };
     });
 
-    res.status(200).json({ success: true, score, results });
+    res.status(200).json({ success: true, score, results: updatedResults });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Something Went Wrong" });

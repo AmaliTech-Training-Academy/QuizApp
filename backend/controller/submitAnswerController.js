@@ -10,7 +10,7 @@ const submitAnswer = async (req, res) => {
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
-    const quiz = await quizModel.findById(_id);
+    const quiz = await quizModel.findById(_id).populate("questions.answers");
 
     if (!user)
       return res
@@ -34,25 +34,56 @@ const submitAnswer = async (req, res) => {
       // Update the score if the answer is correct
       if (isCorrect) {
         score += question.points;
+      } else if (!isCorrect) {
+        score === 0;
       }
 
       results.push({
         questionNumber,
         question: question.question,
-        correctAnswer: correctAnswer.text,
-        chosenAnswer: chosenAnswer ? chosenAnswer.text : null,
-        isCorrect: isCorrect,
+        answers: question.answers.map((ans) => ({
+          text: ans.text,
+          is_correct: ans.text === chosenAnswer ? true : ans.is_correct,
+          is_chosen: ans.is_correct ? true : false,
+        })),
+        points: isCorrect ? question.points : 0,
       });
     }
 
-    const quizResult = new quizResultModel({
+    const existingQuizResult = await quizResultModel.findOne({
       userId: userId,
-      quizId: quiz._id,
-      score: score,
-      results: results,
+      quizId: _id,
     });
 
-    await quizResult.save();
+    let quizResult;
+
+    if (existingQuizResult) {
+      // if the user has already taken the quiz before, update existing result
+      existingQuizResult.score = score;
+      (existingQuizResult.results = results),
+        (quizResult = await existingQuizResult.save());
+    } else {
+      //if for the first time, create new result
+      quizResult = new quizResultModel({
+        userId: userId,
+        quizId: _id,
+        score: score,
+        results: results,
+      });
+      quizResult = await quizResult.save()
+    }
+
+    // update user's quiz result for the specific topic
+    const userQuiz = user.quizzes.find(
+      (quiz) => quiz.quizId && quiz.quizId.toString() === _id.toString()
+    );
+    if (userQuiz) {
+      userQuiz.quizResult = quizResult._id;
+    } else {
+      user.quizzes.push({ quizId: _id, quizResult: quizResult._id });
+    }
+
+    await user.save();
 
     res.status(200).json({
       success: true,
@@ -60,9 +91,8 @@ const submitAnswer = async (req, res) => {
       results: results.map((result) => ({
         questionNumber: result.questionNumber,
         question: result.question,
-        correctAnswer: result.correctAnswer,
-        chosenAnswer: result.chosenAnswer,
-        isCorrect: result.isCorrect,
+        answers: result.answers,
+        points: result.points,
       })),
     });
   } catch (error) {

@@ -20,11 +20,12 @@ const myQuizzes = async (req, res) => {
     const quizzes = user.quizzes.map((quiz) => ({
       quizId: quiz.quizId._id,
       topic: quiz.quizId.topic,
+      image: quiz.desktopImage,
       date: quiz.date.toLocaleDateString(),
     }));
 
     res.status(200).json({ success: true, quizzes });
-    console.log(quizzes)
+    console.log("quizzes::", quizzes)
   } catch (error) {
     console.error(error);
     res.status(500).json({
