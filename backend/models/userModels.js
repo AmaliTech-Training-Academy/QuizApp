@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     location: {
-      type: String, 
+      type: String,
       maxlength: 150,
     },
     interests: {
@@ -79,14 +79,22 @@ userSchema.methods.generateAccessToken = function () {
 // refresh Token
 userSchema.methods.generateRefreshToken = function (rememberMe) {
   if (rememberMe) {
-    const refreshToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
-    });
+    const refreshToken = jwt.sign(
+      { user_id: this._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "30d",
+      }
+    );
     return refreshToken;
   } else {
-    const refreshToken = jwt.sign({ user_id: this._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const refreshToken = jwt.sign(
+      { user_id: this._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
     return refreshToken;
   }
 };
@@ -98,4 +106,3 @@ module.exports = {
   generateAccessToken: userModel.prototype.generateAccessToken,
   generateRefreshToken: userModel.prototype.generateRefreshToken,
 };
-

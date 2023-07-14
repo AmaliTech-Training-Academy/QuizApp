@@ -1,50 +1,107 @@
-const QuizResult = require("../models/quizResultModel");
+const { userModel } = require("../models/userModels");
+const quizModel = require("../models/quizModel");
+const quizResultModel = require("../models/quizResultModel");
 
-// @desc Get Quiz Results for a User and Quiz
-// @route GET /api/users/:userId/quizzes/:quizId/results
+// @desc Submitting Answer for all Questions
+// @route POST /api/users/questions/answers
 // @access Private
-const getQuizResults = async (req, res) => {
-  const { userId, quizId } = req.params;
+const submitAnswer = async (req, res) => {
+  const { userId, quizId: _id, answers } = req.body;
 
   try {
-    const quizResult = await QuizResult.findOne({
-      userId: userId,
-      quizId: quizId,
-    }).populate("quizId");
+    const user = await userModel.findById(userId).populate("quizzes.quizId");
+    const quiz = await quizModel.findById(_id).populate("questions.answers");
 
-    if (!quizResult)
+    if (!user)
       return res
         .status(404)
-        .json({ success: false, message: "Quiz Result Not Found" });
+        .json({ success: false, message: "User Not Found" });
 
-    const { _id, score, results } = quizResult;
-    const quiz = quizResult.quizId;
+    let score = 0;
+    let results = [];
 
-    const updatedResults = results.map((result) => {
-      const question = quiz.questions.find(
-        (question) => question.question === result.question
-      );
-      const answers = question.answers.map((answer) => ({
-        text: answer.text,
-        is_correct: answer.text === result.chosenAnswer ? true : answer.is_correct,
-        is_chosen: answer.text === result.chosenAnswer ? true : false,
-        points: answer.is_correct ? question.points : 0
-      }));
+    for (let i = 0; i < answers.length; i++) {
+      const { answer, questionNumber } = answers[i];
+      const questionIndex = questionNumber - 1; // Subtract 1 to get the correct index
 
-      return {
-        resultId: _id,
-        questionNumber: result.questionNumber,
-        question: result.question,
-        answers: answers,
-        points: result.points
-      };
+      const question = quiz.questions[questionIndex];
+
+      const chosenAnswer = question.answers.find((ans) => ans.text === answer);
+      const correctAnswer = question.answers.find((ans) => ans.is_correct);
+
+      const isCorrect = chosenAnswer && chosenAnswer.is_correct;
+
+      // Update the score if the answer is correct
+      if (isCorrect) {
+        score += question.points;
+      } else {
+        score = 0; // Set score to 0 if the answer is incorrect
+      }
+
+      results.push({
+        questionNumber,
+        question: question.question,
+        answers: question.answers.map((ans) => ({
+          text: ans.text,
+          is_correct: ans.text === chosenAnswer ? true : ans.is_correct,
+          is_chosen: ans.is_correct ? true : false,
+        })),
+        points: isCorrect ? question.points : 0,
+      });
+    }
+
+    const existingQuizResult = await quizResultModel.findOne({
+      userId: userId,
+      quizId: _id,
     });
 
-    res.status(200).json({ success: true, score, results: updatedResults });
+    let quizResult;
+
+    if (existingQuizResult) {
+      // if the user has already taken the quiz before, update existing result
+      existingQuizResult.score = score;
+      existingQuizResult.results = results;
+      quizResult = await existingQuizResult.save();
+    } else {
+      // if for the first time, create new result
+      quizResult = new quizResultModel({
+        userId: userId,
+        quizId: _id,
+        score: score,
+        results: results,
+      });
+      quizResult = await quizResult.save();
+    }
+
+    // update user's quiz result for the specific topic
+    const userQuiz = user.quizzes.find(
+      (quiz) => quiz.quizId && quiz.quizId.toString() === _id.toString()
+    );
+    if (userQuiz) {
+      userQuiz.quizResult = quizResult._id;
+    } else {
+      user.quizzes.push({ quizId: _id, quizResult: quizResult._id });
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      quizResultId: quizResult._id, // Include the quizResultId in the response
+      // score,
+      // results: results.map((result) => ({
+      //   questionNumber: result.questionNumber,
+      //   question: result.question,
+      //   answers: result.answers,
+      //   points: result.points,
+      // })),
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: "Something Went Wrong" });
+    res
+      .status(500)
+      .json({ success: false, message: "Error Submitting Answers" });
   }
 };
 
-module.exports = getQuizResults;
+module.exports = submitAnswer;
