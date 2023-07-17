@@ -11,6 +11,7 @@ ChartJs.register(
 
 const BarCharts = () => {
   const [chart, setChart] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const backgroundColor = ['#BAEDBD', '#C6C7F8', '#1C1C1C', '#B1E3FF', '#95A4FC', '#A1E3CB']
 
   useEffect(() => {
@@ -18,8 +19,10 @@ const BarCharts = () => {
       try {
         const response = await Api.get(`users/performance/${Cookies.get('id')}`)
         setChart(response.data.performanceData)
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     }
     
@@ -53,9 +56,28 @@ const BarCharts = () => {
     },
     plugins: {
       bar: {
-        categorySpacing: 300 // Adjust the value as per your preference
+        categorySpacing: 300 
       }
     }
+  };
+
+  if (isLoading) {
+    return (
+      <div className='flex flex-col justify-center'>
+        {/* <img src={book}/> */}
+        <p className='text-center'>Loading...</p>
+        </div>
+      );
+  }
+
+  if (chart.length === 0) {
+    // If performance data is empty, show 'Perform Quizzes'
+    return (
+      <div>
+        <div className='text-center'>Perform Quizzes</div>
+        {/* <div className='text-center'>{fetchState}</div> */}
+      </div>
+    );
   }
 
   return (

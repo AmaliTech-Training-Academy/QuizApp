@@ -1,28 +1,25 @@
-import React, { useState,useEffect} from 'react';
-import personIcon from '../../../assets/DesktopView/Icons/person.png';
-import styles from './addPhoto.module.css';
-import { useDispatch } from 'react-redux';
-import { increaseCount } from '../../../features/stepperSlice';
-import axios from 'axios';
-import Api from '../services/api';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
-import { RotatingLines } from 'react-loader-spinner';
-import { ProfileImage } from '../../UserNavbar';
+import React, { useState} from 'react'
+import personIcon from '../../../assets/DesktopView/Icons/person.png'
+import styles from './addPhoto.module.css'
+import { useDispatch } from 'react-redux'
+import { increaseCount } from '../../../features/stepperSlice'
+import axios from 'axios'
+import Api from '../services/api'
+import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
+import { ProfileImage } from '../../UserNavbar'
 
 const AddPhoto = ({component}) => {
-  const [getImage, setGetImage] = useState(null);
-  const dispatch = useDispatch();
+  const [getImage, setGetImage] = useState(null)
+  const dispatch = useDispatch()
   const userId = Cookies.get('id')
-  console.log(userId);
-  console.log(Cookies.get('id'));
 
   const handleClick = async () => {
     if (getImage) {
       try {
         const formData = new FormData();
         formData.append('file', getImage);
-        formData.append('upload_preset', 'obwnqchq'); // Replace with your actual upload preset
+        formData.append('upload_preset', 'obwnqchq'); 
   
         const response = await axios.post(
           'https://api.cloudinary.com/v1_1/dleyquc6n/image/upload',

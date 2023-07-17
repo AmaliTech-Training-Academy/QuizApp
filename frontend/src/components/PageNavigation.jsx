@@ -66,7 +66,8 @@ export const PageNavigation = ({setQuizData, profile, quizzes, settings}) => {
         }
       </div>
       {/* Search */}
-      <QuizSearch setQuizData={setQuizData}/>
+      {!settings && <QuizSearch setQuizData={setQuizData}/>}
+      
     </div>
   )
 }
