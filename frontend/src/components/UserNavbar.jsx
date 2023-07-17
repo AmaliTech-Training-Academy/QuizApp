@@ -12,11 +12,6 @@ import { resetQuiz } from '../features/answersSlice';
 
 
 const UserNavbar = () => {
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    dispatch(toggleSettings());
-  };
   
   return (
     <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>

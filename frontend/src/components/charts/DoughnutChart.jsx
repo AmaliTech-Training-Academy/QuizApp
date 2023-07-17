@@ -3,11 +3,14 @@ import { Chart as ChartJs, registerables, ArcElement, Tooltip, Legend } from 'ch
 import { Doughnut } from 'react-chartjs-2';
 import Api from '../forms/services/api';
 import Cookies from 'js-cookie';
+import book from '../../assets/DesktopView/Images/Book.gif'
 
 ChartJs.register(ArcElement, Tooltip, Legend, ...registerables);
 
 const DoughnutChart = () => {
-  const [chart, setChart] = useState([]);
+  const [chart, setChart] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [fetchState, setFetchState] = useState('')
   const backgroundColor = ['#BAEDBD', '#C6C7F8', '#1C1C1C', '#B1E3FF', '#95A4FC', '#A1E3CB'];
 
   useEffect(() => {
@@ -15,8 +18,11 @@ const DoughnutChart = () => {
       try {
         const response = await Api.get(`users/performance/${Cookies.get('id')}`);
         setChart(response.data.performanceData);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
+        setFetchState(error.response.data.message)
       }
     };
 
@@ -62,6 +68,25 @@ const DoughnutChart = () => {
     },
   };
 
+  if (isLoading) {
+    return (
+      <div className='flex flex-col justify-center'>
+        <img src={book}/>
+        <p className='text-center'>Loading...</p>
+        </div>
+      );
+  }
+
+  if (chart.length === 0) {
+    // If performance data is empty, show 'Perform Quizzes'
+    return (
+      <div>
+        {/* <div className='text-center'>Perform Quizzes</div> */}
+        <div className='text-center'>{fetchState}</div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Doughnut data={data} options={options} height={400} />
@@ -70,3 +95,5 @@ const DoughnutChart = () => {
 };
 
 export default DoughnutChart;
+
+
