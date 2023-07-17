@@ -22,7 +22,7 @@ const ReviewResultsPage = () => {
 
     
     console.log(answers) 
-    const score = answers.score.$numberDecimal;
+    const score = answers && answers.score ? answers.score.$numberDecimal : 'cant read score';
     console.log(score);
 
     const quiz = topics.filter(topic => id === topic._id);
