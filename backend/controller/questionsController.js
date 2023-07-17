@@ -6,16 +6,13 @@ const quizModel = require("../models/quizModel");
 // @access Private
 const questions = async (req, res) => {
   const { topicId } = req.query;
-  console.log("::", topicId);
   const page = parseInt(req.query.page) || 1; // current page number
-  console.log(page);
   const limit = 5; // Number of items per page
 
   try {
     // if (!mongoose.Types.ObjectId.isValid(topicId))
     //   throw new Error("Invalid topicId");
     const fetchedData = await quizModel.findById(topicId)
-    console.log('fetch::', fetchedData)
     if (!fetchedData)
       return res.status(404).json({ message: "Quiz Not found" });
 
@@ -48,7 +45,6 @@ const questions = async (req, res) => {
       answers: extractedAnswers,
     };
     res.status(200).json(response);
-    console.log("response::", response);
   } catch (error) {
     console.error(error);
     res

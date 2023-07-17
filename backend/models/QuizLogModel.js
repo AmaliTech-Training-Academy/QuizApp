@@ -11,7 +11,7 @@ const quizLogSchema = new Schema({
         ref: "Quiz",
     },
     score: {
-        type: Schema.Types.Decimal128,
+        type: Number,
         default: 0,
     },
     date: {

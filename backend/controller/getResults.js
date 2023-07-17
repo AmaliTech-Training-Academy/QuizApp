@@ -11,9 +11,8 @@ const getQuizResults = async (req, res) => {
   try {
     const quizResult = await QuizResult.findOne({
       userId: userId,
-      quizId: quizId,
+      quizId: quizId, // quizResultId
     }).populate("quizId");
-
     if (!quizResult)
       return res
         .status(404)
@@ -30,8 +29,11 @@ const getQuizResults = async (req, res) => {
         text: answer.text,
         is_correct:
           answer.text === result.chosenAnswer ? true : answer.is_correct,
-        is_chosen: answer.text === result.chosenAnswer ? true : false,
-        points: answer.points,
+        is_chosen: answer.text === result.chosenAnswer, // Set is_chosen to true if the answer matches the chosenAnswer
+        points:
+          answer.is_correct === true && answer.is_chosen === true
+            ? question.points
+            : 0,
       }));
 
       return {
@@ -39,7 +41,6 @@ const getQuizResults = async (req, res) => {
         questionNumber: result.questionNumber,
         question: result.question,
         answers: answers,
-        points: question.points,
       };
     });
 
@@ -48,6 +49,7 @@ const getQuizResults = async (req, res) => {
       score,
       results: updatedResults,
     });
+    console.log({ score, results: updatedResults });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Something Went Wrong" });

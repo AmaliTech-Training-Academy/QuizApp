@@ -17,7 +17,8 @@ const myQuizzes = require("./routes/myQuizzesRoutes");
 const performance = require("./routes/performanceRoutes");
 const recentQuiz = require("./routes/recentQuizRoutes");
 const submitAnswer = require("./routes/submitAnswerRoutes");
-const getResult = require("./routes/getResultsRoutes");
+const getQuizResult = require("./routes/getResultsRoutes");
+const QuizLog = require('./routes/quizLogRoutes')
 const Topic = require("./routes/topicRoutes");
 const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
@@ -54,7 +55,8 @@ app.use("/api/users/questions", submitAnswer);
 app.use("/api/users/quizzes", myQuizzes);
 app.use("/api/users/performance", performance);
 app.use("/api/users/recent-quizzes",  recentQuiz);
-app.use("/api/users/", getResult);
+app.use("/api/users/", getQuizResult);
+app.use("/api/users/QuizLog", QuizLog);
 
 app.use(notFound);
 app.use(errorHandler);
