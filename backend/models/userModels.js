@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
           ref: "QuizResults",
         },
         score: {
-          type: Schema.Types.Decimal128,
+          type: Number,
           default: 0,
         },
         date: {

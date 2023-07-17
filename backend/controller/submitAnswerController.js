@@ -10,7 +10,9 @@ const submitAnswer = async (req, res) => {
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
+    // console.log("user::", user);
     const quiz = await quizModel.findById(_id).populate("questions.answers");
+    // console.log("quiz::", quiz);
 
     if (!user)
       return res
@@ -32,24 +34,29 @@ const submitAnswer = async (req, res) => {
       const isCorrect = chosenAnswer && chosenAnswer.is_correct;
 
       // Update the score if the answer is correct
-      if (isCorrect) {
+      if (chosenAnswer.is_correct) {
         score += question.points;
       } else {
         score = 0; // Set score to 0 if the answer is incorrect
       }
-
+      if(i === 0){
+        console.log("chosenAs", chosenAnswer, "answer", answer, "quesAns", question.answers)
+      }
+      // console.log("quest", question, answer);
       results.push({
         questionNumber,
         question: question.question,
-        answers: question.answers.map((ans) => ({
-          text: ans.text,
-          is_correct: ans.text === chosenAnswer ? true : ans.is_correct,
-          is_chosen: ans.is_correct ? true : false,
-        })),
-        points: isCorrect ? question.points : 0,
+        answers: question.answers.map((ans) => {
+          // console.log("ans", ans, question);
+          return {
+            text: ans.text,
+            is_correct: ans.text === chosenAnswer ? true : ans.is_correct,
+            is_chosen: chosenAnswer.text === answer,
+          };
+        }),
       });
     }
-
+    // console.log("results::", results[0].answers);
     const existingQuizResult = await quizResultModel.findOne({
       userId: userId,
       quizId: _id,
@@ -92,7 +99,7 @@ const submitAnswer = async (req, res) => {
       // results: results.map((result) => ({
       //   questionNumber: result.questionNumber,
       //   question: result.question,
-      //   answers: result.answers,
+      // answers: results.answers,
       //   points: result.points,
       // })),
     });

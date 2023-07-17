@@ -14,7 +14,7 @@ const quizResultSchema = new Schema(
       required: true,
     },
     score: {
-      type: Schema.Types.Decimal128,
+      type: Number,
       default: 0,
     },
     results: [
@@ -26,15 +26,6 @@ const quizResultSchema = new Schema(
         question: {
           type: String,
           required: true,
-        },
-        correctAnswer: {
-          type: String,
-        },
-        chosenAnswer: {
-          type: String,
-        },
-        isCorrect: {
-          type: Boolean,
         },
       },
     ],
