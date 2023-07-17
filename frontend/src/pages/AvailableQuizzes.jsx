@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTopics } from '../features/topicSlice.js';
 import UserNavbar, {DropdownList} from '../components/UserNavbar.jsx';
 import MobileProfileNavbar from '../components/MobileProfileNavbar.jsx';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,7 +18,6 @@ export const AvailableQuizzes = () => {
   const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
   const [quizData, setQuizData] = useState(null);
-  const [filterOpt, setFilterOpt] = useState(null)
   const navigate = useNavigate()
 
   
@@ -28,9 +26,7 @@ export const AvailableQuizzes = () => {
   })
   
   useEffect(()=> {
-    if(!quizData){
       dispatch(getTopics(token))
-    }
     // setQuizData(topics)
   },[token]);
 
@@ -46,7 +42,7 @@ export const AvailableQuizzes = () => {
             <hr className='border border-[#CCCCCC] mt-11 w-11/12 mx-auto hidden lg:block' />
             <div className='lg:mt-16 mx-4 flex'>
               <div className="hidden lg:block">
-              <QuizFilters setQuizData={setQuizData} setFilterOpt={setFilterOpt}/>
+              <QuizFilters setQuizData={setQuizData} topics={topics} />
               </div>
                 <Quizzes data={topics}/>
             </div>

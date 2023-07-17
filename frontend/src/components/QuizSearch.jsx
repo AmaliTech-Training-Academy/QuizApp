@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { filterTopicsBySearch, setSearchQuery } from '../features/topicSlice';
 
 export const QuizSearch = ({setQuizData}) => {
+  const dispatch = useDispatch();
 
-  const {data: topics} = useSelector(state => state.topics);
-  const [query, setQuery] = useState("")
+
+  // const {data: topics} = useSelector(state => state.topics);
+  const query = useSelector(state=> state.topics.searchQuery)
+  // const [query, setQuery] = useState("")
 
   const onChange = (e) => {
-    const matchedTopics = topics.filter(topic => topic.topic.toLowerCase().includes(e.target.value));
-    setQuizData(matchedTopics);
-    setQuery()
+    // const matchedTopics = topics.filter(topic => topic.topic.toLowerCase().includes(e.target.value));
+    // setQuizData(matchedTopics);
+    // setQuery()
+    const query = e.target.value;
+    dispatch(setSearchQuery(query));
+    dispatch(filterTopicsBySearch());
   };
 
     const searchBtnBackground = {
