@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link, useParams } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
@@ -9,23 +9,23 @@ import { FiCheck } from 'react-icons/fi'
 
 const ReviewResultsPage = () => {
     const {id} = useParams()
+
     const dispatch = useDispatch()
     
     const token = useSelector((state) => state.userData.user_token);
     const userId = useSelector((state)=> state.userData.user_id);
     const topics = useSelector((state) => state.topics.data);
-
-    const answers = useSelector((state) => state.results.data);
-    // const answers = useSelector((state) => state.quizResultsId);
-
+    const quiz = topics.filter(topic => id === topic._id);
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
 
-    
-    console.log(answers) 
-    const score = answers && answers.score ? answers.score.$numberDecimal : 'cant read score';
-    console.log(score);
 
-    const quiz = topics.filter(topic => id === topic._id);
+    // const answers = useSelector((state) => state.results.data);
+    const answers = useSelector((state) => state.answers.quizResults[0].results);
+
+    console.log(answers);
+
+    const score = useSelector((state) => state.answers.quizResults[0].score);
+    console.log(score);
 
 
     useEffect(()=>{
@@ -40,12 +40,19 @@ const ReviewResultsPage = () => {
       }
 
     const wrong = {
-            color: 'red',
-            borderColor: 'red',
-            borderWidth: '2px',
-            background: '#FFE6E6',
-          }
+        borderColor: 'red',
+        color: 'red',
+        background: '#FFE6E6',
+        borderWidth: '2px',
+       }
+
+       const empty = {
+        borderColor: '#1D2939',
+        background: '#fff',
+        borderWidth: '2px',
+       }
     
+    //    console.log(answers.results[0].answers[0].points);
 
   return (
     <div>
@@ -74,25 +81,33 @@ const ReviewResultsPage = () => {
         <div className='flex flex-col items-center justify-center'>
         <div>
         {answers  &&
-            answers.results.map((result, index) => (
-            <div key={index}>
+            answers.map((result, index) => (
+                <div key={index}>
                 {/* Render the individual result */}
-                <p className='mb-5 text-2xl'>
-                {result.questionNumber}. {result.question}
-                </p>
+                    <p className='mb-5 text-2xl'>
+                    {result.questionNumber}. {result.question} 
+                    </p>
                 <div className='grid grid-cols-2 gap-x-28'>
-                {result.answers.map((answer, answerIndex) => {
-                    const letter = answerDesignations[answerIndex % answerDesignations.length];
-                    const correctAnswer = result.answers.find(answer => answer.is_correct);
-                    return (
-                    <div key={answerIndex}>
-                        <div  className='flex rounded-md items-center justify-between p-4 mb-4'
-                        style={answer.is_correct ?  correct : wrong}
+                    {result.answers.map((answer, answerIndex) => {
+                     const letter = answerDesignations[answerIndex % answerDesignations.length];
+                     const correctAnswer = result.answers.find(answer => answer.is_correct);
+                     const chosenAnswer = result.answers.find(answer => answer.is_chosen);
+                     const isChosen = answer.text === chosenAnswer.text;
+                     const isCorrect = answer.text === correctAnswer.text;
+                     const isWrongChoice = isChosen && !isCorrect;
+
+                     return (
+                        <>
+                        <div key={answerIndex}>
+                        <div  
+                        className={'flex rounded-md items-center justify-between p-4 mb-4 '} style={isWrongChoice ? wrong : isChosen ? correct : empty}
                         >{letter}
                          {answer.text}
-                        {answer.text === correctAnswer.text ? <FiCheck /> : <MdOutlineClose />}
+                        {isWrongChoice ? <MdOutlineClose /> : isChosen ? <FiCheck /> : <input type='radio' style={{borderColor: '#1D2939'}}/>}
                         </div>
                     </div>
+                        <div className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-8'>{answer.points}/10 points</div>
+                        </>
                     );
                 })}
         </div>
@@ -101,7 +116,7 @@ const ReviewResultsPage = () => {
             {result.answers.map((answer, answerIndex) => {
                 const letter = answerDesignations[answerIndex % answerDesignations.length];
         return (
-                <span key={answerIndex}  >
+                <span key={answerIndex} >
                     {answer.is_correct && answer.text ? letter : null }
                     {answer.is_correct && answer.text}
                 </span>
