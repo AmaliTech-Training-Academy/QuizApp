@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { filterTopicsBySearch, setSearchQuery } from '../features/topicSlice';
+import { useNavigate } from 'react-router-dom';
 
-export const QuizSearch = ({setQuizData}) => {
+
+export const QuizSearch = () => {
   const dispatch = useDispatch();
-
-
-  // const {data: topics} = useSelector(state => state.topics);
-  const query = useSelector(state=> state.topics.searchQuery)
-  // const [query, setQuery] = useState("")
+  const navigate = useNavigate();
+  const searchQuery = useSelector(state=> state.topics.searchQuery)
 
   const onChange = (e) => {
-    // const matchedTopics = topics.filter(topic => topic.topic.toLowerCase().includes(e.target.value));
-    // setQuizData(matchedTopics);
-    // setQuery()
     const query = e.target.value;
     dispatch(setSearchQuery(query));
-    dispatch(filterTopicsBySearch());
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchRedirect() 
+    }
+  };
+
+  const handleSearchRedirect = () => {
+    navigate(`/quizzes?search=${searchQuery}`);
+    dispatch(filterTopicsBySearch(searchQuery))
   };
 
     const searchBtnBackground = {
@@ -27,12 +33,14 @@ export const QuizSearch = ({setQuizData}) => {
     <div className='hidden lg:block'>
         <input type="text" 
         placeholder='Search quiz by name'
-        value={query}
+        value={searchQuery}
         onInput={onChange}
+        onKeyDown={handleKeyPress} 
         className='mr-2 border border-[#999999] h-full rounded-[4px] pl-4 w-[401px] focus:outline-gray-500' />
         <button 
         className=' text-white rounded-[4px] px-4 py-[10px]' 
         style={searchBtnBackground}
+        onClick={handleSearchRedirect}
         >Search</button>
     </div>
   )

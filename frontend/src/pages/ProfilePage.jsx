@@ -9,21 +9,24 @@ import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import BarCharts from '../components/charts/BarCharts'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { PageNavigation } from '../components/PageNavigation'
 import DoughnutChart from '../components/charts/DoughnutChart'
 import RecentQuizzes from '../components/RecentQuizzes'
+import { filterTopicsBySearch } from '../features/topicSlice'
 
 
 const ProfilePage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const verifyCookie = Cookies.get('rememberMe')
   const [date, setDate] = useState(new Date())
+
+  const searchQuery = useSelector((state) => state.topics.searchQuery); 
 
   const onChange = (selectedDate) => {
     setDate(selectedDate);
   };
-
   
   const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
@@ -32,6 +35,11 @@ const ProfilePage = () => {
   }, [])
 
   const data = useSelector(state=>state.userData);
+
+  const handleSearchRedirect = () => {
+    navigate(`/quizzes?search=${searchQuery}`); 
+  };
+
   return (
     <div>
       <UserNavbar />
@@ -41,7 +49,7 @@ const ProfilePage = () => {
 
       <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
         {/* Page Navigation */}
-        <PageNavigation profile="Profile"/>
+        <PageNavigation profile="Profile" searchQuery={searchQuery} handleSearchRedirect={handleSearchRedirect}/>
 
         <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mt-10 mb-[44px]">
           Hello <span>{Cookies.get('name')}</span>

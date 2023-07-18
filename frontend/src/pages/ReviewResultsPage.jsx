@@ -37,7 +37,7 @@ const ReviewResultsPage = () => {
         borderColor: '#3f3',
         borderWidth: '2px',
         background: '#cfc',
-      }
+    }
 
     const wrong = {
         borderColor: 'red',
@@ -54,7 +54,7 @@ const ReviewResultsPage = () => {
     
     //    console.log(answers.results[0].answers[0].points);
 
-  return (
+return (
     <div>
         {/* header */}
         <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col lg:justify-between font-Roboto' id='quiz-header'>
@@ -89,24 +89,24 @@ const ReviewResultsPage = () => {
                     </p>
                 <div className='grid grid-cols-2 gap-x-28'>
                     {result.answers.map((answer, answerIndex) => {
-                     const letter = answerDesignations[answerIndex % answerDesignations.length];
-                     const correctAnswer = result.answers.find(answer => answer.is_correct);
-                     const chosenAnswer = result.answers.find(answer => answer.is_chosen);
-                     const isChosen = answer.text === chosenAnswer.text;
-                     const isCorrect = answer.text === correctAnswer.text;
-                     const isWrongChoice = isChosen && !isCorrect;
+                    const letter = answerDesignations[answerIndex % answerDesignations.length];
+                    const correctAnswer = result.answers.find(answer => answer.is_correct);
+                    const chosenAnswer = result.answers.find(answer => answer.is_chosen);
+                    const isChosen = answer.text === chosenAnswer.text;
+                    const isCorrect = answer.text === correctAnswer.text;
+                    const isWrongChoice = isChosen && !isCorrect;
 
-                     return (
+                    return (
                         <>
-                        <div key={answerIndex}>
-                        <div  
-                        className={'flex rounded-md items-center justify-between p-4 mb-4 '} style={isWrongChoice ? wrong : isChosen ? correct : empty}
-                        >{letter}
-                         {answer.text}
-                        {isWrongChoice ? <MdOutlineClose /> : isChosen ? <FiCheck /> : <input type='radio' style={{borderColor: '#1D2939'}}/>}
-                        </div>
-                    </div>
-                        <div className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-8'>{answer.points}/10 points</div>
+                            <div key={answer._id}>
+                                <div  
+                                className={'flex rounded-md items-center justify-between p-4 mb-4 '} style={isWrongChoice ? wrong : isChosen ? correct : empty}>
+                                {letter}
+                                {answer.text}
+                                {isWrongChoice ? <MdOutlineClose /> : isChosen ? <FiCheck /> : <input type='radio' style={{borderColor: '#1D2939'}}/>}
+                                </div>
+                            </div>
+                            <div className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-8'>{answer.points}/10 points</div>
                         </>
                     );
                 })}

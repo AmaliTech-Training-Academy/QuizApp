@@ -6,7 +6,7 @@ import './App.css'
 import { AvailableQuizzes } from './pages/AvailableQuizzes'
 import { QuizLog } from './pages/QuizLog'
 import { SearchPage } from './pages/SearchPage'
-import { FilterPage } from './pages/FilterPage'
+// import { FilterPage } from './pages/FilterPage'
 import SignupPage from './pages/signuppage/SignupPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -22,6 +22,7 @@ import MyQuizzes from './pages/MyQuizzes'
 // import { Test } from './pages/Test'
 import { QuestionsPage } from './pages/QuestionsPage'
 import ReviewResultsPage from './pages/ReviewResultsPage'
+import { FilterPage2 } from './pages/FilterPage2'
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
           <Route path="/quizzes" element={<AvailableQuizzes />} />
           <Route path="/quizlog" element={<QuizLog />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/filter" element={<FilterPage />} />
+          <Route path="/filter" element={<FilterPage2 />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path='login' element={<LoginPage/>}/>
           <Route path='profile' element={<ProfilePage/>}/>

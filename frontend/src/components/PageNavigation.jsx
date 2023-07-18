@@ -4,7 +4,7 @@ import { QuizSearch } from './QuizSearch';
 import { NavLink } from 'react-router-dom';
 
 
-export const PageNavigation = ({setQuizData, profile, quizzes, settings}) => {
+export const PageNavigation = ({profile, quizzes, settings, searchQuery, handleSearchRedirect}) => {
 
   
 
@@ -66,7 +66,7 @@ export const PageNavigation = ({setQuizData, profile, quizzes, settings}) => {
         }
       </div>
       {/* Search */}
-      {!settings && <QuizSearch setQuizData={setQuizData}/>}
+      {!settings && <QuizSearch/>}
       
     </div>
   )

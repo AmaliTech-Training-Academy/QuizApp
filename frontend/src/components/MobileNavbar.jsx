@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { BsBell } from "react-icons/bs"
 import { useState } from 'react';
-import profileImg from "../assets/MobileView/Images/Indoor-horizontal-image-of-delighted-good-looking-young-man-looking-directly-smiling-sincerely-wearing-spectacles.png"
+// import profileImg from "../assets/MobileView/Images/Indoor-horizontal-image-of-delighted-good-looking-young-man-looking-directly-smiling-sincerely-wearing-spectacles.png"
 
 export const MobileNavbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
