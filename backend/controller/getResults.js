@@ -20,27 +20,14 @@ const getQuizResults = async (req, res) => {
 
     const { _id, score, results } = quizResult;
     const quiz = quizResult.quizId;
+    console.log("quiz results:", quizResult.results);
 
-    const updatedResults = results.map((result) => {
-      const question = quiz.questions.find(
-        (question) => question.question === result.question
-      );
-      const answers = question.answers.map((answer) => ({
-        text: answer.text,
-        is_correct:
-          answer.text === result.chosenAnswer ? true : answer.is_correct,
-        is_chosen: answer.text === result.chosenAnswer, // Set is_chosen to true if the answer matches the chosenAnswer
-        points:
-          answer.is_correct === true && answer.is_chosen === true
-            ? question.points
-            : 0,
-      }));
-
+    const updatedResults = quizResult.results.map((result) => {
       return {
         resultId: _id,
         questionNumber: result.questionNumber,
         question: result.question,
-        answers: answers,
+        answers: result.answers,
       };
     });
 
@@ -49,7 +36,6 @@ const getQuizResults = async (req, res) => {
       score,
       results: updatedResults,
     });
-    console.log({ score, results: updatedResults });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Something Went Wrong" });

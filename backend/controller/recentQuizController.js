@@ -10,7 +10,10 @@ const recentQuiz = async (req, res) => {
   try {
     const user = await userModel
       .findById(id)
-      .populate("quizzes.quizId")
+      .populate({
+        path: "quizzes.quizId",
+        model: "Quiz",
+      })
       .select("name quizzes");
 
     if (!user) {
@@ -24,9 +27,7 @@ const recentQuiz = async (req, res) => {
     const recentQuizzes = [];
     for (let i = user.quizzes.length - 1; i >= 0; i--) {
       const quiz = user.quizzes[i];
-      const { quizId, date } = quiz;
-      const { topic } = quizId;
-
+      const { date, quizId: { topic }} = quiz;
       if (!recentQuizzesSet.has(topic)) {
         recentQuizzesSet.add(topic);
 

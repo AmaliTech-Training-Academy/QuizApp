@@ -10,9 +10,7 @@ const submitAnswer = async (req, res) => {
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
-    // console.log("user::", user);
     const quiz = await quizModel.findById(_id).populate("questions.answers");
-    // console.log("quiz::", quiz);
 
     if (!user)
       return res
@@ -29,34 +27,28 @@ const submitAnswer = async (req, res) => {
       const question = quiz.questions[questionIndex];
 
       const chosenAnswer = question.answers.find((ans) => ans.text === answer);
-      const correctAnswer = question.answers.find((ans) => ans.is_correct);
-
       const isCorrect = chosenAnswer && chosenAnswer.is_correct;
 
-      // Update the score if the answer is correct
-      if (chosenAnswer.is_correct) {
-        score += question.points;
-      } else {
-        score = 0; // Set score to 0 if the answer is incorrect
-      }
-      if(i === 0){
-        console.log("chosenAs", chosenAnswer, "answer", answer, "quesAns", question.answers)
-      }
-      // console.log("quest", question, answer);
+      // Calculate the points for each question
+      const points = isCorrect ? 10 : 0;
+
+      // Update the score based on the points for the question
+      score += points;
+
       results.push({
         questionNumber,
         question: question.question,
         answers: question.answers.map((ans) => {
-          // console.log("ans", ans, question);
           return {
             text: ans.text,
             is_correct: ans.text === chosenAnswer ? true : ans.is_correct,
-            is_chosen: chosenAnswer.text === answer,
+            is_chosen: ans.text === answer,
+            points: ans.text === answer ? points : 0,
           };
         }),
       });
     }
-    // console.log("results::", results[0].answers);
+
     const existingQuizResult = await quizResultModel.findOne({
       userId: userId,
       quizId: _id,
@@ -94,20 +86,13 @@ const submitAnswer = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      quizResultId: quizResult._id, // Include the quizResultId in the response
-      // score,
-      // results: results.map((result) => ({
-      //   questionNumber: result.questionNumber,
-      //   question: result.question,
-      // answers: results.answers,
-      //   points: result.points,
-      // })),
+      quizResultId: quizResult._id,
+      score: score, // Include the score in the response
+      results: results,
     });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ success: false, message: "Error Submitting Answers" });
+    res.status(500).json({ success: false, message: "Error Submitting Answers" });
   }
 };
 

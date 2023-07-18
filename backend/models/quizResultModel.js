@@ -1,6 +1,26 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const answerSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    auto: true, // Auto-generate ObjectId for each answer
+  },
+  text: {
+    type: String,
+    required: true,
+  },
+  is_chosen: {
+    type: Boolean,
+    required: true,
+  },
+  is_correct: {
+    type: Boolean,
+    required: true,
+  },
+  points: Number,
+});
+
 const quizResultSchema = new Schema(
   {
     userId: {
@@ -21,12 +41,13 @@ const quizResultSchema = new Schema(
       {
         questionNumber: {
           type: Number,
-          require: true,
+          required: true,
         },
         question: {
           type: String,
           required: true,
         },
+        answers: [answerSchema],
       },
     ],
   },
