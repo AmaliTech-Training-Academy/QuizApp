@@ -42,7 +42,10 @@ const performanceData = Object.keys(topicStats).map((topic) => {
     const correctAttempts = parseFloat(topicStats[topic].correctAttempts);
   
     // Handle the case when totalAttempts is 0 to avoid division by zero
-    const accuracy = totalAttempts === 0 ? "0%" : ((correctAttempts / totalAttempts) * 100).toFixed(1) + "%";
+    const accuracy =
+    totalAttempts === 0 || correctAttempts === 0
+      ? "0%"
+      : ((correctAttempts / totalAttempts) * 100).toFixed(1) + "%";
   
     // Calculate the popularity statistics
     const popularityStats = {

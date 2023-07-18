@@ -20,17 +20,22 @@ const myQuizzes = async (req, res) => {
         .status(404)
         .json({ success: false, message: "User not found" });
 
+    // Create a Set to keep track of unique topics
+    const uniqueTopics = new Set();
+
     // mapping through the quizzes array to include the quizId, topic, and desktopImage
-    const quizzes = user.quizzes.map((quiz) => {
-      if (quiz.quizId) {
-        return {
+    const quizzes = user.quizzes.reduce((result, quiz) => {
+      if (quiz.quizId && !uniqueTopics.has(quiz.quizId.topic)) {
+        uniqueTopics.add(quiz.quizId.topic);
+        result.push({
           quizId: quiz.quizId._id,
           topic: quiz.quizId.topic,
           image: quiz.quizId.desktopImage,
           date: quiz.date.toLocaleDateString(),
-        };
+        });
       }
-    });
+      return result;
+    }, []);
 
     res.status(200).json({ success: true, quizzes });
   } catch (error) {
