@@ -4,25 +4,33 @@ import { Doughnut } from 'react-chartjs-2';
 import Api from '../forms/services/api';
 import Cookies from 'js-cookie';
 import book from '../../assets/DesktopView/Images/Book.gif'
+import takeQuiz from '../../assets/DesktopView/Images/take-a-quiz.png'
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 ChartJs.register(ArcElement, Tooltip, Legend, ...registerables);
 
 const DoughnutChart = () => {
   const [chart, setChart] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [fetchState, setFetchState] = useState('')
   const backgroundColor = ['#BAEDBD', '#C6C7F8', '#1C1C1C', '#B1E3FF', '#95A4FC', '#A1E3CB'];
+  const token = useSelector(state=>state.userData.user_token)
 
   useEffect(() => {
     const fetchData = async () => {
+      const url = `https://quiz-master.onrender.com/api/users/performance/${Cookies.get('id')}`
       try {
-        const response = await Api.get(`users/performance/${Cookies.get('id')}`);
+        const response = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         setChart(response.data.performanceData);
+        console.log(response);
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         setIsLoading(false);
-        setFetchState(error.response.data.message)
       }
     };
 
@@ -71,18 +79,16 @@ const DoughnutChart = () => {
   if (isLoading) {
     return (
       <div className='flex flex-col justify-center'>
-        <img src={book}/>
+        {/* <img src={book} /> */}
         <p className='text-center'>Loading...</p>
         </div>
       );
   }
 
   if (chart.length === 0) {
-    // If performance data is empty, show 'Perform Quizzes'
     return (
       <div>
-        {/* <div className='text-center'>Perform Quizzes</div> */}
-        <div className='text-center'>{fetchState}</div>
+        <img src={takeQuiz}/>
       </div>
     );
   }

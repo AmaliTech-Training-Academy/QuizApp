@@ -8,11 +8,12 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
-import BarCharts from '../components/charts/BarCharts'
 import { useSelector } from 'react-redux'
 import { PageNavigation } from '../components/PageNavigation'
 import DoughnutChart from '../components/charts/DoughnutChart'
 import RecentQuizzes from '../components/RecentQuizzes'
+// import {Quiz} from '../components/Quiz'
+import PopularQuizzes from '../components/PopularQuizzes'
 
 
 const ProfilePage = () => {
@@ -83,8 +84,8 @@ const ProfilePage = () => {
             <DoughnutChart/>
           </div>
           <div className='px-[5rem]  py-7 shadow-lg rounded-lg h-fit lg:w-[48%]'>
-            <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Statistics</p>
-              <BarCharts/>
+            <p className='font-semibold text-2xl mb-[25px] text-center'>Popular Quizzes</p>
+            <PopularQuizzes/>
           </div>
           
         </div>

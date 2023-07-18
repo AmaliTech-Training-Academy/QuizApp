@@ -10,7 +10,7 @@ import Cookies from 'js-cookie'
 const SelectInterest = () => {
   const [selectedInterest, setSelectectedInterest] = useState([])
 
-  const userId = Cookies.get('userId')
+  const userId = Cookies.get('id')
 
   const dispatch = useDispatch()
 

@@ -167,9 +167,9 @@ export const UserDetails = ()=>{
               <div className="rounded-[50%] w-16 h-16 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)]">
                  <ProfileImage component='settings'/>
               </div>
-              <div className="self-center">
-                <p>{Cookies.get('name')}</p>
-                <p>{Cookies.get('email')}</p>
+              <div className="flex flex-col flex-wrap self-center">
+                <p className="flex-shrink-0">{Cookies.get('name')}</p>
+                <p className="flex-shrink-0">{Cookies.get('email')}</p>
               </div>
             </div>
   )

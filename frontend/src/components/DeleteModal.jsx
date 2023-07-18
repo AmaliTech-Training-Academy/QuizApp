@@ -2,7 +2,7 @@
  import Api from "./forms/services/api";
  import { toast } from "react-toastify";
  import Cookies from "js-cookie";
- import { useState } from "react";
+ import { useState, useEffect } from "react";
 
  const DeleteModal = ({ showModal, setShowModal }) => {
     const id = Cookies.get('id');
@@ -10,9 +10,13 @@
     const [validateMail,setValidateMail] = useState('')
     const [isChecked, setIsChecked] = useState(false);
 
-    if(validateMail === Cookies.get('email')){
-        setIsChecked(true)
-    }
+    useEffect(() => {
+      if (validateMail === Cookies.get('email')) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }, [validateMail]);
 
     
   
