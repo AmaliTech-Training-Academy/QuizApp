@@ -16,6 +16,10 @@ const quizSchema = new Schema({
   topic: String,
   desktopImage: String,
   questions: [questionSchema],
+  popularity: {
+    type: Number,
+    default: 0,
+  }
 });
 
 const Quiz = mongoose.model("Quiz", quizSchema);

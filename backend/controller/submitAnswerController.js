@@ -84,10 +84,13 @@ const submitAnswer = async (req, res) => {
 
     await user.save();
 
+    // Incrementing the popularity of the quiz (topic) by 1
+    await quizModel.findByIdAndUpdate(_id, { $inc: { popularity: 1 }})
+
     res.status(200).json({
       success: true,
       quizResultId: quizResult._id,
-      score: score, // Include the score in the response
+      score: score,
       results: results,
     });
   } catch (error) {

@@ -1,4 +1,3 @@
-const { default: mongoose } = require("mongoose");
 const quizModel = require("../models/quizModel");
 
 // @desc Fetching Question from database
@@ -10,8 +9,6 @@ const questions = async (req, res) => {
   const limit = 5; // Number of items per page
 
   try {
-    // if (!mongoose.Types.ObjectId.isValid(topicId))
-    //   throw new Error("Invalid topicId");
     const fetchedData = await quizModel.findById(topicId)
     if (!fetchedData)
       return res.status(404).json({ message: "Quiz Not found" });

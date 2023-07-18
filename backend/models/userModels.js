@@ -50,9 +50,11 @@ const userSchema = new mongoose.Schema(
           type: Schema.Types.ObjectId,
           ref: "QuizResults",
         },
-        score: {
-          type: Number,
-          default: 0,
+        topic: {
+          type: String,
+        },
+        desktopImage: {
+          type: String,
         },
         date: {
           type: Date,

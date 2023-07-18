@@ -20,6 +20,7 @@ const submitAnswer = require("./routes/submitAnswerRoutes");
 const getQuizResult = require("./routes/getResultsRoutes");
 const QuizLog = require('./routes/quizLogRoutes')
 const Topic = require("./routes/topicRoutes");
+const popularity = require('./routes/popularTopics')
 const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
 const { errorHandler, notFound } = require("./middleware/errorHandler");
@@ -39,7 +40,7 @@ app.get("/api/users/status", (req, res) => {
 });
 
 // Routes middleware
-app.use("/api/users", registerRoutes);
+app.use("/api/users", registerRoutes, popularity);
 app.use("/api/users/login", loginRoutes);
 app.use("/api/users/message", messageRoutes);
 app.use("/api/users/subscribe", subscribeRoutes);
