@@ -32,12 +32,6 @@ const quizResultSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Quiz",
     },
-    // topic: {
-    //   type: String,
-    // },
-    // desktopImage: {
-    //   type: String,
-    // },
     score: {
       type: Number,
       default: 0,

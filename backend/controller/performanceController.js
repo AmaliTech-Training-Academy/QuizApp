@@ -1,5 +1,6 @@
 const { userModel } = require("../models/userModels");
 const quizModel = require("../models/quizModel");
+const quizResultModel = require("../models/quizResultModel");
 
 // @desc Get Performance Records and Statistics
 // @route GET /api/users/performance/:userId
@@ -20,61 +21,66 @@ const performance = async (req, res) => {
         .json({ success: false, message: "User Not Found" });
     }
 
-    // Calculate the total number of attempts and correct attempts for each topic
-    const topicStats = user.quizzes.reduce((stats, quiz) => {
-      const topic = quiz.quizId.topic;
-      const totalAttempts = stats[topic]?.totalAttempts || 0;
-      const correctAttempts = stats[topic]?.correctAttempts || 0;
+    // Get all quiz results for the user
+    const quizResults = await quizResultModel
+      .find({ userId: user._id })
+      .populate("quizId");
+    console.log("quizResults:::", quizResults);
 
-      stats[topic] = {
-        totalAttempts: totalAttempts + 1,
-        correctAttempts: correctAttempts + quiz.score,
-      };
+    // Calculate the total number of attempts and correct attempts for each topic
+    const topicStats = quizResults.reduce((stats, quizResult) => {
+      const topic = quizResult.quizId.topic;
+      console.log("topic", topic);
+
+      // Ensure the topic is defined before proceeding
+      if (topic) {
+        // Initialize the totalAttempts and correctAttempts to 0 for each topic
+        if (!stats[topic]) {
+          stats[topic] = {
+            totalAttempts: 0,
+            correctAttempts: 0,
+          };
+        }
+
+        // Increment the totalAttempts for the topic by 1
+        stats[topic].totalAttempts += 1;
+
+        // Iterate through the answers in the quizResult to count the correct attempts
+        quizResult.results.forEach((result) => {
+          if (
+            result.answers.some(
+              (answer) => answer.is_chosen && answer.is_correct
+            )
+          ) {
+            stats[topic].correctAttempts += 1;
+          }
+        });
+      }
 
       return stats;
     }, {});
+    console.log("topicStat", topicStats);
 
-    // ... (previous code)
+    // Calculate the performance record percentage for each topic
+    const performanceData = Object.keys(topicStats).map((topic) => {
+      const totalAttempts = topicStats[topic].totalAttempts;
+      const correctAttempts = topicStats[topic].correctAttempts;
 
-// Calculate the performance record percentage for each topic
-const performanceData = Object.keys(topicStats).map((topic) => {
-    const totalAttempts = topicStats[topic].totalAttempts;
-    const correctAttempts = parseFloat(topicStats[topic].correctAttempts);
-  
-    // Handle the case when totalAttempts is 0 to avoid division by zero
-    const accuracy =
-    totalAttempts === 0 || correctAttempts === 0
-      ? "0%"
-      : ((correctAttempts / totalAttempts) * 100).toFixed(1) + "%";
-  
-    // Calculate the popularity statistics
-    const popularityStats = {
-      totalUsers: totalAttempts, // Total number of users who attempted the topic
-      passRate: totalAttempts === 0 ? 0 : (correctAttempts / totalAttempts) * 100, // Pass rate of users for the topic
-    };
-  
-    // Get the most taken quiz
-    const mostTakenQuiz = user.quizzes.reduce((mostTaken, quiz) => {
-      if (!mostTaken || quiz.quizId.totalAttempts > mostTaken.totalAttempts) {
-        return {
-          quizId: quiz.quizId._id,
-          desktopImage: quiz.quizId.desktopImage,
-          totalAttempts: quiz.quizId.totalAttempts,
-        };
-      }
-      return mostTaken;
-    }, null);
-  
-    return {
-      topic,
-      totalAttempts,
-      correctAttempts,
-      accuracy,
-      popularityStats,
-      quizId: mostTakenQuiz.quizId,
-      desktopImage: mostTakenQuiz.desktopImage,
-    };
-  }); 
+      // Calculate the accuracy for the topic
+      const accuracy =
+        totalAttempts === 0
+          ? "0%"
+          : ((correctAttempts / totalAttempts) * 100).toFixed(1) + "%";
+
+          console.log("accuracy::", accuracy)
+
+      return {
+        topic,
+        totalAttempts,
+        correctAttempts,
+        accuracy,
+      };
+    });
 
     // Sort performanceData in descending order based on totalAttempts
     performanceData.sort((a, b) => b.totalAttempts - a.totalAttempts);
