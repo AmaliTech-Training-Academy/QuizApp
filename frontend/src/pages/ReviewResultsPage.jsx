@@ -19,10 +19,12 @@ const ReviewResultsPage = () => {
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
 
 
-    const answers = useSelector((state) => state.results.data);
+    // const answers = useSelector((state) => state.results.data);
+    const answers = useSelector((state) => state.answers.quizResults[0].results);
+
     console.log(answers);
 
-    const score = answers && answers.score ? answers.score : 'cant read score';
+    const score = useSelector((state) => state.answers.quizResults[0].score);
     console.log(score);
 
 
@@ -50,7 +52,7 @@ const ReviewResultsPage = () => {
         borderWidth: '2px',
        }
     
-       console.log(answers.results[0].answers[0].points);
+    //    console.log(answers.results[0].answers[0].points);
 
   return (
     <div>
@@ -79,24 +81,24 @@ const ReviewResultsPage = () => {
         <div className='flex flex-col items-center justify-center'>
         <div>
         {answers  &&
-            answers.results.map((result, index) => (
+            answers.map((result, index) => (
                 <div key={index}>
                 {/* Render the individual result */}
                     <p className='mb-5 text-2xl'>
-                    {result.questionNumber}. {result.question}
-                    <span className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-20'>{result.answers[0].points}/10 points</span>
+                    {result.questionNumber}. {result.question} 
                     </p>
                 <div className='grid grid-cols-2 gap-x-28'>
                     {result.answers.map((answer, answerIndex) => {
                      const letter = answerDesignations[answerIndex % answerDesignations.length];
-                        const correctAnswer = result.answers.find(answer => answer.is_correct);
-                        const chosenAnswer = result.answers.find(answer => answer.is_chosen);
-                        const isChosen = answer.text === chosenAnswer.text;
-                        const isCorrect = answer.text === correctAnswer.text;
-                        const isWrongChoice = isChosen && !isCorrect;
+                     const correctAnswer = result.answers.find(answer => answer.is_correct);
+                     const chosenAnswer = result.answers.find(answer => answer.is_chosen);
+                     const isChosen = answer.text === chosenAnswer.text;
+                     const isCorrect = answer.text === correctAnswer.text;
+                     const isWrongChoice = isChosen && !isCorrect;
 
-                    return (
-                    <div key={answerIndex}>
+                     return (
+                        <>
+                        <div key={answerIndex}>
                         <div  
                         className={'flex rounded-md items-center justify-between p-4 mb-4 '} style={isWrongChoice ? wrong : isChosen ? correct : empty}
                         >{letter}
@@ -104,6 +106,8 @@ const ReviewResultsPage = () => {
                         {isWrongChoice ? <MdOutlineClose /> : isChosen ? <FiCheck /> : <input type='radio' style={{borderColor: '#1D2939'}}/>}
                         </div>
                     </div>
+                        <div className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-8'>{answer.points}/10 points</div>
+                        </>
                     );
                 })}
         </div>
