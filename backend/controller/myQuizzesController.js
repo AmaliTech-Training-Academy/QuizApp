@@ -1,5 +1,5 @@
 const { userModel } = require("../models/userModels");
-const quizModel = require("../models/quizModel");
+const quizResultModel = require("../models/quizResultModel");
 
 // @desc Get Quizzes Taken by User
 // @route GET /api/users/quizzes/:userId
@@ -9,7 +9,11 @@ const myQuizzes = async (req, res) => {
 
   try {
     // finding the user by their userId and populate the "quizzes.quizId" fields
-    const user = await userModel.findById(userId).populate("quizzes.quizId");
+    const user = await userModel.findById(userId).populate({
+      path: "quizzes.quizId",
+      model: "Quiz",
+      select: "topic desktopImage",
+    });
 
     if (!user)
       return res
@@ -17,19 +21,16 @@ const myQuizzes = async (req, res) => {
         .json({ success: false, message: "User not found" });
 
     // mapping through the quizzes array to include the quizId, topic, and desktopImage
-    const quizzes = [];
-
-    for (const quiz of user.quizzes) {
-      const quizData = await quizModel.findById(quiz.quizId);
-      if (quizData) {
-        quizzes.push({
-          quizId: quizData._id,
-          topic: quizData.topic,
-          image: quiz.desktopImage,
+    const quizzes = user.quizzes.map((quiz) => {
+      if (quiz.quizId) {
+        return {
+          quizId: quiz.quizId._id,
+          topic: quiz.quizId.topic,
+          image: quiz.quizId.desktopImage,
           date: quiz.date.toLocaleDateString(),
-        });
+        };
       }
-    }
+    });
 
     res.status(200).json({ success: true, quizzes });
   } catch (error) {

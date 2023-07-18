@@ -31,8 +31,13 @@ const quizResultSchema = new Schema(
     quizId: {
       type: Schema.Types.ObjectId,
       ref: "Quiz",
-      required: true,
     },
+    // topic: {
+    //   type: String,
+    // },
+    // desktopImage: {
+    //   type: String,
+    // },
     score: {
       type: Number,
       default: 0,

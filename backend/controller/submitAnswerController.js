@@ -10,12 +10,15 @@ const submitAnswer = async (req, res) => {
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
+    console.log('userAns', user )
     const quiz = await quizModel.findById(_id).populate("questions.answers");
 
     if (!user)
       return res
         .status(404)
         .json({ success: false, message: "User Not Found" });
+
+    const { topic, desktopImage } = quiz;
 
     let score = 0;
     let results = [];
@@ -72,6 +75,8 @@ const submitAnswer = async (req, res) => {
       quizResult = await quizResult.save();
     }
 
+    console.log("quizresult", quizResult)
+
     // update user's quiz result for the specific topic
     const userQuiz = user.quizzes.find(
       (quiz) => quiz.quizId && quiz.quizId.toString() === _id.toString()
@@ -85,17 +90,22 @@ const submitAnswer = async (req, res) => {
     await user.save();
 
     // Incrementing the popularity of the quiz (topic) by 1
-    await quizModel.findByIdAndUpdate(_id, { $inc: { popularity: 1 }})
+    await quizModel.findByIdAndUpdate(_id, { $inc: { popularity: 1 } });
 
     res.status(200).json({
       success: true,
       quizResultId: quizResult._id,
       score: score,
+      quizId: quiz._id,
+      topic: topic,
+      desktopImage: desktopImage,
       results: results,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: "Error Submitting Answers" });
+    res
+      .status(500)
+      .json({ success: false, message: "Error Submitting Answers" });
   }
 };
 
