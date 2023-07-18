@@ -20,7 +20,6 @@ const getQuizResults = async (req, res) => {
 
     const { _id, score, results } = quizResult;
     const quiz = quizResult.quizId;
-    console.log("quiz results:", quizResult.results);
 
     const updatedResults = quizResult.results.map((result) => {
       return {
