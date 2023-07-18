@@ -9,7 +9,7 @@ export const SubjectFilters = ({topics}) => {
     console.log(topics);
 
     const filter = useSelector(state => state.topics.filterData);
-    console.log(filter);
+    // console.log(filter);
     
     const filterOptions = topics.map(topic=> ({name: topic.topic, id:topic._id}) );
     console.log(filterOptions);
@@ -45,33 +45,3 @@ export const SubjectFilters = ({topics}) => {
     </div>
   )
 }
-// const [filterOptions, setFilterOptions] = useState({
-    //     ["History"]:false,
-    //     ["Geography"]:false,
-    //     ["Science"]:false,
-    //     ["Music"]:false,
-    //     ["Movies and TV Shows"]:false,
-    // });
-    // const handleChange = (e) => {
-    //     const {name, checked} = e.target
-    //     setFilterOptions(prev => (
-    //         {...prev, [name]: checked}
-    //         ))
-    //         console.log(`${name}: ${checked}`)
-    //     }
-  
-    //     const filterSubjects = () => {
-    //     filterOpt = [];
-    //     subjects.forEach(topic => {
-    //     if(filterOptions[topic.topic]) {
-    //         filterOpt.push(topic.topic)
-    //     }
-    //     });
-    //     if(filterOpt.length === 0){
-    //         setQuizData(subjects)
-    //     }else{
-    //         const matchedTopics = subjects.filter(subject => {
-    //             return filterOpt.includes(subject.topic)
-    //         })
-    //         setQuizData(matchedTopics)
-    //     }
