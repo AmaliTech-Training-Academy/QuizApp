@@ -8,7 +8,7 @@ const initialState = {
     quizId: "",
     answers: [],
   },
-    quizResultsId: ""
+    quizResults: []
 }
 
 const answersSlice = createSlice({
@@ -34,14 +34,14 @@ const answersSlice = createSlice({
         },
         resetQuiz: (state, action) => {
             state.answersData.answers = [];
-            state.quizResultsId = ''
+            state.quizResults = []
         },
     }, 
     extraReducers: (builder) => {
         builder
         .addCase(submit.pending, (state) => {})
         .addCase(submit.fulfilled, (state, {payload}) => {
-        state.quizResultsId = payload; 
+        state.quizResults = [payload]; 
         state.answersData.answers = [];
         state.answersData.userId = '';
         state.answersData.quizId= '';

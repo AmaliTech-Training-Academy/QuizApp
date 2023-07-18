@@ -15,14 +15,13 @@ const ReviewResultsPage = () => {
     const userId = useSelector((state)=> state.userData.user_id);
     const topics = useSelector((state) => state.topics.data);
 
-    const answers = useSelector((state) => state.results.data);
-    // const answers = useSelector((state) => state.quizResultsId);
+    const answers = useSelector((state) => state.answers.quizResults[0].results);
 
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
 
     
     console.log(answers) 
-    const score = answers && answers.score ? answers.score.$numberDecimal : 'cant read score';
+    const score = useSelector((state) => state.answers.quizResults[0].score)
     console.log(score);
 
     const quiz = topics.filter(topic => id === topic._id);
@@ -37,17 +36,17 @@ const ReviewResultsPage = () => {
         borderColor: '#3f3',
         borderWidth: '2px',
         background: '#cfc',
-      }
+    }
 
     const wrong = {
             color: 'red',
             borderColor: 'red',
             borderWidth: '2px',
             background: '#FFE6E6',
-          }
+        }
     
 
-  return (
+return (
     <div>
         {/* header */}
         <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col lg:justify-between font-Roboto' id='quiz-header'>
@@ -74,7 +73,7 @@ const ReviewResultsPage = () => {
         <div className='flex flex-col items-center justify-center'>
         <div>
         {answers  &&
-            answers.results.map((result, index) => (
+            answers.map((result, index) => (
             <div key={index}>
                 {/* Render the individual result */}
                 <p className='mb-5 text-2xl'>
@@ -89,7 +88,7 @@ const ReviewResultsPage = () => {
                         <div  className='flex rounded-md items-center justify-between p-4 mb-4'
                         style={answer.is_correct ?  correct : wrong}
                         >{letter}
-                         {answer.text}
+                        {answer.text}
                         {answer.text === correctAnswer.text ? <FiCheck /> : <MdOutlineClose />}
                         </div>
                     </div>
