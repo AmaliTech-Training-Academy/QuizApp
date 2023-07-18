@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import UserNavbar, { DropdownList, ProfileImage } from '../components/UserNavbar'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import Cookies from 'js-cookie'
-import { AiOutlineRight } from 'react-icons/ai'
 import { MdOutlinePeople, MdLockOutline, MdOutlineQuiz, MdDeleteOutline,MdChevronRight} from 'react-icons/md'
 import { UpdatePassword, UpdateProfile } from '../components/UpdateAccount'
-import Api from '../components/forms/services/api'
 import { toast } from 'react-toastify'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { changeSection } from '../features/sectionSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import UserQuizzes from '../components/UserQuizzes'
 import { PageNavigation } from '../components/PageNavigation'
+import DeleteModal from '../components/DeleteModal'
 
 const AccountSettings = () => {
   const navigate = useNavigate();
@@ -89,7 +88,7 @@ const AccountSettings = () => {
   return (
     <>
       {showModal && (
-        <DeleteModale showModal={showModal} setShowModal={setShowModal} />
+        <DeleteModal showModal={showModal} setShowModal={setShowModal}/>
       )}
       <section>
         <UserNavbar/>
@@ -111,7 +110,7 @@ const AccountSettings = () => {
               {/* selections */}
               <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
                 <div className="font-semibold text-base tracking-wid md:w-max">
-                  <div className='flex content-center justify-between'style={general ? { color: '#0267FF' } : { color: 'black' }}
+                  <div className='flex content-center justify-between'style={general ? { color: '#0267FF', backgroundColor: '#F2F2F2', borderRadius: '4px'  } : { color: 'black' }}
                     onClick={handleGeneral}>
                   <div className="flex gap-[0.5rem] p-[0.5rem]  hover:text-[#0267FF] cursor-pointer">
                     <MdOutlinePeople className=" self-center w-[1.5rem] h-[1.5rem]" />
@@ -120,7 +119,7 @@ const AccountSettings = () => {
                   <MdChevronRight className='md:hidden  self-center'/>
                   </div>
 
-                  <div className='flex content-center mt-[50px] justify-between'style={changePassword ? { color: '#0267FF' } : { color: 'black' } }
+                  <div className='flex content-center mt-[50px] justify-between'style={changePassword ? { color: '#0267FF', backgroundColor: '#F2F2F2', borderRadius: '4px'  } : { color: 'black' } }
                     onClick={handlePassword}>
                     <div className="flex gap-[0.5rem] p-[0.5rem] cursor-pointer">
                       <MdLockOutline className="w-[1.5rem] h-[1.5rem]" />
@@ -129,7 +128,7 @@ const AccountSettings = () => {
                     <MdChevronRight className='md:hidden  self-center'/>
                   </div>
 
-                  <div className='flex content-center mt-[50px] justify-between'style={checkQuizzes ? { color: '#0267FF' } : { color: 'black' }}
+                  <div className='flex content-center mt-[50px] justify-between'style={checkQuizzes ? { color: '#0267FF', backgroundColor: '#F2F2F2', borderRadius: '4px' } : { color: 'black' }}
                       onClick={handleQuizzes}>
                     <div className="flex gap-[0.5rem] p-[0.5rem]  cursor-pointer">
                       <MdOutlineQuiz className="w-[1.5rem] h-[1.5rem]" />
@@ -177,61 +176,6 @@ export const UserDetails = ()=>{
 }
 
 
-export const DeleteModale = ({ showModal, setShowModal }) => {
-  const id = Cookies.get('id');
-  const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(false);
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    if (isChecked) {
-      try {
-        const response = await Api.delete(`users/delete/${id}`);
-        toast.success(response.data.message);
-        navigate('/signup');
-        Cookies.remove('id');
-        Cookies.remove('rememberMe');
-      } catch (error) {
-        toast.warn(error.response.data.message);
-      }
-    } else {
-      toast.error('Check the box to confirm deletion');
-    }
-  };
-
-  return (
-    <>
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="fixed inset-0 bg-black opacity-50"></div>
-          <form className="relative p-[1.5rem] w-[22.75rem] bg-white border-black rounded-lg " >
-            <p className="mb-[8px] text-[#1D2939] font-semibold">Delete Account</p>
-            <p className="mb-[16px]">
-              Hey, if you're absolutely sure you want to delete your account, we got
-              you covered. This process cannot be undone.
-            </p>
-            <div className="mb-[16px] flex self-between">
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => setIsChecked(e.target.checked)}
-                className="w-[20px] h-[20px] self-center"
-              />
-              <p className="ml-[3px]">Confirm that you want to delete your account</p>
-            </div>
-            <div className="flex justify-between">
-              <button className="border-[#B3B3B3] px-5 py-2 bg-white text-black" onClick={() => setShowModal(false)}>
-                No, keep it
-              </button>
-              <button className="bg-[#FF0000] border-none px-5 py-2" onClick={handleDelete}>
-                Yes, Delete Account
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-    </>
-  );
-};
 
  

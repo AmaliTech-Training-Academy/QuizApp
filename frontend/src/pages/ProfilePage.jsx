@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import UserNavbar, { DropdownList } from '../components/UserNavbar'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
-import { QuizSearch } from '../components/QuizSearch'
 import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
@@ -48,7 +47,7 @@ const ProfilePage = () => {
           Hello <span>{Cookies.get('name')}</span>
         </div>
 
-        <div className="flex justify-between  flex-col gap-4 lg:flex-row mb-[46px]">
+        <div className="flex justify-between  flex-col  lg:flex-row mb-[46px]">
           <NavLink to='/quizlog' className='lg:w-4/12 lg:mr-16'>
             <QuizCards
             color="blueSlate"
