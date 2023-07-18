@@ -33,7 +33,7 @@ const loginUser = async (req, res) => {
     if (!validPassword) {
       return res.status(400).json({
         success: false,
-        message: "Invalid credentials provided",
+        message: "Authentication failed. Please check your login credentials.",
       });
     }
 
