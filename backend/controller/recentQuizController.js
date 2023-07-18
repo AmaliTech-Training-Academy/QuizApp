@@ -6,6 +6,7 @@ const quizModel = require("../models/quizModel");
 //@access Private
 const recentQuiz = async (req, res) => {
   const { id } = req.params;
+  let { limit } = req.query;
 
   try {
     const user = await userModel
@@ -22,12 +23,17 @@ const recentQuiz = async (req, res) => {
         .json({ success: false, message: "User Not Found" });
     }
 
+    limit = parseInt(limit)
+
     // Retrieve unique recent quizzes
     const recentQuizzesSet = new Set();
     const recentQuizzes = [];
     for (let i = user.quizzes.length - 1; i >= 0; i--) {
       const quiz = user.quizzes[i];
-      const { date, quizId: { topic }} = quiz;
+      const {
+        date,
+        quizId: { topic },
+      } = quiz;
       if (!recentQuizzesSet.has(topic)) {
         recentQuizzesSet.add(topic);
 
@@ -47,11 +53,6 @@ const recentQuiz = async (req, res) => {
       success: true,
       username: user.name,
       recentQuizzes,
-    });
-    console.log("recent::: ", {
-      success: true,
-      username: user.name,
-      recentQuiz: recentQuizzes,
     });
   } catch (error) {
     console.error(error);

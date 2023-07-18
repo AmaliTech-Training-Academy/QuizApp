@@ -11,7 +11,7 @@ const getQuizLogs = async (req, res) => {
     const quizLogs = await QuizLog.find({ userId: userId }).populate("quizId");
     const passedQuizzes = await quizResultModel.find({
       userId: userId,
-      passed: true,
+    //   passed: passedQuizzes >= 50 ? ,
     });
     res.status(200).json({ success: true, quizLogs });
   } catch (error) {
