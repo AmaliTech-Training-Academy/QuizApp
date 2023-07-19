@@ -23,7 +23,6 @@ const DoughnutChart = () => {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log('API response:', response.data);
         setChart(response.data.performanceData);
         console.log('Chart data:', response.data.performanceData);
         setIsLoading(false);
@@ -79,7 +78,6 @@ const DoughnutChart = () => {
   if (isLoading) {
     return (
       <div className='flex flex-col justify-center'>
-        {/* <img src={book} /> */}
         <p className='text-center'>Loading...</p>
       </div>
     );
