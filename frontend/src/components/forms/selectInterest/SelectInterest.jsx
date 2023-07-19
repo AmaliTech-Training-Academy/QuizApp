@@ -3,6 +3,7 @@ import styles from './selectInterest.module.css'
 import { useDispatch } from 'react-redux'
 import { increaseCount } from '../../../features/stepperSlice'
 import { GrFormAdd } from 'react-icons/gr'
+import {BiPlus } from 'react-icons/bi'
 import { toast } from 'react-toastify'
 import Api from '../services/api'
 import Cookies from 'js-cookie'
@@ -48,7 +49,7 @@ const SelectInterest = () => {
               : styles.addBtn
           }
           onClick={() => handleSelectedInterest('Social Interaction')}>
-          <GrFormAdd className={styles.addIcon} />
+          <BiPlus className={styles.addIcon}/>
           <span className={styles.interestSpan}>Social Interaction</span>
         </button>
       </div>
@@ -61,7 +62,7 @@ const SelectInterest = () => {
               : styles.addBtn
           }
           onClick={() => handleSelectedInterest('Personal development')}>
-          <GrFormAdd className={styles.addIcon} style={{ color: 'white' }} />
+            <BiPlus className={styles.addIcon}/>
           <span className={styles.interestSpan}>Personal development</span>
         </button>
       </div>
@@ -74,7 +75,7 @@ const SelectInterest = () => {
               : styles.addBtn
           }
           onClick={() => handleSelectedInterest('Entertainment and Fun')}>
-          <GrFormAdd className={styles.addIcon} />
+            <BiPlus className={styles.addIcon}/>
           <span className={styles.interestSpan}>Entertainment and Fun </span>
         </button>
       </div>
@@ -87,7 +88,7 @@ const SelectInterest = () => {
               : styles.addBtn
           }
           onClick={() => handleSelectedInterest('Rewards and recognition')}>
-          <GrFormAdd className={styles.addIcon} />
+          <BiPlus className={styles.addIcon}/>
           <span className={styles.interestSpan}>Rewards and recognition</span>
         </button>
       </div>
