@@ -17,7 +17,7 @@ const AddInterst = ({ setCompleted }) => {
     try {
       setCompleted(true)
       setClick(true)
-      const response = await Api.patch(`users/${userId}`, {addInterest: addedInterest})
+      const response = await Api.patch(`users/interest/${userId}`, {addInterest: addedInterest})
       const msg = response.data.message
       console.log(response)
       if(response.data.success === true){
