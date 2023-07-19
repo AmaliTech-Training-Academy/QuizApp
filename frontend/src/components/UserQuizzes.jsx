@@ -40,7 +40,7 @@ const UserQuizzes = () => {
             <img src="placeholder-image.png" alt="No quizzes available" />
           ) : (
             quizzes.map((ele, index) => (
-              <div key={ele.id} className='flex '>
+              <div key={ele.id} className='flex mb-[50px]'>
                 <img src={ele.image} className='w-16 h-16 border rounded-lg'/>
                 
                 <div className='ml-[1.5rem]'>
