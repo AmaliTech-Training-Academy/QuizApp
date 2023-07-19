@@ -8,11 +8,11 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
-import BarCharts from '../components/charts/BarCharts'
-import { useDispatch, useSelector } from 'react-redux'
 import { PageNavigation } from '../components/PageNavigation'
 import DoughnutChart from '../components/charts/DoughnutChart'
 import RecentQuizzes from '../components/RecentQuizzes'
+import PopularQuizzes from '../components/PopularQuizzes'
+import { useDispatch, useSelector } from 'react-redux'
 import { filterTopicsBySearch } from '../features/topicSlice'
 
 
@@ -56,7 +56,7 @@ const ProfilePage = () => {
         </div>
 
         <div className="flex justify-between  flex-col  lg:flex-row mb-[46px]">
-          <NavLink to='/quizlog' className='lg:w-4/12 lg:mr-16'>
+          <NavLink to='/quizlog' className='lg:w-[30%] '>
             <QuizCards
             color="blueSlate"
             topic="Quiz log"
@@ -64,7 +64,7 @@ const ProfilePage = () => {
             description="Review Your quiz results"
           /></NavLink>
 
-          <NavLink to='/quizzes' className='lg:w-4/12 lg:mr-16'>
+          <NavLink to='/quizzes' className='lg:w-[30%] '>
             <QuizCards
             color="lightBlue"
             topic="Quizzes"
@@ -73,7 +73,7 @@ const ProfilePage = () => {
             />
           </NavLink>
           
-          <NavLink to='' className='lg:w-4/12'>
+          <NavLink to='' className='lg:w-[30%]'>
             <QuizCards
             color="deepBlue"
             topic="100+ subjects"
@@ -91,8 +91,8 @@ const ProfilePage = () => {
             <DoughnutChart/>
           </div>
           <div className='px-[5rem]  py-7 shadow-lg rounded-lg h-fit lg:w-[48%]'>
-            <p className='font-semibold text-2xl mb-[72px] text-center'>Performance Statistics</p>
-              <BarCharts/>
+            <p className='font-semibold text-2xl mb-[25px] text-center'>Popular Quizzes</p>
+            <PopularQuizzes/>
           </div>
           
         </div>
