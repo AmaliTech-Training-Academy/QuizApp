@@ -10,7 +10,7 @@ import Cookies from 'js-cookie'
 const SelectInterest = () => {
   const [selectedInterest, setSelectectedInterest] = useState([])
 
-  const userId = Cookies.get('userId')
+  const userId = Cookies.get('id')
 
   const dispatch = useDispatch()
 
@@ -18,14 +18,18 @@ const SelectInterest = () => {
     setSelectectedInterest(prev => [...prev, value])
   };
   const handleClick = async () => {
-    const response = await Api.patch(`users/${userId}`, {interest: selectedInterest})
-    const msg = response.data.message
-    if(response.data.success === true){
-      toast.success(msg)
-      dispatch(increaseCount())
-    }else{
+    try {
+      const response = await Api.patch(`users/${userId}`, {interest: selectedInterest})
+      const msg = response.data.message
+      if(response.data.success === true){
+        toast.success(msg)
+        dispatch(increaseCount())
+      }
+    } catch (error) {
+      const msg = error.response.data.message
       toast.warn(msg)
     }
+    
   }
 
   

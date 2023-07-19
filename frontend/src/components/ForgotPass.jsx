@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { RotatingLines } from 'react-loader-spinner'
+import { useSelector } from 'react-redux';
+
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
@@ -9,13 +11,22 @@ const ForgotPass = () => {
   const [buttonClicked, setButtonClicked] = useState(false)
   const notify = () => toast("Please check your email to reset password", {theme:"light",})
 
+  const token = useSelector(state=> state.userData.user_token);
+
+
   const handleClick = async(e) =>{
    e.preventDefault();
    setButtonClicked(true)
    if(email !== '' ){
     try{
-      const URL = "https://nss-quizapp.up.railway.app/api/users/forgetPassword";
-      const response = await axios.post(URL, {email});
+      const URL = "https://quiz-master.onrender.com/api/users/forgetPassword";
+    //   const headers = {
+    //     'Authorization': `Bearer ${token}`
+    // };
+    const response = await axios.post(URL, {email});
+    console.log(response);
+    // return response.data;
+      // const response = await axios.post(URL, {email});
       setLoading(!loading)
       if(response.status === 200){
         notify(); 

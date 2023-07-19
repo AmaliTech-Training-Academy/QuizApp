@@ -5,7 +5,7 @@ import {MdOutlineClose} from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-const GeneralSettings = ({general, password}) => {
+const GeneralSettings = () => {
     const verifyCookie = Cookies.get('rememberMe') 
     useEffect(() => {
         {
@@ -27,14 +27,15 @@ export const SettingsNavbar = ({title})=>{
     const navigate = useNavigate()
     return(
         <div>
-            <div className='py-[29px] bg-[#0267FF] text-white flex pl-[1.25rem] font-bold text-xl'>
+            <div className='py-[29px] bg-[#0267FF] text-white flex pl-[1.25rem] font-bold text-xl justify-between'>
                 <MdOutlineClose className='self-center' onClick={()=>navigate('/account-settings')}/>
-                <p className='ml-[7.5rem]'>{title}</p>
+                <p >{title}</p>
+                <p style={{visibility: 'hidden'}}>Hello</p>
             </div>
-            <div className='flex py-[10px] px-[4.188rem] justify-between bg-[#F2F2F2]'>
-                <p style={title ==='General' ? {color:'#0267FF'} : null}>General</p>
-                <p style={title ==='Password' ? {color:'#0267FF'} : null}>Password</p>
-                <p style={title ==='My Quizzes' ? {color:'#0267FF'} : null}>My quizzes</p>
+            <div className='flex py-[10px] px-[2rem] justify-between bg-[#F2F2F2]'>
+                <p style={title ==='General' ? {color:'#0267FF'} : null} className='w-[100]'>General</p>
+                <p style={title ==='Password' ? {color:'#0267FF'} : null} className='w-[100]'>Password</p>
+                <p style={title ==='My Quizzes' ? {color:'#0267FF'} : null} className='w-[100]'>My quizzes</p>
             </div>
         </div>
     )

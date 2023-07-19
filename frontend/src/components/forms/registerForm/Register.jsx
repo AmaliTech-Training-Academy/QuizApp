@@ -49,7 +49,7 @@ const Register = () => {
       setLoading(!loading)
       const response = await Api.post('users', data)
       if(response.data.success === true){
-        Cookies.set('userId', response.data.user._id)
+        Cookies.set('id', response.data.user._id)
         toast.success('account created successfully')
         setTimeout(() => {
           dispatch(increaseCount())
@@ -69,6 +69,42 @@ const Register = () => {
       
     }
   };
+
+  const handleGoogleLogin = () => {
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signIn().then(googleUser => {
+      const id_token = googleUser.getAuthResponse().id_token;
+      Api.post('users', { id_token })
+        .then(response => {
+          // Handle the response from the server
+          console.log(response.data);
+        })
+        .catch(error => {
+          // Handle any errors that occur during the API request
+          console.error(error);
+        });
+    });
+  };
+
+  useEffect(() => {
+    // Load the Google Sign-In API script
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/platform.js';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      window.gapi.load('auth2', () => {
+        window.gapi.auth2.init({
+          client_id:
+            '387373038848-c507h2u37ddgtugst4le2psbjf8q6l5s.apps.googleusercontent.com',
+        });
+      });
+    };
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className={styles.formsStep1}>
@@ -144,7 +180,7 @@ const Register = () => {
       </div>
 
       <div className={styles.googleContainer}>
-        <button className={styles.googleBtn} onClick={() => login()}>
+        <button className={styles.googleBtn} onClick={handleGoogleLogin}>
           <img src={google} alt="google logo" className={styles.googleLogo} />
           <span className={styles.signup}>Sign up with Google</span>
         </button>

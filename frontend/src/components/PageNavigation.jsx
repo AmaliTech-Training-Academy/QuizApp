@@ -1,9 +1,10 @@
 import React from 'react';
 import { IoIosArrowForward } from "react-icons/io";
 import { QuizSearch } from './QuizSearch';
+import { NavLink } from 'react-router-dom';
 
 
-export const PageNavigation = ({setQuizData}) => {
+export const PageNavigation = ({profile, quizzes, settings, searchQuery, handleSearchRedirect}) => {
 
   
 
@@ -12,21 +13,61 @@ export const PageNavigation = ({setQuizData}) => {
       {/* Links */}
       <div className='flex'>
         <div className='flex items-center text-[#B3B3B3]'>
-          <span className='mr-4'>Home</span> 
+          <NavLink to="/" className='mr-4'>Home</NavLink> 
           <span className='mr-4'><IoIosArrowForward/></span>
         </div>
         <img src="" alt="" />
+        {profile ?
         <div className='flex items-center text-[#B3B3B3]'>
-          <span className='mr-4'>Profile</span>
-          <span className='mr-4'><IoIosArrowForward/></span>
+          <NavLink 
+            to="/profile" 
+            className='mr-4'
+            style={({ isActive }) => ({
+              color: isActive ? '#0267FF' : '#B3B3B3',
+            })}
+          >{profile}
+          </NavLink>
+          {quizzes ?
+            <span className='mr-4'><IoIosArrowForward/></span>
+          : ''}
         </div>
+        : <div></div>
+        }
         <img src="" alt="" />
+        {quizzes ? 
         <div className='text-[#B3B3B3] flex items-center'>
-          <span className='text-[#B3B3B3]'>Quizzes</span>
+          <NavLink 
+          to="/quizzes" 
+          className='text-[#B3B3B3]'
+          style={({ isActive }) => ({
+            color: isActive ? '#0267FF' : '#B3B3B3',
+          })}
+          >Quizzes</NavLink>
         </div>
+        : <div></div>
+        }
+        <img src="" alt="" />
+        {settings ?
+        <div className='flex items-center text-[#B3B3B3]'>
+          <span className='mr-4'><IoIosArrowForward/></span>
+          <NavLink 
+            to="/account-settings" 
+            className='mr-4'
+            style={({ isActive }) => ({
+              color: isActive ? '#0267FF' : '#B3B3B3',
+            })}
+          >{settings}
+          </NavLink>
+          {quizzes ?
+            <span className='mr-4'><IoIosArrowForward/></span>
+          : ''}
+        </div>
+        : <div></div>
+        }
       </div>
       {/* Search */}
-      <QuizSearch setQuizData={setQuizData}/>
+      {!settings && <QuizSearch/>}
+      
     </div>
   )
 }

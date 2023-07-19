@@ -6,6 +6,9 @@ import Api from './services/api'
 import { toast } from 'react-toastify'
 import { RotatingLines } from 'react-loader-spinner'
 import Cookies from 'js-cookie'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../features/userSlice'
+import axios from 'axios'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -16,6 +19,7 @@ const Login = () => {
     const verifyCookie = Cookies.get('rememberMe')
     
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     useEffect(()=>{
         verifyCookie && navigate('/profile')
     },[])
@@ -37,26 +41,32 @@ const Login = () => {
     };
 
 
-    const handleClick = async e =>{
+    const handleClick = async (e) =>{
         e.preventDefault();
         if(validateForm()){
+            console.log(true);
             try {
-                const data = {email, password , checkbox}
+                const data = {email, password, checkbox}
                 setLoading(!loading)
-                const response = await Api.post('users/login', data)
+                const response = await axios.post('https://quiz-master.onrender.com/api/users/login', data)
+                console.log(response);
                 toast.success(response.data.message)
                 Cookies.set('rememberMe', response.data.accessToken)
+                
+                dispatch(addUser(response.data))
                 
                 Cookies.set('email',response.data.email);
                 Cookies.set('id',response.data.id);
                 Cookies.set('name', response.data.name);
+                Cookies.set('image', response.data.profileImage)
                 setTimeout(() => {
                     setLoading(true)
-                  }, 3000);
-                  navigate('/profile')
+                }, 3000);
+                navigate('/profile')
                 
             } catch (error) {
                 const err = error.response.data.message
+                console.log(err);
                 toast.warn(err)
                 setTimeout(() => {
                     setLoading(true)

@@ -7,6 +7,7 @@ import person3 from '../../assets/DesktopView/Images/wepik-export-20230509105334
 import person4 from '../../assets/DesktopView/Images/wepik-export-20230509105834XND011.png'
 import person5 from '../../assets/DesktopView/Images/wepik-export-20230509113806sxOa1.png'
 import loginImage from '../../assets/DesktopView/Images/db06bc17-8e85-49af-b936-b6aeaefbb8b91.png'
+import forgetHero from '../../assets/DesktopView/Images/f3bc8635-2f3d-48e0-a3f7-bf5bff42b7661.png'
 import { useSelector } from 'react-redux'
 
 const Gallery = ({page}) => {
@@ -35,7 +36,12 @@ const Gallery = ({page}) => {
       <div className={styles.personImg}>
       {page === 'login' ? (
         <img src={loginImage} className={styles.person}/> 
-        ):(
+        ):
+          page === 'forgetpassword' ? (
+            <img src={forgetHero} className={styles.person}/>
+          ):
+       
+        (
           getNextImage(count)
         )}
       </div>

@@ -6,20 +6,25 @@ import './App.css'
 import { AvailableQuizzes } from './pages/AvailableQuizzes'
 import { QuizLog } from './pages/QuizLog'
 import { SearchPage } from './pages/SearchPage'
-import { FilterPage } from './pages/FilterPage'
+// import { FilterPage } from './pages/FilterPage'
 import SignupPage from './pages/signuppage/SignupPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
-import Cookies from 'js-cookie'
+import { QuizIntro } from './pages/QuizIntro';
+// import { Questions } from './pages/QuestionsPage';
+
 import AccountSettings from './pages/AccountSettings'
 import GeneralSettings from './pages/GeneralSettings'
 import PasswordSettings from './pages/PasswordSettings'
 import MyQuizzes from './pages/MyQuizzes'
+// import { Test } from './pages/Test'
+import { QuestionsPage } from './pages/QuestionsPage'
+import ReviewResultsPage from './pages/ReviewResultsPage'
+import { FilterPage2 } from './pages/FilterPage2'
 
 function App() {
-  const verifyCookie = Cookies.get('rememberMe')
 
   return (
     <>
@@ -29,8 +34,12 @@ function App() {
           <Route path="/quizzes" element={<AvailableQuizzes />} />
           <Route path="/quizlog" element={<QuizLog />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/filter" element={<FilterPage />} />
+          <Route path="/filter" element={<FilterPage2 />} />
           <Route path="signup" element={<SignupPage />} />
+          <Route path='login' element={<LoginPage/>}/>
+          <Route path='profile' element={<ProfilePage/>}/>
+          <Route path='/quiz/:id' element={<QuizIntro/>}/>
+          <Route path='/quiz/:id/questions' element={<QuestionsPage/>}/>
           <Route path="login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path='/account-settings' element={<AccountSettings/>}/>
@@ -39,6 +48,8 @@ function App() {
           <Route path='/my-quizzes' element={<MyQuizzes/>}/>
           <Route path="forgetpassword" element={<ForgetPassword/>}/>
           <Route path='resetPassword/:id' element={<ResetPassword/>}/>
+          <Route path='/quiz/:id/results' element={<ReviewResultsPage/>}/>
+          <Route path='/quiz/:id/quizintro' element={<QuizIntro/>}/>
         </Routes>
         <ToastContainer />
       </BrowserRouter>
