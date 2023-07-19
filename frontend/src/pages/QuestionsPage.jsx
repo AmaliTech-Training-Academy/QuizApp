@@ -94,6 +94,7 @@ useEffect(() => {
     dispatch(timerStart())
     dispatch(selectQuestion(1))
     dispatch(resetAnswers())
+    dispatch(sureSubmit(false))
   };
 
   window.onbeforeunload = handleUnload;
