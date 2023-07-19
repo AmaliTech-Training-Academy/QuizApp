@@ -11,6 +11,8 @@ import sectionSlice from '../features/sectionSlice'
 import resultsSlice from '../features/resultsSlice';
 import userSlice from '../features/userSlice';
 import accountSettingsReducer from '../features/accountSettingsSlice';
+import clearStateSlice from '../features/clearStateSlice';
+
 
 
 
@@ -30,6 +32,7 @@ const persistConfig = {
       results: resultsSlice,
       userData: userSlice,
       accountSettings: accountSettingsReducer,
+      clearState: clearStateSlice,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

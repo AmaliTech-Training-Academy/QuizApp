@@ -8,14 +8,16 @@ import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/userSlice';
 import { toggleSettings } from '../features/accountSettingsSlice';
 import { resetQuiz } from '../features/answersSlice';
-import { selectQuestion } from '../features/quizSlice';
+import { selectQuestion, totalReset } from '../features/quizSlice';
+import { clearState } from '../features/clearStateSlice';
+import { resetTopics } from '../features/topicSlice';
 
 
 
 const UserNavbar = () => {
   
   return (
-    <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
+    <div className='sticky top-0 bg-white z-50 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
       {/* Navbar items */}
       <div className='flex justify-between items-center w-full h-full'>
 
@@ -109,8 +111,11 @@ export const DropdownList = () =>{
     Cookies.remove('userId')
     Cookies.remove('id')
     dispatch(removeUser())
-    dispatch(selectQuestion(1))
+    // dispatch(selectQuestion(1))
+    dispatch(totalReset())
+    dispatch(resetTopics())
     dispatch(resetQuiz())
+    dispatch(clearState())
     navigate('/login')
   }
 
