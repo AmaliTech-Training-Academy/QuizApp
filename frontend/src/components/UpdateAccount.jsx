@@ -138,7 +138,12 @@ export const UpdateProfile = () => {
           'Authorization' : `Bearer ${token}`
         }
       })
+      if(response.status === 200){
+      Cookies.set('name', response.data.name)
+      Cookies.set('email', response.data.email)
       toast.success(response.data.message)
+      window.location.reload()
+    }
     } catch (error) {
       const err = error.response.data.message
       toast.warn(err)
