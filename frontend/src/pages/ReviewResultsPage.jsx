@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link, useParams } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
@@ -18,8 +18,6 @@ const ReviewResultsPage = () => {
     const quiz = topics.filter(topic => id === topic._id);
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
 
-
-    // const answers = useSelector((state) => state.results.data);
     const answers = useSelector((state) => state.answers.quizResults[0].results);
 
     console.log(answers);
@@ -30,7 +28,11 @@ const ReviewResultsPage = () => {
 
     useEffect(()=>{
         dispatch(getResults({userId, quizResultsId: id, token}))
-    }, [dispatch,userId, id, token])
+    }, [dispatch, userId, id, token])
+
+    // useEffect(()=>{
+    //     window.location.reload()
+    // },[answers])
 
     const correct = {
         color: 'green',
@@ -44,16 +46,14 @@ const ReviewResultsPage = () => {
         color: 'red',
         background: '#FFE6E6',
         borderWidth: '2px',
-       }
+    };
 
-       const empty = {
+    const empty = {
         borderColor: '#1D2939',
         background: '#fff',
         borderWidth: '2px',
-       }
+    };
     
-    //    console.log(answers.results[0].answers[0].points);
-
 return (
     <div>
         {/* header */}
