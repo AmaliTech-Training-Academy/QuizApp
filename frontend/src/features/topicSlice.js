@@ -57,9 +57,9 @@ const topicSlice = createSlice({
         }
     },
     resetTopics: (state) => {
-        state.originalData = null; 
-        state.data = null;
-        state.filterData = null;
+        state.originalData = []; 
+        state.data = [];
+        state.filterData = [];
         state.status =  null;
         state.searchQuery = null;
     }

@@ -40,8 +40,8 @@ const quizSlice = createSlice({
             state.page = payload;
         },
         totalReset: (state, action) => {
-            state.data = null
-            state.page= null
+            state.data = []
+            state.page = []
             state.isRunning = false;
         },
         timerExpired: (state) => {
