@@ -5,6 +5,9 @@ const quizResultModel = require("../models/quizResultModel");
 // @desc Get Performance Records and Statistics
 // @route GET /api/users/performance/:userId
 // @access Private
+// @desc Get Performance Records and Statistics
+// @route GET /api/users/performance/:userId
+// @access Private
 const performance = async (req, res) => {
   const { userId } = req.params;
 
@@ -12,7 +15,7 @@ const performance = async (req, res) => {
     const user = await userModel.findById(userId).populate({
       path: "quizzes.quizId",
       model: quizModel,
-      select: "topic desktopImage",
+      select: "topic desktopImage questions",
     });
 
     if (!user) {
@@ -27,63 +30,31 @@ const performance = async (req, res) => {
       .populate("quizId");
     console.log("quizResults:::", quizResults);
 
-    // Calculate the total number of attempts and correct attempts for each topic
-    const topicStats = quizResults.reduce((stats, quizResult) => {
-      const topic = quizResult.quizId.topic;
+    // Calculate the performance record percentage for each topic
+    const performanceData = quizResults.map((quizResult) => {
+      const quiz = quizResult.quizId;
+      const topic = quiz.topic;
       console.log("topic", topic);
 
-      // Ensure the topic is defined before proceeding
-      if (topic) {
-        // Initialize the totalAttempts and correctAttempts to 0 for each topic
-        if (!stats[topic]) {
-          stats[topic] = {
-            totalAttempts: 0,
-            correctAttempts: 0,
-          };
-        }
-
-        // Increment the totalAttempts for the topic by 1
-        stats[topic].totalAttempts += 1;
-
-        // Iterate through the answers in the quizResult to count the correct attempts
-        quizResult.results.forEach((result) => {
-          if (
-            result.answers.some(
-              (answer) => answer.is_chosen && answer.is_correct
-            )
-          ) {
-            stats[topic].correctAttempts += 1;
-          }
-        });
-      }
-
-      return stats;
-    }, {});
-    console.log("topicStat", topicStats);
-
-    // Calculate the performance record percentage for each topic
-    const performanceData = Object.keys(topicStats).map((topic) => {
-      const totalAttempts = topicStats[topic].totalAttempts;
-      const correctAttempts = topicStats[topic].correctAttempts;
+      const score = quizResult.score;
+      const noQuestions = quiz.questions.length;
+      const pointsPerQuestion = 10; // Assuming each question is worth 10 points
 
       // Calculate the accuracy for the topic
       const accuracy =
-        totalAttempts === 0
-          ? "0%"
-          : ((correctAttempts / totalAttempts) * 100).toFixed(1) + "%";
+        ((score / (noQuestions * pointsPerQuestion)) * 100).toFixed(1) + "%";
 
-          console.log("accuracy::", accuracy)
+      console.log("accuracy::", accuracy);
 
       return {
         topic,
-        totalAttempts,
-        correctAttempts,
+        score,
         accuracy,
       };
     });
 
-    // Sort performanceData in descending order based on totalAttempts
-    performanceData.sort((a, b) => b.totalAttempts - a.totalAttempts);
+    // Sort performanceData in descending order based on score
+    performanceData.sort((a, b) => b.score - a.score);
 
     res.status(200).json({ success: true, performanceData });
   } catch (error) {
