@@ -11,19 +11,21 @@ const AddInterst = ({ setCompleted }) => {
 
   const [click, setClick] = useState(false)
   const dispatch = useDispatch()
-  const userId = Cookies.get('userId')
+  const userId = Cookies.get('id')
 
   const submitData = async (addedInterest) => {
-    setCompleted(true)
-    setClick(true)
-    const response = await Api.patch(`users/${userId}`, {addInterest: addedInterest})
-    const msg = response.data.message
-    console.log(response)
-    if(response.data.success === true){
-      toast.success(msg)
-      dispatch(increaseCount())
-    }else{
-      toast.warn(msg)
+    try {
+      setCompleted(true)
+      setClick(true)
+      const response = await Api.patch(`users/${userId}`, {addInterest: addedInterest})
+      const msg = response.data.message
+      console.log(response)
+      if(response.data.success === true){
+        toast.success(msg)
+        dispatch(increaseCount())
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -54,6 +56,8 @@ const AddInterst = ({ setCompleted }) => {
       </div>
 
       <button onClick={handleClick} className={styles.continueBtn}>Continue</button>
+
+      <div className='mt-[25px]' onClick={()=>{dispatch(increaseCount())}}>Skip</div>
     </div>
   )
 }

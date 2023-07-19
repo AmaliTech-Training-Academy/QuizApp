@@ -2,6 +2,7 @@ import React from 'react'
 import celebrate from '../../assets/DesktopView/Images/Frame.png'
 import styles from './forms.module.css'
 import { NavLink } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const CompletedRegistration = () => {
   return (
@@ -10,7 +11,7 @@ const CompletedRegistration = () => {
       <p className={styles.completedDescription}>Hey there! Your registration is complete, get excited for the ultimate quiz experience of your life. Let's do this!</p>
       <img src={celebrate} className={styles.img}/>
       <NavLink to='/login'>
-      <button className={styles.submitBtn}>Continue</button>
+      <button className={styles.submitBtn} onClick={()=>{toast.success('Account created successfully')}}>Continue</button>
       </NavLink>
       
     </div>
