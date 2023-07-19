@@ -15,9 +15,11 @@ const interests = async (req, res) => {
         .status(404)
         .json({ success: false, message: "User Not Found" });
 
-    user.interests = interests,
-    user.addInterest = addInterest
+    // Update interests and addInterest fields in the user object
+    user.interests = interests;
+    user.addInterest = addInterest;
 
+    // Save the updated user object back to the database
     const updatedUser = await user.save();
 
     res.status(200).json({ success: true, user: updatedUser });
