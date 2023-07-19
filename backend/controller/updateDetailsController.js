@@ -33,6 +33,7 @@ const updateDetails = async (req, res) => {
       message: "User details updated successfully",
       name: user.name,
       email: user.email,
+      user: user,
     };
 
     res.status(200).json(response);

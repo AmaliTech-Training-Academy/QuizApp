@@ -10,37 +10,36 @@ const getQuizLogs = async (req, res) => {
 
   try {
     // Get the user
-    const user = await userModel.findById(userId);
+    const user = await userModel.find({ _id: userId });
+    console.log("user", user)
+
 
     // Get all quiz logs for the user
     const quizLogs = await QuizLog.find({ userId: userId });
-    console.log("logs::", quizLogs)
+    console.log("logs::",quizLogs);
 
     // Filter and include only the quizzes the user has passed (scored >= 80)
     const passedQuizzes = await quizLogs.filter((log) => log.score >= 80);
-    console.log("passed::", passedQuizzes)
-    // Filter and include only the quizzes the user has attempted
-    const attemptedQuizzes = quizLogs.filter((log) => log.isAttempted);
-    console.log("attempt::", attemptedQuizzes)
 
     // Extract the required information for both passed and attempted quizzes
     const passedQuizData = passedQuizzes.map((quizLog) => {
+      const quiz = quizLog; 
+      // console.log("quiz", quiz.populate("User"))
+      return {
+        desktopImage: quiz.desktopImage,
+        topic: quiz.topic,
+        Date: quiz.date.toDateString(),
+        // name: user.name,
+      };
+    });
+
+    const attemptedQuizData = quizLogs.map((quizLog) => {
       const quiz = quizLog;
       return {
         desktopImage: quiz.desktopImage,
         topic: quiz.topic,
         Date: quiz.date.toDateString(),
-        username: user.username,
-      };
-    });
-
-    const attemptedQuizData = attemptedQuizzes.map((quizLog) => {
-      const quiz = quizLog.quizId;
-      return {
-        desktopImage: quiz.desktopImage,
-        topic: quiz.topic,
-        Date: quiz.date.toDateString(),
-        username: user.username,
+        // name: user.name,
       };
     });
 
@@ -49,7 +48,7 @@ const getQuizLogs = async (req, res) => {
       passedQuizzes: passedQuizData,
       attemptedQuizzes: attemptedQuizData,
     });
-    console.log("passedData::", passedQuizData)
+    // console.log("passedData::", passedQuizData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something Went Wrong" });

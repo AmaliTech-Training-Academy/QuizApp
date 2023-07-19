@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 const updatePassword = async (req, res) => {
   try {
     const { id } = req.params;
-    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const { currentPassword, newPassword, } = req.body;
 
     //Finding user by ID
     const user = await userModel.findById(id);
