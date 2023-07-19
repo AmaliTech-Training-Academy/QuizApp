@@ -149,7 +149,7 @@ const AccountSettings = () => {
               <div className='hidden md:block 2xl:ml-[-8rem]'>{general && <UpdateProfile />}</div>
               
               <div className='hidden md:block  2xl:ml-[-25rem] '> {changePassword && <UpdatePassword />}</div>
-              <div className='hidden md:block'> {checkQuizzes && <UserQuizzes/>}</div>
+              <div className='hidden md:block 2xl:ml-[-25rem]'> {checkQuizzes && <UserQuizzes/>}</div>
             </div>
           </div>
         </section>

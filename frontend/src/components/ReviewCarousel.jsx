@@ -42,13 +42,6 @@ export const ReviewCarousel = () => {
               initialSlide: 1
             }
           },
-          // {
-          //   breakpoint: 480,
-          //   settings: {
-          //     slidesToShow: 1,
-          //     slidesToScroll: 1
-          //   }
-          // }
         ]
       };  
     return (
@@ -64,6 +57,4 @@ export const ReviewCarousel = () => {
     </Slider>
     )
 }
-
-// 
 

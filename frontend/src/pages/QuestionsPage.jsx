@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { getQuestions, nextQuestion, previousQuestion, selectQuestion} from '../features/quizSlice'
+import { getQuestions, nextQuestion, previousQuestion, resetQuestion, selectQuestion, timerExpired} from '../features/quizSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { sureSubmit } from '../features/sureSlice'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineTimer } from "react-icons/md"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Question } from '../components/Question'
-// import Navbar from '../components/Navbar'
-import { submit, submitAnswers, submitUserId, submitQuizId } from '../features/answersSlice';
+import { submit, submitAnswers, submitUserId, submitQuizId, resetQuiz, resetAnswers } from '../features/answersSlice';
 import { QuizSubmission } from '../components/QuizSubmission'
 import { SubmitModal } from '../components/SubmitModal'
 import UserNavbar, { DropdownList } from '../components/UserNavbar'
@@ -22,13 +21,15 @@ import MobileProfileNavbar from '../components/MobileProfileNavbar'
 export const QuestionsPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    
+    const navigate = useNavigate();
+        
     const {data:topics} = useSelector((state) => state.topics);
     const currentQuiz = topics.filter(topic => topic._id === id);
     const currentQuizName = currentQuiz[0].topic;
 
     const quiz = useSelector(state=> state.quiz)
     const page = quiz.page;
+    const isRunning = quiz.isRunning;
     const question = quiz.data;
     const token = useSelector(state=> state.userData.user_token)
     const sure = useSelector(state => state.sure);
@@ -85,19 +86,22 @@ const changeQuestion = (e) => {
   }
 }
 
-// const renderer = ({ hours, minutes, seconds, completed }) => {
-//   if (completed) {
-//     // Render a complete state
-//   return (<div>Time's Up!</div>);
-//   } else {
-//     // Render a countdown
-//   return (
-//       <span>
-//       {hours}:{minutes}:{seconds}
-//       </span>
-//       );
-//   }
-// };
+useEffect(() => {
+  const handleUnload = (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+
+    // dispatch(resetQuiz())
+    dispatch(selectQuestion(1))
+    dispatch(resetAnswers())
+  };
+
+  window.onbeforeunload = handleUnload;
+  return () => {
+    window.onbeforeunload = null;
+  };
+}, []);
+
 
 const handleChoice = (e) => {
   const chosenAnswer = e.target.value;
@@ -112,7 +116,7 @@ const handleChoice = (e) => {
     }     
     setTimeout(() => {
       forwardArrowNav();
-    }, 2000);
+    }, 500);
 }
 
 const handleSure = () => {
@@ -128,13 +132,21 @@ const handleSureSubmit = (e) => {
   dispatch(submitQuizId(id));
   dispatch(submit())
   dispatch(selectQuestion(1))
+  // dispatch(resetQuestion())
+  dispatch(resetAnswers())
+};
+
+const handleTimerExpired = () => {
+  dispatch(timerExpired());
+  navigate(`/quiz/${id}/results`);
 };
 
   return (
-    <div className='bg-[#0267FF] lg:bg-transparent w-full h-screen'>
-      {
+    <>
+    {
         sure[0] ? <SubmitModal handleUnsure={handleUnsure} handleSureSubmit={handleSureSubmit}/> : ''
       }
+      <div className='bg-[#0267FF] lg:bg-transparent w-full h-4/5 lg:h-screen'>
       <div>
         <UserNavbar/>
         <MobileProfileNavbar/>
@@ -146,7 +158,8 @@ const handleSureSubmit = (e) => {
             </div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
-            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/> <Timer/> </div>
+            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/>
+            <Timer time={10} id={id} isRunning={isRunning} onTimerExpired={handleTimerExpired}/> </div>
         </div>
 
         <div className='bg-white rounded-t-[2rem] relative pt-24 lg:pt-0 px-4 lg:px-0 '>
@@ -214,5 +227,6 @@ const handleSureSubmit = (e) => {
         }
         </div>
     </div>
+  </>
   )
 }

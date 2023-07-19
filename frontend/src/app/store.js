@@ -6,7 +6,6 @@ import quizSlice from "../features/quizSlice";
 import { persistReducer } from 'redux-persist';
 import storage  from "redux-persist/lib/storage";
 import answersSlice from '../features/answersSlice'
-import questionSlice from '../features/questionSlice';
 import sureSlice from '../features/sureSlice';
 import sectionSlice from '../features/sectionSlice'
 import resultsSlice from '../features/resultsSlice';
@@ -25,13 +24,12 @@ const persistConfig = {
       quiz: quizSlice,
       counter: stepperReducer,
       authenticator : authReducer,
-      question: questionSlice,
       answers: answersSlice,
       sure: sureSlice,
       section: sectionSlice,
       results: resultsSlice,
       userData: userSlice,
-      accountSettings: accountSettingsReducer
+      accountSettings: accountSettingsReducer,
   })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

@@ -14,10 +14,9 @@ export const Answer = (props) => {
         color: '#0267FF',
     }
 
-    // console.log(answers, checked);
 
 return (
-    <div 
+    <label 
     key={id} 
     className='flex border-2 border-[#737373] lg:border-black rounded-lg p-4 mb-4'
     style={checked ? selected : undefined}>
@@ -30,6 +29,6 @@ return (
         value={text}
         checked={checked}
         onChange={handleChoice}/>
-    </div>
+    </label>
     )
 }

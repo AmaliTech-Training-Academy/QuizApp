@@ -8,7 +8,7 @@ const initialState = {
     quizId: "",
     answers: [],
   },
-    resultsData: []
+    quizResults: []
 }
 
 const answersSlice = createSlice({
@@ -29,16 +29,19 @@ const answersSlice = createSlice({
         submitQuizId: (state, {payload}) => {
             state.answersData.quizId = payload
         },
+        resetAnswers: (state, action) => {
+            state.answersData.answers = []
+        },
         resetQuiz: (state, action) => {
             state.answersData.answers = [];
-            state.resultsData = [];
-        }
+            state.quizResults = []
+        },
     }, 
     extraReducers: (builder) => {
         builder
         .addCase(submit.pending, (state) => {})
         .addCase(submit.fulfilled, (state, {payload}) => {
-        state.resultsData.push(payload); 
+        state.quizResults = [payload]; 
         state.answersData.answers = [];
         state.answersData.userId = '';
         state.answersData.quizId= '';
@@ -67,5 +70,5 @@ export const submit = createAsyncThunk(
     }
 );
 
-export const { submitAnswers, submitUserId, submitQuizId, resetQuiz } = answersSlice.actions;
+export const { submitAnswers, submitUserId, submitQuizId, resetQuiz, resetAnswers } = answersSlice.actions;
 export default answersSlice.reducer;

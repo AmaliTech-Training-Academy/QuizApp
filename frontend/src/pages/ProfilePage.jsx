@@ -8,23 +8,25 @@ import QuizCards from '../components/QuizCards'
 import Calendar from 'react-calendar'
 import '../components/calendar.css'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
-import { useSelector } from 'react-redux'
 import { PageNavigation } from '../components/PageNavigation'
 import DoughnutChart from '../components/charts/DoughnutChart'
 import RecentQuizzes from '../components/RecentQuizzes'
-// import {Quiz} from '../components/Quiz'
 import PopularQuizzes from '../components/PopularQuizzes'
+import { useDispatch, useSelector } from 'react-redux'
+import { filterTopicsBySearch } from '../features/topicSlice'
 
 
 const ProfilePage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const verifyCookie = Cookies.get('rememberMe')
   const [date, setDate] = useState(new Date())
+
+  const searchQuery = useSelector((state) => state.topics.searchQuery); 
 
   const onChange = (selectedDate) => {
     setDate(selectedDate);
   };
-
   
   const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
@@ -33,6 +35,11 @@ const ProfilePage = () => {
   }, [])
 
   const data = useSelector(state=>state.userData);
+
+  const handleSearchRedirect = () => {
+    navigate(`/quizzes?search=${searchQuery}`); 
+  };
+
   return (
     <div>
       <UserNavbar />
@@ -42,14 +49,14 @@ const ProfilePage = () => {
 
       <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
         {/* Page Navigation */}
-        <PageNavigation profile="Profile"/>
+        <PageNavigation profile="Profile" searchQuery={searchQuery} handleSearchRedirect={handleSearchRedirect}/>
 
         <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mt-10 mb-[44px]">
           Hello <span>{Cookies.get('name')}</span>
         </div>
 
         <div className="flex justify-between  flex-col  lg:flex-row mb-[46px]">
-          <NavLink to='/quizlog' className='lg:w-4/12 lg:mr-16'>
+          <NavLink to='/quizlog' className='lg:w-[30%] '>
             <QuizCards
             color="blueSlate"
             topic="Quiz log"
@@ -57,7 +64,7 @@ const ProfilePage = () => {
             description="Review Your quiz results"
           /></NavLink>
 
-          <NavLink to='/quizzes' className='lg:w-4/12 lg:mr-16'>
+          <NavLink to='/quizzes' className='lg:w-[30%] '>
             <QuizCards
             color="lightBlue"
             topic="Quizzes"
@@ -66,7 +73,7 @@ const ProfilePage = () => {
             />
           </NavLink>
           
-          <NavLink to='' className='lg:w-4/12'>
+          <NavLink to='' className='lg:w-[30%]'>
             <QuizCards
             color="deepBlue"
             topic="100+ subjects"

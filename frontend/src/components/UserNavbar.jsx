@@ -7,8 +7,9 @@ import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/userSlice';
 import { toggleSettings } from '../features/accountSettingsSlice';
-import { selectQuestion } from '../features/quizSlice';
 import { resetQuiz } from '../features/answersSlice';
+import { selectQuestion } from '../features/quizSlice';
+
 
 
 const UserNavbar = () => {
@@ -93,11 +94,6 @@ export const ProfileImage = ({component, getImage }) => {
 };
 
 
-
-
-
-
-// dropdown
 
 export const DropdownList = () =>{
   const navigate = useNavigate()
