@@ -36,6 +36,12 @@ const quizResultSchema = new Schema(
       type: Number,
       default: 0,
     },
+    topic: {
+      type: String,
+    },
+    desktopImage: {
+      type: String,
+    },
     results: [
       {
         questionNumber: {

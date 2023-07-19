@@ -6,9 +6,7 @@ const { userModel } = require("../models/userModels");
 async function editUser(req, res) {
   try {
     const { id } = req.params;
-    // console.log(id);
     const data = req.body;
-    // console.log(data);
     const updatedUser = await userModel.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,

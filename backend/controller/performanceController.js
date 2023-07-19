@@ -5,9 +5,6 @@ const quizResultModel = require("../models/quizResultModel");
 // @desc Get Performance Records and Statistics
 // @route GET /api/users/performance/:userId
 // @access Private
-// @desc Get Performance Records and Statistics
-// @route GET /api/users/performance/:userId
-// @access Private
 const performance = async (req, res) => {
   const { userId } = req.params;
 
@@ -42,7 +39,7 @@ const performance = async (req, res) => {
 
       // Calculate the accuracy for the topic
       const accuracy =
-        ((score / (noQuestions * pointsPerQuestion)) * 100).toFixed(1) + "%";
+        ((score / (noQuestions * pointsPerQuestion)) * 50).toFixed(1) + "%";
 
       console.log("accuracy::", accuracy);
 

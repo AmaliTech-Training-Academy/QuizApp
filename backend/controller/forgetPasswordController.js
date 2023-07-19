@@ -8,12 +8,10 @@ require("dotenv").config();
 // @access Public
 const forgetPassword = async (req, res) => {
   try {
-    console.log("Hello");
     const { email } = req.body;
     console.log(email);
     // Find the user by email
     let user = await userModel.findOne({ email: email });
-    console.log("user", user);
     if (!user) {
       // User not found
       return res
