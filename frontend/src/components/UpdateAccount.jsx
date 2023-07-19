@@ -4,12 +4,15 @@ import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import AddPhoto from './forms/uploadPhoto/AddPhoto'
 import { RotatingLines } from 'react-loader-spinner'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 export const UpdatePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(true)
+  const token = useSelector(state=>state.userData.user_token);
 
   const handlePassword = async e => {
     const id = Cookies.get('id')
@@ -22,15 +25,25 @@ export const UpdatePassword = () => {
       if (newPassword === confirmPassword) {
         try {
           setLoading(!loading)
-          const response = await Api.patch(`users/account/${id}/password`, {
+          const data = {
             currentPassword,
             newPassword,
             confirmPassword
-          })
+          }
+          const response = await Api.patch(`https://quiz-master.onrender.com/api/users/account/${id}/password`, data, {
+            headers:{
+              'Authorization' : `Bearer ${token}`
+            }
+          } )
           toast.success(response.data.message)
           setTimeout(() => {
             setLoading(true)
           }, 3000);
+
+          setCurrentPassword('');
+          setNewPassword('');
+          setConfirmPassword('');
+
         } catch (error) {
           toast.warn(error.response.data.message)
           setTimeout(() => {
@@ -84,7 +97,10 @@ export const UpdatePassword = () => {
           />
         </div>
       </div>
-      {!loading ? ( <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true}/>
+      {!loading ? ( 
+        <div className=' flex justify-center align-center'>
+          <RotatingLines strokeColor="grey" strokeWidth="4" animationDuration="0.95" width="40" visible={true} />
+        </div>
       ):(
       <button
         className="p-[0.5rem] w-max h-fit self-center mt-[34px] bg-[#0267FF]">
@@ -103,14 +119,31 @@ export const UpdateProfile = () => {
   const [contact, SetContact] = useState('')
   const [location, setLocation] = useState('')
   const [gender, setGender] = useState();
+  const token = useSelector(state=>state.userData.user_token);
 
   const handleProfileUpdate = async e =>{
     const id = Cookies.get('id')
     e.preventDefault()
     const data = {name, email, contact, location, gender}
+
+  const isEmpty = Object.values(data).some(value => value === '')
+  if (isEmpty) {
+    // Prompt the user to fill the empty fields
+    toast.warn('Please fill in all the fields')
+    return
+  }
     try {
-      const response = await Api.patch(`users/account/${id}/details`, data)
+      const response = await axios.patch(`https://quiz-master.onrender.com/api/users/account/${id}/details`, data, {
+        headers:{
+          'Authorization' : `Bearer ${token}`
+        }
+      })
+      if(response.status === 200){
+      Cookies.set('name', response.data.name)
+      Cookies.set('email', response.data.email)
       toast.success(response.data.message)
+      window.location.reload()
+    }
     } catch (error) {
       const err = error.response.data.message
       toast.warn(err)
