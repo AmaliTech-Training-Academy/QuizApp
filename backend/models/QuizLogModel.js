@@ -17,7 +17,13 @@ const quizLogSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    }, 
+    desktopImage: {
+        type: String,
+    },
+    topic: {
+        type: String,
+    },
 })
 
 const quizLogModel = mongoose.model("QuizLog", quizLogSchema)

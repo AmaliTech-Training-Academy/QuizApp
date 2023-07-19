@@ -5,6 +5,9 @@ const quizResultModel = require("../models/quizResultModel");
 // @desc Submitting Answer for all Questions
 // @route POST /api/users/questions/answers
 // @access Private
+// @desc Submitting Answer for all Questions
+// @route POST /api/users/questions/answers
+// @access Private
 const submitAnswer = async (req, res) => {
   const { userId, quizId: _id, answers } = req.body;
 
@@ -19,6 +22,9 @@ const submitAnswer = async (req, res) => {
         .json({ success: false, message: "User Not Found" });
 
     const { topic, desktopImage } = quiz;
+
+    const noQuestions = quiz.questions.length;
+    const maxPossibleScore = noQuestions * 10; // Assuming each question is worth 10 points
 
     let score = 0;
     let results = [];
@@ -51,6 +57,10 @@ const submitAnswer = async (req, res) => {
         }),
       });
     }
+
+    // Scale the user's score to be out of 100
+    const scaledScore = (score / maxPossibleScore) * 100;
+    score = Math.min(scaledScore, 100); // Ensure the score is not greater than 100
 
     const existingQuizResult = await quizResultModel.findOne({
       userId: userId,
