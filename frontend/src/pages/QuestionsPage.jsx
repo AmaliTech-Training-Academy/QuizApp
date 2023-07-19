@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getQuestions, nextQuestion, previousQuestion, resetQuestion, selectQuestion, timerExpired} from '../features/quizSlice'
+import { getQuestions, nextQuestion, previousQuestion, resetQuestion, selectQuestion, timerExpired, timerStart} from '../features/quizSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { sureSubmit } from '../features/sureSlice'
@@ -35,7 +35,7 @@ export const QuestionsPage = () => {
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
     const chosenAnswers = answers.answersData;
-    console.log(answers);
+    console.log(chosenAnswers.answers);
 
     const showSettings = useSelector((state) => state.accountSettings.showSettings);
     
@@ -91,9 +91,10 @@ useEffect(() => {
     event.preventDefault();
     event.returnValue = '';
 
-    // dispatch(resetQuiz())
+    dispatch(timerStart())
     dispatch(selectQuestion(1))
     dispatch(resetAnswers())
+    dispatch(sureSubmit(false))
   };
 
   window.onbeforeunload = handleUnload;
@@ -136,9 +137,16 @@ const handleSureSubmit = (e) => {
   dispatch(resetAnswers())
 };
 
-const handleTimerExpired = () => {
+const handleTimerExpired = (e) => {
   dispatch(timerExpired());
-  navigate(`/quiz/${id}/results`);
+  if(chosenAnswers.answers.length > 0){
+    handleSureSubmit(e)
+    navigate(`/quiz/${id}/results`);
+  } else{
+    navigate(`/quiz/${id}/quizintro`);
+    dispatch(resetAnswers())
+    dispatch(selectQuestion(1))
+  }
 };
 
   return (
@@ -159,7 +167,7 @@ const handleTimerExpired = () => {
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
             <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/>
-            <Timer time={10} id={id} isRunning={isRunning} onTimerExpired={handleTimerExpired}/> </div>
+            <Timer time={10} isRunning={isRunning} onTimerExpired={handleTimerExpired}/> </div>
         </div>
 
         <div className='bg-white rounded-t-[2rem] relative pt-24 lg:pt-0 px-4 lg:px-0 '>

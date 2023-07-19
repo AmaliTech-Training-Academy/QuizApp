@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJs, registerables, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import Api from '../forms/services/api';
+import {  Doughnut } from 'react-chartjs-2';
 import Cookies from 'js-cookie';
-import book from '../../assets/DesktopView/Images/Book.gif'
 import takeQuiz from '../../assets/DesktopView/Images/take-a-quiz.png'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -11,14 +9,14 @@ import axios from 'axios';
 ChartJs.register(ArcElement, Tooltip, Legend, ...registerables);
 
 const DoughnutChart = () => {
-  const [chart, setChart] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [chart, setChart] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const backgroundColor = ['#BAEDBD', '#C6C7F8', '#1C1C1C', '#B1E3FF', '#95A4FC', '#A1E3CB'];
-  const token = useSelector(state=>state.userData.user_token)
+  const token = useSelector(state=>state.userData.user_token);
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `https://quiz-master.onrender.com/api/users/performance/${Cookies.get('id')}`
+      const url = `https://quiz-master.onrender.com/api/users/performance/${Cookies.get('id')}`;
       try {
         const response = await axios.get(url, {
           headers: {
@@ -26,36 +24,37 @@ const DoughnutChart = () => {
           }
         });
         setChart(response.data.performanceData);
-        console.log(response);
+        console.log('Chart data:', response.data.performanceData);
         setIsLoading(false);
       } catch (error) {
-        // console.log(error);
+        console.log(error);
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
   const data = {
-    labels: chart.map((element) => element.topic),
+    labels: chart ? chart.map((element) => element.topic):[],
     datasets: [
       {
-        label: '# of accuracy',
-        data: chart.map((element) => element.accuracy),
+        label: '# of score',
+        data: chart ? chart.map((element) => element.score) : [],
         backgroundColor: backgroundColor,
       },
     ],
   };
+  
 
   const options = {
     maintainAspectRatio: false,
+    responsive: true,
     plugins: {
       legend: {
         display: true,
         position: 'right',
         labels: {
-          generateLabels:  (chart) =>{
+          generateLabels: (chart) => {
             const { data } = chart;
             if (data.labels.length && data.datasets.length) {
               return data.labels.map((label, i) => {
@@ -79,16 +78,15 @@ const DoughnutChart = () => {
   if (isLoading) {
     return (
       <div className='flex flex-col justify-center'>
-        {/* <img src={book} /> */}
         <p className='text-center'>Loading...</p>
-        </div>
-      );
+      </div>
+    );
   }
 
-  if (chart.length === 0) {
+  if (!chart || chart.length === 0) {
     return (
       <div>
-        <img src={takeQuiz}/>
+        <img src={takeQuiz} alt="Take a Quiz" />
       </div>
     );
   }
@@ -101,5 +99,3 @@ const DoughnutChart = () => {
 };
 
 export default DoughnutChart;
-
-

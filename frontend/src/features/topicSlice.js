@@ -45,7 +45,6 @@ const topicSlice = createSlice({
     setSearchQuery: (state, action) => {
         state.searchQuery = action.payload;
     },
-  
     filterTopicsBySearch: (state) => {
         const { data, searchQuery } = state;
         if (searchQuery.trim() === '') {
@@ -57,6 +56,13 @@ const topicSlice = createSlice({
         state.data = matchedTopics;
         }
     },
+    resetTopics: (state) => {
+        state.originalData = []; 
+        state.data = [];
+        state.filterData = [];
+        state.status =  null;
+        state.searchQuery = null;
+    }
     },
     extraReducers: (builder) => {
         builder
@@ -80,7 +86,7 @@ const topicSlice = createSlice({
 
 
 
-export const { setOptions, filterTopics, setSearchQuery, filterTopicsBySearch  } = topicSlice.actions;
+export const { setOptions, filterTopics, setSearchQuery, filterTopicsBySearch, resetTopics  } = topicSlice.actions;
 export default topicSlice.reducer;
 
 

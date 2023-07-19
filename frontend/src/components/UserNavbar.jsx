@@ -8,14 +8,16 @@ import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/userSlice';
 import { toggleSettings } from '../features/accountSettingsSlice';
 import { resetQuiz } from '../features/answersSlice';
-import { selectQuestion } from '../features/quizSlice';
+import { selectQuestion, totalReset } from '../features/quizSlice';
+import { clearState } from '../features/clearStateSlice';
+import { resetTopics } from '../features/topicSlice';
 
 
 
 const UserNavbar = () => {
   
   return (
-    <div className='sticky top-0 bg-white z-30 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
+    <div className='sticky top-0 bg-white z-40 drop-shadow-xl border px-4  py-4 hidden lg:block 3xl:px-[230px] md:px-16'>
       {/* Navbar items */}
       <div className='flex justify-between items-center w-full h-full'>
 
@@ -109,13 +111,16 @@ export const DropdownList = () =>{
     Cookies.remove('userId')
     Cookies.remove('id')
     dispatch(removeUser())
-    dispatch(selectQuestion(1))
+    // dispatch(selectQuestion(1))
+    dispatch(totalReset())
+    dispatch(resetTopics())
     dispatch(resetQuiz())
+    dispatch(clearState())
     navigate('/login')
   }
 
   return(
-    <div className=' h-full w-full fixed lg:right-0 flex content-center justify-center bg-black bg-opacity-50 z-50' onClick={handleClick}>
+    <div className=' h-full w-full fixed lg:right-0 flex content-center justify-center bg-black bg-opacity-50 z-40' onClick={handleClick}>
       <div className='absolute lg:right-0 lg:left-auto left-0'>
       <div className='py-1 px-6  pt-2 bg-white rounded-lg shadow-lg shadow-[rgba(0, 0, 0, 0.25)] opacity-100 w-[18.25rem]'>
         <div>

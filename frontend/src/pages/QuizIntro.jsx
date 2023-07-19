@@ -7,10 +7,10 @@ import timer from "../assets/DesktopView/Icons/timer.png";
 import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
 import allQuestions from "../assets/DesktopView/Icons/quizz.png";
 import repeat from "../assets/DesktopView/Icons/repeat.png";
-import { selectQuestion } from '../features/quizSlice';
+import { selectQuestion, timerStart } from '../features/quizSlice';
 import UserNavbar, { DropdownList } from '../components/UserNavbar';
 import MobileProfileNavbar from '../components/MobileProfileNavbar';
-// import { mockImages } from '../components/mockImages';
+
 
 export const QuizIntro = () => {
     const { id } = useParams();
@@ -37,6 +37,7 @@ export const QuizIntro = () => {
 
     const handleClick = () => {
         dispatch(selectQuestion(1))
+        dispatch(timerStart())
     }
 
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link, useParams, useNavigate} from 'react-router-dom'
 // import { IoIosArrowBack } from 'react-icons/io'
@@ -41,9 +41,9 @@ const ReviewResultsPage = () => {
         color: 'red',
         background: '#FFE6E6',
         borderWidth: '2px',
-       }
+    };
 
-       const empty = {
+    const empty = {
         borderColor: '#1D2939',
         background: '#fff',
         borderWidth: '2px',

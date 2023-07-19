@@ -5,7 +5,7 @@ import axios from "axios"
 const initialState = {
     page: 1,
     data: [],
-    isRunning: true,
+    isRunning: false,
     status: 'idle',
     error: null,
 };
@@ -39,9 +39,17 @@ const quizSlice = createSlice({
         selectQuestion: (state, {payload})=>{
             state.page = payload;
         },
+        totalReset: (state, action) => {
+            state.data = []
+            state.page = []
+            state.isRunning = false;
+        },
         timerExpired: (state) => {
             state.isRunning = false;
         },
+        timerStart: (state, action) => {
+            state.isRunning = true;
+        }
     },
     extraReducers: (builder) => {
     builder
@@ -60,5 +68,5 @@ const quizSlice = createSlice({
     },
 });
 
-export const {nextQuestion, previousQuestion, selectQuestion, resetQuestion, timerExpired} = quizSlice.actions;
+export const {nextQuestion, previousQuestion, selectQuestion, resetQuestion, timerExpired, timerStart, totalReset} = quizSlice.actions;
 export default quizSlice.reducer;

@@ -4,10 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 export const Quizzes = ({data}) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const navigateToQuizIntro = (quizId) => {
-    history.push(`/quiz/${quizId}`);
+    navigate(`/quiz/${quizId}`);
   };
 
   return (
