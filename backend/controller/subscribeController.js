@@ -1,12 +1,15 @@
-const express = require("express");
 const subscribeModel = require("../models/subscribeModel");
 
-// @desc Register new user
-// @route POST /api/subscribe
+// @desc Subscribe
+// @route POST /api/users/subscribe
 // @access Public
 const subscribeUser = async (req, res) => {
   try {
-    let user = await subscribeModel.findOne(req.body.email);
+    const { email } = req.body;
+
+    // Check if the user with the provided email already exists
+    const user = await subscribeModel.findOne({ email });
+
     if (user) {
       return res.status(400).json({
         success: false,
@@ -14,14 +17,16 @@ const subscribeUser = async (req, res) => {
       });
     }
 
-    user = await subscribeModel.create({
-      email: req.body.email,
+    // If user does not exist, create a new subscription
+    await subscribeModel.create({
+      email,
     });
+
     res
       .status(200)
       .json({ success: true, message: "User subscribed successfully" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res
       .status(500)
       .json({ success: false, message: "Something went wrong" });
