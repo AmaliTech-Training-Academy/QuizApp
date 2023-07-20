@@ -15,6 +15,7 @@ const token = useSelector(state=> state.userData.user_token)
 const id = useSelector(state=> state.userData.user_id)
 const attempted = useSelector(state=>state.quizLog.attempted)
 const passed = useSelector(state=>state.quizLog.passed)
+const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
 const [activeSection, setActiveSection] = useState({name:"attempted", number: attempted.length});
 console.log(activeSection);
@@ -65,6 +66,7 @@ const handleAttempted = () => {
   return (
     <div>
       <UserNavbar/>
+      {showSettings && <DropdownList/> }
       {/* Header */}
       <div className='lg:py-11 pt-[10px] bg-[#F2F2F2] lg:bg-[#0267FF] lg:text-white lg:text-5xl font-semibold flex justify-center' id='quiz-header'>
       <div to="/quizlog" className='py-2'>Quiz Log</div>
