@@ -8,7 +8,7 @@ const initialState = {
 };
 
 
-export const getLog = createAsyncThunk('topics/get', async ({token, userId})=> {
+export const getLog = createAsyncThunk('log/get', async ({token, userId})=> {
     try {
         // const query = ThunkAPI.getState().searchQuery
         const url = `https://quiz-master.onrender.com/api/users/QuizLog/${userId}`;
@@ -36,8 +36,8 @@ const quizLogSlice = createSlice({
             state.status = 'Loading...';
         })
         .addCase(getLog.fulfilled, (state, {payload}) => {
-            state.attempted.push(payload.attemptedQuizzes);
-            state.passed.push(payload.passedQuizzes);
+            state.attempted = payload.attemptedQuizzes;
+            state.passed = payload.passedQuizzes;
             state.status = 'Success!';
         })
         .addCase(getLog.rejected, (state, action) => {

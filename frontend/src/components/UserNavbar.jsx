@@ -111,11 +111,9 @@ export const DropdownList = () =>{
     Cookies.remove('userId')
     Cookies.remove('id')
     dispatch(removeUser())
-    // dispatch(selectQuestion(1))
     dispatch(totalReset())
     dispatch(resetTopics())
     dispatch(resetQuiz())
-    dispatch(clearState())
     navigate('/login')
   }
 

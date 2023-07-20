@@ -64,7 +64,7 @@ export const AvailableQuizzes = () => {
         <Header quizzes={"Quizzes"} quizLog={"Quiz Log"}/>
         {/* Quizzes */}
         <div className='lg:mt-10 mt-7 lg:px-[70px]'>
-          <PageNavigation quizzes="Quizzes" profile="Profile" searchQuery={searchQuery}/>
+          <PageNavigation quizzes="Quizzes" profile="Profile" />
             <hr className='border border-[#CCCCCC] mt-11 w-11/12 mx-auto hidden lg:block' />
             <div className='lg:mt-16 mx-4 flex'>
               <div className="hidden lg:block">

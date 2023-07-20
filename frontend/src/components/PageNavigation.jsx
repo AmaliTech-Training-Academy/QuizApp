@@ -39,7 +39,8 @@ export const PageNavigation = ({profile, quizzes, settings, quizlog}) => {
           style={({ isActive }) => ({
             color: isActive ? '#0267FF' : '#B3B3B3',
           })}
-          >{quizzes}</NavLink>
+          >{quizzes}
+          </NavLink>
         </div>
         : <div></div>
         }
@@ -61,8 +62,19 @@ export const PageNavigation = ({profile, quizzes, settings, quizlog}) => {
         </div>
         : <div></div>
         }
-        {
-          
+        {quizlog ?
+        <div className='flex items-center text-[#B3B3B3]'>
+          <span className='mr-4'><IoIosArrowForward/></span>
+          <NavLink 
+            to="/quizlog" 
+            className='mr-4'
+            style={({ isActive }) => ({
+              color: isActive ? '#0267FF' : '#B3B3B3',
+            })}
+          >{quizlog}
+          </NavLink>
+        </div>
+        : <div></div>
         }
       </div>
       {/* Search */}
