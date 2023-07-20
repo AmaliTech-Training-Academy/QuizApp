@@ -10,7 +10,6 @@ const initialState = {
 
 export const getLog = createAsyncThunk('log/get', async ({token, userId})=> {
     try {
-        // const query = ThunkAPI.getState().searchQuery
         const url = `https://quiz-master.onrender.com/api/users/QuizLog/${userId}`;
         const headers = {
             'Authorization': `Bearer ${token}`
@@ -28,7 +27,11 @@ const quizLogSlice = createSlice({
     name: 'quizlog',
     initialState,
     reducers: {
-
+        resetLog: (state, action)=>{
+        state.attempted = [];
+        state.passed = [];
+        state.status = 'idle';
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -46,4 +49,6 @@ const quizLogSlice = createSlice({
     }
 })
 
+
+export const { resetLog } = quizLogSlice.actions
 export default quizLogSlice.reducer;
