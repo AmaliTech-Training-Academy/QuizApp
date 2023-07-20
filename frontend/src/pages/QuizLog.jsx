@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import UserNavbar from '../components/UserNavbar';
+import UserNavbar, { DropdownList } from '../components/UserNavbar';
 import { PageNavigation } from '../components/PageNavigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLog } from '../features/quizLogSlice';
 import { Link } from 'react-router-dom';
 import { MdOutlineTimer } from 'react-icons/md';
 import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
+import MobileProfileNavbar from '../components/MobileProfileNavbar';
+
 
 
 export const QuizLog = () => {
@@ -18,7 +21,7 @@ const passed = useSelector(state=>state.quizLog.passed)
 const showSettings = useSelector((state) => state.accountSettings.showSettings);
 
 const [activeSection, setActiveSection] = useState({name:"attempted", number: attempted.length});
-console.log(activeSection);
+// console.log(activeSection);
 
 const handlePassed = () => {
     setActiveSection({name:"passed", number:passed.length})
@@ -30,7 +33,7 @@ const handleAttempted = () => {
 
   useEffect(()=>{
     dispatch(getLog({token:token, userId:id}))
-  },[])
+  },[attempted, passed])
 
   const sectionStyle = {
     borderBottom: "3px solid #000",
@@ -65,15 +68,16 @@ const handleAttempted = () => {
 
   return (
     <div>
+      <MobileProfileNavbar/>
       <UserNavbar/>
       {showSettings && <DropdownList/> }
-      {/* Header */}
-      <div className='lg:py-11 pt-[10px] bg-[#F2F2F2] lg:bg-[#0267FF] lg:text-white lg:text-5xl font-semibold flex justify-center' id='quiz-header'>
+      <Header quizLog="Quiz Log" quizzes="Quizzes"/>
+      <div className='lg:py-11 pt-[10px] bg-[#F2F2F2] lg:bg-[#0267FF] lg:text-white lg:text-5xl font-semibold hidden lg:flex justify-center' id='quiz-header'>
       <div to="/quizlog" className='py-2'>Quiz Log</div>
     </div>
     <div className="pt-10 px-10" >
       <PageNavigation quizlog="Quiz Log" profile="Profile" />
-      <div className='mt-14 flex flex-col'>
+      <div className='lg:mt-14 flex flex-col'>
         {/* Divisions */}
             <div className='flex'>
               {/* Attempts */}
@@ -81,7 +85,7 @@ const handleAttempted = () => {
               onClick={handleAttempted}
               style={activeSection.name === "attempted" ? sectionStyle : undefined}>
                 Attempted{activeSection.name ==="attempted" ? 
-                <span>({activeSection.number})</span> 
+                <span>({attempted.length})</span> 
                 : '' }
               </div>
               {/* Passed */}
@@ -90,7 +94,7 @@ const handleAttempted = () => {
               style={activeSection.name === "passed" ? sectionStyle : undefined}
               >
               Passed{activeSection.name ==="passed" ? 
-              <span>({activeSection.number})</span> 
+              <span>({passed.length})</span> 
               : '' }
               </div>
             </div>
@@ -108,7 +112,7 @@ const handleAttempted = () => {
         {/* Quizzes  */}
           <div className='mt-20'>
             { activeSection.name === "attempted"? 
-              <div className='grid grid-cols-2 lg:grid-cols-4 gap-28'>
+              <div className='grid grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-28'>
                 {
                   attempted.map((attempt, index)=> (
                   section(index, attempt.desktopImage, attempt.topic, attempt.Date)
@@ -116,7 +120,7 @@ const handleAttempted = () => {
                 }
               </div>
               : 
-              <div className='grid grid-cols-2 lg:grid-cols-4 gap-28'>
+              <div className='grid grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-28'>
                 {
                   passed.map((pass, index)=> (
                   section(index, pass.desktopImage, pass.topic, pass.Date)
