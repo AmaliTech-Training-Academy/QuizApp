@@ -27,8 +27,6 @@ const handleAttempted = () => {
   setActiveSection({name:"attempted", number:attempted.length})
 };
 
-console.log(attempted);
-console.log(passed);
   useEffect(()=>{
     dispatch(getLog({token:token, userId:id}))
   },[])
@@ -42,7 +40,6 @@ console.log(passed);
   const infoBackground = {background: "rgba(153, 153, 153, 0.4)"};
 
   const section = (id, image, name, date ) => {
-    console.log('Section data:', id, image, name, date);
     return (
     <div key={id} className='cursor-pointer' onClick={() => handleClick(id)}>
         <div className='relative h-80 rounded-lg overflow-hidden'>
@@ -73,7 +70,7 @@ console.log(passed);
       <div to="/quizlog" className='py-2'>Quiz Log</div>
     </div>
     <div className="pt-10 px-10" >
-      <PageNavigation quizzes="Quiz Log" profile="Profile" />
+      <PageNavigation quizlog="Quiz Log" profile="Profile" />
       <div className='mt-14 flex flex-col'>
         {/* Divisions */}
             <div className='flex'>
