@@ -7,20 +7,20 @@ import styles from '../components/forms/addInterest/addCard/addCard.module.css'
 const QuizCards = ({ description, topic, iconType, color }) => {
   return (
     <div className={`${styles[color]} ${styles.quizcards}`}>
-      <div className="bg-[#FFFFFF] rounded-[50%] w-[90px] h-[90px] flex justify-center item-center">
+      <div className={`bg-[#FFFFFF] rounded-[50%] p-[1.063rem] flex justify-center item-center self-center ${styles.circle}`}>
         {iconType === 'quizLog' ? (
-          <img src={quizz} className="w-[46px] h-[46px] self-center" />
+          <img src={quizz} className="w-[50px] h-[50px] self-center " />
         ) : iconType === 'subject' ? (
-          <img src={subject} className="w-[46px] h-[46px] self-center" />
+          <img src={subject} className="w-[50px] h-[50px] self-center " />
         ) : iconType === 'quizz' ? (
-          <img src={book} className="w-[46px] h-[46px] self-center" />
+          <img src={book} className="w-[50px] h-[50px] self-center " />
         ) : null}
       </div>
-      <div className="ml-[1rem] flex justify-around flex-col text-white">
-        <p className="text-[2.074] font-semibold  text-4xl leading-[38.88px] tracking-wider">
+      <div className={`ml-[1rem] flex justify-around flex-col text-white ${styles.quiz}`}>
+        <p className="text-[2.074] font-semibold  text-4xl">
           {topic}
         </p>
-        <p>{description}</p>
+        <p className='mt-[-70px]'>{description}</p>
       </div>
     </div>
   )

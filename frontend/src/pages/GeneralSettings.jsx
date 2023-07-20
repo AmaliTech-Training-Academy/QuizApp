@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { UpdateProfile } from '../components/UpdateAccount'
+import UpdateProfile from '../components/UpdateProfile'
 import { UserDetails } from './AccountSettings'
 import {MdOutlineClose} from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'

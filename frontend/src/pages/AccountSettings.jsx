@@ -5,7 +5,8 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import Cookies from 'js-cookie'
 import { MdOutlinePeople, MdLockOutline, MdOutlineQuiz, MdDeleteOutline,MdChevronRight} from 'react-icons/md'
-import { UpdatePassword, UpdateProfile } from '../components/UpdateAccount'
+import UpdateProfile from '../components/UpdateProfile'
+import { UpdatePassword } from '../components/UpdateAccount'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { changeSection } from '../features/sectionSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -105,7 +106,7 @@ const AccountSettings = () => {
             {/* profile name and mail */}
             <UserDetails/>
 
-            <div className="md:flex  lg:justify-between justify-around">
+            <div className="md:flex   justify-around">
               {/* selections */}
               <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
                 <div className="font-semibold text-base tracking-wid md:w-max">

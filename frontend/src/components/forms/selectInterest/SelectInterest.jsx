@@ -99,6 +99,7 @@ const SelectInterest = () => {
           onClick={handleClick}>
           Continue
         </button>
+        <div className='mt-[26px]' onClick={()=>{dispatch(increaseCount())}}>Skip</div>
       </div>
     </div>
   )
