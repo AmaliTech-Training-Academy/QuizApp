@@ -106,7 +106,7 @@ const AccountSettings = () => {
             {/* profile name and mail */}
             <UserDetails/>
 
-            <div className="md:flex  lg:justify-between justify-around">
+            <div className="md:flex   justify-around">
               {/* selections */}
               <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
                 <div className="font-semibold text-base tracking-wid md:w-max">
