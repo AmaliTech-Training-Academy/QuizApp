@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/quizzes" element={<AvailableQuizzes />} />
-          {/* <Route path="/quizlog" element={<QuizLog />} /> */}
+          <Route path="/quizlog" element={<QuizLog />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/filter" element={<FilterPage2 />} />
           <Route path="signup" element={<SignupPage />} />
