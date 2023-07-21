@@ -46,13 +46,25 @@
   padding: 0.512rem 1.375rem;
   border: 1px solid #b3b3b3;
   border-radius: 0.25rem;
+  color: #1d2939
 }
 .quizcards{
     border-radius: 8px;
-    width: fit-content;
-    padding: 3.063rem 1.75rem;
+    width: 100%;
+    height: 210px;
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
     display: flex;
 
+}
+@media (width:1024px) {
+  .circle{
+    display: none !important;
+  }
+  .quiz{
+    margin-left: -1rem !important;
+  }
+  
 }
 .blueSlate {
   background-color: #8080ff;

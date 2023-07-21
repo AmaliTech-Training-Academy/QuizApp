@@ -11,7 +11,7 @@ export const Quizzes = ({data}) => {
   };
 
   return (
-    <div className='grid lg:grid-cols-3 grid-cols-2 gap-4 xl:gap-x-[108px] lg:gap-y-[87px] gap-y-10 lg:ml-[47px] w-full lg:mb-36 mb-4'>
+    <div className='grid lg:grid-cols-3 grid-cols-2 gap-4 xl:gap-x-[108px] lg:gap-y-[87px] gap-y-10 w-full lg:mb-36 mb-4'>
       {data?.length > 0 ? ( 
         data?.map(topic => (
           <div key={topic._id}>

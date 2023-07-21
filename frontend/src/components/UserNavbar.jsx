@@ -11,6 +11,7 @@ import { resetQuiz } from '../features/answersSlice';
 import { selectQuestion, totalReset } from '../features/quizSlice';
 import { clearState } from '../features/clearStateSlice';
 import { resetTopics } from '../features/topicSlice';
+import { resetLog } from '../features/quizLogSlice';
 
 
 
@@ -111,11 +112,10 @@ export const DropdownList = () =>{
     Cookies.remove('userId')
     Cookies.remove('id')
     dispatch(removeUser())
-    // dispatch(selectQuestion(1))
     dispatch(totalReset())
     dispatch(resetTopics())
     dispatch(resetQuiz())
-    dispatch(clearState())
+    dispatch(resetLog())
     navigate('/login')
   }
 

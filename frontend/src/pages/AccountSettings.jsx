@@ -5,7 +5,8 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import Cookies from 'js-cookie'
 import { MdOutlinePeople, MdLockOutline, MdOutlineQuiz, MdDeleteOutline,MdChevronRight} from 'react-icons/md'
-import { UpdatePassword, UpdateProfile } from '../components/UpdateAccount'
+import UpdateProfile from '../components/UpdateProfile'
+import { UpdatePassword } from '../components/UpdateAccount'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { changeSection } from '../features/sectionSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -105,9 +106,9 @@ const AccountSettings = () => {
             {/* profile name and mail */}
             <UserDetails/>
 
-            <div className="md:flex  lg:justify-between justify-around">
+            <div className="md:flex ">
               {/* selections */}
-              <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem]">
+              <div className="md:flex md:mt-[100px] justify-between lg:gap-[2.563rem] md:mr-[7rem]">
                 <div className="font-semibold text-base tracking-wid md:w-max">
                   <div className='flex content-center justify-between'style={general ? { color: '#0267FF', backgroundColor: '#F2F2F2', borderRadius: '4px'  } : { color: 'black' }}
                     onClick={handleGeneral}>
@@ -145,10 +146,10 @@ const AccountSettings = () => {
 
                 <div className="h-[600px] w-[1px] bg-[#CCCCCC] hidden md:block"></div>
               </div>
-              <div className='hidden md:block 2xl:ml-[-8rem]'>{general && <UpdateProfile />}</div>
+              <div className='hidden md:block'>{general && <UpdateProfile />}</div>
               
-              <div className='hidden md:block  2xl:ml-[-25rem] '> {changePassword && <UpdatePassword />}</div>
-              <div className='hidden md:block 2xl:ml-[-25rem]'> {checkQuizzes && <UserQuizzes/>}</div>
+              <div className='hidden md:block '> {changePassword && <UpdatePassword />}</div>
+              <div className='hidden md:block '> {checkQuizzes && <UserQuizzes/>}</div>
             </div>
           </div>
         </section>

@@ -4,9 +4,7 @@ import { QuizSearch } from './QuizSearch';
 import { NavLink } from 'react-router-dom';
 
 
-export const PageNavigation = ({profile, quizzes, settings, searchQuery, handleSearchRedirect}) => {
-
-  
+export const PageNavigation = ({profile, quizzes, settings, quizlog}) => {
 
   return (
     <div className='hidden lg:flex justify-between'>
@@ -33,7 +31,6 @@ export const PageNavigation = ({profile, quizzes, settings, searchQuery, handleS
         </div>
         : <div></div>
         }
-        <img src="" alt="" />
         {quizzes ? 
         <div className='text-[#B3B3B3] flex items-center'>
           <NavLink 
@@ -42,7 +39,8 @@ export const PageNavigation = ({profile, quizzes, settings, searchQuery, handleS
           style={({ isActive }) => ({
             color: isActive ? '#0267FF' : '#B3B3B3',
           })}
-          >Quizzes</NavLink>
+          >{quizzes}
+          </NavLink>
         </div>
         : <div></div>
         }
@@ -61,6 +59,20 @@ export const PageNavigation = ({profile, quizzes, settings, searchQuery, handleS
           {quizzes ?
             <span className='mr-4'><IoIosArrowForward/></span>
           : ''}
+        </div>
+        : <div></div>
+        }
+        {quizlog ?
+        <div className='flex items-center text-[#B3B3B3]'>
+          <span className='mr-4'><IoIosArrowForward/></span>
+          <NavLink 
+            to="/quizlog" 
+            className='mr-4'
+            style={({ isActive }) => ({
+              color: isActive ? '#0267FF' : '#B3B3B3',
+            })}
+          >{quizlog}
+          </NavLink>
         </div>
         : <div></div>
         }

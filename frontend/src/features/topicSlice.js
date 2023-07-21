@@ -56,7 +56,7 @@ const topicSlice = createSlice({
         state.data = matchedTopics;
         }
     },
-    resetTopics: (state) => {
+    resetTopics: (state, action) => {
         state.originalData = []; 
         state.data = [];
         state.filterData = [];

@@ -20,7 +20,7 @@ const SelectInterest = () => {
   };
   const handleClick = async () => {
     try {
-      const response = await Api.patch(`users/${userId}`, {interest: selectedInterest})
+      const response = await Api.patch(`users/interest/${userId}`, {interest: selectedInterest})
       const msg = response.data.message
       if(response.data.success === true){
         toast.success(msg)
@@ -99,6 +99,7 @@ const SelectInterest = () => {
           onClick={handleClick}>
           Continue
         </button>
+        <div className='mt-[26px]' onClick={()=>{dispatch(increaseCount())}}>Skip</div>
       </div>
     </div>
   )
