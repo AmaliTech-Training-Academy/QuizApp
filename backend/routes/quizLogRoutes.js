@@ -1,8 +1,8 @@
-const express = require('express')
-const QuizLog = require('../controller/quizLogController')
-const protected = require('../middleware/verifyToken')
-const router = express.Router()
+const express = require("express");
+const QuizLog = require("../controller/quizLogController");
+const protected = require("../middleware/verifyToken");
+const router = express.Router();
 
-router.get('/:userId', protected, QuizLog)
+router.get("/:userId", protected, QuizLog);
 
-module.exports = router
+module.exports = router;
