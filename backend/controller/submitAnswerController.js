@@ -5,9 +5,6 @@ const quizResultModel = require("../models/quizResultModel");
 // @desc Submitting Answer for all Questions
 // @route POST /api/users/questions/answers
 // @access Private
-// @desc Submitting Answer for all Questions
-// @route POST /api/users/questions/answers
-// @access Private
 const submitAnswer = async (req, res) => {
   const { userId, quizId: _id, answers } = req.body;
 
@@ -29,30 +26,42 @@ const submitAnswer = async (req, res) => {
     let score = 0;
     let results = [];
 
-    for (let i = 0; i < answers.length; i++) {
-      const { answer, questionNumber } = answers[i];
-      const questionIndex = questionNumber - 1; // Subtract 1 to get the correct index
+    for (let i = 0; i < quiz.questions.length; i++) {
+      const question = quiz.questions[i];
 
-      const question = quiz.questions[questionIndex];
+      // Check if the user attempted this question
+      const userAnswer = answers.find((ans) => ans.questionNumber === i + 1);
+      const attempted = !!userAnswer;
 
-      const chosenAnswer = question.answers.find((ans) => ans.text === answer);
-      const isCorrect = chosenAnswer && chosenAnswer.is_correct;
+      let points = 0;
+      let chosenAnswer = null;
+      let isCorrect = false;
 
-      // Calculate the points for each question
-      const points = isCorrect ? 10 : 0;
+      if (attempted) {
+        const { answer } = userAnswer;
+        const chosenAnswerIndex = question.answers.findIndex(
+          (ans) => ans.text === answer
+        );
 
-      // Update the score based on the points for the question
-      score += points;
+        chosenAnswer = question.answers[chosenAnswerIndex];
+        isCorrect = chosenAnswer && chosenAnswer.is_correct;
+        points = isCorrect ? 10 : 0;
+
+        // Update the score based on the points for the question
+        score += points;
+      }
 
       results.push({
-        questionNumber,
+        questionNumber: i + 1,
         question: question.question,
         answers: question.answers.map((ans) => {
+          const isChosen =
+            attempted && chosenAnswer && ans.text === chosenAnswer.text;
           return {
             text: ans.text,
-            is_correct: ans.text === chosenAnswer ? true : ans.is_correct,
-            is_chosen: ans.text === answer,
-            points: ans.text === answer ? points : 0,
+            is_correct: ans.is_correct,
+            is_chosen: isChosen ? true : false, // Set is_chosen to false when the user did not attempt the question
+            points: isChosen ? points : 0,
           };
         }),
       });
@@ -84,8 +93,6 @@ const submitAnswer = async (req, res) => {
       });
       quizResult = await quizResult.save();
     }
-
-    console.log("quizresult", quizResult)
 
     // update user's quiz result for the specific topic
     const userQuiz = user.quizzes.find(
