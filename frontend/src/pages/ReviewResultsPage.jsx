@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link, useParams, useNavigate} from 'react-router-dom'
 // import { IoIosArrowBack } from 'react-icons/io'
@@ -9,9 +9,12 @@ import { FiCheck } from 'react-icons/fi'
 
 const ReviewResultsPage = () => {
     const {id} = useParams()
-
+    // const [answers, setAnswers] = useState([])
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
+    
+    
+    const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
     
     const token = useSelector((state) => state.userData.user_token);
     const userId = useSelector((state)=> state.userData.user_id);
@@ -19,14 +22,14 @@ const ReviewResultsPage = () => {
     const quiz = topics.filter(topic => id === topic._id);
     const answers = useSelector((state) => state.answers.quizResults[0].results);
     const score = useSelector((state) => state.answers.quizResults[0].score);
-    
-    const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
-    
+
     useEffect(()=>{
         if(answers.length > 0){
         dispatch(getResults({userId, quizResultsId: id, token}))
     }
     }, [dispatch, userId, id, token, answers])
+
+
     
 
     const correct = {
@@ -49,20 +52,20 @@ const ReviewResultsPage = () => {
         borderWidth: '2px',
        }
 
-       useEffect(() => {
-        const timer = setTimeout(() => {
-        //   navigate(`/quiz/${id}/results`)
-        // window.location.reload()
-        }, 10000) 
+    //    useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //     //   navigate(`/quiz/${id}/results`)
+    //     // window.location.reload()
+    //     }, 10000) 
     
-        return () => clearTimeout(timer)
-      }, [])
+    //     return () => clearTimeout(timer)
+    //   }, [])
     
     
        console.log(answers);
 
 return (
-    <div className='font-Roboto'>
+    <div className='font-Roboto mb-10'>
         {/* header */}
         <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col-reverse lg:justify-between' id='quiz-header'>
             {/* <div className='lg:hidden flex items-center font-normal'><IoIosArrowBack className='mr-2'/>
@@ -76,8 +79,8 @@ return (
         {/* Score */}
         <div className='flex lg:justify-between bg-[#F0F2F4] px-16 py-6 mb-20'>
             <div className='text-[#1d2939] font-semibold flex flex-col relative lg:right-0 right-10 flex-shrink-0'>
-                <p className='lg:text-4xl text-2xl'>{score >= 40 ? 'Congratulations! You passed!' : 'Sorry! you failed!'}</p>
-                <p className='lg:text-3xl text-[18px] '>Grade received <span style={score >= 40 ? {color: '#3f3'} : {color: 'red'}}>{score}%</span> To pass 80% or higher</p>
+                <p className='lg:text-4xl text-2xl'>{score >= 80 ? 'Congratulations! You passed!' : 'Sorry! you failed!'}</p>
+                <p className='lg:text-3xl text-[18px] '>Grade received <span style={score >= 80 ? {color: '#3f3'} : {color: 'red'}}>{score}%</span> To pass 80% or higher</p>
             </div>
             <NavLink to='/quizzes'>
             <button className='bg-[#0267FF] px-8 py-3 hidden lg:block'>Next Item</button>
