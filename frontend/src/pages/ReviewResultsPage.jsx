@@ -17,17 +17,11 @@ const ReviewResultsPage = () => {
     const userId = useSelector((state)=> state.userData.user_id);
     const topics = useSelector((state) => state.topics.data);
     const quiz = topics.filter(topic => id === topic._id);
-    const answers = useSelector((state) => state.answers.quizResults[0].results);
-    const score = useSelector((state) => state.answers.quizResults[0].score);
+    const quizResults = useSelector((state) => state.answers.quizResults);
+    const answers = quizResults.length > 0 ? quizResults[0].results : [];
+    const score = quizResults.length > 0 ? quizResults[0].score : "";
     
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
-    
-    useEffect(()=>{
-        if(answers.length > 0){
-        dispatch(getResults({userId, quizResultsId: id, token}))
-    }
-    }, [dispatch, userId, id, token, answers])
-    
 
     const correct = {
         color: 'green',
@@ -56,10 +50,9 @@ const ReviewResultsPage = () => {
         }, 10000) 
     
         return () => clearTimeout(timer)
-      }, [])
+    }, [])
     
-    
-       console.log(answers);
+    console.log(answers);
 
 return (
     <div className='font-Roboto'>
@@ -84,67 +77,72 @@ return (
             </NavLink>
         </div>
         {/* Results */}
-        <div className='flex flex-col items-center justify-center mx-5'>
-        <div>
-        {answers  &&
-            answers.map((result, index) => (
-                <div key={index}>
-                {/* Render the individual result */}
-                    <p className='mb-5 lg:text-2xl text-base'>
-                    {result.questionNumber}. {result.question} 
-                    </p>
-                <div className='grid lg:grid-cols-2 grid-cols-1  gap-x-28'>
-                    {result.answers.map((answer, answerIndex) => {
-                    const letter = answerDesignations[answerIndex % answerDesignations.length];
-                    const correctAnswer = result.answers.find(answer => answer.is_correct);
-                    const chosenAnswer = result.answers.find(answer => answer.is_chosen);
-                    const isChosen = answer.text === chosenAnswer.text;
-                    const isCorrect = answer.text === correctAnswer.text;
-                    const isWrongChoice = isChosen && !isCorrect;
-
-                    return (
-                        <>
-                            <div key={answer._id}>
-                                <div  
-                                className={'flex rounded-md items-center justify-between p-4 mb-4 '} style={isWrongChoice ? wrong : isChosen ? correct : empty}>
-                                {letter}
-                                {answer.text}
-                                {isWrongChoice ? <MdOutlineClose /> : isChosen ? <FiCheck /> : <input type='radio' style={{borderColor: '#1D2939'}}/>}
+        {
+            answers.length > 0 ? (
+            <div className='flex flex-col items-center justify-center mx-5'>
+            <div>
+            {answers  &&
+                answers.map((result, index) => (
+                    <div key={index}>
+                    {/* Render the individual result */}
+                        <p className='mb-5 lg:text-2xl text-base'>
+                        {result.questionNumber}. {result.question} 
+                        </p>
+                    <div className='grid lg:grid-cols-2 grid-cols-1  gap-x-28'>
+                        {result.answers.map((answer, answerIndex) => {
+                        const letter = answerDesignations[answerIndex % answerDesignations.length];
+                        const correctAnswer = result.answers.find(answer => answer.is_correct);
+                        const chosenAnswer = result.answers.find(answer => answer.is_chosen);
+                        const isChosen = answer.text === chosenAnswer.text;
+                        const isCorrect = answer.text === correctAnswer.text;
+                        const isWrongChoice = isChosen && !isCorrect;
+    
+                        return (
+                            <>
+                                <div key={answer._id}>
+                                    <div  
+                                    className={'flex rounded-md items-center justify-between p-4 mb-4 '} style={isWrongChoice ? wrong : isChosen ? correct : empty}>
+                                    {letter}
+                                    {answer.text}
+                                    {isWrongChoice ? <MdOutlineClose /> : isChosen ? <FiCheck /> : <input type='radio' style={{borderColor: '#1D2939'}}/>}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-20 lg:block hidden'>{answer.points}/10 points</div>
-                        </>
+                                <div className='text-lg font-semibold bg-gray-100 border-2 rounded absolute right-20 lg:block hidden'>{answer.points}/10 points</div>
+                            </>
+                        );
+                    })}
+            </div>
+            {/* correct answer */}
+            <p className="my-16 rounded-lg border-2 border-[#3f3] bg-[#cfc] py-5 flex justify-center items-center">
+                {result.answers.map((answer, answerIndex) => {
+                    const letter = answerDesignations[answerIndex % answerDesignations.length];
+            return (
+                    <span key={answerIndex} >
+                        {answer.is_correct && answer.text ? letter : null }
+                        {answer.is_correct && answer.text}
+                    </span>
                     );
                 })}
-        </div>
-        {/* correct answer */}
-        <p className="my-16 rounded-lg border-2 border-[#3f3] bg-[#cfc] py-5 flex justify-center items-center">
-            {result.answers.map((answer, answerIndex) => {
-                const letter = answerDesignations[answerIndex % answerDesignations.length];
-        return (
-                <span key={answerIndex} >
-                    {answer.is_correct && answer.text ? letter : null }
-                    {answer.is_correct && answer.text}
-                </span>
-                );
-            })}
-        </p>
-      </div>
-    ))}
-</div>
-
-
-            <div className='my-5 hidden lg:block '>
-                <Link to={`/quiz/${id}/quizintro`}>
-                <button className='bg-[#0267FF] px-10 py-3'>Try again</button>
-                </Link>
-            </div>
-            <div className='lg:hidden'>
-            <NavLink to='/quizzes'>
-            <button className='bg-[#0267FF] px-8 py-3 w-80'>Next Item</button>
-            </NavLink>
-            </div>
-        </div>
+            </p>
+          </div>
+        ))}
+    </div>
+    
+    
+                <div className='my-5 hidden lg:block '>
+                    <Link to={`/quiz/${id}/quizintro`}>
+                    <button className='bg-[#0267FF] px-10 py-3'>Try again</button>
+                    </Link>
+                </div>
+                <div className='lg:hidden'>
+                <NavLink to='/quizzes'>
+                <button className='bg-[#0267FF] px-8 py-3 w-80'>Next Item</button>
+                </NavLink>
+                </div>
+            </div> ) 
+            : 
+            (<div>Please wait for your results...</div>)
+        }
     </div>
   )
 }
