@@ -10,7 +10,7 @@ const submitAnswer = async (req, res) => {
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
-    console.log('userAns', user )
+    console.log("userAns", user);
     const quiz = await quizModel.findById(_id).populate("questions.answers");
 
     if (!user)
