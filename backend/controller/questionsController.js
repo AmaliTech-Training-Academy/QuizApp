@@ -1,4 +1,5 @@
 const quizModel = require("../models/quizModel");
+const shuffleArray = require("../utils/shuffleArrays");
 
 // @desc Fetching Question from database
 // @route GET /api/users/questions?topicId=topicId&page=1&limit=5
@@ -9,7 +10,7 @@ const questions = async (req, res) => {
   const limit = 5; // Number of items per page
 
   try {
-    const fetchedData = await quizModel.findById(topicId)
+    const fetchedData = await quizModel.findById(topicId);
     if (!fetchedData)
       return res.status(404).json({ message: "Quiz Not found" });
 
@@ -23,8 +24,12 @@ const questions = async (req, res) => {
     if (page < 1 || page > totalQuestions)
       throw new Error("Page number out of bounds");
 
+    // shuffle the questionsArray to randomize the questions
+    const shuffledQuestions = shuffleArray(questionsArray);
+
     // Fetching the current question
-    const currentQuestion = questionsArray[page - 1];
+    const currentQuestion = shuffledQuestions[page - 1];
+    console.log(currentQuestion)
 
     // Extracting the answer texts and ids from answers
     const extractedAnswers = currentQuestion.answers.map(({ text, _id }) => ({
