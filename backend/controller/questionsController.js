@@ -25,7 +25,7 @@ const questions = async (req, res) => {
       throw new Error("Page number out of bounds");
 
     // shuffle the questionsArray to randomize the questions
-    const shuffledQuestions = shuffleArray(questionsArray);
+    const shuffledQuestions = shuffleArray([...questionsArray]);
 
     // Fetching the current question
     const currentQuestion = shuffledQuestions[page - 1];
