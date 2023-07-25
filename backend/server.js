@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
 const dotenv = require("dotenv");
 const app = express();
 const registerRoutes = require("./routes/userRoutes");
@@ -18,9 +19,9 @@ const performance = require("./routes/performanceRoutes");
 const recentQuiz = require("./routes/recentQuizRoutes");
 const submitAnswer = require("./routes/submitAnswerRoutes");
 const getQuizResult = require("./routes/getResultsRoutes");
-const QuizLog = require('./routes/quizLogRoutes')
+const QuizLog = require("./routes/quizLogRoutes");
 const Topic = require("./routes/topicRoutes");
-const popularity = require('./routes/popularTopics')
+const popularity = require("./routes/popularTopics");
 const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
 const { errorHandler, notFound } = require("./middleware/errorHandler");
@@ -34,6 +35,14 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // set secure to true if using HTTPS
+  })
+);
 
 app.get("/api/users/status", (req, res) => {
   res.send("API is running  ");
@@ -55,7 +64,7 @@ app.use("/api/users/questions", questionRoutes);
 app.use("/api/users/questions", submitAnswer);
 app.use("/api/users/quizzes", myQuizzes);
 app.use("/api/users/performance", performance);
-app.use("/api/users/recent-quizzes",  recentQuiz);
+app.use("/api/users/recent-quizzes", recentQuiz);
 app.use("/api/users/", getQuizResult);
 app.use("/api/users/QuizLog", QuizLog);
 
