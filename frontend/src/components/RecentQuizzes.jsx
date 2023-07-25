@@ -34,7 +34,7 @@ const RecentQuizzes = () => {
         
       </div>
       {data.length > 0 ? (
-        <div className="grid grid-cols-2 gap-8">
+        <div className="lg:grid lg:grid-cols-2 gap-8 flex flex-wrap">
         {data.slice(0, 4).map((element) => (
           <div key={element.id}>
             <img src={element.image} alt={element.title} className="w-full h-[250px] rounded-lg" />

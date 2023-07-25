@@ -13,8 +13,15 @@
     background: linear-gradient(0deg, #0267FF, #0267FF), linear-gradient(100.97deg, #6425D3 21.56%, #A259FF 84.43%), linear-gradient(103.38deg, #1275D0 26.38%, rgba(185, 38, 188, 0.46) 78.13%);
 
 }
+
 @media (max-width: 500px) {
     .gallery {
         display: none;
+    }
+}
+@media (max-width:426px) {
+    .quizzes{
+        padding-left:1rem !important;
+        padding-right: 1rem !important;
     }
 }
