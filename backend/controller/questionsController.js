@@ -11,7 +11,8 @@ const questions = async (req, res) => {
 
   try {
     let shuffledQuestions = req.session.shuffledQuestions;
-
+    console.log("shuff::", shuffledQuestions);
+    console.log("req::", req.session);
     if (!shuffledQuestions) {
       const fetchedData = await quizModel.findById(topicId);
       if (!fetchedData)

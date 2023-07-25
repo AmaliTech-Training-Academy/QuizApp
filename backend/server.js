@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const session = require("express-session");
 const dotenv = require("dotenv");
 const app = express();
 const registerRoutes = require("./routes/userRoutes");
@@ -25,6 +24,7 @@ const popularity = require("./routes/popularTopics");
 const { connectDB } = require("./config/db");
 const cookieParser = require("cookie-parser");
 const { errorHandler, notFound } = require("./middleware/errorHandler");
+const session = require("express-session");
 
 connectDB(); //connection to mongodb database
 
@@ -35,12 +35,13 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true, sameSite: "none" }, // set secure to true if using HTTPS
+    cookie: { secure: false, sameSite: "none" }, // set secure to true if using HTTPS
   })
 );
 
