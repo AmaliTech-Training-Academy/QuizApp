@@ -14,6 +14,7 @@ import RecentQuizzes from '../components/RecentQuizzes'
 import PopularQuizzes from '../components/PopularQuizzes'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterTopicsBySearch } from '../features/topicSlice'
+import styles from '../components/gallery/gallery.module.css'
 
 
 const ProfilePage = () => {
@@ -86,11 +87,11 @@ const ProfilePage = () => {
 
           {/* charts */}
         <div className="charts flex justify-between flex-col lg:flex-row mb-[90px]">
-          <div className='px-[5rem]  py-7 shadow-lg rounded-lg md:mb-[70px] lg:w-[48%]'>
-            <p className='font-semibold text-2xl mb-[72px] text-center '>Performance Records</p>
+          <div className='lg:px-[5rem] px-[1rem] lg:py-7 shadow-lg rounded-lg md:mb-[70px] lg:w-[48%]'>
+            <p className='font-semibold text-2xl lg:mb-[72px] mb-[-43px] text-center '>Performance Records</p>
             <DoughnutChart/>
           </div>
-          <div className='px-[5rem]  py-7 shadow-lg rounded-lg h-fit lg:w-[48%]'>
+          <div className={`px-[5rem]  py-7 shadow-lg rounded-lg h-fit lg:w-[48%] ${styles.quizzes}`}>
             <p className='font-semibold text-2xl mb-[25px] text-center'>Popular Quizzes</p>
             <PopularQuizzes/>
           </div>

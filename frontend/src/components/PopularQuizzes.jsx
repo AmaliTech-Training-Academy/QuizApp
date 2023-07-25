@@ -10,6 +10,7 @@ const PopularQuizzes = () => {
         const fetchData = async()=>{
             const response = await Api.get('users/popular-topics')
             setQuizzes(response.data.popularTopics);
+            console.log(response.data.popularTopics);
         }
         fetchData()
     }, [])
@@ -17,7 +18,7 @@ const PopularQuizzes = () => {
   return (
     <div>
         {quizzes.length > 0 && (
-        <div className="grid grid-cols-2 gap-8">
+        <div className="lg:grid lg:grid-cols-2 gap-8 flex flex-wrap">
         {quizzes.slice(0, 4).map((element) => (
           <div key={element.id}>
             <Link to={`/quiz/${element._id}`}>

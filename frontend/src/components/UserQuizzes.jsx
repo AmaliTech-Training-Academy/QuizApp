@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import takeQuiz from '../assets/DesktopView/Images/take-a-quiz.png'
 
 const UserQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -22,6 +23,7 @@ const UserQuizzes = () => {
         });
         setIsLoading(false);
         setQuizzes(response.data.quizzes);
+        console.log(response.data.quizzes);
       } catch (error) {
         console.log(error);
       }
@@ -37,10 +39,12 @@ const UserQuizzes = () => {
       ) : (
         <div>
           {quizzes.length === 0 ? (
-            <img src="placeholder-image.png" alt="No quizzes available" />
+            <img src={takeQuiz} alt="No quizzes available" />
           ) : (
             quizzes.map((ele, index) => (
-              <div key={ele.id} className='flex mb-[50px]'>
+              <div>
+              <div key={ele.id} >
+                <Link to={`/quiz/${ele.quizId}`} className='flex'>
                 <img src={ele.image} className='w-16 h-16 border rounded-lg'/>
                 
                 <div className='ml-[1.5rem]'>
@@ -50,7 +54,9 @@ const UserQuizzes = () => {
                   </div>
                   <div className='text-[#999]'>By {Cookies.get('name')}</div>
                 </div>
-                {index !== quizzes.length - 1 && <hr className='my-[24px]' />}
+                </Link>                
+              </div>
+              {index !== quizzes.length - 1 && <hr className='my-[24px]' />}
               </div>
             ))
           )}

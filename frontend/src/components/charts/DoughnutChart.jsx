@@ -24,7 +24,6 @@ const DoughnutChart = () => {
           }
         });
         setChart(response.data.performanceData);
-        console.log('Chart data:', response.data.performanceData);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -77,7 +76,7 @@ const DoughnutChart = () => {
 
   if (isLoading) {
     return (
-      <div className='flex flex-col justify-center'>
+      <div className='flex flex-col justify-center mt-[43px]'>
         <p className='text-center'>Loading...</p>
       </div>
     );
@@ -85,14 +84,14 @@ const DoughnutChart = () => {
 
   if (!chart || chart.length === 0) {
     return (
-      <div>
+      <div className='mt-[43px]'>
         <img src={takeQuiz} alt="Take a Quiz" />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className='md:mt-[48px] mb-[20px]'>
       <Doughnut data={data} options={options} height={400} />
     </div>
   );
