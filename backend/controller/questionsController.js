@@ -1,5 +1,4 @@
 const quizModel = require("../models/quizModel");
-// const session = require("express-session");
 const shuffleArray = require("../utils/shuffleArrays");
 
 // @desc Fetching Question from database
@@ -23,6 +22,7 @@ const questions = async (req, res) => {
 
       // store the shuffledQuestions array in the user's session
       req.session.shuffledQuestions = shuffledQuestions;
+      req.session.quizProgress = 1; // Initialize quiz progress to the first question
     }
 
     const totalQuestions = shuffledQuestions.length;
@@ -33,6 +33,9 @@ const questions = async (req, res) => {
     // checking if the requested page is out of bounds
     if (page < 1 || page > totalQuestions)
       throw new Error("Page number out of bounds");
+
+    // Update quiz progress in session to the current question
+    req.session.quizProgress = page;
 
     // Fetching the current question
     const currentQuestion = shuffledQuestions[page - 1];
