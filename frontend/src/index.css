@@ -65,4 +65,10 @@
         @apply text-white border border-[#0267ff] rounded-md
     }
 
+    
 } 
+
+ul li a.active {
+    color: #0267FF;
+    font-weight: bold;
+}
