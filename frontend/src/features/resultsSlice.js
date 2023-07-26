@@ -18,7 +18,7 @@ export const getResults = createAsyncThunk('results/get', async({userId,quizResu
     } catch (error) {
         throw new Error('Failed to fetch results');
     }
-} )
+})
 
 const resultSlice = createSlice({
     name: 'results',
