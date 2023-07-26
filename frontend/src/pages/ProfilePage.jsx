@@ -13,7 +13,7 @@ import DoughnutChart from '../components/charts/DoughnutChart'
 import RecentQuizzes from '../components/RecentQuizzes'
 import PopularQuizzes from '../components/PopularQuizzes'
 import { useDispatch, useSelector } from 'react-redux'
-import { filterTopicsBySearch } from '../features/topicSlice'
+import { filterTopicsBySearch, getTopics } from '../features/topicSlice'
 import styles from '../components/gallery/gallery.module.css'
 
 
@@ -24,6 +24,8 @@ const ProfilePage = () => {
   const [date, setDate] = useState(new Date())
 
   const searchQuery = useSelector((state) => state.topics.searchQuery); 
+  const token = useSelector(state=> state.userData.user_token)
+
 
   const onChange = (selectedDate) => {
     setDate(selectedDate);
@@ -33,6 +35,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     {!verifyCookie && navigate('/login')}
+    dispatch(getTopics(token))
   }, [])
 
   const data = useSelector(state=>state.userData);

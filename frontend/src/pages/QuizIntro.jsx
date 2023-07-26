@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { NavLink, useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getQuestions } from '../features/quizSlice';
 import timer from "../assets/DesktopView/Icons/timer.png";
 import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
 import allQuestions from "../assets/DesktopView/Icons/quizz.png";
@@ -10,26 +8,20 @@ import repeat from "../assets/DesktopView/Icons/repeat.png";
 import { selectQuestion, timerStart } from '../features/quizSlice';
 import UserNavbar, { DropdownList } from '../components/UserNavbar';
 import MobileProfileNavbar from '../components/MobileProfileNavbar';
+import { getTopics } from '../features/topicSlice';
 
 
 export const QuizIntro = () => {
     const { id } = useParams();
 
     const dispatch = useDispatch();
-
-    const [quizData, setQuizData] = useState(null);
+    
     const topics = useSelector((state) => state.topics.data);
-
-    const quiz = topics.filter(topic => id === topic._id);
-    const quizImage = quiz[0].desktopImage;
-
     const showSettings = useSelector((state) => state.accountSettings.showSettings);
+    
+    const quiz = topics.filter(topic => id === topic._id);
+    const quizImage = quiz[0]?.desktopImage;
 
-    useEffect(()=> {
-        if(!quizData){
-    setQuizData(topics)
-        }
-    },[topics]);
 
     const imgBackground = {
         background: "rgba(2, 103, 255, 0.2)"

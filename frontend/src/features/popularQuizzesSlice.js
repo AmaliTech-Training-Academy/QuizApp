@@ -14,7 +14,7 @@ export const getQuizzes = createAsyncThunk('quizzes/get', async({token})=> {
             'Authorization': `Bearer ${token}`
         };
         const response = await axios.get(URL, { headers });
-        console.log('data', response.data);
+        // console.log('data', response.data);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch results');
