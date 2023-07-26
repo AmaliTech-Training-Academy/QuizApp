@@ -18,7 +18,7 @@ const PopularQuizzes = () => {
 
   return (
     <div>
-        {quizzes.length > 0 && (
+        {quizzes.length > 0 ? (
         <div className="lg:grid lg:grid-cols-2 gap-8 flex flex-wrap">
         {quizzes.slice(0, 4).map((element) => (
           <div key={element._id}>
@@ -29,7 +29,7 @@ const PopularQuizzes = () => {
           </div>
         ))}
       </div>
-    )}
+    ): <div>Hello</div>}
     </div>
   )
 }
