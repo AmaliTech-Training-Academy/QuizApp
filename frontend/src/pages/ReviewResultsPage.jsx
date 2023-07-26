@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link, useParams } from 'react-router-dom'
 import { MdOutlineClose, MdOutlineTimer } from 'react-icons/md'
 import { FiCheck } from 'react-icons/fi'
 import { ThreeDots } from 'react-loader-spinner'
-
+import { resetQuiz } from '../features/answersSlice'
 
 const ReviewResultsPage = () => {
     const {id} = useParams()
+    const dispatch = useDispatch()
     
     
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
@@ -16,8 +17,11 @@ const ReviewResultsPage = () => {
     const quizResults = useSelector((state) => state.answers.quizResults);
     const answers = quizResults.length > 0 ? quizResults[0].results : [];
     const score = quizResults.length > 0 ? quizResults[0].score : "";
-    
+    console.log(answers);
 
+    const handleResults = () => {
+        dispatch(resetQuiz())
+    }
     const correct = {
         color: 'green',
         borderColor: '#3f3',
@@ -59,7 +63,10 @@ return (
                 <p className='lg:text-3xl text-[18px] '>Grade received <span style={score >= 80 ? {color: '#3f3'} : {color: 'red'}}>{score}%</span>. To pass 80% or higher.</p>
             </div>
             <NavLink to='/quizzes'>
-            <button className='bg-[#0267FF] px-8 py-3 hidden lg:block'>Next Item</button>
+            <button 
+            className='bg-[#0267FF] px-8 py-3 hidden lg:block'
+            onClick={handleResults}
+            >Next Item</button>
             </NavLink>
         </div>
         {/* Results */}
@@ -77,7 +84,7 @@ return (
                         const letter = answerDesignations[answerIndex % answerDesignations.length];
                         const correctAnswer = result.answers.find(answer => answer.is_correct);
                         const chosenAnswer = result.answers.find(answer => answer.is_chosen);
-                        const isChosen = answer.text === chosenAnswer.text;
+                        const isChosen = chosenAnswer &&  answer.text === chosenAnswer.text;
                         const isCorrect = answer.text === correctAnswer.text;
                         const isWrongChoice = isChosen && !isCorrect;
     
@@ -115,12 +122,16 @@ return (
     
                 <div className='my-5 hidden lg:block '>
                     <Link to={`/quiz/${id}/quizintro`}>
-                    <button className='bg-[#0267FF] px-10 py-3'>Try again</button>
+                    <button 
+                    className='bg-[#0267FF] px-10 py-3'
+                    onClick={handleResults}>Try again</button>
                     </Link>
                 </div>
                 <div className='lg:hidden'>
                 <NavLink to='/quizzes'>
-                <button className='bg-[#0267FF] px-8 py-3 w-80'>Next Item</button>
+                <button 
+                className='bg-[#0267FF] px-8 py-3 w-80'
+                onClick={handleResults}>Next Item</button>
                 </NavLink>
                 </div>
             </div> </>) 
