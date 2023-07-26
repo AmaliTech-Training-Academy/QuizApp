@@ -36,7 +36,7 @@ const questions = async (req, res) => {
       throw new Error("Page number out of bounds");
 
     // Update quiz progress in session to the current question
-    req.session.quizProgress = page;
+    // req.session.quizProgress = page;
 
     // Fetching the current question
     const currentQuestion = shuffledQuestions[page - 1];
