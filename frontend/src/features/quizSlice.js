@@ -10,14 +10,14 @@ const initialState = {
     error: null,
 };
 
-export const getQuestions = createAsyncThunk('questions/get', async ({topicId:topicId, token:token})=> {
+export const getQuestions = createAsyncThunk('questions/get', async ({topicId, token})=> {
     try {
-        const url = `http://localhost:8001/api/users/questions?topicId=${topicId}`;
+        const url = `https://quiz-master.onrender.com/api/users/questions?topicId=${topicId}`;
         const headers = {
             'Authorization': `Bearer ${token}`
         };
         const response = await axios.get(url, { headers });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch question');
