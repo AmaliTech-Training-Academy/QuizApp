@@ -40,7 +40,7 @@ export const QuestionsPage = () => {
     const showSettings = useSelector((state) => state.accountSettings.showSettings);
     
     useEffect(()=>{
-        dispatch(getQuestions(token));
+        dispatch(getQuestions({topicId: id, token:token}));
     },[token]);
 
   const boxShadow = {
