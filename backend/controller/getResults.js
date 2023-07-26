@@ -1,6 +1,6 @@
 const QuizResult = require("../models/quizResultModel");
 const { userModel } = require("../models/userModels");
-const QuizLog = require('../models/QuizLogModel');
+const QuizLog = require("../models/QuizLogModel");
 
 // @desc Get Quiz Results for a User and Quiz
 // @route GET /api/users/:userId/quizzes/:quizId/results
@@ -25,6 +25,15 @@ const getQuizResults = async (req, res) => {
     // Extract the topic and desktopImage from the quiz
     const { topic, desktopImage } = quiz;
 
+    const user = await userModel.findById(userId);
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Found" });
+
+        // Accessing the user name property from the user object
+        const { name } = user;
+
     // Map the results to include the topic and desktopImage
     const updatedResults = quizResult.results.map((result) => {
       return {
@@ -39,6 +48,7 @@ const getQuizResults = async (req, res) => {
 
     // Prepare the data to be saved in the QuizLog collection
     const quizLogData = {
+      name: name,
       userId: userId,
       quizId: quizId,
       score: score,

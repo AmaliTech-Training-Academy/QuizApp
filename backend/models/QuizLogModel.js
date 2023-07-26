@@ -2,6 +2,9 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose
 
 const quizLogSchema = new Schema({
+    name: {
+        type: String,
+    },
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User"
