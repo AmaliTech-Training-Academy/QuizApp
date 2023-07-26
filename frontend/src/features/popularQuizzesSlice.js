@@ -26,7 +26,10 @@ const popularQuizzesSlice = createSlice({
     name: 'quiz',
     initialState,
     reducers: {
-
+        clearQuizzes: (state, action) => {
+            state.data = [];
+            state.status = 'empty';
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -46,4 +49,5 @@ const popularQuizzesSlice = createSlice({
 })
 
 
+export const {clearQuizzes} = popularQuizzesSlice.actions;
 export default popularQuizzesSlice.reducer;
