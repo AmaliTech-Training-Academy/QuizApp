@@ -35,13 +35,13 @@ export const QuestionsPage = () => {
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
     const chosenAnswers = answers.answersData;
-    console.log(chosenAnswers.answers);
+    console.log(quiz);
 
     const showSettings = useSelector((state) => state.accountSettings.showSettings);
     
     useEffect(()=>{
-        dispatch(getQuestions({topicId:id, page:page, token:token}));
-    },[id, page, token]);
+        dispatch(getQuestions(token));
+    },[token]);
 
   const boxShadow = {
     boxShadow: "4px 4px 17px -3px rgba(0, 0, 0, 0.25)"

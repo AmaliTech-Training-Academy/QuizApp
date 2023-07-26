@@ -10,9 +10,9 @@ const initialState = {
     error: null,
 };
 
-export const getQuestions = createAsyncThunk('questions/get', async ({topicId, page, token})=> {
+export const getQuestions = createAsyncThunk('questions/get', async (token)=> {
     try {
-        const url = `https://quiz-master.onrender.com/api/users/questions?topicId=${topicId}&page=${page}&limit=5`;
+        const url = `http://localhost:8001/api/users/questions?topicId=topicId`;
         const headers = {
             'Authorization': `Bearer ${token}`
         };
