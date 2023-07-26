@@ -16,14 +16,8 @@ const ResetPass = () => {
   const [alert, setAlert] = useState('')
   const [loading, setLoading] = useState(true);
 
-  // const token = useSelector(state=> state.userData.user_token);
-
-  // console.log(token);
-
-  // Get the current URL
   const currentUrl = window.location.href;
 
-  // Create a URLSearchParams object
   const searchParams = new URLSearchParams(new URL(currentUrl).search);
   const token = searchParams.get('token');
  
@@ -32,23 +26,27 @@ const ResetPass = () => {
     e.preventDefault()
     
     if(password !== '' && password === confirmPassword){
+      if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/.test(password)) {
+      setAlert('Password must contain at least one uppercase, one digit and one special character from the set @$!%*#?& and min(10)')
+    }else{
       try{
         const url = `https://quiz-master.onrender.com/api/users/resetPassword/${id}/${token}`;
         const response = await axios.post(url, {password});
-        setLoading(!loading)
-        if(response.status === 200){
-          toast.success(response.data.message)
-        }
-        setTimeout(() => {
-          setLoading(true)
-        }, 2000)
-        navigate('/login')
-        
-  }catch (error){
-    console.log(error)
-    toast.warn('response error')
-  }
-}else{
+          setLoading(!loading)
+          if(response.status === 200){
+            toast.success(response.data.message)
+          }
+          setTimeout(() => {
+            setLoading(true)
+          }, 2000)
+          navigate('/login')
+          
+    }catch (error){
+      console.log(error)
+      toast.warn('response error')
+    }
+    }
+     }else {
   setAlert('Password mismatch')
   }
 };
@@ -57,7 +55,7 @@ const ResetPass = () => {
     <form className='items-center font-Roboto mt-20 lg:m-auto w-[350px]'onSubmit={handleSubmit}>
         <div className='flex flex-col items-center'>
       <h2 className='text-[39.81px] font-extrabold text-[#1D2939] self-start'>Reset Password</h2>
-      {password !== confirmPassword && <p className="text-red-400  self-start" >{alert}</p>}
+      {alert !== '' && <p className="text-red-400  self-start" >{alert}</p>}
       <p className='text-base text-[#A6A6A6] mt-8'>&#34;Looks like you forgot your password, no worries- hit that reset button and let&#39;s get you back in!&#34;</p>
       </div>
 
