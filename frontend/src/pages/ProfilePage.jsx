@@ -15,7 +15,7 @@ import PopularQuizzes from '../components/PopularQuizzes'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterTopicsBySearch, getTopics } from '../features/topicSlice'
 import styles from '../components/gallery/gallery.module.css'
-
+import { getQuizzes } from '../features/popularQuizzesSlice'
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -25,7 +25,18 @@ const ProfilePage = () => {
 
   const searchQuery = useSelector((state) => state.topics.searchQuery); 
   const token = useSelector(state=> state.userData.user_token)
+  const topics = useSelector(state=>state.popularQuizzes.data.popularTopics);
 
+  // dispatch(getQuizzes(token))
+
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(getQuizzes(token));
+  //   } else {
+  //     navigate('/login');
+  //   }
+  // }, []);
+  
 
   const onChange = (selectedDate) => {
     setDate(selectedDate);
@@ -96,7 +107,7 @@ const ProfilePage = () => {
           </div>
           <div className={`px-[5rem]  py-7 shadow-lg rounded-lg h-fit lg:w-[48%] ${styles.quizzes}`}>
             <p className='font-semibold text-2xl mb-[25px] text-center'>Popular Quizzes</p>
-            <PopularQuizzes/>
+            <PopularQuizzes topics={topics}/>
           </div>
           
         </div>
