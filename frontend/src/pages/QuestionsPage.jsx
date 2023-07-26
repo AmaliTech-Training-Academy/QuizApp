@@ -30,12 +30,12 @@ export const QuestionsPage = () => {
     const quiz = useSelector(state=> state.quiz)
     const page = quiz.page;
     const isRunning = quiz.isRunning;
-    const question = quiz.data;
+    const questionInfo = quiz.data;
     const token = useSelector(state=> state.userData.user_token)
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
     const chosenAnswers = answers.answersData;
-    console.log(quiz);
+    console.log(questionInfo);
 
     const showSettings = useSelector((state) => state.accountSettings.showSettings);
     
@@ -56,11 +56,10 @@ const activeQuestions = {
 const changeQuestion = (e) => {
   const questionNumber = e.target.innerText;
   dispatch(selectQuestion(questionNumber))
-  dispatch(getQuestions({topicId:id, page:questionNumber, token:token}))
 };
 
     const questionNav = [];
-    for( let i = 0; i < question.limit; i++){
+    for( let i = 0; i < questionInfo.totalQuestions; i++){
         const questionNumber = i + 1;
         questionNav.push(
             <div 
@@ -81,7 +80,7 @@ const changeQuestion = (e) => {
   };
 
   const forwardArrowNav = () => {
-      if(page < question.limit){
+      if(page < questionInfo.totalQuestions){
       dispatch(nextQuestion())
   }
 }
@@ -165,7 +164,7 @@ const handleTimerExpired = (e) => {
             <Link to={`/quiz/${id}`}>Back</Link>
             </div>
             <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
-            <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {question.totalQuestions} </div>
+            <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {page} of {questionInfo.totalQuestions} </div>
             <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/>
             <Timer time={10} isRunning={isRunning} onTimerExpired={handleTimerExpired}/> </div>
         </div>
@@ -176,7 +175,7 @@ const handleTimerExpired = (e) => {
 
         {/* Mobile Question Nav */}
         <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
-            Question <span className='font-semibold'>{page}/{question.limit}</span>
+            Question <span className='font-semibold'>{page}/{questionInfo.totalQuestions}</span>
         </div>
         <div className='hidden lg:flex justify-center w-3/12 mx-auto mt-7'>
 
@@ -192,7 +191,7 @@ const handleTimerExpired = (e) => {
         {/* Question Navbar */}
         {/* Mobile Question Nav */}
         <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
-            Question <span className='font-semibold'>{page}/{question.limit}</span>
+            Question <span className='font-semibold'>{page}/{questionInfo.totalQuestions}</span>
         </div>
 
         { questionNav }
@@ -201,16 +200,16 @@ const handleTimerExpired = (e) => {
         <div 
             className='w-14 flex items-center justify-center border border-gray-900 rounded-e-lg cursor-pointer'
             onClick={forwardArrowNav}
-            style={parseInt(page) === question.totalQuestions ? {opacity:0} : {opacity: 10} }
+            style={parseInt(page) === questionInfo.totalQuestions ? {opacity:0} : {opacity: 10} }
             >
             <BsArrowRight/>
         </div>
         </div>
         {/* Current Question */}
         <div className='lg:mt-28 h-80'>
-          {question? 
+          {questionInfo? 
             <Question 
-            data={question} 
+            data={questionInfo.questions[page-1]} 
             questionNumber={page} 
             handleChoice={handleChoice}
             chosenAnswers={chosenAnswers}
@@ -227,11 +226,11 @@ const handleTimerExpired = (e) => {
         <button 
         className='w-[48%] rounded py-[10px] px-16' 
         onClick={forwardArrowNav}
-        style={parseInt(page) === question.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+        style={parseInt(page) === questionInfo.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
         >Next</button>
         </div> 
         {
-        chosenAnswers.answers.length === question.limit ?  <QuizSubmission handleSure={handleSure} id={id}/> : ''
+        chosenAnswers.answers.length === questionInfo.totalQuestions ?  <QuizSubmission handleSure={handleSure} id={id}/> : ''
         }
         </div>
     </div>
