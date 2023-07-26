@@ -18,7 +18,6 @@ export const AvailableQuizzes = () => {
   const searchQuery = useSelector((state) => state.topics.searchQuery); 
 
 
-  // const [quizData, setQuizData] = useState(null);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -28,6 +27,7 @@ export const AvailableQuizzes = () => {
       dispatch(getTopics(token));
     }
   }, [token, navigate, dispatch]);
+
   
   useEffect(() => {
     const searchQueryParams = new URLSearchParams(location.search);
