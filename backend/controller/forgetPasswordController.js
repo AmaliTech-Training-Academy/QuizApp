@@ -47,8 +47,8 @@ const forgetPassword = async (req, res) => {
       from: process.env.TRANSPORT_EMAIL, // Replace with your email
       to: user.email, // Recipient's email
       subject: "Reset Your Password", // Email subject
-      html: `<p>Click the link below to reset your password:
-      <a href="${link}">${link}</a>
+      html: `<p>Click the link below to Reset your Password: <b></b>
+      <a href="${link}">Click Here</a>
       </p>`,
       //Email body, containing the reset password link
     };

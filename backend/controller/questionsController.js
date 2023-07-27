@@ -9,8 +9,6 @@ const questions = async (req, res) => {
 
   try {
     let shuffledQuestions = req.session.shuffledQuestions;
-    console.log("shuff::", shuffledQuestions);
-    console.log("req::", req.session);
 
     if (!shuffledQuestions) {
       const fetchedData = await quizModel.findById(topicId);
@@ -18,7 +16,15 @@ const questions = async (req, res) => {
         return res.status(404).json({ message: "Quiz Not found" });
 
       const questionsArray = fetchedData.questions || []; // Added null check for questionsArray
-      shuffledQuestions = shuffleArray([...questionsArray]);
+      
+      // Shuffle both the questions and their answers arrays
+      shuffledQuestions = questionsArray.map((question) => {
+        const shuffledAnswers = shuffleArray([...question.answers]);
+        return {
+          ...question,
+          answers: shuffledAnswers,
+        };
+      });
 
       // store the shuffledQuestions array in the user's session
       req.session.shuffledQuestions = shuffledQuestions;
@@ -41,7 +47,7 @@ const questions = async (req, res) => {
       };
     });
 
-    res.status(200).json({
+   res.status(200).json({
       success: true,
       topicId,
       totalQuestions,
