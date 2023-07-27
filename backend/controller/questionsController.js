@@ -15,17 +15,17 @@ const questions = async (req, res) => {
       if (!fetchedData)
         return res.status(404).json({ message: "Quiz Not found" });
 
-      const questionsArray = fetchedData.questions || []; // Added null check for questionsArray
-      
+      const questionsArray = fetchedData.questions || [];
+
       // Shuffle both the questions and their answers arrays
-      shuffledQuestions = questionsArray.map((question) => {
+      shuffledQuestions = questionsArray.map((question,) => {
         const shuffledAnswers = shuffleArray([...question.answers]);
         return {
           ...question,
           answers: shuffledAnswers,
         };
       });
-
+      
       // store the shuffledQuestions array in the user's session
       req.session.shuffledQuestions = shuffledQuestions;
       req.session.quizProgress = 1; // Initialize quiz progress to the first question
@@ -41,13 +41,20 @@ const questions = async (req, res) => {
         _id,
       }));
 
+      // Log the question and its answers
+      // console.log("Question:", question.question);
+      // console.log("Answers:", extractedAnswers);
+
       return {
         question: question.question,
         answers: extractedAnswers,
       };
     });
 
-   res.status(200).json({
+    // Log all questions and their answers
+    // console.log("All Questions:", allQuestions);
+
+    res.status(200).json({
       success: true,
       topicId,
       totalQuestions,
