@@ -12,11 +12,10 @@ const PopularQuizzes = () => {
 
   useEffect(()=>{
     dispatch(getQuizzes(token));
-    console.log("quizzes obtained");
   },[]);
 
   const topics = useSelector(state=>state.popularQuizzes.data.popularTopics);
-  console.log(topics);
+  // console.log(topics);
   
   return (
     <div>
@@ -31,7 +30,7 @@ const PopularQuizzes = () => {
             </div>
           ))}
       </div>
-    ): <div>Pleasw wait...</div>}
+    ): <div>Please wait...</div>}
     </div>
   )
 }

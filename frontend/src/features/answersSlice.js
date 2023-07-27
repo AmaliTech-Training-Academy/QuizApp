@@ -53,20 +53,18 @@ export const submit = createAsyncThunk(
     "answers/submitAnswers",
     async (_, thunkAPI) => {
         const answers = thunkAPI.getState().answers.answersData;
-        const limit = thunkAPI.getState().quiz.limit;
         const token = thunkAPI.getState().userData.user_token;
-        console.log(answers, token);
-        if(limit === answers.length){
             try {
-            const response = await submitAnswersToAPI(answers, token);
+                const response = await submitAnswersToAPI(answers, token);
+                console.log(answers, token);
             console.log(response);
             return response;
             } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
-    }else{
-        console.error('Answer all questions.')
-    }
+    // }else{
+    //     console.error('Answer all questions.')
+    // }
     }
 );
 

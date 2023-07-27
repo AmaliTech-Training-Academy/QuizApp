@@ -5,7 +5,7 @@ import timer from "../assets/DesktopView/Icons/timer.png";
 import keyboardreturn from "../assets/DesktopView/Icons/keyboard_return.png";
 import allQuestions from "../assets/DesktopView/Icons/quizz.png";
 import repeat from "../assets/DesktopView/Icons/repeat.png";
-import { selectQuestion, timerStart } from '../features/quizSlice';
+import { getQuestions, selectQuestion, timerStart } from '../features/quizSlice';
 import UserNavbar, { DropdownList } from '../components/UserNavbar';
 import MobileProfileNavbar from '../components/MobileProfileNavbar';
 import { getTopics } from '../features/topicSlice';
@@ -21,6 +21,8 @@ export const QuizIntro = () => {
     
     const quiz = topics.filter(topic => id === topic._id);
     const quizImage = quiz[0]?.desktopImage;
+    const token = useSelector(state=> state.userData.user_token)
+
 
 
     const imgBackground = {
@@ -28,8 +30,9 @@ export const QuizIntro = () => {
     };
 
     const handleClick = () => {
-        dispatch(selectQuestion(1))
+        // dispatch(selectQuestion(1))
         dispatch(timerStart())
+        dispatch(getQuestions({topicId: id, token:token}))
     }
 
 
