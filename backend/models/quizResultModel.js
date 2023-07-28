@@ -32,6 +32,9 @@ const quizResultSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Quiz",
     },
+    name: {
+      type: String,
+    },
     score: {
       type: Number,
       default: 0,
