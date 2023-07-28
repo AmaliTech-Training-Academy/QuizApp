@@ -54,7 +54,7 @@ const getQuizResults = async (req, res) => {
       userId: userId,
       quizId: quizId,
       score: score,
-      results: updatedResults,
+      results: quizResult.results.map((result) => result._id),
     };
 
     // Create a new QuizLog document and save it in the database
