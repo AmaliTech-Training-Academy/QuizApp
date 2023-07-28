@@ -19,7 +19,7 @@ const getQuizResults = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Quiz Result Not Found" });
 
-    const { _id, score, results } = quizResult;
+    const { _id, score, results, date } = quizResult;
     const quiz = quizResult.quizId;
 
     // Extract the topic and desktopImage from the quiz
@@ -31,18 +31,20 @@ const getQuizResults = async (req, res) => {
         .status(404)
         .json({ success: false, message: "User Not Found" });
 
-        // Accessing the user name property from the user object
-        const { name } = user;
+    // Accessing the user name property from the user object
+    const { name } = user;
 
-    // Map the results to include the topic and desktopImage
-    const updatedResults = quizResult.results.map((result) => {
+    // Map the results to include the topic, desktopImage, and formatted date
+    const updatedResults = results.map((result) => {
       return {
         resultId: _id,
+        name: name,
         questionNumber: result.questionNumber,
         question: result.question,
         answers: result.answers,
         topic: topic,
         desktopImage: desktopImage,
+        date: new Date(date).toDateString(),
       };
     });
 
@@ -52,10 +54,7 @@ const getQuizResults = async (req, res) => {
       userId: userId,
       quizId: quizId,
       score: score,
-      date: new Date(),
-      desktopImage: desktopImage,
-      topic: topic,
-      results: updatedResults,
+      results: quizResult.results.map((result) => result._id),
     };
 
     // Create a new QuizLog document and save it in the database

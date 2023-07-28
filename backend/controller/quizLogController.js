@@ -1,5 +1,5 @@
-const QuizLog = require("../models/QuizLogModel");
 const { userModel } = require("../models/userModels");
+const QuizResult = require("../models/quizResultModel");
 
 // @desc Get Quiz Logs for a User
 // @route GET /api/users/:userId/quiz-logs
@@ -11,11 +11,13 @@ const getQuizLogs = async (req, res) => {
     // Get the user
     const user = await userModel.findById(userId);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User Not Found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Found" });
     }
 
-    // Get all quiz logs for the user
-    const quizLogs = await QuizLog.find({ userId: userId });
+    // Get all quiz results for the user
+    const quizResults = await QuizResult.find({ userId: userId });
 
     // Use Sets to keep track of unique topics for passed and attempted quizzes
     const passedTopicsSet = new Set();
@@ -25,24 +27,24 @@ const getQuizLogs = async (req, res) => {
     const passedQuizData = [];
     const attemptedQuizData = [];
 
-    quizLogs.forEach((quizLog) => {
+    quizResults.forEach((quizResult) => {
       const quiz = {
-        desktopImage: quizLog.desktopImage,
-        topic: quizLog.topic,
-        Date: quizLog.date.toDateString(),
+        desktopImage: quizResult.desktopImage,
+        topic: quizResult.topic,
+        date: quizResult.date.toDateString(), // Use lowercase 'date' instead of 'Date'
       };
 
-      if (quizLog.score >= 80) {
+      if (quizResult.score >= 80) {
         // Check if the topic is not already in the set before adding to the passedQuizData
-        if (!passedTopicsSet.has(quizLog.topic)) {
-          passedTopicsSet.add(quizLog.topic);
+        if (!passedTopicsSet.has(quizResult.topic)) {
+          passedTopicsSet.add(quizResult.topic);
           passedQuizData.push(quiz);
         }
       }
-      
+
       // Check if the topic is not already in the set before adding to the attemptedQuizData
-      if (!attemptedTopicsSet.has(quizLog.topic)) {
-        attemptedTopicsSet.add(quizLog.topic);
+      if (!attemptedTopicsSet.has(quizResult.topic)) {
+        attemptedTopicsSet.add(quizResult.topic);
         attemptedQuizData.push(quiz);
       }
     });
@@ -52,7 +54,6 @@ const getQuizLogs = async (req, res) => {
       passedQuizzes: passedQuizData,
       attemptedQuizzes: attemptedQuizData,
     });
-    console.log(attemptedQuizData)
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something Went Wrong" });

@@ -42,6 +42,10 @@ const quizResultSchema = new Schema(
     desktopImage: {
       type: String,
     },
+    date: {
+      type: Date,
+      default: Date.now(),
+    },
     results: [
       {
         questionNumber: {
