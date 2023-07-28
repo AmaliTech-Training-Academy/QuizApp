@@ -8,7 +8,7 @@ export const Subscribe = () => {
   const [userMail, setUserMail] = useState("");
   const notify = () => toast("You have subscribed successfully!", {theme:"light",})
 
-  const URL = "https://nss-quizapp.up.railway.app/api/subscribe";
+  const URL = "https://quiz-master.onrender.com/api/users/subscribe";
 
   const onSubmit = async (e) => {
     e.preventDefault();

@@ -19,7 +19,7 @@ export const QuizSubmission = ({handleSure}) => {
 
     // console.log(userName);
 return (
-    <div className='flex flex-col lg:w-8/12 mx-auto bg-white'>
+    <div className='flex flex-col lg:w-8/12 mx-auto bg-white mt-14 lg:mt-0'>
         {check === false ? (
         <>
         <div className='font-semibold'>QuizMaster honor code <span className='text-[#0267FF]'>Learn more</span> </div>
