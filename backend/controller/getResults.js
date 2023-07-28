@@ -12,7 +12,7 @@ const getQuizResults = async (req, res) => {
     const quizResult = await QuizResult.findOne({
       userId: userId,
       quizId: quizId,
-    }).populate("quizId").populate("userId"); // Populate user data as well
+    }).populate("quizId");
 
     if (!quizResult)
       return res
@@ -25,8 +25,14 @@ const getQuizResults = async (req, res) => {
     // Extract the topic and desktopImage from the quiz
     const { topic, desktopImage } = quiz;
 
-    // Accessing the user name property from the user object (populated from userId)
-    const name = quizResult.userId.name;
+    const user = await userModel.findById(userId);
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Found" });
+
+    // Accessing the user name property from the user object
+    const { name } = user;
 
     // Map the results to include the topic, desktopImage, and formatted date
     const updatedResults = results.map((result) => {
@@ -41,7 +47,7 @@ const getQuizResults = async (req, res) => {
         date: new Date(date).toDateString(),
       };
     });
-
+    await updatedResults.save()
     // Prepare the data to be saved in the QuizLog collection
     const quizLogData = {
       name: name,
