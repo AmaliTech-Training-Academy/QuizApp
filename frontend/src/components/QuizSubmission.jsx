@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 
 export const QuizSubmission = ({handleSure}) => {
     const [check, setCheck] = useState(false);
@@ -14,7 +15,7 @@ export const QuizSubmission = ({handleSure}) => {
         }
     };
 
-    const userName = Cookies.get('name');
+    const userName = useSelector(state=>state.userData.user_name);
 
     // console.log(userName);
 return (
@@ -30,7 +31,7 @@ return (
                     onChange={handleChange}
                     />
                     <div onClick={handleChange} className='cursor-pointer'>
-                        I {userName}, understand that submitting work that isn't my own may result in permanent failure of this quiz or deactivativation of my quiz master account                                      
+                        I <span className='font-semibold'>{userName}</span>, understand that submitting work that isn't my own may result in permanent failure of this quiz or deactivativation of my quiz master account.                                      
                     </div>
                 </div>
         </>) :
