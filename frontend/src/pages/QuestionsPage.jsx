@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { getQuestions, nextQuestion, previousQuestion, selectQuestion, timerExpired, timerStart} from '../features/quizSlice'
+import React, { useEffect } from 'react'
+import { nextQuestion, previousQuestion, selectQuestion, timerExpired, timerStart} from '../features/quizSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { sureSubmit } from '../features/sureSlice'
-import { IoIosArrowBack } from 'react-icons/io'
-import { MdOutlineTimer } from "react-icons/md"
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs"
 import { Question } from '../components/Question'
 import { submit, submitAnswers, submitUserId, submitQuizId, resetAnswers } from '../features/answersSlice';
 import { QuizSubmission } from '../components/QuizSubmission'
 import { SubmitModal } from '../components/SubmitModal'
 import UserNavbar, { DropdownList } from '../components/UserNavbar'
-import { RotatingLines } from 'react-loader-spinner'
-import { Timer } from '../components/Timer'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
+import { QuizHeader } from '../components/QuizHeader'
 
 
 
@@ -39,14 +36,7 @@ export const QuestionsPage = () => {
     const chosenAnswers = answers.answersData;
     // console.log(questionInfo);
 
-    const showSettings = useSelector((state) => state.accountSettings.showSettings);
-    
-    // useEffect(()=>{
-    //     dispatch(getQuestions({topicId: id, token:token}));
-    //     console.log("Got'em");
-    // },[]);
-
-    // dispatch(getQuestions({topicId: id, token:token}));    
+    const showSettings = useSelector((state) => state.accountSettings.showSettings);  
 
   const boxShadow = {
     boxShadow: "4px 4px 17px -3px rgba(0, 0, 0, 0.25)"
@@ -56,7 +46,6 @@ const activeQuestions = {
     background: "#0267FF",
     color: "#FFFFFF",
 };
-
 
 const changeQuestion = (e) => {
   const questionNumber = e.target.innerText;
@@ -145,32 +134,27 @@ const handleTimerExpired = (e) => {
     handleSureSubmit(e)
     navigate(`/quiz/${id}/results`);
   };
-  
-// } else{
-//   navigate(`/quiz/${id}/quizintro`);
-//   dispatch(resetAnswers())
-//   dispatch(selectQuestion(1))
-// }
+
   return (
     <>
     {
         sure[0] ? <SubmitModal handleUnsure={handleUnsure} handleSureSubmit={handleSureSubmit}/> : ''
       }
       <div className='bg-[#0267FF] lg:bg-transparent w-full h-4/5 lg:h-screen'>
-      <div>
-        <UserNavbar/>
-        <MobileProfileNavbar/>
-        {showSettings && <DropdownList/>}
+        <div>
+          <UserNavbar/>
+          <MobileProfileNavbar/>
+          {showSettings && <DropdownList/>}
         </div>
-        <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col lg:justify-between mb-8' id='quiz-header' >
-            <div className='lg:hidden flex items-center font-normal'><IoIosArrowBack className='mr-2'/>
-            <Link to={`/quiz/${id}`}>Back</Link>
-            </div>
-            <div className='hidden lg:block text-2xl font-semibold w-1/3'>Test your knowledge on {currentQuizName}</div>
-            <div className='hidden lg:block text-2xl font-semibold w-1/3 text-center'>Question {number} of {questionInfo.totalQuestions} </div>
-            <div className='flex items-center text-2xl font-semibold lg:w-1/3 lg:justify-end mt-5 lg:mt-0 mx-auto'><MdOutlineTimer className='w-14 h-8'/>
-            <Timer time={10} isRunning={isRunning} onTimerExpired={handleTimerExpired}/> </div>
-        </div>
+        <QuizHeader 
+          quizTitle={currentQuizName} 
+          id={id} 
+          questions={questions}
+          questionNumber={number} 
+          totalQuestions={questionInfo.totalQuestions} 
+          isRunning={isRunning} 
+          onTimerExpired={handleTimerExpired}
+        />
 
         <div className='bg-white rounded-t-[2rem] relative pt-24 lg:pt-0 px-4 lg:px-0 '>
 
@@ -210,7 +194,7 @@ const handleTimerExpired = (e) => {
         }
         </div>
         {/* Current Question */}
-        <div className='lg:mt-28 h-80'>
+        <div className='lg:mt-8 h-80'>
           <Question 
             data={questions}
             id={id}
@@ -219,23 +203,24 @@ const handleTimerExpired = (e) => {
             handleChoice={handleChoice}
             chosenAnswers={chosenAnswers}/>
         </div>
+
         {/* Mobile Buttons */}
-        { !questions || questions.length === 0 || number === undefined ? "" :
-          <div className='flex justify-between lg:justify-center mt-14'>
-            <button 
-            className='w-[48%] lg:w-48 lg:mr-4 rounded py-[10px] px-16'
-            onClick={backArrowNav}
-            style={parseInt(number) === 1 ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
-            >Previous</button>
-            <button 
-            className='w-[48%] lg:w-48 rounded py-[10px] px-16' 
-            onClick={forwardArrowNav}
-            style={parseInt(number) === questionInfo.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
-            >Next</button>
-          </div> 
-        }
-        {
-        chosenAnswers.answers.length === questionInfo.totalQuestions ? <QuizSubmission handleSure={handleSure} id={id}/> : ''
+        { !questions || questions.length === 0 || number === undefined ? 
+        ("") : 
+        chosenAnswers.answers.length === questionInfo.totalQuestions ? 
+        (<QuizSubmission handleSure={handleSure} id={id}/> ) :
+        (<div className='flex justify-between lg:justify-center'>
+          <button 
+          className='w-[48%] lg:w-48 lg:mr-4 rounded py-[10px] px-16'
+          onClick={backArrowNav}
+          style={parseInt(number) === 1 ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+          >Previous</button>
+          <button 
+          className='w-[48%] lg:w-48 rounded py-[10px] px-16' 
+          onClick={forwardArrowNav}
+          style={parseInt(number) === questionInfo.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+          >Next</button>
+        </div>) 
         }
         </div>
     </div>
