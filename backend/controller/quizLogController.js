@@ -16,7 +16,7 @@ const getQuizLogs = async (req, res) => {
     }
 
     // Get all quiz logs for the user
-    const quizLogs = await QuizLogs.find({ userId: userId });
+    const quizResults = await QuizResult.find({ userId: userId });
 
     // Use Sets to keep track of unique topics for passed and attempted quizzes
     const passedTopicsSet = new Set();
@@ -26,24 +26,24 @@ const getQuizLogs = async (req, res) => {
     const passedQuizData = [];
     const attemptedQuizData = [];
 
-    quizLogs.forEach((quizlog) => {
+    quizResults.forEach((quizResult) => {
       const quiz = {
-        desktopImage: quizlog.desktopImage,
-        topic: quizlog.topic,
-        date: quizlog.date.toDateString(),
+        desktopImage: quizResult.desktopImage,
+        topic: quizResult.topic,
+        date: quizResult.date.toDateString(),
       };
 
-      if (quizlog.score >= 80) {
+      if (quizResult.score >= 80) {
         // Check if the topic is not already in the set before adding to the passedQuizData
-        if (!passedTopicsSet.has(quizlog.topic)) {
-          passedTopicsSet.add(quizlog.topic);
+        if (!passedTopicsSet.has(quizResult.topic)) {
+          passedTopicsSet.add(quizResult.topic);
           passedQuizData.push(quiz);
         }
       }
 
       // Check if the topic is not already in the set before adding to the attemptedQuizData
-      if (!attemptedTopicsSet.has(quizlog.topic)) {
-        attemptedTopicsSet.add(quizlog.topic);
+      if (!attemptedTopicsSet.has(quizResult.topic)) {
+        attemptedTopicsSet.add(quizResult.topic);
         attemptedQuizData.push(quiz);
       }
     });
