@@ -1,30 +1,18 @@
-import React, { useEffect, useState} from 'react'
+import React from 'react'
 import { Answer } from './Answer';
-import { useDispatch, useSelector } from 'react-redux';
-import { getQuestions } from '../features/quizSlice';
+import { ThreeDots } from 'react-loader-spinner';
 
 
 export const Question = (props) => {
-    const { handleChoice, questionNumber, questionIndex } = props; 
-    // const dispatch = useDispatch();
+    const { handleChoice, questionNumber, questionIndex, data } = props; 
 
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
-    
-    const token = useSelector(state=> state.userData.user_token)
 
-    
-    const quiz = useSelector(state=> state.quiz)
-    const isRunning = quiz.isRunning;
-    const questionInfo = quiz.data;
-    const questions = questionInfo.questions;
-    const sure = useSelector(state => state.sure);
+    const questions = data;
     const answerOptions = questions && questions[questionIndex].answers;
-    const chosenAnswers = useSelector(state=> state.answers.answersData);
-    console.log(chosenAnswers);
-
     
     if (!questions || questions.length === 0 || questionNumber === undefined) {
-        return <p>Please wait...</p>;
+        return <div className='mx-auto flex justify-center items-center'>Please wait...<ThreeDots color='#0267FF'/></div>;
     }
     
 return (

@@ -30,9 +30,9 @@ export const QuizIntro = () => {
     };
 
     const handleClick = () => {
-        // dispatch(selectQuestion(1))
-        dispatch(timerStart())
+        dispatch(selectQuestion(1))
         dispatch(getQuestions({topicId: id, token:token}))
+        dispatch(timerStart())
     }
 
 
