@@ -48,19 +48,19 @@ const getQuizResults = async (req, res) => {
       };
     });
     // Prepare the data to be saved in the QuizLog collection
-    const quizLogData = {
-      name: name,
-      userId: userId,
-      quizId: quizId,
-      score: score,
-      topic: topic,
-      desktopImage: desktopImage,
-      date: new Date(date).toDateString(),
-      results: updatedResults,
-    };
+    // const quizLogData = {
+    //   name: name,
+    //   userId: userId,
+    //   quizId: quizId,
+    //   score: score,
+    //   topic: topic,
+    //   desktopImage: desktopImage,
+    //   date: new Date(date).toDateString(),
+    //   results: updatedResults,
+    // };
 
-    // // // Create a new QuizLog document and save it in the database
-    const quizLog = await QuizLog.create(quizLogData);
+    // // // // Create a new QuizLog document and save it in the database
+    // const quizLog = await QuizLog.create(quizLogData);
 
     res.status(200).json({
       success: true,
