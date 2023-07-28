@@ -11,13 +11,12 @@ const initialState = {
 
 export const getTopics = createAsyncThunk('topics/get', async (token)=> {
     try {
-        // const query = ThunkAPI.getState().searchQuery
         const url = 'https://quiz-master.onrender.com/api/users/topics';
         const headers = {
             'Authorization': `Bearer ${token}`
         };
         const response = await axios.get(url, { headers });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch topics');

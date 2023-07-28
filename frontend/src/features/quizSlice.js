@@ -3,16 +3,17 @@ import axios from "axios"
 
 
 const initialState = {
-    page: 1,
+    questionNumber: 1,
+    index: 0,
     data: [],
     isRunning: false,
     status: 'idle',
     error: null,
 };
 
-export const getQuestions = createAsyncThunk('questions/get', async ({topicId, page, token})=> {
+export const getQuestions = createAsyncThunk('questions/get', async ({topicId, token})=> {
     try {
-        const url = `https://quiz-master.onrender.com/api/users/questions?topicId=${topicId}&page=${page}&limit=5`;
+        const url = `https://quiz-master.onrender.com/api/users/questions?topicId=${topicId}`;
         const headers = {
             'Authorization': `Bearer ${token}`
         };
@@ -29,19 +30,23 @@ const quizSlice = createSlice({
     initialState,
     reducers: {
         nextQuestion: (state, action)=>{
-            state.page++;
+            state.questionNumber++;
+            state.index++;
         },
         previousQuestion: (state, action)=>{
-            if(state.page > 1){
-                state.page--
+            if(state.questionNumber > 1){
+                state.questionNumber--;
+                state.index--;
             }
         },
         selectQuestion: (state, {payload})=>{
-            state.page = payload;
+            state.questionNumber = payload;
+            state.index = payload-1;
         },
         totalReset: (state, action) => {
             state.data = []
-            state.page = []
+            state.questionNumber = 1
+            state.index = 0
             state.isRunning = false;
         },
         timerExpired: (state) => {
@@ -56,9 +61,9 @@ const quizSlice = createSlice({
         .addCase(getQuestions.pending, (state) => {
         state.status = 'loading';
         })
-        .addCase(getQuestions.fulfilled, (state, action) => {
+        .addCase(getQuestions.fulfilled, (state, {payload}) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.data = payload
         state.error = null;
         })
         .addCase(getQuestions.rejected, (state, action) => {
@@ -68,5 +73,5 @@ const quizSlice = createSlice({
     },
 });
 
-export const {nextQuestion, previousQuestion, selectQuestion, resetQuestion, timerExpired, timerStart, totalReset} = quizSlice.actions;
+export const {nextQuestion, previousQuestion, selectQuestion, timerExpired, timerStart, totalReset} = quizSlice.actions;
 export default quizSlice.reducer;

@@ -91,7 +91,6 @@ const AddPhoto = ({component}) => {
         Cookies.set('image', null); // Update the value of 'image' key in the cookie to null
         setGetImage(null);
         toast.success('Profile image deleted');
-        window.location.reload(); // Refresh the page
       }
     } catch (error) {
       console.log(error);
@@ -108,6 +107,9 @@ const AddPhoto = ({component}) => {
           <div className="rounded-[50%] w-40 h-40 bg-white-700 flex justify-center shadow-lg shadow-[rgba(0, 0, 0, 0.25)] mr-[2rem] ">
           <ProfileImage component='updateProfile' getImage={getImage}/>
           </div>
+          
+          {!getImage ?
+          <>
           <input
             type="file"
             accept="image/*"
@@ -116,9 +118,11 @@ const AddPhoto = ({component}) => {
             onChange={handleImageChange}
             hidden
           />
-          {!getImage ?<button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]">
+          <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]">
             <label  htmlFor={getImage ? '' : 'photo-upload'}>Upload New</label> 
-          </button> :
+          </button>
+          </>
+           :
           <button className="p-[0.5rem] w-max h-fit self-center mr-[0.55rem] text-white bg-[#0267FF]" onClick={handleClick}>Continue</button>}
           
           <button className="p-[0.5rem] w-max h-fit self-center bg-white text-[#1D2939] border-none" onClick={deleteAvatar}>

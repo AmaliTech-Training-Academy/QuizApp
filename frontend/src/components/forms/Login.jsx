@@ -9,6 +9,8 @@ import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../../features/userSlice'
 import axios from 'axios'
+import { getQuizzes } from '../../features/popularQuizzesSlice'
+
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -17,6 +19,7 @@ const Login = () => {
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(true)
     const verifyCookie = Cookies.get('rememberMe')
+
     
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -54,6 +57,7 @@ const Login = () => {
                 Cookies.set('rememberMe', response.data.accessToken)
                 
                 dispatch(addUser(response.data))
+                dispatch(getQuizzes(response.data.accessToken));
                 
                 Cookies.set('email',response.data.email);
                 Cookies.set('id',response.data.id);

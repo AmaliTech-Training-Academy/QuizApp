@@ -12,6 +12,7 @@ import { selectQuestion, totalReset } from '../features/quizSlice';
 import { clearState } from '../features/clearStateSlice';
 import { resetTopics } from '../features/topicSlice';
 import { resetLog } from '../features/quizLogSlice';
+import { clearQuizzes } from '../features/popularQuizzesSlice';
 
 
 
@@ -116,6 +117,7 @@ export const DropdownList = () =>{
     dispatch(resetTopics())
     dispatch(resetQuiz())
     dispatch(resetLog())
+    dispatch(clearQuizzes())
     navigate('/login')
   }
 

@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link, useParams } from 'react-router-dom'
 import { MdOutlineClose, MdOutlineTimer } from 'react-icons/md'
 import { FiCheck } from 'react-icons/fi'
 import { ThreeDots } from 'react-loader-spinner'
-
+import { resetQuiz } from '../features/answersSlice'
 
 const ReviewResultsPage = () => {
     const {id} = useParams()
+    const dispatch = useDispatch()
     
     
     const answerDesignations = ['A.', 'B.', 'C.', 'D.'];
@@ -16,8 +17,11 @@ const ReviewResultsPage = () => {
     const quizResults = useSelector((state) => state.answers.quizResults);
     const answers = quizResults.length > 0 ? quizResults[0].results : [];
     const score = quizResults.length > 0 ? quizResults[0].score : "";
-    
+    console.log(answers);
 
+    const handleResults = () => {
+        dispatch(resetQuiz())
+    }
     const correct = {
         color: 'green',
         borderColor: '#3f3',
@@ -47,19 +51,22 @@ return (
             <p className='flex flex-shrink text-2xl font-semibold'>Test your knowledge on {quiz[0].topic}</p>
             <p>Practice Quiz .1 hour</p>
             </div>
-            <div className='flex items-center justify-center text-[27.65px] font-semibold lg:w-1/3 lg:justify-end'><MdOutlineTimer className='w-14 h-8'/> 00:00:00 </div>
+            <div className='flex items-center justify-center text-[27.65px] font-semibold lg:w-1/3 lg:justify-end mb-4'><MdOutlineTimer className='w-14 h-8'/> 00:00:00 </div>
         </div>
         {/* Score */}
         {
             answers.length > 0 ? (
                 <>
-        <div className='flex lg:justify-between bg-[#F0F2F4] px-16 py-6 mb-20'>
+        <div className='flex lg:justify-between bg-[#F0F2F4] px-16 py-6 mb-7'>
             <div className='text-[#1d2939] font-semibold flex flex-col relative lg:right-0 right-10 flex-shrink-0'>
                 <p className='lg:text-4xl text-2xl'>{score >= 80 ? 'Congratulations! You passed!' : 'Sorry! you failed!'}</p>
                 <p className='lg:text-3xl text-[18px] '>Grade received <span style={score >= 80 ? {color: '#3f3'} : {color: 'red'}}>{score}%</span>. To pass 80% or higher.</p>
             </div>
             <NavLink to='/quizzes'>
-            <button className='bg-[#0267FF] px-8 py-3 hidden lg:block'>Next Item</button>
+            <button 
+            className='bg-[#0267FF] px-8 py-3 hidden lg:block'
+            onClick={handleResults}
+            >Next Item</button>
             </NavLink>
         </div>
         {/* Results */}
@@ -77,7 +84,7 @@ return (
                         const letter = answerDesignations[answerIndex % answerDesignations.length];
                         const correctAnswer = result.answers.find(answer => answer.is_correct);
                         const chosenAnswer = result.answers.find(answer => answer.is_chosen);
-                        const isChosen = answer.text === chosenAnswer.text;
+                        const isChosen = chosenAnswer &&  answer.text === chosenAnswer.text;
                         const isCorrect = answer.text === correctAnswer.text;
                         const isWrongChoice = isChosen && !isCorrect;
     
@@ -97,7 +104,7 @@ return (
                     })}
             </div>
             {/* correct answer */}
-            <p className="my-16 rounded-lg border-2 border-[#3f3] bg-[#cfc] py-5 flex justify-center items-center">
+            <p className="my-8 rounded-lg border-2 border-[#3f3] bg-[#cfc] py-5 flex justify-center items-center">
                 {result.answers.map((answer, answerIndex) => {
                     const letter = answerDesignations[answerIndex % answerDesignations.length];
             return (
@@ -115,12 +122,16 @@ return (
     
                 <div className='my-5 hidden lg:block '>
                     <Link to={`/quiz/${id}/quizintro`}>
-                    <button className='bg-[#0267FF] px-10 py-3'>Try again</button>
+                    <button 
+                    className='bg-[#0267FF] px-10 py-3'
+                    onClick={handleResults}>Try again</button>
                     </Link>
                 </div>
                 <div className='lg:hidden'>
                 <NavLink to='/quizzes'>
-                <button className='bg-[#0267FF] px-8 py-3 w-80'>Next Item</button>
+                <button 
+                className='bg-[#0267FF] px-8 py-3 w-80'
+                onClick={handleResults}>Next Item</button>
                 </NavLink>
                 </div>
             </div> </>) 
