@@ -89,6 +89,8 @@ const submitAnswer = async (req, res) => {
         quizId: _id,
         name: user.name,
         score: score,
+        topic: topic,
+        desktopImage: desktopImage,
         results: results,
       });
       quizResult = await quizResult.save();
