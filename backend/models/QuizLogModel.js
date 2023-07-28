@@ -27,12 +27,6 @@ const quizLogSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  results: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "QuizResult",
-    },
-  ],
 });
 
 const QuizLog = mongoose.model("QuizLog", quizLogSchema);
