@@ -1,5 +1,6 @@
 const { userModel } = require("../models/userModels");
 const QuizResult = require("../models/quizResultModel");
+const QuizLogs = require('../models/QuizLogModel')
 
 // @desc Get Quiz Logs for a User
 // @route GET /api/users/:userId/quiz-logs
@@ -17,7 +18,8 @@ const getQuizLogs = async (req, res) => {
     }
 
     // Get all quiz results for the user
-    const quizResults = await QuizResult.find({ userId: userId });
+    const quizLogs = await QuizLogs.find({ userId: userId });
+    // const quizResults = await QuizResult.find({ userId: userId });
 
     // Use Sets to keep track of unique topics for passed and attempted quizzes
     const passedTopicsSet = new Set();
@@ -27,24 +29,24 @@ const getQuizLogs = async (req, res) => {
     const passedQuizData = [];
     const attemptedQuizData = [];
 
-    quizResults.forEach((quizResult) => {
+    quizLogs.forEach((quizlog) => {
       const quiz = {
-        desktopImage: quizResult.desktopImage,
-        topic: quizResult.topic,
-        date: quizResult.date.toDateString(), // Use lowercase 'date' instead of 'Date'
+        desktopImage: quizlog.desktopImage,
+        topic: quizlog.topic,
+        date: quizlog.date.toDateString(),
       };
 
-      if (quizResult.score >= 80) {
+      if (quizlog.score >= 80) {
         // Check if the topic is not already in the set before adding to the passedQuizData
-        if (!passedTopicsSet.has(quizResult.topic)) {
-          passedTopicsSet.add(quizResult.topic);
+        if (!passedTopicsSet.has(quizlog.topic)) {
+          passedTopicsSet.add(quizlog.topic);
           passedQuizData.push(quiz);
         }
       }
 
       // Check if the topic is not already in the set before adding to the attemptedQuizData
-      if (!attemptedTopicsSet.has(quizResult.topic)) {
-        attemptedTopicsSet.add(quizResult.topic);
+      if (!attemptedTopicsSet.has(quizlog.topic)) {
+        attemptedTopicsSet.add(quizlog.topic);
         attemptedQuizData.push(quiz);
       }
     });

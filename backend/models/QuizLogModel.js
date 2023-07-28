@@ -21,12 +21,12 @@ const quizLogSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  results: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "QuizResult",
-    },
-  ],
+  topic: {
+    type: String,
+  },
+  desktopImage: {
+    type: String,
+  },
 });
 
 const QuizLog = mongoose.model("QuizLog", quizLogSchema);
