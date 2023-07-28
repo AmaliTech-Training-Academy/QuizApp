@@ -115,7 +115,7 @@ const handleAttempted = () => {
               <div className='grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-28'>
                 {
                   attempted.map((attempt, index)=> (
-                  section(index, attempt.desktopImage, attempt.topic, attempt.Date)
+                  section(index, attempt.desktopImage, attempt.topic, attempt.date)
                 ))
                 }
               </div>
@@ -123,7 +123,7 @@ const handleAttempted = () => {
               <div className='grid grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-28'>
                 {
                   passed.map((pass, index)=> (
-                  section(index, pass.desktopImage, pass.topic, pass.Date)
+                  section(index, pass.desktopImage, pass.topic, pass.date)
                 ))
                 }
               </div>
