@@ -10,7 +10,6 @@ const submitAnswer = async (req, res) => {
 
   try {
     const user = await userModel.findById(userId).populate("quizzes.quizId");
-    console.log("userAns", user);
     const quiz = await quizModel.findById(_id).populate("questions.answers");
 
     if (!user)
@@ -88,6 +87,7 @@ const submitAnswer = async (req, res) => {
       quizResult = new quizResultModel({
         userId: userId,
         quizId: _id,
+        name: user.name,
         score: score,
         results: results,
       });

@@ -47,7 +47,7 @@ const getQuizResults = async (req, res) => {
         date: new Date(date).toDateString(),
       };
     });
-    await updatedResults.save()
+    // await updatedResults.save()
     // Prepare the data to be saved in the QuizLog collection
     const quizLogData = {
       name: name,

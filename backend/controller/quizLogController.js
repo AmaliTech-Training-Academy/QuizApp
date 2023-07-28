@@ -1,6 +1,6 @@
 const { userModel } = require("../models/userModels");
 const QuizResult = require("../models/quizResultModel");
-const QuizLogs = require('../models/QuizLogModel')
+const QuizLogs = require("../models/QuizLogModel");
 
 // @desc Get Quiz Logs for a User
 // @route GET /api/users/:userId/quiz-logs
@@ -12,14 +12,11 @@ const getQuizLogs = async (req, res) => {
     // Get the user
     const user = await userModel.findById(userId);
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User Not Found" });
+      return res.status(404).json({ success: false, message: "User Not Found" });
     }
 
-    // Get all quiz results for the user
+    // Get all quiz logs for the user
     const quizLogs = await QuizLogs.find({ userId: userId });
-    // const quizResults = await QuizResult.find({ userId: userId });
 
     // Use Sets to keep track of unique topics for passed and attempted quizzes
     const passedTopicsSet = new Set();

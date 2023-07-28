@@ -56,6 +56,9 @@ const quizResultSchema = new Schema(
           type: Schema.Types.ObjectId,
           auto: true,
         },
+        name: {
+          type: String,
+        },
         questionNumber: {
           type: Number,
           required: true,
@@ -67,11 +70,9 @@ const quizResultSchema = new Schema(
         answers: [answerSchema],
         topic: {
           type: String,
-          required: true,
         },
         desktopImage: {
           type: String,
-          required: true,
         },
         date: {
           type: Date,
@@ -83,5 +84,5 @@ const quizResultSchema = new Schema(
   { timestamps: true }
 );
 
-const QuizResult = mongoose.model("QuizResult", quizResultSchema);
+const QuizResult = mongoose.model("QuizResults", quizResultSchema);
 module.exports = QuizResult;
