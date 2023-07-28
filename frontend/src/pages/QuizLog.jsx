@@ -120,7 +120,7 @@ const handleAttempted = () => {
                 }
               </div>
               : 
-              <div className='grid grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-28'>
+              <div className='grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-28'>
                 {
                   passed.map((pass, index)=> (
                   section(index, pass.desktopImage, pass.topic, pass.date)
