@@ -51,13 +51,13 @@ return (
             <p className='flex flex-shrink text-2xl font-semibold'>Test your knowledge on {quiz[0].topic}</p>
             <p>Practice Quiz .1 hour</p>
             </div>
-            <div className='flex items-center justify-center text-[27.65px] font-semibold lg:w-1/3 lg:justify-end'><MdOutlineTimer className='w-14 h-8'/> 00:00:00 </div>
+            <div className='flex items-center justify-center text-[27.65px] font-semibold lg:w-1/3 lg:justify-end mb-4'><MdOutlineTimer className='w-14 h-8'/> 00:00:00 </div>
         </div>
         {/* Score */}
         {
             answers.length > 0 ? (
                 <>
-        <div className='flex lg:justify-between bg-[#F0F2F4] px-16 py-6 mb-20'>
+        <div className='flex lg:justify-between bg-[#F0F2F4] px-16 py-6 mb-7'>
             <div className='text-[#1d2939] font-semibold flex flex-col relative lg:right-0 right-10 flex-shrink-0'>
                 <p className='lg:text-4xl text-2xl'>{score >= 80 ? 'Congratulations! You passed!' : 'Sorry! you failed!'}</p>
                 <p className='lg:text-3xl text-[18px] '>Grade received <span style={score >= 80 ? {color: '#3f3'} : {color: 'red'}}>{score}%</span>. To pass 80% or higher.</p>
@@ -104,7 +104,7 @@ return (
                     })}
             </div>
             {/* correct answer */}
-            <p className="my-16 rounded-lg border-2 border-[#3f3] bg-[#cfc] py-5 flex justify-center items-center">
+            <p className="my-8 rounded-lg border-2 border-[#3f3] bg-[#cfc] py-5 flex justify-center items-center">
                 {result.answers.map((answer, answerIndex) => {
                     const letter = answerDesignations[answerIndex % answerDesignations.length];
             return (

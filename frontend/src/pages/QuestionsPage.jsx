@@ -209,7 +209,7 @@ const handleTimerExpired = (e) => {
         ("") : 
         chosenAnswers.answers.length === questionInfo.totalQuestions ? 
         (<QuizSubmission handleSure={handleSure} id={id}/> ) :
-        (<div className='flex justify-between lg:justify-center'>
+        (<div className='flex justify-between lg:justify-center mt-14 lg:mt-0'>
           <button 
           className='w-[48%] lg:w-48 lg:mr-4 rounded py-[10px] px-16'
           onClick={backArrowNav}

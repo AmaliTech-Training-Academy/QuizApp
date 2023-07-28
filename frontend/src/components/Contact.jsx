@@ -9,7 +9,7 @@ export const Contact = () => {
     <div name="contact" className='mt-36 lg:mt-20 px-4'>
       
       <div className='lg:px-[76px]'>
-        <div className='font-bold text-[27px] text-center'>Contact Us</div>
+        <div className='font-bold text-5xl text-center'>Contact Us</div>
         {/* Contact Items */}
           <div className=' lg:mt-20 flex lg:flex-row lg:justify-between'>
              {/* Contact methods */}

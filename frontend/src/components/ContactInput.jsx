@@ -14,7 +14,7 @@ export const ContactInput = () => {
     const [message, setMessage] = useState('')
 
     const notify = () => toast("Your message has been sent!", {theme:"light",})
-    const URL = "https://quiz-master.onrender.com/api/message";
+    const URL = "https://quiz-master.onrender.com/api/users/message";
 
 
     const onSubmit = async (e) => {
@@ -37,11 +37,15 @@ export const ContactInput = () => {
 
   return (
     <div className='w-full lg:w-6/12 xl:w-4/6'>
+        <div className='xl:ml-16'>
+            <div className='text-4xl font-semibold'>Send message</div>
+            <div>We value your input and want to make our quiz app the best it can be. If you have any questions, feedback or suggestions, we're all ears! Send us a message and our team will do our best to respond as quickly as possible.</div>
+        </div>
           {/* Inputs */}
         <form className='xl:ml-16' onSubmit={onSubmit}>
 
           {/* Top half */}
-            <div className='flex flex-col lg:flex-row gap-6'>
+            <div className='flex flex-col lg:flex-row lg:gap-6'>
                 {/* Name */}
                 <label className='contact-label' htmlFor='name'>
                     <span className='input-name'>Name</span>
@@ -72,7 +76,7 @@ export const ContactInput = () => {
             <div className='flex gap-6'>
 
                 {/* Phone */}
-                <label className='mt-6  w-1/2 hidden lg:flex lg:flex-col' htmlFor='phone'>
+                <label className='contact-label w-full' htmlFor='phone'>
                     <span className='input-name'>Phone Number</span>
                     <input 
                     type="phone"
