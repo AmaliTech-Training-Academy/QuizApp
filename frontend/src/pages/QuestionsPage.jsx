@@ -33,11 +33,11 @@ export const QuestionsPage = () => {
     const isRunning = quiz.isRunning;
     const questionInfo = quiz.data;
     const questions = questionInfo.questions;
-    const token = useSelector(state=> state.userData.user_token)
+    // const token = useSelector(state=> state.userData.user_token)
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
     const chosenAnswers = answers.answersData;
-    console.log(index, number);
+    // console.log(questionInfo);
 
     const showSettings = useSelector((state) => state.accountSettings.showSettings);
     
@@ -191,7 +191,6 @@ const handleTimerExpired = (e) => {
             <BsArrowLeft/>
         </div>
 
-        {/* Question Navbar */}
         {/* Mobile Question Nav */}
         <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
             Question <span className='font-semibold'>{number}/{questionInfo.totalQuestions}</span>
@@ -200,17 +199,20 @@ const handleTimerExpired = (e) => {
         { questionNav }
 
         {/* Forward */}
-        <div 
-            className='w-14 flex items-center justify-center border border-gray-900 rounded-e-lg cursor-pointer'
-            onClick={forwardArrowNav}
-            style={parseInt(number) === questionInfo.totalQuestions ? {opacity:0} : {opacity: 10} }
-            >
-            <BsArrowRight/>
-        </div>
+        { !questions || questions.length === 0 || number === undefined ? "" :
+          <div 
+              className='w-14 flex items-center justify-center border border-gray-900 rounded-e-lg cursor-pointer'
+              onClick={forwardArrowNav}
+              style={parseInt(number) === questionInfo.totalQuestions ? {opacity:0} : {opacity: 10} }
+              >
+              <BsArrowRight/>
+          </div>
+        }
         </div>
         {/* Current Question */}
         <div className='lg:mt-28 h-80'>
           <Question 
+            data={questions}
             id={id}
             questionNumber={number}
             questionIndex={index}
@@ -218,20 +220,22 @@ const handleTimerExpired = (e) => {
             chosenAnswers={chosenAnswers}/>
         </div>
         {/* Mobile Buttons */}
-        <div className='lg:hidden flex justify-between mt-14'>
-        <button 
-        className='w-[48%] rounded py-[10px] px-16'
-        onClick={backArrowNav}
-        style={parseInt(number) === 1 ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
-        >Previous</button>
-        <button 
-        className='w-[48%] rounded py-[10px] px-16' 
-        onClick={forwardArrowNav}
-        style={parseInt(number) === questionInfo.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
-        >Next</button>
-        </div> 
+        { !questions || questions.length === 0 || number === undefined ? "" :
+          <div className='flex justify-between lg:justify-center mt-14'>
+            <button 
+            className='w-[48%] lg:w-48 lg:mr-4 rounded py-[10px] px-16'
+            onClick={backArrowNav}
+            style={parseInt(number) === 1 ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+            >Previous</button>
+            <button 
+            className='w-[48%] lg:w-48 rounded py-[10px] px-16' 
+            onClick={forwardArrowNav}
+            style={parseInt(number) === questionInfo.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+            >Next</button>
+          </div> 
+        }
         {
-        chosenAnswers.answers.length === questionInfo.totalQuestions ?  <QuizSubmission handleSure={handleSure} id={id}/> : ''
+        chosenAnswers.answers.length === questionInfo.totalQuestions ? <QuizSubmission handleSure={handleSure} id={id}/> : ''
         }
         </div>
     </div>
