@@ -22,7 +22,7 @@ const PopularQuizzes = () => {
         {topics && topics.length > 0 ? (
         <div className="lg:grid lg:grid-cols-2 gap-8 flex flex-wrap">
           {topics.slice(0, 4).map((element) => (
-            <div key={element._id}>
+            <div className='w-full' key={element._id}>
               <Link to={`/quiz/${element._id}`}>
                 <img src={element.desktopImage} alt={element.title} className="w-full h-[250px] rounded-lg" />
                 <p className="mt-2 text-xl font-semibold">{element.topic}</p>

@@ -48,7 +48,7 @@ return (
         <div className='py-6 px-6 lg:py-10 lg:px-16 bg-[#0267FF] text-white flex lg:flex-row flex-col-reverse lg:justify-between' id='quiz-header'>
             
             <div>
-            <p className='flex flex-shrink text-2xl font-semibold'>Test your knowledge on {quiz[0].topic}</p>
+            <p className='flex flex-shrink text-xl lg:text-2xl font-semibold'>Test your knowledge on {quiz[0].topic}</p>
             <p>Practice Quiz .1 hour</p>
             </div>
             <div className='flex items-center justify-center text-[27.65px] font-semibold lg:w-1/3 lg:justify-end mb-4'><MdOutlineTimer className='w-14 h-8'/> 00:00:00 </div>
