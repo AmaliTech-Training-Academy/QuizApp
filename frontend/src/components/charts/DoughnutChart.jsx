@@ -91,7 +91,7 @@ const DoughnutChart = () => {
   }
 
   return (
-    <div className='md:mt-[48px] mb-[20px]'>
+    <div className='mt-[48px] mb-[20px]'>
       <Doughnut data={data} options={options} height={400} />
     </div>
   );

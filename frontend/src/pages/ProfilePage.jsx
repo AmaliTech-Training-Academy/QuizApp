@@ -53,7 +53,7 @@ const ProfilePage = () => {
         {showSettings ? <DropdownList/> : null}
         <div className='hidden lg:block'><Header quizzes="Profile" /></div>
   
-        <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
+        <section className="m-[auto] lg:mt-[38px] px-4 py-4 xl:px-8 md:px-16">
           {/* Page Navigation */}
           <PageNavigation profile="Profile" searchQuery={searchQuery} handleSearchRedirect={handleSearchRedirect}/>
           <div className="lg:hidden text-2xl font-semibold">Profile</div>
@@ -91,20 +91,20 @@ const ProfilePage = () => {
           </div>
   
             {/* charts */}
-          <div className="charts flex justify-between flex-col lg:flex-row mb-[90px]">
-            <div className='lg:px-[5rem] px-[1rem] lg:py-7 shadow-lg rounded-lg md:mb-[70px] lg:w-[48%]'>
+          <div className="charts flex justify-between flex-col lg:flex-row mb-20">
+            <div className='lg:px-20 px-4 lg:py-7 shadow-lg rounded-lg md:mb-[70px] lg:w-[48%] lg:mr-8'>
               <p className='font-semibold text-2xl lg:mb-[72px] mb-[-43px] text-center '>Performance Records</p>
               <DoughnutChart/>
             </div>
-            <div className={`px-[5rem]  py-7 shadow-lg rounded-lg h-fit lg:w-[48%] ${styles.quizzes}`}>
-              <p className='font-semibold text-2xl mb-[25px] text-center'>Popular Quizzes</p>
+            <div className={`px-8 py-7 shadow-lg rounded-lg h-fit xl:w-[48%] ${styles.quizzes}`}>
+              <p className='font-semibold text-2xl mb-6 text-center'>Popular Quizzes</p>
               <PopularQuizzes/>
             </div>
             
           </div>
   
-          <div className="reminders mt-[50px] mb-[90px] flex justify-between flex-col lg:flex-row">
-            <Calendar onChange={onChange} value={date} />
+          <div className="reminders mt-12 mb-20 flex justify-between flex-col lg:flex-row">
+            <Calendar onChange={onChange} value={date} className='md:mr-8' />
   
             <RecentQuizzes/>
           </div>
