@@ -20,7 +20,7 @@ const PopularQuizzes = () => {
   return (
     <div>
         {topics && topics.length > 0 ? (
-        <div className="lg:grid lg:grid-cols-2 gap-8 flex flex-wrap">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 md:gap-4 xl:gap-8 ">
           {topics.slice(0, 4).map((element) => (
             <div className='w-full' key={element._id}>
               <Link to={`/quiz/${element._id}`}>
