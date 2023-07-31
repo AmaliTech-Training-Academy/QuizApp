@@ -11,6 +11,10 @@ import { SubmitModal } from '../components/SubmitModal'
 import UserNavbar, { DropdownList } from '../components/UserNavbar'
 import MobileProfileNavbar from '../components/MobileProfileNavbar'
 import { QuizHeader } from '../components/QuizHeader'
+import { ThreeDots } from 'react-loader-spinner'
+import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
+
 
 
 
@@ -161,8 +165,14 @@ const handleTimerExpired = (e) => {
         {/* Question Navigation */}
 
         {/* Mobile Question Nav */}
-        <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
-            Question <span className='font-semibold'>{number}/{questionInfo.totalQuestions}</span>
+        <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
+        { !questions || questions.length === 0 || number === undefined ? <div className='px-8 flex justify-center'><ThreeDots color='#0267FF' width="100" /></div> :
+          <div className='flex items-center justify-between px-5 py-4'>
+            <IoIosArrowBack onClick={backArrowNav}/>
+            <div className='flex'>Question <span className='font-semibold ml-2'>{number}/{questionInfo.totalQuestions}</span></div>
+            <IoIosArrowForward onClick={forwardArrowNav}/>
+          </div>
+            }
         </div>
         <div className='hidden lg:flex justify-center w-3/12 mx-auto mt-7'>
 

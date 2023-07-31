@@ -27,24 +27,6 @@ const ProfilePage = () => {
 
   const searchQuery = useSelector((state) => state.topics.searchQuery); 
   const token = useSelector(state=> state.userData.user_token)
-  
-  // dispatch(getQuizzes(token))
-
-  // useEffect(() => {
-  //   if (token) {
-    //     dispatch(getQuizzes(token));
-    //   } else {
-      //     navigate('/login');
-      //   }
-      // }, []);
-      
-      // useEffect(()=>{
-      //   dispatch(getQuizzes(token));
-      //   console.log("quizzes obtained");
-      // },[]);
-      
-      
-    // const topics = useSelector(state=>state.popularQuizzes.data.popularTopics);
 
   const onChange = (selectedDate) => {
     setDate(selectedDate);
@@ -58,6 +40,7 @@ const ProfilePage = () => {
   }, [])
 
   const data = useSelector(state=>state.userData);
+  const userName= data.user_name;
 
   const handleSearchRedirect = () => {
     navigate(`/quizzes?search=${searchQuery}`); 
@@ -73,13 +56,13 @@ const ProfilePage = () => {
         <section className="m-[auto] lg:mt-[38px] px-4  py-4 xl:px-8 3xl:px-[230px] md:px-16">
           {/* Page Navigation */}
           <PageNavigation profile="Profile" searchQuery={searchQuery} handleSearchRedirect={handleSearchRedirect}/>
-  
-          <div className="helloUser text-[2.986rem] font-semibold leading-[3.499rem] mt-10 mb-[44px]">
-            Hello <span>{Cookies.get('name')}</span>
+          <div className="lg:hidden text-2xl font-semibold">Profile</div>
+          <div className="helloUser text-xl lg:text-5xl font-semibold leading-[3.499rem] mt-4 mb-[44px]">
+            Hello {userName}
           </div>
   
-          <div className="flex justify-between  flex-col  lg:flex-row mb-[46px]">
-            <NavLink to='/quizlog' className='lg:w-[30%] '>
+          <div className="flex justify-between flex-col lg:flex-row mb-12">
+            <NavLink to='/quizlog' className='lg:w-[31%] xl:w-[30%] mb-8'>
               <QuizCards
               color="blueSlate"
               topic="Quiz log"
@@ -87,7 +70,7 @@ const ProfilePage = () => {
               description="Review Your quiz results"
             /></NavLink>
   
-            <NavLink to='/quizzes' className='lg:w-[30%] '>
+            <NavLink to='/quizzes' className='lg:w-[31%] xl:w-[30%] mb-8'>
               <QuizCards
               color="lightBlue"
               topic="Quizzes"
@@ -96,7 +79,7 @@ const ProfilePage = () => {
               />
             </NavLink>
             
-            <NavLink to='' className='lg:w-[30%]'>
+            <NavLink to='' className='lg:w-[31%] xl:w-[30%] mb-2'>
               <QuizCards
               color="deepBlue"
               topic="100+ subjects"
