@@ -6,7 +6,7 @@ import vectImg from '../assets/DesktopView/Images/Vector.png'
 const Insight = () => {
   return (
     <div className='relative md:flex justify-between px-[67px] bg-[#F2F2F2] font-Roboto'>
-      <div className='flex flex-col  gap-8 md:py-[166px] py-[48px] md:text-left md:left-40 md:top-32'>
+      <div className='flex flex-col items-center md:items-start  gap-8 md:py-[166px] py-[48px] md:text-left md:left-40 md:top-32'>
         <h4 className='text-[#1D2939] md:text-[33.18px] text-[27.65px] text-center font-semibold'>Knowledge at Your Fingertips, Quiz with Confidence!</h4>
         <p className='text-[#808080] md:w-[571px] md:text-xl text-[12.5px] md:text-left text-center'>Join our quiz app to expand your knowledge and challenge your skills with engaging quizzes anytime, anywhere.&#34;Experience fun, excitement, and learning in one place with our user-friendly quiz app that guarantees a confident quiz-taking experience.&#34;</p>
         
