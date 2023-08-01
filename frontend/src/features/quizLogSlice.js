@@ -5,6 +5,7 @@ const initialState = {
     attempted: [],
     passed: [],
     status: 'idle',
+    interested: true,
 };
 
 
@@ -32,6 +33,9 @@ const quizLogSlice = createSlice({
         state.passed = [];
         state.status = 'idle';
         },
+        dismissSchedule: (state, {payload})=>{
+            state.interested = payload;
+            },
     },
     extraReducers: (builder) => {
         builder
@@ -50,5 +54,5 @@ const quizLogSlice = createSlice({
 })
 
 
-export const { resetLog } = quizLogSlice.actions
+export const { resetLog, dismissSchedule } = quizLogSlice.actions
 export default quizLogSlice.reducer;
