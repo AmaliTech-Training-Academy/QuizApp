@@ -9,19 +9,17 @@ const questions = async (req, res) => {
 
   try {
     let shuffledQuestions = req.session.shuffledQuestions;
-    let originalQuestions = req.session.originalQuestions
 
-    if (!shuffledQuestions || !originalQuestions) {
+    if (!shuffledQuestions) {
       const fetchedData = await quizModel.findById(topicId);
       if (!fetchedData)
         return res.status(404).json({ message: "Quiz Not found" });
 
       const questionsArray = fetchedData.questions || [];
 
-      
       // Shuffle both the questions and their answers arrays
       shuffledQuestions = questionsArray.map((question) => {
-        const shuffledQuestion = shuffleArray(question.question)
+        const shuffledQuestion = shuffleArray(question.question);
         const shuffledAnswers = shuffleArray([...question.answers]);
         return {
           // question: question.question, // Include the question text in the returned object
@@ -30,13 +28,11 @@ const questions = async (req, res) => {
           // answers: question.answers
         };
       });
-      
-      originalQuestions = questionsArray
-      // shuffledQuestions = shuffleArray(shuffledQuestions);
+
+      shuffledQuestions = shuffleArray(shuffledQuestions);
 
       // store the shuffledQuestions array in the user's session
       req.session.shuffledQuestions = shuffledQuestions;
-      req.session.originalQuestions = originalQuestions
       req.session.quizProgress = 1; // Initialize quiz progress to the first question
     }
 
