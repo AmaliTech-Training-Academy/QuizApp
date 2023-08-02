@@ -17,15 +17,17 @@ const questions = async (req, res) => {
 
       const questionsArray = fetchedData.questions || [];
 
+      
       // Shuffle both the questions and their answers arrays
       shuffledQuestions = questionsArray.map((question) => {
-        const shuffledAnswers = shuffleArray([...question.answers]);
+        // const shuffledAnswers = shuffleArray([...question.answers]);
         return {
           question: question.question, // Include the question text in the returned object
-          answers: shuffledAnswers,
+          // answers: shuffledAnswers,
+          answers: question.answers
         };
       });
-
+      
       shuffledQuestions = shuffleArray(shuffledQuestions);
 
       // store the shuffledQuestions array in the user's session
