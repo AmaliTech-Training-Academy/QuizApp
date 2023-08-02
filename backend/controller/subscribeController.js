@@ -1,25 +1,22 @@
-const subscribeModel = require("../models/subscribeModel");
+const { subscribed } = require("../models/subscribeModel");
 
-// @desc Subscribe
-// @route POST /api/users/subscribe
-// @access Public
 const subscribeUser = async (req, res) => {
   try {
     const { email } = req.body;
 
-    // Check if the user with the provided email already exists
-    const user = await subscribeModel.findOne({ email });
+    // Check if the user with the provided email already exists in the database
+    const existingUser = await subscribed.findOne({ email });
 
-    if (user) {
+    if (existingUser) {
       return res.status(400).json({
         success: false,
         message: "User already subscribed to our mail",
       });
     }
 
-    // If user does not exist, create a new subscription
-    await subscribeModel.create({
-      email,
+    // If the user does not exist, create a new subscription
+    await subscribed.create({
+      email: email,
     });
 
     res

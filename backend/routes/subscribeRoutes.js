@@ -4,6 +4,6 @@ const subscribe = require('../models/subscribeModel')
 
 const router = express.Router();
 
-router.post("/", subscribe, subscribeUser);
+router.post("/", subscribeUser);
 
 module.exports = router;

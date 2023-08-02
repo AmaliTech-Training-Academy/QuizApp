@@ -2,7 +2,7 @@ const validateMessage = require("../middleware/validateMessage");
 const messageModel = require("../models/messageModel");
 
 // @desc Register new user
-// @route POST /api/message
+// @route POST /api/users/message
 // @access Public
 const sendMessage = async (req, res) => {
   try {
