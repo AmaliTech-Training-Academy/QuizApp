@@ -26,7 +26,8 @@ const submitAnswer = async (req, res) => {
     let results = [];
 
     for (let i = 0; i < quiz.questions.length; i++) {
-      const question = quiz.questions[i];
+      // const question = quiz.questions[i];
+      const question = originalQuestions[i]
 
       // Check if the user attempted this question
       const userAnswer = answers.find((ans) => ans.questionNumber === i + 1);
