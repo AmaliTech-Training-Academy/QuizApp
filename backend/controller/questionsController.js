@@ -16,12 +16,13 @@ const questions = async (req, res) => {
         return res.status(404).json({ message: "Quiz Not found" });
 
       const questionsArray = fetchedData.questions || [];
-      
+
       // Shuffle both the questions and their answers arrays
       shuffledQuestions = questionsArray.map((question) => {
+        const shuffledQuestion = shuffleArray(question.question);
         const shuffledAnswers = shuffleArray([...question.answers]);
         return {
-          question: question.question, // Include the question text in the returned object
+          question: shuffledQuestion, // Include the question text in the returned object
           answers: shuffledAnswers,
         };
       });
