@@ -20,11 +20,13 @@ const questions = async (req, res) => {
       
       // Shuffle both the questions and their answers arrays
       shuffledQuestions = questionsArray.map((question) => {
-        // const shuffledAnswers = shuffleArray([...question.answers]);
+        const shuffledQuestion = shuffleArray(question.question)
+        const shuffledAnswers = shuffleArray([...question.answers]);
         return {
-          question: question.question, // Include the question text in the returned object
-          // answers: shuffledAnswers,
-          answers: question.answers
+          // question: question.question, // Include the question text in the returned object
+          question: shuffledQuestion,
+          answers: shuffledAnswers,
+          // answers: question.answers
         };
       });
       
