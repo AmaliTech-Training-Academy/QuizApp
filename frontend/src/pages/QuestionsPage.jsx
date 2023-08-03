@@ -39,7 +39,7 @@ export const QuestionsPage = () => {
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
     const chosenAnswers = answers.answersData;
-    console.log(questionInfo);
+    console.log(chosenAnswers);
 
     const showSettings = useSelector((state) => state.accountSettings.showSettings);  
 
@@ -106,6 +106,7 @@ const handleChoice = (e) => {
   const chosenAnswer = e.target.value;
   const result = {
       questionNumber: number,
+      question: questions[index].question,
       answer: chosenAnswer,
   };
   if (chosenAnswers.answers.some((answer) => answer.questionNumber === result.questionNumber)) {
