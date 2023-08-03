@@ -96,7 +96,7 @@ const ProfilePage = () => {
               <p className='font-semibold text-2xl lg:mb-[72px] mb-[-43px] text-center '>Performance Records</p>
               <DoughnutChart/>
             </div>
-            <div className={`px-8 py-7 shadow-lg rounded-lg h-fit xl:w-[48%] ${styles.quizzes}`}>
+            <div className={`px-4 py-7 shadow-lg rounded-lg h-fit xl:w-[48%] ${styles.quizzes}`}>
               <p className='font-semibold text-2xl mb-6 text-center'>Popular Quizzes</p>
               <PopularQuizzes/>
             </div>

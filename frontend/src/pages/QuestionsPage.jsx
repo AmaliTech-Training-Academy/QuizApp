@@ -34,11 +34,12 @@ export const QuestionsPage = () => {
     const isRunning = quiz.isRunning;
     const questionInfo = quiz.data;
     const questions = questionInfo.questions;
+    const limit = questions.length;
     // const token = useSelector(state=> state.userData.user_token)
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
     const chosenAnswers = answers.answersData;
-    // console.log(questionInfo);
+    console.log(questionInfo);
 
     const showSettings = useSelector((state) => state.accountSettings.showSettings);  
 
@@ -57,7 +58,7 @@ const changeQuestion = (e) => {
 };
 
     const questionNav = [];
-    for( let i = 0; i < questionInfo.totalQuestions; i++){
+    for( let i = 0; i < limit; i++){
         const questionNumber = i + 1;
         questionNav.push(
             <div 
@@ -78,7 +79,7 @@ const changeQuestion = (e) => {
   };
 
   const forwardArrowNav = () => {
-      if(number < questionInfo.totalQuestions){
+      if(number < limit){
       dispatch(nextQuestion())
   }
 }
@@ -155,7 +156,7 @@ const handleTimerExpired = (e) => {
           id={id} 
           questions={questions}
           questionNumber={number} 
-          totalQuestions={questionInfo.totalQuestions} 
+          totalQuestions={limit} 
           isRunning={isRunning} 
           onTimerExpired={handleTimerExpired}
         />
@@ -169,7 +170,7 @@ const handleTimerExpired = (e) => {
         { !questions || questions.length === 0 || number === undefined ? <div className='px-8 flex justify-center'><ThreeDots color='#0267FF' width="100" /></div> :
           <div className='flex items-center justify-between px-5 py-4'>
             <IoIosArrowBack onClick={backArrowNav}/>
-            <div className='flex'>Question <span className='font-semibold ml-2'>{number}/{questionInfo.totalQuestions}</span></div>
+            <div className='flex'>Question <span className='font-semibold ml-2'>{number}/{limit}</span></div>
             <IoIosArrowForward onClick={forwardArrowNav}/>
           </div>
             }
@@ -187,7 +188,7 @@ const handleTimerExpired = (e) => {
 
         {/* Mobile Question Nav */}
         <div className='lg:hidden absolute -top-7 mx-auto left-0 right-0 w-60 bg-white py-5 px-14 rounded-xl text-xl text-[#0267FF]' style={boxShadow}>
-            Question <span className='font-semibold'>{number}/{questionInfo.totalQuestions}</span>
+            Question <span className='font-semibold'>{number}/{limit}</span>
         </div>
 
         { questionNav }
@@ -197,7 +198,7 @@ const handleTimerExpired = (e) => {
           <div 
               className='w-14 flex items-center justify-center border border-gray-900 rounded-e-lg cursor-pointer'
               onClick={forwardArrowNav}
-              style={parseInt(number) === questionInfo.totalQuestions ? {opacity:0} : {opacity: 10} }
+              style={parseInt(number) === limit ? {opacity:0} : {opacity: 10} }
               >
               <BsArrowRight/>
           </div>
@@ -217,7 +218,7 @@ const handleTimerExpired = (e) => {
         {/* Mobile Buttons */}
         { !questions || questions.length === 0 || number === undefined ? 
         ("") : 
-        chosenAnswers.answers.length === questionInfo.totalQuestions ? 
+        chosenAnswers.answers.length === limit ? 
         (<QuizSubmission handleSure={handleSure} id={id}/> ) :
         (<div className='flex justify-between lg:justify-center mt-14 lg:mt-0'>
           <button 
@@ -228,7 +229,7 @@ const handleTimerExpired = (e) => {
           <button 
           className='w-[48%] lg:w-48 rounded py-[10px] px-16' 
           onClick={forwardArrowNav}
-          style={parseInt(number) === questionInfo.totalQuestions ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
+          style={parseInt(number) === limit ? {background: "white", color: "#0267FF"} : {background: "#0267FF", color: "white"} }
           >Next</button>
         </div>) 
         }

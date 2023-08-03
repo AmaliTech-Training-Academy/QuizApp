@@ -8,7 +8,8 @@ import CompletedRegistration from './CompletedRegistration'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import {IoMdArrowRoundBack} from 'react-icons/io'
-import { decreaseCount } from '../../features/stepperSlice'
+import { decreaseCount, resetCount } from '../../features/stepperSlice'
+
 
 const Signup = () => {
   const [completed, setCompleted] = useState(false)
@@ -16,7 +17,9 @@ const Signup = () => {
   const { count } = useSelector(store => store.counter)
   const dispatch = useDispatch()
 
-  
+  const handleExit = () => {
+    dispatch(resetCount())
+  }
 
   const getNextStep = count => {
     switch (count) {
@@ -36,7 +39,7 @@ const Signup = () => {
   }
 
   
-  const handleSubmit =async  e => {
+  const handleSubmit =async e => {
     e.preventDefault()    
   }
 
@@ -50,7 +53,7 @@ const Signup = () => {
             <span> of 4</span>
           </p> }
           
-          <NavLink to='/' className={styles.exit}>Exit</NavLink>
+          <NavLink to='/' className={styles.exit} onClick={handleExit}>Exit</NavLink>
         </div>
       )}
 
