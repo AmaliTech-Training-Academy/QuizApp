@@ -17,32 +17,24 @@ const questions = async (req, res) => {
 
       const questionsArray = fetchedData.questions || [];
 
-      // Shuffle both the questions and their answers arrays
-      shuffledQuestions = questionsArray.map((question) => {
-        const shuffledQuestion = shuffleArray(question.question);
+      const shuffledQuestionsArray = shuffleArray([...questionsArray]);
+      const shuffledQuestions = shuffledQuestionsArray.map((question) => {
         const shuffledAnswers = shuffleArray([...question.answers]);
         return {
-          // question: question.question, // Include the question text in the returned object
-          question: shuffledQuestion,
+          question: question.question,
           answers: shuffledAnswers,
-          // answers: question.answers
         };
       });
-
-      shuffledQuestions = shuffleArray(shuffledQuestions);
 
       // store the shuffledQuestions array in the user's session
       req.session.shuffledQuestions = shuffledQuestions;
       req.session.quizProgress = 1; // Initialize quiz progress to the first question
     }
 
-    const totalQuestions = shuffledQuestions.length;
-
     res.status(200).json({
       success: true,
       topicId,
-      totalQuestions,
-      questions: shuffledQuestions,
+      questions: req.session.shuffledQuestions,
     });
   } catch (error) {
     console.error(error);
