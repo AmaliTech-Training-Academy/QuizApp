@@ -59,7 +59,7 @@ return (
                 <>
         <div className='flex lg:justify-between bg-[#F0F2F4] px-16 py-6 mb-7'>
             <div className='text-[#1d2939] font-semibold flex flex-col relative lg:right-0 right-10 flex-shrink-0'>
-                <p className='lg:text-4xl text-2xl'>{score >= 80 ? 'Congratulations! You passed!' : 'Sorry! you failed!'}</p>
+                <p className='lg:text-4xl text-2xl'>{score >= 80 ? 'Congratulations! You passed!' : 'Sorry! You failed!'}</p>
                 <p className='lg:text-3xl text-[18px] '>Grade received <span style={score >= 80 ? {color: '#3f3'} : {color: 'red'}}>{score}%</span>. To pass 80% or higher.</p>
             </div>
             <NavLink to='/quizzes'>
