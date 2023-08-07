@@ -39,6 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
+    // store: sessionStorage,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false, }, // set secure to true if using HTTPS

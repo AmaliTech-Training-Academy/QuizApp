@@ -9,7 +9,7 @@ const questions = async (req, res) => {
 
   try {
     let shuffledQuestions = req.session.shuffledQuestions;
-
+    // console.log('req::', req.session)
     if (!shuffledQuestions) {
       const fetchedData = await quizModel.findById(topicId);
       if (!fetchedData)
@@ -18,23 +18,29 @@ const questions = async (req, res) => {
       const questionsArray = fetchedData.questions || [];
 
       const shuffledQuestionsArray = shuffleArray([...questionsArray]);
-      const shuffledQuestions = shuffledQuestionsArray.map((question) => {
-        const shuffledAnswers = shuffleArray([...question.answers]);
+      shuffledQuestions = shuffledQuestionsArray.map((question, index) => {
+        // const shuffledAnswers = shuffleArray([...question.answers]);
+        // console.log('shuffAns', shuffledAnswers)
         return {
+          questionNumber: index + 1,
           question: question.question,
-          answers: shuffledAnswers,
+          answers: question.answers,
         };
       });
 
       // store the shuffledQuestions array in the user's session
       req.session.shuffledQuestions = shuffledQuestions;
-      req.session.quizProgress = 1; // Initialize quiz progress to the first question
+      // console.log('session', req.session.shuffledQuestions)
+      // req.session.quizProgress = 1; // Initialize quiz progress to the first question
     }
+
+    // const totalQuestions = shuffledQuestions.length
+    // console.log("tot::", totalQuestions)
 
     res.status(200).json({
       success: true,
       topicId,
-      questions: req.session.shuffledQuestions,
+      questions: shuffledQuestions,
     });
   } catch (error) {
     console.error(error);

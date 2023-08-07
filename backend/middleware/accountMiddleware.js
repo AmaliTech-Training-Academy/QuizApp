@@ -4,6 +4,11 @@ function validateAccountSettings(req, res, next) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(255).required(),
     email: Joi.string().min(5).max(50).required().email,
+    password: Joi.string()
+    .min(10)
+    .max(255)
+    .required()
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/),
     contact: Joi.string().min(10).max(20),
     location: Joi.string().max(150),
     gender: Joi.string().valid("male", "female").required(),

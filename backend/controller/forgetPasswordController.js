@@ -27,7 +27,6 @@ const forgetPassword = async (req, res) => {
         expiresIn: "30m",
       }
     );
-    console.log(token);
 
     // Create the password reset link
     const baseUrl = "https://quiz-app-amalitech.netlify.app";
