@@ -6,7 +6,7 @@ export const SubjectFilters = ({topics}) => {
 
     const dispatch = useDispatch();
     
-    console.log(topics);
+    // console.log(topics);
 
     const filter = useSelector(state => state.topics.filterData);
     // console.log(filter);
