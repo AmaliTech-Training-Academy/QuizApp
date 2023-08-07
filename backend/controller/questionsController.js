@@ -19,12 +19,13 @@ const questions = async (req, res) => {
 
       const shuffledQuestionsArray = shuffleArray([...questionsArray]);
       shuffledQuestions = shuffledQuestionsArray.map((question, index) => {
-        // const shuffledAnswers = shuffleArray([...question.answers]);
+        const shuffledAnswers = shuffleArray([...question.answers]);
         // console.log('shuffAns', shuffledAnswers)
         return {
           questionNumber: index + 1,
           question: question.question,
-          answers: question.answers,
+          // answers: question.answers,
+          answers: shuffledAnswers,
         };
       });
 
@@ -34,12 +35,12 @@ const questions = async (req, res) => {
       // req.session.quizProgress = 1; // Initialize quiz progress to the first question
     }
 
-    // const totalQuestions = shuffledQuestions.length
-    // console.log("tot::", totalQuestions)
+    const totalQuestions = shuffledQuestions.length;
 
     res.status(200).json({
       success: true,
       topicId,
+      totalQuestions, // Add totalQuestions to the response
       questions: shuffledQuestions,
     });
   } catch (error) {
