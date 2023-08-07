@@ -34,7 +34,7 @@ export const QuestionsPage = () => {
     const isRunning = quiz.isRunning;
     const questionInfo = quiz.data;
     const questions = questionInfo.questions;
-    const limit = questions.length;
+    const limit = questionInfo.totalQuestions;
     // const token = useSelector(state=> state.userData.user_token)
     const sure = useSelector(state => state.sure);
     const answers = useSelector(state=> state.answers)
@@ -125,6 +125,8 @@ const handleSure = () => {
 const handleUnsure = () => {
   dispatch(sureSubmit(false))
 };
+
+console.log(chosenAnswers.answers);
 
 const handleSureSubmit = (e) => {
   dispatch(submitUserId(e));
